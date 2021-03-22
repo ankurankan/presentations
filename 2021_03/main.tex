@@ -20,30 +20,31 @@ Identification: Can the causal effect of $ X $ on $ Y $ be uniquely estimated gi
 
 \begin{figure}
     \centering
-    \includegraphics[scale=0.5]{scripts/single_proxy.png}
+    \includegraphics[scale=0.6]{scripts/single_proxy.png}
     \label{fig:non_iden}
 \end{figure}
 
 \begin{center}
-	$ pr\{y | do(x)\} = \sum_{u} pr(y | x, u) P(u) $ 
+	$ pr\{y | do(x)\} = \sum_{u} pr(y | x, u) pr(u) $ 
 \end{center}
 \end{frame}
 
 \begin{frame}
-\frametitle{Proposed Method}
+\frametitle{Case 1: Single proxy variable with known error mechanism}
 
-Case 1: Single proxy variable with known error mechanism.
 \begin{columns}
 \column{0.5\textwidth}
+	Required: $ pr(w | u) $
+	
+	\bigskip
 
-	Use $ pr(w|u) $ and matrix adjustment method to estimate the causal effect.
-
+	Use matrix adjustment to estimate $ pr(y | x, u) $ and $ pr(u) $.
 
 \column{0.5\textwidth}
 
     \begin{figure}
     	\centering
-    	\includegraphics[scale=0.5]{scripts/single_proxy.png}
+    	\includegraphics[scale=0.6]{scripts/single_proxy.png}
     \end{figure}
 
 \end{columns}
@@ -51,14 +52,16 @@ Case 1: Single proxy variable with known error mechanism.
 \end{frame}
 
 \begin{frame}
-\frametitle{Proposed Method}
-
-Case 2: Multiple proxy variables.
+\frametitle{Case 2: Multiple proxy variables.}
 \begin{columns}
 \column{0.5\textwidth}
+	Required: One proxy variable should only be connected to $ U $.
+
+	\bigskip
+
 	\begin{enumerate}
-		\item Choose one of the proxy variables as the ``indicator variable'', $ w $.
-		\item Use the other proxy variables to estimate $ pr(w | u) $.
+		\item Choose one of the proxy variables as the ``indicator variable'', $ W $.
+		\item Use eigen value decomposition to estimate $ pr(w | u) $.
 		\item Follow the method of first case.
 	\end{enumerate}
 
@@ -67,11 +70,11 @@ Case 2: Multiple proxy variables.
     \begin{figure}
 	\begin{subfigure}{0.5\textwidth}
     		\centering
-    		\includegraphics[scale=0.5]{scripts/double_proxy.png}
+    		\includegraphics[scale=0.6]{scripts/double_proxy.png}
 	\end{subfigure}
 	\begin{subfigure}{0.5\textwidth}
     		\centering
-    		\includegraphics[scale=0.5]{scripts/double_proxy_with_extra_edge.png}
+    		\includegraphics[scale=0.6]{scripts/double_proxy_with_extra_edge.png}
 	\end{subfigure}
     \end{figure}
 
@@ -80,21 +83,43 @@ Case 2: Multiple proxy variables.
 \end{frame}
 
 \begin{frame}
-\frametitle{Proposed Method}
+\frametitle{Case 3: Linear SEM}
 
-Case 3: Multiple proxy variables, but no ``indicator variable''.
 \begin{columns}
 \column{0.5\textwidth}
-	Use intrumental variables.
+
+	Required: The contribution of $U$'s variance to $W$'s variance: $ \alpha_{wu}^2 \sigma_{uu} = \sigma_{ww} - \sigma_{\epsilon_w, \epsilon_w} $
+
+	\bigskip
+
+	\begin{enumerate}
+		\item If single proxy variable, needs $ \alpha_{wu}^2 \sigma_{uu} $.
+		\item If multiple proxy variables, $ \alpha_{wu}^2 \sigma_{uu} $ can be computed.
+	\end{enumerate}
 
 \column{0.5\textwidth}
+	\begin{figure}
+    		\centering
+    		\includegraphics[scale=0.6]{scripts/sem.png}
+	\end{figure}
+\end{columns}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Case 4: Linear SEM with instrumental variables}
 
     \begin{figure}
     	\centering
-    	\includegraphics[scale=0.5]{scripts/double_proxy.png}
+    	\includegraphics[scale=0.6]{scripts/instrumental_var.png}
     \end{figure}
 
-\end{columns}
+    \begin{figure}
+    	\centering
+    	\includegraphics[scale=0.6]{scripts/theorem.png}
+    \end{figure}
+
+
 
 \end{frame}
 
