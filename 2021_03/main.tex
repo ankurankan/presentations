@@ -2,12 +2,45 @@
 
 \usepackage[utf8]{inputenc}
 \usecolortheme{beaver}
+\usepackage{caption}
+\usepackage{subcaption}
+
+\setbeamertemplate{footline}[text line]{%
+  \parbox{\linewidth}{\vspace*{-8pt} Kuroki, M., \& Pearl, J. (2014). Measurement bias and effect restoration in causal inference \hfill\insertshortauthor\hfill\insertpagenumber}}
+\setbeamertemplate{navigation symbols}{}
 
 \begin{document}
 
 \begin{frame}
-\frametitle{Sample frame title}
-This is a text in the first frame. This is a text in the first frame. This is a text in the first frame.
+\frametitle{Problem Statement}
+
+\begin{center}
+Identification: Can the causal effect of $ X $ on $ Y $ be uniquely estimated given a joint distribution and model structure?
+\end{center}
+
+\begin{figure}
+    \centering
+    \begin{subfigure}[b]{0.5 \textwidth}
+	\centering
+	\includegraphics[scale=0.5]{scripts/iden.png}
+	\label{fig:iden}
+    \end{subfigure}%
+    \begin{subfigure}[b]{0.5 \textwidth}
+	\centering
+	\includegraphics[scale=0.5]{scripts/non_iden.png}
+	\label{fig:non_iden}
+    \end{subfigure}
+    \caption{Adjustment set: \{C\}}
+\end{figure}
+
+\begin{center}
+	$ pr\{y | do(x)\} = \sum_{u} pr(y | x, u) P(u) $ 
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Proposed Method}
+
 \end{frame}
 
 \end{document}
