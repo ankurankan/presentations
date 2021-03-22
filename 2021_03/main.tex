@@ -87,6 +87,9 @@ Identification: Can the causal effect of $ X $ on $ Y $ be uniquely estimated gi
 
 \begin{columns}
 \column{0.5\textwidth}
+	Estimate: $ \beta_{xy.u} = \frac{\sigma_{xy.u}}{\sigma_{xx.u}} $
+
+	\bigskip
 
 	Required: The contribution of $U$'s variance to $W$'s variance: $ \alpha_{wu}^2 \sigma_{uu} = \sigma_{ww} - \sigma_{\epsilon_w, \epsilon_w} $
 
@@ -114,12 +117,12 @@ Identification: Can the causal effect of $ X $ on $ Y $ be uniquely estimated gi
     	\includegraphics[scale=0.6]{scripts/instrumental_var.png}
     \end{figure}
 
+    Estimate: $ \beta_{xy.u} = \frac{\sigma_{yz.u}}{\sigma_{xz.u}} $
+
     \begin{figure}
     	\centering
     	\includegraphics[scale=0.6]{scripts/theorem.png}
     \end{figure}
-
-
 
 \end{frame}
 
