@@ -15,22 +15,13 @@
 \frametitle{Problem Statement}
 
 \begin{center}
-Identification: Can the causal effect of $ X $ on $ Y $ be uniquely estimated given a joint distribution and model structure?
+Identification: Can the causal effect of $ X $ on $ Y $ be uniquely estimated given the distribution and model structure?
 \end{center}
 
 \begin{figure}
     \centering
-    \begin{subfigure}[b]{0.5 \textwidth}
-	\centering
-	\includegraphics[scale=0.5]{scripts/iden.png}
-	\label{fig:iden}
-    \end{subfigure}%
-    \begin{subfigure}[b]{0.5 \textwidth}
-	\centering
-	\includegraphics[scale=0.5]{scripts/non_iden.png}
-	\label{fig:non_iden}
-    \end{subfigure}
-    \caption{Adjustment set: \{C\}}
+    \includegraphics[scale=0.5]{scripts/single_proxy.png}
+    \label{fig:non_iden}
 \end{figure}
 
 \begin{center}
@@ -40,6 +31,70 @@ Identification: Can the causal effect of $ X $ on $ Y $ be uniquely estimated gi
 
 \begin{frame}
 \frametitle{Proposed Method}
+
+Case 1: Single proxy variable with known error mechanism.
+\begin{columns}
+\column{0.5\textwidth}
+
+	Use $ pr(w|u) $ and matrix adjustment method to estimate the causal effect.
+
+
+\column{0.5\textwidth}
+
+    \begin{figure}
+    	\centering
+    	\includegraphics[scale=0.5]{scripts/single_proxy.png}
+    \end{figure}
+
+\end{columns}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Proposed Method}
+
+Case 2: Multiple proxy variables.
+\begin{columns}
+\column{0.5\textwidth}
+	\begin{enumerate}
+		\item Choose one of the proxy variables as the ``indicator variable'', $ w $.
+		\item Use the other proxy variables to estimate $ pr(w | u) $.
+		\item Follow the method of first case.
+	\end{enumerate}
+
+\column{0.5\textwidth}
+
+    \begin{figure}
+	\begin{subfigure}{0.5\textwidth}
+    		\centering
+    		\includegraphics[scale=0.5]{scripts/double_proxy.png}
+	\end{subfigure}
+	\begin{subfigure}{0.5\textwidth}
+    		\centering
+    		\includegraphics[scale=0.5]{scripts/double_proxy_with_extra_edge.png}
+	\end{subfigure}
+    \end{figure}
+
+\end{columns}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Proposed Method}
+
+Case 3: Multiple proxy variables, but no ``indicator variable''.
+\begin{columns}
+\column{0.5\textwidth}
+	Use intrumental variables.
+
+\column{0.5\textwidth}
+
+    \begin{figure}
+    	\centering
+    	\includegraphics[scale=0.5]{scripts/double_proxy.png}
+    \end{figure}
+
+\end{columns}
 
 \end{frame}
 
