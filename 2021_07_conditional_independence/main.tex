@@ -54,21 +54,7 @@ Independencies for Categorical and Ordinal Data}
 	Is a difficult problem.
 	Many different approaches.
 	For continuous case has been proven that no test exists which is both
-	calibrated and has power.
-\end{frame}
-
-\begin{frame}
-	Not widely used in applied literature. Not even one of them used a
-	structure learning algorithm. 
-	For practical applications we think a
-	good CI test should have these properties:
-	\begin{itemize}
-		\item Simple to understand.
-		\item Symmetric
-		\item Computationally efficient
-		\item Should work well in many real-world datasets.
-	\end{itemize}
-
+	calibrated and has power against all datasets.
 \end{frame}
 
 \begin{frame}
@@ -82,21 +68,46 @@ Independencies for Categorical and Ordinal Data}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Example of structure learning using chi-squared test}
-	Example on the US census dataset.
-\end{frame}
+	\frametitle{Stratification Based Tests}
+	Most common type of test for discrete variables.
+	Divides dataset into stratum based on the value of the conditional
+	variables. E.g. chi-squared test.
 
-
-\begin{frame}
-	\frametitle{Random Forest Based Test (RFT)}
-	Residual Based approach in continuous variables.
-
+	Problems: Looses power when number of conditonal variables are increased.
 \end{frame}
 
 \begin{frame}
+	\frametitle{Variable Importance Tests}
+	Compares two probablity models. E.g. SCCI
+
+	Problems: Inherent asymmetry
+\end{frame}
+
+\begin{frame}
+	\frametitle{Residualization Based Tests}
+	For linear case there are examples, none for discrete variables.
+	Relies on the Daudin's theorem.
+
+	Doesn't have the same problems as others.
+\end{frame}
+
+\begin{frame}
 	\frametitle{Random Forest Based Test (RFT)}
+	\begin{itemize}
+		\item Residualization based approach.
+		\item Uses random forest as the estimator.
+		\item Gives a chi-square distributed test statistic.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Lee-Shepherd residuals}
+	Residuals are easy for continuous case.
+
 	Lee-Shepherd residuals for categorical and ordinal data.
 
+	Has the important property of expection of residuals as $ 0 $ which 
+	we later use.
 \end{frame}
 
 \begin{frame}
@@ -127,6 +138,22 @@ Independencies for Categorical and Ordinal Data}
 	If $ X \ci Y | Z $, then asymptotically $ Q_1(\bm{x}, \bm{y}) \sim
 	\chi^2((k-1)(r-1)) $.
 \end{frame}
+
+\begin{frame}
+	\frametitle{Test summary / Algorithm}
+
+\end{frame}
+
+\begin{frame}
+	\frametitle{Properties of this test}
+	\begin{itemize}
+		\item Simple to implement
+		\item Interpretable test statistic
+		\item Symmetric by construction
+		\item Computationally feasible
+	\end{itemize}
+\end{frame}
+
 
 \begin{frame}
 	\frametitle{Empirical Analysis: Calibration}
@@ -244,8 +271,10 @@ Independencies for Categorical and Ordinal Data}
 \begin{frame}
 	\frametitle{Conclusion}
 	\begin{itemize}
-		\item Can be extended to continuous variables.
-		\item A hybrid test with mc-mi and rft.
+		\item A simple test which works reasonably well for low conditional variable
+			cases and works better than other for high conditional variables.
+		\item Can be extended to continuous variables giving a unified test for working with combinations of variable types.
+		\item A hybrid approach with mc-mi and rft.
 	\end{itemize}
 \end{frame}
 
