@@ -24,20 +24,36 @@ Independencies for Categorical and Ordinal Data}
 
 \section{Motivation}
 \begin{frame}
+	\frametitle{Motivation: Example DAG}
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.6]{imgs/example_dag.png}
+		\caption*{An example Directed Acyclic Graph (DAG)}
+	\end{figure}
+
+	Directed Edges represent causal relationship between variables.
+
+\end{frame}
+
+\begin{frame}
 	\frametitle{Motivation: Model Testing}
-	Example of a Directed Acyclic Graph (DAG).
+	\begin{itemize}
+		\item DAG structures imply Conditional Independencies (CI).
+		\item In the example model:
+			Pollution $ \ci $ XRay $ | $ Cancer
+			XRay $ \ci $ Breathing $ | $ Cancer
 
-	Implied Conditional Independencies (CI).
-
-	These can be tested in data to check if we have a correct model.
-	In applied research most of these models are made by hand based on
-	domain knowledge, so model testing can be used for verifying these models.	
+		\item Implied CIs can be testing in the given dataset to verify
+			model structure
+		\item In applied research most of these models are made by hand
+			based on domain knowledge.
+	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Motivation: Structure Learning}
 
-	A conditional indpendence implies that no direct causal link between the 
+	A conditional indpendence implies that no direct causal link exists between the 
 	variables.
 
 	Constraint-Based algorithms like PC and FCI use these to learn the causal
@@ -48,26 +64,28 @@ Independencies for Categorical and Ordinal Data}
 \begin{frame}
 	\frametitle{(Conditional) Independence Test}
 	\begin{block}{Independence Test}
-	Testing whether two variables ($ X $ and $ Y $) are independent given a
-	set of conditional variables $ Z $ in a given dataset. 
+		Given two random variables $ X $ and $ Y $, we say they are independent,
+		$ X \ci Y $ if and only if $ P(X, Y) = P(X) \cdot P(Y) $.
 
-	$$ X \ci Y \implies p(x, y) = p(x) \cdot p(y) $$
 	\end{block}
 
-	\begin{block}{Conditional Independence Test}	
-	Testing whether two variables ($ X $ and $ Y $) are independent given a
-	set of conditional variables $ Z $ in a given dataset. 
+	\begin{block}{Conditional Independence Test}
+		Give two random variables $ X $ and $ Y $ and a set of random
+		variables $ \bm{Z} $, we say they are conditionally
+		independent, $ X \ci Y | \bm{Z} $ if and only if for all $ z $ with
+		$ p(z) > 0 $, $ P(X, Y | Z=z) = P(X | Z=z) \cdot P(Y | Z=z) $
 
-	$$ X \ci Y | Z \implies p(x, y | z) = p(x | z) \cdot p(y | z) $$
 	\end{block}
 \end{frame}
 
 \begin{frame}
 	\frametitle{CI Testing is Difficult}
-	Is a difficult problem.
-	Many different approaches.
-	For continuous case has been proven that no test exists which is both
-	calibrated and has power against all datasets.
+	\begin{itemize}
+		\item Testing for conditional indpendence is a difficult problem.
+		\item For continous condiitonal variables, has been proven that no single 
+		      test exists which has power against all datasets.
+		\item But also well studied problem, and many approaches exist.
+	\end{itemize}
 \end{frame}
 
 \begin{frame}
