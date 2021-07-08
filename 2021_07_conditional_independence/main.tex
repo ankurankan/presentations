@@ -18,39 +18,52 @@ Independencies for Categorical and Ordinal Data}
 \maketitle
 
 \begin{frame}
-	\frametitle{Table of Contents}
+	\frametitle{Overview}
 	\tableofcontents
 \end{frame}
 
+\section{Motivation}
 \begin{frame}
-	\frametitle{Uses of (conditional) independence tests}
-	CI tests underlie many approaches to model testings and constraint-based
-	structure learning in causal discovery.
+	\frametitle{Motivation: Model Testing}
+	Example of a Directed Acyclic Graph (DAG).
 
-	\todo[inline]{Model testing example where a structure implies a conditinal
-	independence}
-	
-	\todo[inline]{Add a figure here for showing that edge doesn't exist between X and Y when $ X \ci Y | Z  $ }
+	Implied Conditional Independencies (CI).
+
+	These can be tested in data to check if we have a correct model.
+	In applied research most of these models are made by hand based on
+	domain knowledge, so model testing can be used for verifying these models.	
 \end{frame}
 
 \begin{frame}
-	\frametitle{Independence Test}
+	\frametitle{Motivation: Structure Learning}
+
+	A conditional indpendence implies that no direct causal link between the 
+	variables.
+
+	Constraint-Based algorithms like PC and FCI use these to learn the causal
+	model.
+\end{frame}
+
+\section{Background}
+\begin{frame}
+	\frametitle{(Conditional) Independence Test}
+	\begin{block}{Independence Test}
 	Testing whether two variables ($ X $ and $ Y $) are independent given a
 	set of conditional variables $ Z $ in a given dataset. 
 
 	$$ X \ci Y \implies p(x, y) = p(x) \cdot p(y) $$
-\end{frame}
+	\end{block}
 
-\begin{frame}
-	\frametitle{Conditional Independence (CI) Test}
+	\begin{block}{Conditional Independence Test}	
 	Testing whether two variables ($ X $ and $ Y $) are independent given a
 	set of conditional variables $ Z $ in a given dataset. 
 
 	$$ X \ci Y | Z \implies p(x, y | z) = p(x | z) \cdot p(y | z) $$
+	\end{block}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Conditional Independence (CI) Test}
+	\frametitle{CI Testing is Difficult}
 	Is a difficult problem.
 	Many different approaches.
 	For continuous case has been proven that no test exists which is both
@@ -58,13 +71,12 @@ Independencies for Categorical and Ordinal Data}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Main types of tests}
-	Three main class of tests:
-		\begin{itemize}
-			\item Stratification based tests
-			\item Variable Importance tests
-			\item Residulaization tests
-		\end{itemize}
+	\frametitle{Main classes of tests}
+	\begin{itemize}
+		\item Stratification based tests
+		\item Variable Importance based tests
+		\item Residulaization based tests
+	\end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -80,7 +92,8 @@ Independencies for Categorical and Ordinal Data}
 	\frametitle{Variable Importance Tests}
 	Compares two probablity models. E.g. SCCI
 
-	Problems: Inherent asymmetry
+	Problems: Inherent asymmetry: The result of $ X \ci Y | Z $ can be 
+	different from $ Y \ci X | Z $.
 \end{frame}
 
 \begin{frame}
@@ -91,6 +104,7 @@ Independencies for Categorical and Ordinal Data}
 	Doesn't have the same problems as others.
 \end{frame}
 
+\section{Proposed Method}
 \begin{frame}
 	\frametitle{Random Forest Based Test (RFT)}
 	\begin{itemize}
@@ -107,18 +121,27 @@ Independencies for Categorical and Ordinal Data}
 	Lee-Shepherd residuals for categorical and ordinal data.
 
 	Has the important property of expection of residuals as $ 0 $ which 
-	we later use.
+	we need to use Daudin's theorem.
 \end{frame}
 
 \begin{frame}
-	\frametitle{Random Forest Based Test (RFT)}
+	\frametitle{Proposition 1}
+	ABCD
+\end{frame}
+
+\begin{frame}
+	\frametitle{RFT: Both ordinal variables}
 	$$ Q_1(\bm{x}, \bm{y}) = \frac{1}{n} \frac{(R_{\bm{x}} \cdot R_{\bm{y}})^2}{\bm{var}(R_{\bm{x}} R_{\bm{y}})} $$
 
 	If $ X \ci Y | Z $, then asymptotically $ Q_1(\bm{x}, \bm{y}) \sim \chi^2(1) $.
 \end{frame}
 
 \begin{frame}
-	\frametitle{Random Forest Based Test (RFT)}
+	\frametitle{Proposition 2}
+\end{frame}
+
+\begin{frame}
+	\frametitle{RFT: One ordinal and one categorical}
 	One ordinal variable and other categorical variable with $ k $ categories.
 	One-hot-encoding or Dummy Variables
 
@@ -129,7 +152,11 @@ Independencies for Categorical and Ordinal Data}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Random Forest Based Test (RFT)}
+	\frametitle{Proposition 3}
+\end{frame}
+
+\begin{frame}
+	\frametitle{RFT: Both categorical}
 	Both categorical variables with $ k $ and $ r $ categories.
 
 
@@ -137,6 +164,10 @@ Independencies for Categorical and Ordinal Data}
 
 	If $ X \ci Y | Z $, then asymptotically $ Q_1(\bm{x}, \bm{y}) \sim
 	\chi^2((k-1)(r-1)) $.
+\end{frame}
+
+\begin{frame}
+	\frametitle{Proposition 4}
 \end{frame}
 
 \begin{frame}
@@ -148,12 +179,13 @@ Independencies for Categorical and Ordinal Data}
 	\frametitle{Properties of RFT}
 	\begin{itemize}
 		\item Simple to implement
-		\item Interpretable test statistic
+		\item Interpretable chi-square test statistic
 		\item Symmetric by construction
 		\item Computationally feasible
 	\end{itemize}
 \end{frame}
 
+\section{Empirical Results}
 
 \begin{frame}
 	\frametitle{Empirical Analysis: Calibration}
@@ -268,14 +300,21 @@ Independencies for Categorical and Ordinal Data}
 	\end{figure}
 \end{frame}
 
+\section{Conclusion}
 \begin{frame}
 	\frametitle{Conclusion}
 	\begin{itemize}
-		\item A simple test which works reasonably well for low conditional variable
-			cases and works better than other for high conditional variables.
-		\item Can be extended to continuous variables giving a unified test for working with combinations of variable types.
+		\item A simple test which works reasonably well for low
+			conditional variable cases and works better than other
+			for high conditional variables.
+		\item Can be extended to continuous variables giving a unified
+			test for working with combinations of variable types.
 		\item A hybrid approach with mc-mi and rft.
 	\end{itemize}
 \end{frame}
+
+% \begin{frame}
+% 	Questions / Suggestions
+% \end{frame}
 
 \end{document}
