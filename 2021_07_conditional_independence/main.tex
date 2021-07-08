@@ -30,51 +30,51 @@ Independencies for Categorical and Ordinal Data}
 		\includegraphics[scale=0.6]{imgs/example_dag.png}
 		\caption*{An example Directed Acyclic Graph (DAG)}
 	\end{figure}
-
-	Directed Edges represent causal relationship between variables.
-
+	\begin{itemize}
+		\item Directed Edges represent causal relationship between variables.
+		\item DAG structures imply Conditional Independencies (CI).
+		\item In the example model:
+			\begin{itemize}
+				\item Pollution $ \ci $ XRay $ | $ Cancer
+				\item XRay $ \ci $ Breathing $ | $ Cancer
+			\end{itemize}
+	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Motivation: Model Testing}
 	\begin{itemize}
-		\item DAG structures imply Conditional Independencies (CI).
-		\item In the example model:
-			Pollution $ \ci $ XRay $ | $ Cancer
-			XRay $ \ci $ Breathing $ | $ Cancer
-
-		\item Implied CIs can be testing in the given dataset to verify
-			model structure
 		\item In applied research most of these models are made by hand
 			based on domain knowledge.
+		\item Implied CIs can be tested in the given dataset to verify
+			model structure
+		\item \todo[inline]{Insert an example of model testing}
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Motivation: Structure Learning}
-
-	A conditional indpendence implies that no direct causal link exists between the 
-	variables.
-
-	Constraint-Based algorithms like PC and FCI use these to learn the causal
-	model.
+	\begin{itemize}
+		\item A conditional indpendence implies that no direct causal
+			link exists between the variables.
+			\todo[inline]{Add a figure here}
+		\item Constraint-Based algorithms like PC and FCI use these to
+			learn the causal model.
 \end{frame}
 
 \section{Background}
 \begin{frame}
 	\frametitle{(Conditional) Independence Test}
 	\begin{block}{Independence Test}
-		Given two random variables $ X $ and $ Y $, we say they are independent,
+		Two random variables $ X $ and $ Y $ are independent,
 		$ X \ci Y $ if and only if $ P(X, Y) = P(X) \cdot P(Y) $.
-
 	\end{block}
 
-	\begin{block}{Conditional Independence Test}
-		Give two random variables $ X $ and $ Y $ and a set of random
-		variables $ \bm{Z} $, we say they are conditionally
-		independent, $ X \ci Y | \bm{Z} $ if and only if for all $ z $ with
-		$ p(z) > 0 $, $ P(X, Y | Z=z) = P(X | Z=z) \cdot P(Y | Z=z) $
-
+	\begin{block}{Conditional Independence Test} Two random variables $ X $
+		and $ Y $ and are said to be conditionally independent given $
+		\bm{Z} $, $ X \ci Y | \bm{Z} $ if and only if for all $ z $
+		with $ p(z) > 0 $, $ P(X, Y | Z=z) = P(X | Z=z) \cdot P(Y |
+		Z=z) $
 	\end{block}
 \end{frame}
 
@@ -103,7 +103,7 @@ Independencies for Categorical and Ordinal Data}
 	Divides dataset into stratum based on the value of the conditional
 	variables. E.g. chi-squared test.
 
-	Problems: Looses power when number of conditonal variables are increased.
+	Problem: Looses power when number of conditonal variables are increased.
 \end{frame}
 
 \begin{frame}
@@ -128,6 +128,7 @@ Independencies for Categorical and Ordinal Data}
 	\begin{itemize}
 		\item Residualization based approach.
 		\item Uses random forest as the estimator.
+		\item Uses Lee-Shepherd residuals.
 		\item Gives a chi-square distributed test statistic.
 	\end{itemize}
 \end{frame}
@@ -144,7 +145,7 @@ Independencies for Categorical and Ordinal Data}
 
 \begin{frame}
 	\frametitle{Proposition 1}
-	ABCD
+	
 \end{frame}
 
 \begin{frame}
@@ -210,7 +211,7 @@ Independencies for Categorical and Ordinal Data}
 	\begin{figure}
 		\centering
 		\includegraphics[scale=0.8]{imgs/calibration_add_vars.pdf}
-		\caption{Type I error vs significance level for sample sizes (top to
+		\caption*{Type I error vs significance level for sample sizes (top to
 		bottom): $ [20, 40, 80] $ and number of conditional variables (left to
 		right): $ [1, 3, 5] $ on conditionally independent simulated binary
 		datasets.}
@@ -222,7 +223,7 @@ Independencies for Categorical and Ordinal Data}
 	\begin{figure}
 		\centering
 		\includegraphics{imgs/accuracy.pdf}
-		\caption{Accuracy (shading: mean $\pm$ standard error, $N=200$)
+		\caption*{Accuracy (shading: mean $\pm$ standard error, $N=200$)
 		of classifying simulated binary datasets (sample size: $1000$)
 		as conditionally dependent or independent.}
 	\end{figure}
@@ -233,7 +234,7 @@ Independencies for Categorical and Ordinal Data}
 	\begin{figure}
 		\centering
 		\includegraphics{imgs/accuracy_ordinal.pdf}
-		\caption{Accuracy (shading: mean $\pm$ standard error) of
+		\caption*{Accuracy (shading: mean $\pm$ standard error) of
 		classifying simulated ordinal data (8 levels per variable) as
 		conditionally dependent or independent.}	
 	\end{figure}
@@ -244,7 +245,7 @@ Independencies for Categorical and Ordinal Data}
 	\begin{figure}
 		\centering
 		\includegraphics{imgs/model_testing.pdf}
-		\caption{Precision and recall (shading: mean $\pm$ standard
+		\caption*{Precision and recall (shading: mean $\pm$ standard
 		error) of testing implied CIs and equal number of randomly
 		generated CIs in binary datasets (sample size: $1000$)
 		simulated from random DAGs on $ 20 $ variables.}
@@ -256,13 +257,12 @@ Independencies for Categorical and Ordinal Data}
 	\begin{figure}
 		\centering
 		\includegraphics{imgs/sl_density.pdf}
-		\caption{Structure learning on simulated data. F1-score
+		\caption*{Structure learning on simulated data. F1-score
 		(shading: mean $\pm$ standard error) of the learned model
 		skeletons for randomly generated DAGs with $20$ variables and
 		varying edge probabilities.  Binary datasets of $ 1000 $
 		samples are simulated from the DAGs using logistic models with
-		all coefficients set to $ 0.15$. Presence of an edge is
-		considered the "positive" case for computing the F1-Scores.}
+		all coefficients set to $ 0.15$.}
 	\end{figure}
 \end{frame}
 
@@ -271,7 +271,7 @@ Independencies for Categorical and Ordinal Data}
 	\begin{figure}
 		\centering
 		\includegraphics{imgs/sl.pdf}
-		\caption{Structure learning on (a) ``alarm'', and (b)
+		\caption*{Structure learning on (a) ``alarm'', and (b)
 		``insurance'' datasets.  F1-score (shading: mean $\pm$ standard
 		error, $N=10$) of the learned model skeletons.  Presence of an
 		edge is considered the "positive" case for computing the
@@ -283,26 +283,23 @@ Independencies for Categorical and Ordinal Data}
 	\frametitle{Applications: Structure Learning}
 	\begin{figure}
 		\centering
-		\begin{subfigure}{0.3\textwidth}
+		\begin{subfigure}{0.5\textwidth}
 			\centering
 			\includegraphics[scale=0.85]{imgs/sl-adult-rf.pdf}
-			\caption{}
+			\caption*{}
 			\label{fig:sl_adult_model}
 		\end{subfigure}%
-		\begin{subfigure}{0.2\textwidth}
+		\begin{subfigure}{0.5\textwidth}
 			\centering
 			\includegraphics{imgs/adult_F1.pdf}
-			\caption{}
+			\caption*{}
 			\label{fig:sl_adult}
 		\end{subfigure}
-		\caption{Structure learning on US census income dataset. (a)
-		Skeleton estimated by the stable PC algorithm from the same
-		data as in Figure~\ref{fig:pcerror} when using our CI test. (b)
-		F1-score (shading: mean $\pm$ standard error, $N=10$) when
-		comparing $d$-connected variable pairs from the CPDAG to
-		correlated variable pairs in the dataset. Presence of
-		d-connection/correlation is used as the positive case for
-		computing the F1-Score}
+		\caption*{Structure learning on US census income dataset. (a)
+		Learnt skeleton using RFT. (b) F1-score (shading: mean $\pm$
+		standard error, $N=10$) when comparing $d$-connected variable
+		pairs from the CPDAG to correlated variable pairs in the
+		dataset.}
 	\end{figure}
 \end{frame}
 
@@ -311,10 +308,10 @@ Independencies for Categorical and Ordinal Data}
 	\begin{figure}
 		\centering
 		\includegraphics{imgs/runtime.pdf}
-		\caption{Runtime (shading: mean $\pm$ standard error, $N=100$)
+		\caption*{Runtime (shading: mean $\pm$ standard error, $N=100$)
 		for CI tests with varying numbers of conditional variables and
-		$1000$ samples per dataset; data is generated the same way as
-		in Figure~\ref{fig:cat_discrimination}.}
+		$1000$ samples per dataset.
+		}
 	\end{figure}
 \end{frame}
 
