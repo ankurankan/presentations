@@ -32,6 +32,7 @@ Independencies for Categorical and Ordinal Data}
 		\caption*{An example Directed Acyclic Graph (DAG)}
 	\end{figure}
 	\begin{itemize}
+		\setlength\itemsep{1em}
 		\item Random variables are represented using nodes.
 		\item Directed edges represent direct causal link between variables.
 		\item DAG structures imply Conditional Independencies (CI).
@@ -44,6 +45,7 @@ Independencies for Categorical and Ordinal Data}
 \begin{frame}
 	\frametitle{Motivation: Model Testing}
 	\begin{itemize}
+		\setlength\itemsep{1em}
 		\item In applied research, most of these models are made by hand
 			based on domain knowledge.
 		\item Implied CIs can be tested in the dataset to verify
@@ -56,12 +58,13 @@ Independencies for Categorical and Ordinal Data}
 \begin{frame}
 	\frametitle{Motivation: Structure Learning}
 	\begin{itemize}
-		\item CI implies that no direct causal link exists between the variables.
-			Example: If $ \text{\emph{Pollution}} \ci \text{\emph{XRay}} | \text{\emph{Cancer}} $,
-			there can't be an edge between Pollution and XRay.
+		\setlength\itemsep{1em}
+		\item CI implies that no direct causal link exists between the variables. \newline
+		\hspace*{20pt} $ \text{\emph{Pollution}} \ci \text{\emph{XRay}} | \text{\emph{Cancer}} \implies \text{\emph{Pollution}} \not \rightarrow  \text{\emph{XRay}} $
 
-		\item Constraint-Based algorithms like PC and FCI use these tests to
-			determine model skeletons from data.
+		\item Constraint-Based structure learning algorithms like PC
+			and FCI use these tests to determine model skeletons
+			from data.
 	\end{itemize}
 \end{frame}
 
@@ -72,6 +75,7 @@ Independencies for Categorical and Ordinal Data}
 		Two random variables $ X $ and $ Y $ are independent,
 		$ X \ci Y $ if and only if $ P(X, Y) = P(X) \cdot P(Y) $.
 	\end{block}
+	\vspace{1em}
 
 	\begin{block}{Conditional Independence Test} Two random variables $ X $
 		and $ Y $ and are said to be conditionally independent given $
@@ -84,16 +88,21 @@ Independencies for Categorical and Ordinal Data}
 \begin{frame}
 	\frametitle{CI Testing is Difficult}
 	\begin{itemize}
-		\item Testing for conditional indpendence is a difficult problem.
+		\setlength\itemsep{1em}
+		\item Normal non-conditional independence testing is easy.
+		\item Conditional indpendence testing is a hard problem.
 		\item For continous condiitonal variables, has been proven that no single 
-		      test exists which has power against all datasets.
+		      test exists which has power against all datasets. \footnotemark
 		\item But also well studied problem, and many approaches exist.
 	\end{itemize}
+
+	\footnotetext[1]{\footnotesize{Shah, Rajen D., and Jonas Peters. "The hardness of conditional independence testing and the generalised covariance measure." The Annals of Statistics 48.3 (2020): 1514-1538.}}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Main classes of tests}
 	\begin{itemize}
+		\setlength\itemsep{1em}
 		\item Stratification based tests
 		\item Variable Importance based tests
 		\item Residulaization based tests
@@ -102,11 +111,18 @@ Independencies for Categorical and Ordinal Data}
 
 \begin{frame}
 	\frametitle{Stratification Based Tests}
-	Most common type of test for discrete variables.
-	Divides dataset into stratum based on the value of the conditional
-	variables. E.g. chi-squared test.
-
-	Problem: Looses power when number of conditonal variables are increased.
+	\begin{itemize}
+		\setlength\itemsep{1em}
+		\item Most common type for discrete variables. Eg. chi-squared,
+			mutual information etc. 
+		\item Converts CI test into simple independence test by creating 
+			stratum. 
+			\todo[inline]{Insert a figure to make this clearer}
+		\item Runs test on each of the stratum and then combine into a 
+			single result.
+		\item Problem: Looses power when number of conditonal variables
+			are increased.
+	\end{itemize}
 \end{frame}
 
 \begin{frame}
