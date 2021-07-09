@@ -4,6 +4,7 @@
 \usecolortheme{beaver}
 \usepackage{caption}
 \usepackage{subcaption}
+\usepackage{amsmath}
 \usepackage{todonotes}
 \usepackage{bm}
 
@@ -31,35 +32,36 @@ Independencies for Categorical and Ordinal Data}
 		\caption*{An example Directed Acyclic Graph (DAG)}
 	\end{figure}
 	\begin{itemize}
-		\item Directed Edges represent causal relationship between variables.
+		\item Random variables are represented using nodes.
+		\item Directed edges represent direct causal link between variables.
 		\item DAG structures imply Conditional Independencies (CI).
-		\item In the example model:
-			\begin{itemize}
-				\item Pollution $ \ci $ XRay $ | $ Cancer
-				\item XRay $ \ci $ Breathing $ | $ Cancer
-			\end{itemize}
+		\item In the example model: \newline
+			\hspace*{20pt} $ \text{\emph{Pollution}} \ci \text{\emph{XRay}} | \text{\emph{Cancer}} $ \newline
+			\hspace*{20pt} $ \text{\emph{XRay}} \ci \text{\emph{Breathing}} | \text{\emph{Cancer}} $
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Motivation: Model Testing}
 	\begin{itemize}
-		\item In applied research most of these models are made by hand
+		\item In applied research, most of these models are made by hand
 			based on domain knowledge.
-		\item Implied CIs can be tested in the given dataset to verify
-			model structure
-		\item \todo[inline]{Insert an example of model testing}
+		\item Implied CIs can be tested in the dataset to verify
+			model structure.
+		\item Is $ \text{\emph{Pollution}} \ci \text{\emph{XRay}} | \text{\emph{Cancer}} $ in dataset, $ D $ ?
 	\end{itemize}
+
 \end{frame}
 
 \begin{frame}
 	\frametitle{Motivation: Structure Learning}
 	\begin{itemize}
-		\item A conditional indpendence implies that no direct causal
-			link exists between the variables.
-			\todo[inline]{Add a figure here}
-		\item Constraint-Based algorithms like PC and FCI use these to
-			learn the causal model.
+		\item CI implies that no direct causal link exists between the variables.
+			Example: If $ \text{\emph{Pollution}} \ci \text{\emph{XRay}} | \text{\emph{Cancer}} $,
+			there can't be an edge between Pollution and XRay.
+
+		\item Constraint-Based algorithms like PC and FCI use these tests to
+			determine model skeletons from data.
 	\end{itemize}
 \end{frame}
 
