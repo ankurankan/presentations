@@ -27,7 +27,7 @@ Independencies for Categorical and Ordinal Data}
 
 \section{Motivation}
 \begin{frame}
-	\frametitle{Motivation: Example DAG / causal Bayesian Network}
+	\frametitle{Motivation: Example DAG / Causal Bayesian Network}
 	\begin{figure}
 		\centering
 		\includegraphics[scale=0.6]{imgs/example_dag.png}
@@ -37,7 +37,7 @@ Independencies for Categorical and Ordinal Data}
 		\setlength\itemsep{1em}
 		\item Random variables are represented using nodes.
 		\item Directed edges represent direct causal link between variables.
-		\item DAG structures imply Conditional Independencies (CI).
+		\item DAGs imply Conditional Independencies (CI). Eg:
 			\hspace*{20pt} $ \text{\emph{Pollution}} \ci \text{\emph{XRay}} | \text{\emph{Cancer}} $ \newline
 			\hspace*{20pt} $ \text{\emph{XRay}} \ci \text{\emph{Breathing}} | \text{\emph{Cancer}} $
 	\end{itemize}
@@ -138,10 +138,12 @@ Independencies for Categorical and Ordinal Data}
 	\begin{itemize}
 		\setlength\itemsep{1em}
 		\item Based on comparing the probability models: $\hat{p}(x | y, z) $ 
-			and $ \hat{p}(x | z) $. Example: SCCI
+			and $ \hat{p}(x | z) $.
 		\item $ \hat{p}(x|y, z) $ and $ \hat{p}(x | z) $ is estimated using a
 			statistical model, and if the simpler model doesn't fit
 			significantly worse, $ X \ci Y | Z $ is True.
+		\item An example is SCCI, which is the current state-of-the-art
+			for structure learning in discrete variables.
 		\item Can utilize any statistical model for which a reasonable goodness
 			of fit exist.
 		\item Inherently asymmetrical. The result of $ X \ci Y | Z $
@@ -170,7 +172,7 @@ Independencies for Categorical and Ordinal Data}
 	\begin{itemize}
 		\setlength\itemsep{1em}
 		\item Residualization based approach.
-		\item Uses random forest as the estimator.
+		\item Any unbaised estimator can be used.
 		\item Uses Lee-Shepherd residuals.
 		\item Gives a chi-square distributed test statistic.
 	\end{itemize}
@@ -221,7 +223,7 @@ Independencies for Categorical and Ordinal Data}
 		\setlength\itemsep{1em}
 		\item Square of sample mean of $ R_x R_y $ divided by its
 			standard deviation.
-		\item Under CI, the population mean is 0.
+		\item From Proposition 1, the population mean is 0 under CI.
 		\item Using CLT, the standardized sample mean is asymptotically
 			standard normal.
 		\item Square of standard normal distribution gives a
