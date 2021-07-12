@@ -49,12 +49,10 @@ Independencies for Categorical and Ordinal Data}
 		\setlength\itemsep{1em}
 		\item In applied research, most of the DAGs are made by hand
 			based on domain knowledge.
+			\todo[inline]{Any reference for this}
 		\item Important to test whether model is consistent with the data.
 		\item Implied CIs can be tested in the dataset to verify
 			model structure.
-		\item Unlike scoring based methods, CI testing can give
-			information on exactly what part of the model isn't
-			consistent.
 	\end{itemize}
 
 \end{frame}
@@ -76,18 +74,18 @@ Independencies for Categorical and Ordinal Data}
 
 \section{Background}
 \begin{frame}
-	\frametitle{(Conditional) Independence Test}
-	\begin{block}{Independence Test}
+	\frametitle{(Conditional) Independence}
+	\begin{block}{Independence}
 		Two random variables $ X $ and $ Y $ are independent,
 		$ X \ci Y $ if and only if $ P(X, Y) = P(X) \cdot P(Y) $.
 	\end{block}
 	\vspace{1em}
 
-	\begin{block}{Conditional Independence Test} Two random variables $ X $
-		and $ Y $ and are said to be conditionally independent given $
-		\bm{Z} $, $ X \ci Y | \bm{Z} $ if and only if for all $ z $
-		with $ p(z) > 0 $, $ P(X, Y | Z=z) = P(X | Z=z) \cdot P(Y |
-		Z=z) $
+	\begin{block}{Conditional Independence}
+		Two random variables $ X $ and $ Y $ and are said to be
+		conditionally independent given $ \bm{Z} $, $ X \ci Y | \bm{Z}
+		$ if and only if for all $ z $ with $ p(z) > 0 $, $ P(X, Y |
+		Z=z) = P(X | Z=z) \cdot P(Y | Z=z) $
 	\end{block}
 \end{frame}
 
@@ -124,10 +122,10 @@ Independencies for Categorical and Ordinal Data}
 			mutual information etc. 
 		\item Converts CI test into simple independence test by splitting 
 			the dataset.
-		$ D[X, Y, \bm{Z}] = \{ D[X, Y, \bm{Z}=\bm{z_1}, D[X, Y, \bm{Z}=\bm{z_2}], \cdots \} $	
+		$ D[X, Y, \bm{Z}] = \{ D[X, Y, \bm{Z}=\bm{z_1}], D[X, Y, \bm{Z}=\bm{z_2}], \cdots \} $	
 		\item Runs test on each of the stratum and then combines the results.
-		\item Exponenially less data is available in each stratum as 
-			number of conditional variables increase.
+		\item As the number of conditional variables is increased, exponentially
+			less data is available in each stratum.
 		\item Looses power when number of conditonal variables
 			are increased.
 	\end{itemize}
@@ -172,9 +170,8 @@ Independencies for Categorical and Ordinal Data}
 	\begin{itemize}
 		\setlength\itemsep{1em}
 		\item Residualization based approach.
-		\item Any unbaised estimator can be used.
+		\item Any unbiased estimator can be used. We use Random Forest.
 		\item Uses Lee-Shepherd residuals.
-		\item Gives a chi-square distributed test statistic.
 	\end{itemize}
 \end{frame}
 
