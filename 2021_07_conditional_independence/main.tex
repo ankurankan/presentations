@@ -37,9 +37,9 @@ Independencies for Categorical and Ordinal Data}
 		\setlength\itemsep{1em}
 		\item Random variables are represented using nodes.
 		\item Directed edges represent direct causal link between variables.
-		\item DAGs imply Conditional Independencies (CI). Eg:
-			\hspace*{20pt} $ \text{\emph{Pollution}} \ci \text{\emph{XRay}} | \text{\emph{Cancer}} $ \newline
-			\hspace*{20pt} $ \text{\emph{XRay}} \ci \text{\emph{Breathing}} | \text{\emph{Cancer}} $
+		\item Each variable is conditionally independent of all non-descendants given its parents. Eg: \newline
+			\hspace*{20pt} $ \text{\emph{XRay}} \ci \text{\emph{Pollution}} | \text{\emph{Cancer}} $ \newline
+			\hspace*{20pt} $ \text{\emph{Breathing}} \ci \text{\emph{Smoker}} | \text{\emph{Cancer}} $
 	\end{itemize}
 \end{frame}
 
@@ -49,9 +49,8 @@ Independencies for Categorical and Ordinal Data}
 		\setlength\itemsep{1em}
 		\item In applied research, most of the DAGs are made by hand
 			based on domain knowledge.
-		\item Important to test whether model is consistent with the data.
-		\item Implied CIs can be tested in the dataset to verify
-			model structure.
+		\item Important to test whether the model is consistent with the data.
+		\item CI tests can be used to verify model structure.
 	\end{itemize}
 
 \end{frame}
@@ -61,10 +60,10 @@ Independencies for Categorical and Ordinal Data}
 	\begin{itemize}
 		\setlength\itemsep{1em}
 		\item CI implies that no direct causal link exists between the variables. \newline
-			$ \text{\emph{Pollution}} \ci \text{\emph{XRay}} | \text{\emph{Cancer}} \implies \text{No edge b/w \emph{Pollution} and \emph{XRay}} $
+			$ \text{\emph{XRay}} \ci \text{\emph{Smoker}} | \text{\emph{Cancer}} \implies \text{No edge b/w \emph{XRay} and \emph{Smoker}} $
 
 		\item Constraint-Based structure learning algorithms like PC
-			and FCI systematically search for these independencies
+			and FCI use CI tests to systematically search for CIs
 			in the dataset to determine model skeletons.
 	\end{itemize}
 \end{frame}
@@ -281,17 +280,6 @@ Independencies for Categorical and Ordinal Data}
 	\end{enumerate}
 \end{frame}
 
-\begin{frame}
-	\frametitle{Properties of RFT}
-	\begin{itemize}
-		\setlength\itemsep{1em}
-		\item Simple to implement
-		\item Interpretable chi-square test statistic
-		\item Symmetric by construction
-		\item Computationally feasible
-	\end{itemize}
-\end{frame}
-
 \section{Empirical Results}
 
 \begin{frame}
@@ -409,8 +397,9 @@ Independencies for Categorical and Ordinal Data}
 	\frametitle{Conclusion/Future Work}
 	\begin{itemize}
 		\setlength\itemsep{1em}
-		\item Residualization based test for categorical and ordinal variables.
-		\item which performs reasonably well for low number of
+		\item Propose a residualization based CI test for categorical and ordinal variables.
+		\item Properties: 1) Simple to implement; 2) Interpretable chi-square test statistic; 3) Symmetric by construction; 4) Computationally feasible
+		\item Performs reasonably well for low number of
 			conditional variable but performs better for high
 			number of conditional variables.
 		\item For structure learning, a hybrid approach can be used with other
