@@ -49,7 +49,6 @@ Independencies for Categorical and Ordinal Data}
 		\setlength\itemsep{1em}
 		\item In applied research, most of the DAGs are made by hand
 			based on domain knowledge.
-			\todo[inline]{Any reference for this}
 		\item Important to test whether model is consistent with the data.
 		\item Implied CIs can be tested in the dataset to verify
 			model structure.
@@ -62,9 +61,7 @@ Independencies for Categorical and Ordinal Data}
 	\begin{itemize}
 		\setlength\itemsep{1em}
 		\item CI implies that no direct causal link exists between the variables. \newline
-		\hspace*{20pt} $ \text{\emph{Pollution}} \ci \text{\emph{XRay}} | \text{\emph{Cancer}} \implies \text{\emph{Pollution}} \not \rightarrow  \text{\emph{XRay}} $
-
-		\todo[inline]{This shouldn't be directed edge. Make it undirected}
+			$ \text{\emph{Pollution}} \ci \text{\emph{XRay}} | \text{\emph{Cancer}} \implies \text{No edge b/w \emph{Pollution} and \emph{XRay}} $
 
 		\item Constraint-Based structure learning algorithms like PC
 			and FCI systematically search for these independencies
@@ -91,11 +88,10 @@ Independencies for Categorical and Ordinal Data}
 
 \begin{frame}
 	\frametitle{CI Testing is Difficult}
+	\todo[inline]{Include the chi-square example here}
 	\begin{itemize}
 		\setlength\itemsep{1em}
-		\item Normal non-conditional independence testing is easy.
-			Things like exact tests are available. \todo[inline]{Need to make the argument stronger here}
-		\item Conditional indpendence testing is a hard.
+		\item Compared to normal independence testing Conditional independence testing is much harder.
 		\item For continous conditional variables, has been proven that no single 
 		      test exists which has power against all datasets. \footnotemark
 		\item But also well studied problem, and many approaches/tests exist.
@@ -140,8 +136,7 @@ Independencies for Categorical and Ordinal Data}
 		\item $ \hat{p}(x|y, z) $ and $ \hat{p}(x | z) $ is estimated using a
 			statistical model, and if the simpler model doesn't fit
 			significantly worse, $ X \ci Y | Z $ is True.
-		\item An example is SCCI, which is the current state-of-the-art
-			for structure learning in discrete variables.
+		\item An example is SCCI.
 		\item Can utilize any statistical model for which a reasonable goodness
 			of fit exist.
 		\item Inherently asymmetrical. The result of $ X \ci Y | Z $
@@ -152,14 +147,16 @@ Independencies for Categorical and Ordinal Data}
 
 \begin{frame}
 	\frametitle{Residualization Based Tests}
-	\todo[inline]{Improve this slide}
 	\begin{itemize}
 		\setlength\itemsep{1em}
-		\item Example: partial correlation test.
-		\item Fits two models $ \mathbb{E}[X | Z] $ and $ \mathbb{E}[Y | Z] $.
-		\item Compute residuals $ R_{X|Z} $ and $ R_{Y|Z} $.
-		\item Under CI, if $ \mathbb{E}[R_{X|Z}] = \mathbb{E}[R_{Y|Z}] = 0 $, the
-			$ \mathbb{E}[R_{X|Z}R_{Y|Z}] = 0 $. \footnotemark
+		\item Relies on the theorem from Daudin [1980] \footnotemark
+			that under CI, if we have two estimators $ \mathbb{E}[X
+			| Z] $ and $ \mathbb{E}[Y | Z] $ with valid residuals
+			such that $ \mathbb{E}[R_X] = \mathbb{E}[R_Y] = 0 $,
+			then $ \mathbb{E}[R_X R_Y] = 0 $.
+		\item Examples are partial correlation test, generalized covariance measure etc.
+		\item Any estimator can be used as long as it has valid residuals.
+		\item No residualization based test exists for categorical or ordinal variables.
 	\end{itemize}
 	\footnotetext[1]{\footnotesize Daudin, J. J. "Partial association measures and an application to qualitative regression." Biometrika 67.3 (1980): 581-590.}
 \end{frame}
@@ -177,7 +174,6 @@ Independencies for Categorical and Ordinal Data}
 
 \begin{frame}
 	\frametitle{Lee-Shepherd (LS) Residuals}
-	\todo[inline]{Add paper in the footnote. Also the notation isn't correct.}
 	Given a sample $ \bm{y} $ of $ Y $ and an estimate $ \hat{p}(y) $ of $ p(y) $,
 	LS-Residual is defined as:
 	$$ R_{y_i} = \hat{p}(Y < y_i) - \hat{p}(Y > y_i) $$
@@ -189,9 +185,6 @@ Independencies for Categorical and Ordinal Data}
 
 	For the conditional case for sample $ (\bm{y}|\bm{z})_i $,
 	$$ R_{y_i | z_i} = \hat{p}(Y < y_i | Z=z_i) - \hat{p}(Y>y_i|Z=z_i) $$
-
-	Property: For unbaised estimators, LS-Residuals satisfy: $ E[R_{x|z}] =
-		E[R_{y|z}] = 0 $.
 \end{frame}
 
 \begin{frame}
@@ -203,10 +196,10 @@ Independencies for Categorical and Ordinal Data}
 
 	\begin{itemize}
 		\setlength\itemsep{1em}
-		\item For unbaised estimators, LS-Residuals satisfy:
+		\item For asymptotically unbaised estimators, LS-Residuals satisfy:
 			$ E[R_{x|z}] = E[R_{y|z}] = 0 $.
-		\item From Daudin(1980), if $ X \ci Y | \bm{Z} $ with residual exectations
-			as $ 0 $, $ \mathbb{E}[R_{x|z} R_{y|z}] = 0 $.
+		\item Under $ X \ci Y | \bm{Z} $, with valid
+			residuals then $ \mathbb{E}[R_{x|z} R_{y|z}] = 0 $.
 	\end{itemize}
 \end{frame}
 
@@ -255,10 +248,15 @@ Independencies for Categorical and Ordinal Data}
 	If $ X \ci Y | Z $, then asymptotically $ Q_1(\bm{x}, \bm{y}) \sim
 	\chi^2((k-1)(r-1)) $.
 
-	\todo[inline]{Fix the value of $ d $}
-	where $ d = (R_{\mathbb{I}(\mathbf{x}=1)} \cdot R_{\mathbf{y}}, \, \ldots \ ,
-		R_{\mathbb{I}(\mathbf{x}=k-1)} \cdot R_{\mathbf{y}}) $.
-
+	where 
+	\begin{eqnarray*}
+		d &  =  & (R_{\mathbb{I}(\mathbf{x}=1)} \cdot R_{\mathbb{I}(\mathbf{y}=1)}, \, \ldots \ ,
+		R_{\mathbb{I}(\mathbf{x}=k-1)} R_{\mathbb{I}(\mathbf{y}=1)}, \, \ldots \, ,
+		\\
+	 	& & R_{\mathbb{I}(\mathbf{x}=1)} \cdot R_{\mathbb{I}(\mathbf{y}=r-1)}, \, \ldots \ ,
+		R_{\mathbb{I}(\mathbf{x}=k-1)} R_{\mathbb{I}(\mathbf{y}=r-1)}
+		)
+	\end{eqnarray*}
 	\begin{itemize}
 		\setlength\itemsep{1em}
 		\item Same as the last case, $ Q_3(\bm{x}, \bm{y}) $ is chi square distributed 
@@ -328,7 +326,7 @@ Independencies for Categorical and Ordinal Data}
 		classifying simulated ordinal data (8 levels per variable) as
 		conditionally dependent or independent.}	
 	\end{figure}
-	\todo[inline]{Mention what test JT is here}
+	\footnotetext[1]{JT = Jonckheere-Terpstra trend test}
 \end{frame}
 
 \begin{frame}
@@ -411,9 +409,10 @@ Independencies for Categorical and Ordinal Data}
 	\frametitle{Conclusion/Future Work}
 	\begin{itemize}
 		\setlength\itemsep{1em}
-		\item A simple test which performs reasonably well for low number of
-			conditional variable but performs better for high number of
-			conditional variables.
+		\item Residualization based test for categorical and ordinal variables.
+		\item which performs reasonably well for low number of
+			conditional variable but performs better for high
+			number of conditional variables.
 		\item For structure learning, a hybrid approach can be used with other
 			tests.
 		\item Since Random Forest can work with combination of discrete and 
@@ -423,7 +422,9 @@ Independencies for Categorical and Ordinal Data}
 \end{frame}
 
 \begin{frame}
-	Questions / Suggestions
+	\begin{center}
+		\Huge{Questions / Suggestions}
+	\end{center}
 \end{frame}
 
 \end{document}
