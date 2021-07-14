@@ -212,7 +212,7 @@ Independencies for Categorical and Ordinal Data}
 		\setlength\itemsep{1em}
 		\item $ \sqrt{Q_1} $ is the sample mean of $ R_x R_y $ divided by its
 			standard deviation.
-		\item From Proposition 1, population mean $ \mathbb{E}[R_X R_Y] = 0 $
+		\item From the proposition, population mean $ \mathbb{E}[R_X R_Y] = 0 $
 		\item Using CLT, the standardized sample mean is asymptotically
 			standard normal.
 		\item Square of standard normal distribution gives a
@@ -223,17 +223,20 @@ Independencies for Categorical and Ordinal Data}
 \begin{frame}
 	\frametitle{Test Statistic: One ordinal and one categorical}
 	$$ Q_2(\bm{x}, \bm{y}) = \frac{1}{n} (d \times \hat{\Sigma}_d^{-1} \times d^T) $$
-
 	where $ d = (R_{\mathbb{I}(\mathbf{x}=1)} \cdot R_{\mathbf{y}}, \, \ldots \ ,
 		R_{\mathbb{I}(\mathbf{x}=k-1)} \cdot R_{\mathbf{y}})$.
-	If $ X \ci Y | Z $, then asymptotically $ Q_1(\bm{x}, \bm{y}) \sim \chi^2(k-1) $.
+
+	\vspace{1em}
+	If $ X \ci Y | Z $, then asymptotically $ Q_2(\bm{x}, \bm{y}) \sim \chi^2(k-1) $.
+
 	\begin{itemize}
 		\setlength\itemsep{1em}
 		\item Dummy/One-hot encode the categorical variable.
 		\item Under CI, each component of $ d $ is asymptotically normal.
-		\item Hence, $ d $ is multivariate gaussian.
+		\item Components of $ d $ are linearly correlated. Linear combinations
+			would result in a multivariate gaussian distribution for $ d $.
 		\item $ \sqrt{(Q_2(\bm{x}, \bm{y}))} $ is multivariate standard normal.
-		\item $ Q_2 $ is chi-square distributed with $ k-1 $ dof.
+		\item Hence, $ Q_2 $ is chi-square distributed with $ k-1 $ dof.
 	\end{itemize}
 \end{frame}
 
@@ -244,9 +247,6 @@ Independencies for Categorical and Ordinal Data}
 
 	$$ Q_3(\bm{x}, \bm{y}) = \frac{1}{n} (d \times \hat{\Sigma}_d^{-1} \times d^T) $$
 
-	If $ X \ci Y | Z $, then asymptotically $ Q_1(\bm{x}, \bm{y}) \sim
-	\chi^2((k-1)(r-1)) $.
-
 	where 
 	\begin{eqnarray*}
 		d &  =  & (R_{\mathbb{I}(\mathbf{x}=1)} \cdot R_{\mathbb{I}(\mathbf{y}=1)}, \, \ldots \ ,
@@ -256,6 +256,10 @@ Independencies for Categorical and Ordinal Data}
 		R_{\mathbb{I}(\mathbf{x}=k-1)} R_{\mathbb{I}(\mathbf{y}=r-1)}
 		)
 	\end{eqnarray*}
+	\vspace{1em}
+
+	If $ X \ci Y | Z $, then asymptotically $ Q_3(\bm{x}, \bm{y}) \sim \chi^2((k-1)(r-1)) $.
+
 	\begin{itemize}
 		\setlength\itemsep{1em}
 		\item Same as the last case, $ Q_3(\bm{x}, \bm{y}) $ is chi square distributed 
