@@ -210,13 +210,10 @@ Independencies for Categorical and Ordinal Data}
 
 	\begin{itemize}
 		\setlength\itemsep{1em}
-		\item $ \sqrt{Q_1} $ is the sample mean of $ R_x R_y $ divided by its
-			standard deviation.
 		\item From the proposition, population mean $ \mathbb{E}[R_X R_Y] = 0 $
-		\item Using CLT, the standardized sample mean is asymptotically
-			standard normal.
-		\item Square of standard normal distribution gives a
-			chi-squared distribution with $ 1 $ degree of freedom.
+		\item From Central Limit Theorem, the standardized sample mean of $ R_x R_y $, $ \frac{1}{n} \frac{R_x \cdot R_y}{\sigma(R_xR_y)} \sim \mathcal{N}(0, \frac{1}{\sqrt{n}}) $.
+		\item $ \sqrt{Q_1} $ is standard normal distributed.
+		\item $ Q_1 $ is chi-squared distribution with $ 1 $ degree of freedom.
 	\end{itemize}
 \end{frame}
 
@@ -224,7 +221,7 @@ Independencies for Categorical and Ordinal Data}
 	\frametitle{Test Statistic: One ordinal and one categorical}
 	$$ Q_2(\bm{x}, \bm{y}) = \frac{1}{n} (d \times \hat{\Sigma}_d^{-1} \times d^T) $$
 	where $ d = (R_{\mathbb{I}(\mathbf{x}=1)} \cdot R_{\mathbf{y}}, \, \ldots \ ,
-		R_{\mathbb{I}(\mathbf{x}=k-1)} \cdot R_{\mathbf{y}})$.
+		R_{\mathbb{I}(\mathbf{x}=k-1)} \cdot R_{\mathbf{y}})$ and $ \hat{\Sigma}_d $ is the covariance matrix.
 
 	\vspace{1em}
 	If $ X \ci Y | Z $, then asymptotically $ Q_2(\bm{x}, \bm{y}) \sim \chi^2(k-1) $.
@@ -233,8 +230,8 @@ Independencies for Categorical and Ordinal Data}
 		\setlength\itemsep{1em}
 		\item Dummy/One-hot encode the categorical variable.
 		\item Under CI, each component of $ d $ is asymptotically normal.
-		\item Components of $ d $ are linearly correlated. Linear combinations
-			would result in a multivariate gaussian distribution for $ d $.
+		\item Components of $ d $ are linearly correlated. Hence, $ d $ is 
+			a multivariate gaussian distributed.
 		\item $ \sqrt{(Q_2(\bm{x}, \bm{y}))} $ is multivariate standard normal.
 		\item Hence, $ Q_2 $ is chi-square distributed with $ k-1 $ dof.
 	\end{itemize}
