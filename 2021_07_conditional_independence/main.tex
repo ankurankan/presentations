@@ -87,16 +87,22 @@ Independencies for Categorical and Ordinal Data}
 
 \begin{frame}
 	\frametitle{CI Testing is Difficult}
-	\todo[inline]{Include the chi-square example here}
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.7]{imgs/sl-adult-mi-crop.pdf}
+		\caption*{Example of structure learning using MI test on US census income dataset}
+	\end{figure}
 	\begin{itemize}
-		\setlength\itemsep{1em}
-		\item Compared to normal independence testing Conditional independence testing is much harder.
-		\item For continous conditional variables, has been proven that no single 
-		      test exists which has power against all datasets. \footnotemark
-		\item But also well studied problem, and many approaches/tests exist.
+		\item Compared to normal independence testing Conditional
+			independence testing is much harder.
+		\item Especially in case of high cardinality or high number of
+			conditional variables.
+		\item In the continuous case, no test can exist which is calibrated and
+			has power over all distributions where CI is True. \footnotemark
+		\item Many different approaches and tests have been proposed.
 	\end{itemize}
 
-	\footnotetext[1]{\footnotesize{Shah, Rajen D., and Jonas Peters. "The hardness of conditional independence testing and the generalised covariance measure." The Annals of Statistics 48.3 (2020): 1514-1538.}}
+	\footnotetext[1]{\footnotesize{Shah, Rajen D., and Jonas Peters. "The hardness of conditional independence testing and the generalised covariance measure."}}
 \end{frame}
 
 \begin{frame}
@@ -145,7 +151,7 @@ Independencies for Categorical and Ordinal Data}
 	\frametitle{Residualization Based Tests}
 	\begin{itemize}
 		\setlength\itemsep{1em}
-		\item Uses two estimators to compute $ \mathbb{E}[X| Z] $ and $
+		\item Uses two estimators $ \mathbb{E}[X| Z] $ and $
 			\mathbb{E}[Y | Z] $ and checks for the multiplicative
 			association between the residuals. Example:
 			Partial Correlation test, generalized covariance measure etc.
@@ -165,13 +171,13 @@ Independencies for Categorical and Ordinal Data}
 	\begin{itemize}
 		\setlength\itemsep{1em}
 		\item Residualization based approach.
-		\item Any unbiased estimator can be used. We use Random Forest.
-		\item Uses Lee-Shepherd residuals.
+		\item Any unbiased estimator can be used. We use Random Forest for empirical analysis.
+		\item Uses Li-Shepherd residuals.
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Lee-Shepherd (LS) Residuals}
+	\frametitle{Li-Shepherd (LS) Residuals}
 	Given an ordinal variable $ Y $ and an estimate $ \hat{p}(y) $ of $
 	p(y) $, LS-Residual for sample $ y_i $ is defined as:
 	$$ R_{y_i} = \hat{p}(Y < y_i) - \hat{p}(Y > y_i) $$
@@ -183,6 +189,8 @@ Independencies for Categorical and Ordinal Data}
 
 	For the conditional case for sample $ (y|z)_i $,
 	$$ R_{y_i | z_i} = \hat{p}(Y < y_i | Z=z_i) - \hat{p}(Y>y_i|Z=z_i) $$
+
+	\footnotetext[1]{\footnotesize C. Li and B. E. Shepherd. A new residual for ordinal outcomes}
 \end{frame}
 
 \begin{frame}
@@ -265,18 +273,17 @@ Independencies for Categorical and Ordinal Data}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Test Summary / Algorithm}
+	\frametitle{Test Summary}
 	\begin{enumerate}
 		\setlength\itemsep{1em}
 		\item If either $ X $ or $ Y $ are non-binary categorical,
 			dummy/one-hot encode them.
-		\item Train two random forest classifiers $ C_x = X \sim \bm{Z} $ and
-			$ C_y = Y \sim \bm{Z} $
+		\item Train two random forest classifiers $ C_x = \bm{x} \sim \bm{z} $ and
+			$ C_y = \bm{y} \sim \bm{z} $
 		\item Make probability predictions using these two classifiers
-			$ \hat{p}(X) = C_x(\bm{Z}) $ and $ \hat{p}(Y) =
-			C_y(\bm{Z}) $.
-		\item Use predictions and true values to compute LS-Residuals $ R_{x|z} $ and $ R_{y|z} $.	
-		\item Compute covariance matrix on the product of the residuals
+			$ \hat{p}(x) = C_x(\bm{z}) $ and $ \hat{p}(y) =
+			C_y(\bm{\bm{z}}) $.
+		\item Use predictions and true values to compute LS-Residuals $ R_{\bm{x}|\bm{z}} $ and $ R_{\bm{y}|\bm{z}} $.	
 		\item Compute the test statistic and degrees of freedom(dof).
 	\end{enumerate}
 \end{frame}
@@ -398,7 +405,8 @@ Independencies for Categorical and Ordinal Data}
 	\frametitle{Conclusion/Future Work}
 	\begin{itemize}
 		\setlength\itemsep{1em}
-		\item Propose a residualization based CI test for categorical and ordinal variables.
+		\item A residualization based CI test for categorical and
+			ordinal variables.
 		\item Properties: 1) Simple to implement; 2) Interpretable chi-square test statistic; 3) Symmetric by construction; 4) Computationally feasible
 		\item Performs reasonably well for low number of
 			conditional variable but performs better for high
