@@ -189,16 +189,16 @@ Independencies for Categorical and Ordinal Data}
 	\frametitle{Proposition 1}
 	If $ X \ci Y | Z $ and $ \hat{p}(x|z) $ and $ \hat{p}(y|z) $ are asymptotically
 	unbiased estimators of $ p(x|z) $ and $ p(y|z) $ respectively, then 
-	$ \mathrm{Cov}(R_{x|z}, R_{y|z}) = 0 $.	
+	$ \mathrm{Cov}(R_{\bm{x}|\bm{z}}, R_{\bm{y}|\bm{z}}) = 0 $ in large sample limit.	
 	\vspace{1em}
 
 	\begin{itemize}
 		\setlength\itemsep{1em}
 		\item For asymptotically unbaised estimators, LS-Residuals
-			gives ``valid''residuals: $ E[R_{x|z}] = E[R_{y|z}] = 0
+			gives ``valid''residuals: $ E[R_{X|Z}] = E[R_{Y|Z}] = 0
 			$.
 		\item Under $ X \ci Y | \bm{Z} $, valid
-			residuals imply $ \mathbb{E}[R_{x|z} R_{y|z}] = 0 $.
+			residuals imply $ \mathbb{E}[R_{X|Z} R_{Y|Z}] = 0 $.
 	\end{itemize}
 \end{frame}
 
@@ -210,9 +210,9 @@ Independencies for Categorical and Ordinal Data}
 
 	\begin{itemize}
 		\setlength\itemsep{1em}
-		\item Square of sample mean of $ R_x R_y $ divided by its
+		\item $ \sqrt{Q_1} $ is the sample mean of $ R_x R_y $ divided by its
 			standard deviation.
-		\item From Proposition 1, the population mean is 0 under CI.
+		\item From Proposition 1, population mean $ \mathbb{E}[R_X R_Y] = 0 $
 		\item Using CLT, the standardized sample mean is asymptotically
 			standard normal.
 		\item Square of standard normal distribution gives a
