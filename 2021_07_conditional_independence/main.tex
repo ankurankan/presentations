@@ -114,7 +114,7 @@ Independencies for Categorical and Ordinal Data}
 	\begin{itemize}
 		\setlength\itemsep{1em}
 		\item Most common type for discrete variables. Eg. chi-squared,
-			mutual information etc. 
+			mutual information based test etc. 
 		\item Converts CI test into simple independence test by splitting 
 			the dataset.
 		$ D[X, Y, \bm{Z}] = \{ D[X, Y, \bm{Z}=\bm{z_1}], D[X, Y, \bm{Z}=\bm{z_2}], \cdots \} $	
@@ -131,11 +131,8 @@ Independencies for Categorical and Ordinal Data}
 	\begin{itemize}
 		\setlength\itemsep{1em}
 		\item Based on comparing the probability models: $\hat{p}(x | y, z) $ 
-			and $ \hat{p}(x | z) $.
-		\item $ \hat{p}(x|y, z) $ and $ \hat{p}(x | z) $ is estimated using a
-			statistical model, and if the simpler model doesn't fit
-			significantly worse, $ X \ci Y | Z $ is True.
-		\item An example is SCCI.
+			and $ \hat{p}(x | z) $. Example: SCCI
+		\item If the simpler model doesn't fit significantly worse, implies $ X \ci Y | Z $.
 		\item Can utilize any statistical model for which a reasonable goodness
 			of fit exist.
 		\item Inherently asymmetrical. The result of $ X \ci Y | Z $
@@ -148,13 +145,15 @@ Independencies for Categorical and Ordinal Data}
 	\frametitle{Residualization Based Tests}
 	\begin{itemize}
 		\setlength\itemsep{1em}
-		\item Relies on the theorem from Daudin [1980] \footnotemark
-			that under CI, if we have two estimators $ \mathbb{E}[X
-			| Z] $ and $ \mathbb{E}[Y | Z] $ with valid residuals
-			such that $ \mathbb{E}[R_X] = \mathbb{E}[R_Y] = 0 $,
-			then $ \mathbb{E}[R_X R_Y] = 0 $.
-		\item Examples are partial correlation test, generalized covariance measure etc.
-		\item Any estimator can be used as long as it has valid residuals.
+		\item Uses two estimators to compute $ \mathbb{E}[X| Z] $ and $
+			\mathbb{E}[Y | Z] $ and checks for the multiplicative
+			association between the residuals. Example:
+			Partial Correlation test, generalized covariance measure etc.
+		\item Relies on the theorem from Daudin [1980] \footnotemark 
+			that under CI, if the estimators have ``valid'' residuals
+			such that $ \mathbb{E}[R_{X|Z}] = \mathbb{E}[R_{Y|Z}] = 0 $,
+			then $ \mathbb{E}[R_{X|Z} R_{Y|Z}] = 0 $.
+		\item Any estimator can be used as long as it has ``valid'' residuals.
 		\item No residualization based test exists for categorical or ordinal variables.
 	\end{itemize}
 	\footnotetext[1]{\footnotesize Daudin, J. J. "Partial association measures and an application to qualitative regression." Biometrika 67.3 (1980): 581-590.}
@@ -173,8 +172,8 @@ Independencies for Categorical and Ordinal Data}
 
 \begin{frame}
 	\frametitle{Lee-Shepherd (LS) Residuals}
-	Given a sample $ \bm{y} $ of $ Y $ and an estimate $ \hat{p}(y) $ of $ p(y) $,
-	LS-Residual is defined as:
+	Given an ordinal variable $ Y $ and an estimate $ \hat{p}(y) $ of $
+	p(y) $, LS-Residual for sample $ y_i $ is defined as:
 	$$ R_{y_i} = \hat{p}(Y < y_i) - \hat{p}(Y > y_i) $$
 	\vspace{1em}
 
@@ -182,7 +181,7 @@ Independencies for Categorical and Ordinal Data}
 	$$ R_{y_i} = y_i - \hat{p}(Y = 1) $$
 	\vspace{1em}
 
-	For the conditional case for sample $ (\bm{y}|\bm{z})_i $,
+	For the conditional case for sample $ (y|z)_i $,
 	$$ R_{y_i | z_i} = \hat{p}(Y < y_i | Z=z_i) - \hat{p}(Y>y_i|Z=z_i) $$
 \end{frame}
 
@@ -195,10 +194,11 @@ Independencies for Categorical and Ordinal Data}
 
 	\begin{itemize}
 		\setlength\itemsep{1em}
-		\item For asymptotically unbaised estimators, LS-Residuals satisfy:
-			$ E[R_{x|z}] = E[R_{y|z}] = 0 $.
-		\item Under $ X \ci Y | \bm{Z} $, with valid
-			residuals then $ \mathbb{E}[R_{x|z} R_{y|z}] = 0 $.
+		\item For asymptotically unbaised estimators, LS-Residuals
+			gives ``valid''residuals: $ E[R_{x|z}] = E[R_{y|z}] = 0
+			$.
+		\item Under $ X \ci Y | \bm{Z} $, valid
+			residuals imply $ \mathbb{E}[R_{x|z} R_{y|z}] = 0 $.
 	\end{itemize}
 \end{frame}
 
