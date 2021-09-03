@@ -7,6 +7,7 @@
 \usepackage{mathtools}
 \usepackage{todonotes}
 \usepackage{bm}
+\usepackage{listings}
 
 \def\ci{\perp\!\!\!\!\!\perp}
 
@@ -41,10 +42,10 @@ Independencies for Categorical and Ordinal Data}
 			\hspace*{20pt} $ \text{\emph{XRay}} \ci \text{\emph{Pollution}} | \text{\emph{Cancer}} $ \newline
 			\hspace*{20pt} $ \text{\emph{Breathing}} \ci \text{\emph{Smoker}} | \text{\emph{Cancer}} $
 	\end{itemize}
-	\footnotetext[1]{\footnotesize{K. B. Korb, A. E. Nicholson. Bayesian Artificial Intelligence, 2nd edition, Section 2.2.2. CRC Press, 2010.}}
+	\footnotetext[1]{\footnotesize{K. B. Korb, A. E. Nicholson. Bayesian Artificial Intelligence}}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[fragile]
 	\frametitle{Motivation: Model Testing}
 	\begin{itemize}
 		\setlength\itemsep{1em}
@@ -53,7 +54,13 @@ Independencies for Categorical and Ordinal Data}
 		\item Important to test whether the model is consistent with the data.
 		\item CI tests can be used to verify model structure.
 	\end{itemize}
-	\todo[inline]{Add an example of model testing}
+	\vspace{1em}
+ 	\begin{verbatim}
+                              x2 df    p.value
+ Brth _||_ Pllt | Cncr 4.7571803  2 0.09268115
+ Brth _||_ Smkr | Cncr 9.0058063  2 0.01107679
+ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
+ 	\end{verbatim}
 
 \end{frame}
 
@@ -68,7 +75,11 @@ Independencies for Categorical and Ordinal Data}
 			and FCI use CI tests to systematically search for CIs
 			in the dataset to determine model skeletons.
 	\end{itemize}
-	\todo[inline]{Add a figure showing structure learning example here}
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.6]{imgs/example_sl.png}
+		\caption*{Structure Learning example}
+	\end{figure}
 \end{frame}
 
 \section{Background}
@@ -165,7 +176,7 @@ Independencies for Categorical and Ordinal Data}
 		\item Any estimator can be used as long as it has ``valid'' residuals.
 		\item No residualization based test exists for categorical or ordinal variables.
 	\end{itemize}
-	\footnotetext[1]{\footnotesize Daudin, J. J. "Partial association measures and an application to qualitative regression." Biometrika 67.3 (1980): 581-590.}
+	\footnotetext[3]{\footnotesize Daudin, J. J. "Partial association measures and an application to qualitative regression." Biometrika 67.3 (1980): 581-590.}
 \end{frame}
 
 \section{Proposed Method}
