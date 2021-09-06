@@ -55,12 +55,15 @@ Independencies for Categorical and Ordinal Data}
 		\item CI tests can be used to verify model structure.
 	\end{itemize}
 	\vspace{1em}
+	\begin{figure}
  	\begin{verbatim}
                               x2 df    p.value
  Brth _||_ Pllt | Cncr 4.7571803  2 0.09268115
  Brth _||_ Smkr | Cncr 9.0058063  2 0.01107679
  Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
  	\end{verbatim}
+		\caption*{Example model testing output from R package \emph{dagitty}}
+	\end{figure}
 
 \end{frame}
 
@@ -181,7 +184,7 @@ Independencies for Categorical and Ordinal Data}
 
 \section{Proposed Method}
 \begin{frame}
-	\frametitle{Proposed Method: Random Forest Based Test (RFT)}
+	\frametitle{Proposed Method}
 	\begin{itemize}
 		\setlength\itemsep{1em}
 		\item Residualization based approach.
