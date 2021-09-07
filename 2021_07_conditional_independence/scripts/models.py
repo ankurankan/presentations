@@ -1,6 +1,13 @@
 import daft
 import matplotlib.pyplot as plt
 
+# To generate the figures run in ipython.
+# %matplotlib qt
+# %run models.py
+# pgm.render()
+# Strech the plot horizontally and save manually.
+
+
 # example_dag = BayesianModel(
 #     [
 #         ("Pollution", "Cancer"),
