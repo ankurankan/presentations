@@ -38,7 +38,7 @@ Independencies for Categorical and Ordinal Data}
 		\setlength\itemsep{1em}
 		\item Random variables are represented using nodes.
 		\item Directed edges represent direct causal link between variables.
-		\item Each variable is conditionally independent of all non-descendants given its parents. Eg: \newline
+		\item Each variable is conditionally independent of all non-descendants given its parents. E.g. \newline
 			\hspace*{20pt} $ \text{\emph{XRay}} \ci \text{\emph{Pollution}} | \text{\emph{Cancer}} $ \newline
 			\hspace*{20pt} $ \text{\emph{Breathing}} \ci \text{\emph{Smoker}} | \text{\emph{Cancer}} $
 	\end{itemize}
@@ -52,7 +52,7 @@ Independencies for Categorical and Ordinal Data}
 		\item In applied research, most of the DAGs are made by hand
 			based on domain knowledge.
 		\item Important to test whether the model is consistent with the data.
-		\item CI tests can be used to verify model structure.
+		\item Conditional Independence (CI) tests can be used to verify model structure.
 	\end{itemize}
 	\vspace{1em}
 	\begin{figure}
@@ -107,11 +107,11 @@ Independencies for Categorical and Ordinal Data}
 	\begin{figure}
 		\centering
 		\includegraphics[scale=0.7]{imgs/sl-adult-mi-crop.pdf}
-		\caption*{Example of structure learning using MI test on US census income dataset}
+		\caption*{Example of structure learning using chi-square test on US census income dataset}
 	\end{figure}
 	\begin{itemize}
-		\item Compared to normal independence testing Conditional
-			independence testing is much harder.
+		\item Testing for CI is much harder compared to testing for
+			non-conditional independence.
 		\item Especially in case of high cardinality or high number of
 			conditional variables.
 		\item In the continuous case, no test can exist which is calibrated and
@@ -119,7 +119,7 @@ Independencies for Categorical and Ordinal Data}
 		\item Many different approaches and tests have been proposed.
 	\end{itemize}
 
-	\footnotetext[2]{\footnotesize{Shah, Rajen D., and Jonas Peters. "The hardness of conditional independence testing and the generalised covariance measure."}}
+	\footnotetext[2]{\footnotesize{Shah, Rajen D., and Jonas Peters. "The hardness of conditional independence testing and the generalised covariance measure." The Annals of Statistics, 2020}}
 \end{frame}
 
 \begin{frame}
@@ -136,7 +136,7 @@ Independencies for Categorical and Ordinal Data}
 	\frametitle{Stratification Based Tests}
 	\begin{itemize}
 		\setlength\itemsep{1em}
-		\item Most common type for discrete variables. Eg. chi-squared,
+		\item Most common type for discrete variables. E.g. chi-square,
 			mutual information based test etc. 
 		\item Converts CI test into simple independence test by splitting 
 			the dataset.
@@ -153,14 +153,16 @@ Independencies for Categorical and Ordinal Data}
 	\frametitle{Variable Importance Tests}
 	\begin{itemize}
 		\setlength\itemsep{1em}
-		\item Based on comparing the probability models: $\hat{p}(x | y, z) $ 
-			and $ \hat{p}(x | z) $. Example: SCCI
+		\item Based on comparing the probability models: $\hat{p}(x |
+			y, z) $ and $ \hat{p}(x | z) $. E.g. Stochastic
+			Complexity-Based Conditional Independence Test (SCCI) \footnotemark.
 		\item If the simpler model doesn't fit significantly worse, implies $ X \ci Y | Z $.
 		\item Can utilize any statistical model for which a reasonable goodness
 			of fit exist.
 		\item Inherently asymmetrical. The result of $ X \ci Y | Z $
 			can be different from $ Y \ci X | Z $.
 	\end{itemize}
+	\footnotetext[3]{\footnotesize Marx, Alexander, and Jilles Vreeken. "Testing conditional independence on discrete data using stochastic complexity." PMLR, 2019}
 
 \end{frame}
 
@@ -170,7 +172,7 @@ Independencies for Categorical and Ordinal Data}
 		\setlength\itemsep{1em}
 		\item Uses two estimators $ \mathbb{E}[X| Z] $ and $
 			\mathbb{E}[Y | Z] $ and checks for the multiplicative
-			association between the residuals. Example:
+			association between the residuals. E.g.
 			Partial Correlation test, generalized covariance measure etc.
 		\item Relies on the theorem from Daudin [1980] \footnotemark 
 			that under CI, if the estimators have ``valid'' residuals
@@ -179,7 +181,7 @@ Independencies for Categorical and Ordinal Data}
 		\item Any estimator can be used as long as it has ``valid'' residuals.
 		\item No residualization based test exists for categorical or ordinal variables.
 	\end{itemize}
-	\footnotetext[3]{\footnotesize Daudin, J. J. "Partial association measures and an application to qualitative regression." Biometrika 67.3 (1980): 581-590.}
+	\footnotetext[3]{\footnotesize Daudin, J. J. "Partial association measures and an application to qualitative regression." Biometrika, 1980}
 \end{frame}
 
 \section{Proposed Method}
@@ -188,8 +190,8 @@ Independencies for Categorical and Ordinal Data}
 	\begin{itemize}
 		\setlength\itemsep{1em}
 		\item Residualization based approach.
-		\item Any unbiased estimator can be used. We show empirical results using Random Forest and Logistic Regression.
 		\item Uses Li-Shepherd residuals.
+		\item Any unbiased estimator can be used. We show empirical results using Random Forest (RFT) and Logistic Regression (GLM).
 	\end{itemize}
 \end{frame}
 
@@ -207,7 +209,7 @@ Independencies for Categorical and Ordinal Data}
 	For the conditional case for sample $ (y|z)_i $,
 	$$ R_{y_i | z_i} = \hat{p}(Y < y_i | Z=z_i) - \hat{p}(Y>y_i|Z=z_i) $$
 
-	\footnotetext[1]{\footnotesize C. Li and B. E. Shepherd. A new residual for ordinal outcomes}
+	\footnotetext[1]{\footnotesize C. Li and B. E. Shepherd. "A new residual for ordinal outcomes." Biometrika, 2012}
 \end{frame}
 
 \begin{frame}
@@ -238,7 +240,7 @@ Independencies for Categorical and Ordinal Data}
 		\item From the proposition, population mean $ \mathbb{E}[R_X R_Y] = 0 $
 		\item From Central Limit Theorem, the standardized sample mean of $ R_x R_y $, $ \frac{1}{n} \frac{R_x \cdot R_y}{\sigma(R_xR_y)} \sim \mathcal{N}(0, \frac{1}{\sqrt{n}}) $.
 		\item $ \sqrt{Q_1} $ is standard normal distributed.
-		\item $ Q_1 $ is chi-squared distribution with $ 1 $ degree of freedom.
+		\item $ Q_1 $ is chi-squared distribution with $ 1 $ degree of freedom (df).
 	\end{itemize}
 \end{frame}
 
@@ -258,7 +260,7 @@ Independencies for Categorical and Ordinal Data}
 		\item Components of $ d $ are linearly correlated. Hence, $ d $ is 
 			a multivariate gaussian distributed.
 		\item $ \sqrt{(Q_2(\bm{x}, \bm{y}))} $ is multivariate standard normal.
-		\item $ Q_2 $ is chi-square distributed with $ k-1 $ dof.
+		\item $ Q_2 $ is chi-square distributed with $ k-1 $ df.
 	\end{itemize}
 \end{frame}
 
@@ -285,7 +287,7 @@ Independencies for Categorical and Ordinal Data}
 	\begin{itemize}
 		\setlength\itemsep{1em}
 		\item Same as the last case, $ Q_3(\bm{x}, \bm{y}) $ is chi-square distributed 
-			with $ (k-1)(r-1) $ dof.
+			with $ (k-1)(r-1) $ df.
 	\end{itemize}
 \end{frame}
 
@@ -301,7 +303,7 @@ Independencies for Categorical and Ordinal Data}
 			$ \hat{p}(x) = C_x(\bm{z}) $ and $ \hat{p}(y) =
 			C_y(\bm{\bm{z}}) $.
 		\item Use predictions and true values to compute LS-Residuals $ R_{\bm{x}|\bm{z}} $ and $ R_{\bm{y}|\bm{z}} $.	
-		\item Compute the test statistic and degrees of freedom(dof).
+		\item Compute the test statistic and degrees of freedom.
 	\end{enumerate}
 \end{frame}
 
@@ -426,7 +428,7 @@ Independencies for Categorical and Ordinal Data}
 			number of conditional variables.
 		\item For structure learning, a hybrid approach can be used with other
 			tests.
-		\item Since Random Forest can work with combination of discrete and 
+		\item Since Random Forests can work with combination of discrete and 
 			continuous variables, can possibly be extended to a single 
 			unified test.
 	\end{itemize}
