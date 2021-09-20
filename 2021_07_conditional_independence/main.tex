@@ -181,7 +181,7 @@ Independencies for Categorical and Ordinal Data}
 		\item Any estimator can be used as long as it has ``valid'' residuals.
 		\item No residualization based test exists for categorical or ordinal variables.
 	\end{itemize}
-	\footnotetext[3]{\footnotesize Daudin, J. J. "Partial association measures and an application to qualitative regression." Biometrika, 1980}
+	\footnotetext[4]{\footnotesize Daudin, J. J. "Partial association measures and an application to qualitative regression." Biometrika, 1980}
 \end{frame}
 
 \section{Proposed Method}
@@ -190,13 +190,14 @@ Independencies for Categorical and Ordinal Data}
 	\begin{itemize}
 		\setlength\itemsep{1em}
 		\item Residualization based approach.
-		\item Uses Li-Shepherd residuals.
-		\item Any unbiased estimator can be used. We show empirical results using Random Forest (RFT) and Logistic Regression (GLM).
+		\item Uses Li-Shepherd (LS) residuals \footnotemark.
+		\item Any unbiased estimator can be used. We show empirical results using Logistic Regression (GLM) and Random Forest (RFT).
 	\end{itemize}
+	\footnotetext[5]{\footnotesize C. Li and B. E. Shepherd. "A new residual for ordinal outcomes." Biometrika, 2012}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Li-Shepherd (LS) Residuals}
+	\frametitle{LS-Residuals}
 	Given an ordinal variable $ Y $ and an estimate $ \hat{p}(y) $ of $
 	p(y) $, LS-Residual for sample $ y_i $ is defined as:
 	$$ R_{y_i} = \hat{p}(Y < y_i) - \hat{p}(Y > y_i) $$
@@ -209,7 +210,6 @@ Independencies for Categorical and Ordinal Data}
 	For the conditional case for sample $ (y|z)_i $,
 	$$ R_{y_i | z_i} = \hat{p}(Y < y_i | Z=z_i) - \hat{p}(Y>y_i|Z=z_i) $$
 
-	\footnotetext[1]{\footnotesize C. Li and B. E. Shepherd. "A new residual for ordinal outcomes." Biometrika, 2012}
 \end{frame}
 
 \begin{frame}
@@ -240,7 +240,7 @@ Independencies for Categorical and Ordinal Data}
 		\item From the proposition, population mean $ \mathbb{E}[R_X R_Y] = 0 $
 		\item From Central Limit Theorem, the standardized sample mean of $ R_x R_y $, $ \frac{1}{n} \frac{R_x \cdot R_y}{\sigma(R_xR_y)} \sim \mathcal{N}(0, \frac{1}{\sqrt{n}}) $.
 		\item $ \sqrt{Q_1} $ is standard normal distributed.
-		\item $ Q_1 $ is chi-squared distribution with $ 1 $ degree of freedom (df).
+		\item $ Q_1 $ is chi-squared distributed with $ 1 $ degree of freedom (df).
 	\end{itemize}
 \end{frame}
 
@@ -260,7 +260,7 @@ Independencies for Categorical and Ordinal Data}
 		\item Components of $ d $ are linearly correlated. Hence, $ d $ is 
 			a multivariate gaussian distributed.
 		\item $ \sqrt{(Q_2(\bm{x}, \bm{y}))} $ is multivariate standard normal.
-		\item $ Q_2 $ is chi-square distributed with $ k-1 $ df.
+		\item $ Q_2 $ is chi-squared distributed with $ k-1 $ df.
 	\end{itemize}
 \end{frame}
 
@@ -286,7 +286,7 @@ Independencies for Categorical and Ordinal Data}
 
 	\begin{itemize}
 		\setlength\itemsep{1em}
-		\item Same as the last case, $ Q_3(\bm{x}, \bm{y}) $ is chi-square distributed 
+		\item Same as the last case, $ Q_3(\bm{x}, \bm{y}) $ is chi-squared distributed 
 			with $ (k-1)(r-1) $ df.
 	\end{itemize}
 \end{frame}
@@ -297,13 +297,13 @@ Independencies for Categorical and Ordinal Data}
 		\setlength\itemsep{1em}
 		\item If either $ X $ or $ Y $ are non-binary categorical,
 			dummy/one-hot encode them.
-		\item Train two random forest classifiers $ C_x = \bm{x} \sim \bm{z} $ and
+		\item Train two estimators $ C_x = \bm{x} \sim \bm{z} $ and
 			$ C_y = \bm{y} \sim \bm{z} $
 		\item Make probability predictions using these two classifiers
 			$ \hat{p}(x) = C_x(\bm{z}) $ and $ \hat{p}(y) =
 			C_y(\bm{\bm{z}}) $.
 		\item Use predictions and true values to compute LS-Residuals $ R_{\bm{x}|\bm{z}} $ and $ R_{\bm{y}|\bm{z}} $.	
-		\item Compute the test statistic and degrees of freedom.
+		\item Compute the test statistic and df.
 	\end{enumerate}
 \end{frame}
 
@@ -341,7 +341,7 @@ Independencies for Categorical and Ordinal Data}
 		classifying simulated ordinal data (8 levels per variable) as
 		conditionally dependent or independent.}	
 	\end{figure}
-	\footnotetext[1]{JT = Jonckheere-Terpstra trend test}
+	\footnotetext[6]{JT = Jonckheere-Terpstra trend test}
 \end{frame}
 
 \begin{frame}
