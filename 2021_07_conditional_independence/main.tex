@@ -107,7 +107,7 @@ Independencies for Categorical and Ordinal Data}
 	\begin{figure}
 		\centering
 		\includegraphics[scale=0.7]{imgs/sl-adult-mi-crop.pdf}
-		\caption*{Example of structure learning using chi-square test on US census income dataset}
+		\caption*{Learned structure for US census income dataset using chi-square test}
 	\end{figure}
 	\begin{itemize}
 		\item Testing for CI is much harder compared to testing for
@@ -141,7 +141,7 @@ Independencies for Categorical and Ordinal Data}
 		\item Converts CI test into simple independence test by splitting 
 			the dataset.
 		$ D[X, Y, \bm{Z}] = \{ D[X, Y, \bm{Z}=\bm{z_1}], D[X, Y, \bm{Z}=\bm{z_2}], \cdots \} $	
-		\item Runs test on each of the stratum and then combines the results.
+		\item Runs test on each stratum and then combines the results.
 		\item As the number of conditional variables is increased, exponentially
 			less data is available in each stratum.
 		\item Looses power when number of conditonal variables
@@ -235,6 +235,7 @@ Independencies for Categorical and Ordinal Data}
 
 	If $ X \ci Y | Z $, then asymptotically $ Q_1(\bm{x}, \bm{y}) \sim \chi^2(1) $.
 
+	\todo[inline]{Replace the proof with an example.}
 	\begin{itemize}
 		\setlength\itemsep{1em}
 		\item From the proposition, population mean $ \mathbb{E}[R_X R_Y] = 0 $
@@ -253,6 +254,7 @@ Independencies for Categorical and Ordinal Data}
 	\vspace{1em}
 	If $ X \ci Y | Z $, then asymptotically $ Q_2(\bm{x}, \bm{y}) \sim \chi^2(k-1) $.
 
+	\todo[inline]{Replace the proof with an example.}
 	\begin{itemize}
 		\setlength\itemsep{1em}
 		\item Dummy/One-hot encode the categorical variable.
@@ -284,6 +286,7 @@ Independencies for Categorical and Ordinal Data}
 
 	If $ X \ci Y | Z $, then asymptotically $ Q_3(\bm{x}, \bm{y}) \sim \chi^2((k-1)(r-1)) $.
 
+	\todo[inline]{Replace the proof with an example.}
 	\begin{itemize}
 		\setlength\itemsep{1em}
 		\item Same as the last case, $ Q_3(\bm{x}, \bm{y}) $ is chi-squared distributed 
@@ -299,7 +302,7 @@ Independencies for Categorical and Ordinal Data}
 			dummy/one-hot encode them.
 		\item Train two estimators $ C_x = \bm{x} \sim \bm{z} $ and
 			$ C_y = \bm{y} \sim \bm{z} $
-		\item Make probability predictions using these two classifiers
+		\item Make probability predictions using these two estimators 
 			$ \hat{p}(x) = C_x(\bm{z}) $ and $ \hat{p}(y) =
 			C_y(\bm{\bm{z}}) $.
 		\item Use predictions and true values to compute LS-Residuals $ R_{\bm{x}|\bm{z}} $ and $ R_{\bm{y}|\bm{z}} $.	
@@ -333,7 +336,7 @@ Independencies for Categorical and Ordinal Data}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Empirical Analysis: Discrimination}
+	\frametitle{Empirical Analysis: Discrimination (Ordinal)}
 	\begin{figure}
 		\centering
 		\includegraphics{imgs/accuracy_ordinal.pdf}
@@ -341,7 +344,7 @@ Independencies for Categorical and Ordinal Data}
 		classifying simulated ordinal data (8 levels per variable) as
 		conditionally dependent or independent.}	
 	\end{figure}
-	\footnotetext[6]{JT = Jonckheere-Terpstra trend test}
+	\footnotetext[6]{JT = Jonckheere-Terpstra test}
 \end{frame}
 
 \begin{frame}
