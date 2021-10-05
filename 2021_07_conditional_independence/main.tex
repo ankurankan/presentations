@@ -300,8 +300,6 @@ Independencies for Categorical and Ordinal Data}
 
 \begin{frame}
 	\frametitle{Test Statistic: Both categorical}
-	Both categorical variables with $ k $ and $ r $ categories.
-
 
 	$$ Q_3(\bm{x}, \bm{y}) = \frac{1}{n} (d \times \hat{\Sigma}_d^{-1} \times d^T) $$
 
@@ -329,6 +327,7 @@ Independencies for Categorical and Ordinal Data}
 	\frametitle{Test Summary}
 	\begin{enumerate}
 		\setlength\itemsep{1em}
+		\item If $\mathbf{Z} = \emptyset $ , do a non-conditional chi-squared test.
 		\item If either $ X $ or $ Y $ are non-binary categorical,
 			dummy/one-hot encode them.
 		\item Train two estimators $ E_x = \bm{x} \sim \bm{z} $ and
