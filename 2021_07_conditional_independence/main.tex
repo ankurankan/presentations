@@ -225,8 +225,9 @@ Independencies for Categorical and Ordinal Data}
 			gives ``valid''residuals: $ E[R_{X|Z}] = E[R_{Y|Z}] = 0
 			$.
 		\item Under $ X \ci Y | \bm{Z} $, valid
-			residuals imply $ \mathbb{E}[R_{X|Z} R_{Y|Z}] = 0 $.
+			residuals imply $ \mathbb{E}[R_{X|Z} R_{Y|Z}] = 0 $ \footnotemark.
 	\end{itemize}
+	\footnotetext[6]{\footnotesize Daudin, J. J. "Partial association measures and an application to qualitative regression." Biometrika, 1980}
 \end{frame}
 
 \begin{frame}
@@ -235,12 +236,28 @@ Independencies for Categorical and Ordinal Data}
 
 	If $ X \ci Y | Z $, then asymptotically $ Q_1(\bm{x}, \bm{y}) \sim \chi^2(1) $.
 
-	\todo[inline]{Replace the proof with an example.}
+	\vspace{1em}
 	\begin{itemize}
 		\setlength\itemsep{1em}
-		\item From the proposition, population mean $ \mathbb{E}[R_X R_Y] = 0 $
+		\item Train two estimators: $ E_X = \mathbf{x} \sim \mathbf{z} $ and $ E_Y = \mathbf{y} \sim \mathbf{z} $
+		\item Make probability predictions for each data point: $ \hat{p}(x|z) $ and $ \hat{p}(y|z) $ using $ E_X $ and $ E_Y $ respectively.
+		\item Compute the LS-Residuals for each data point: $ R_{\mathbf{x}} $ and $ R_{\mathbf{y}} $.
+		\item Use $ R_{\mathbf{x}} $ and $ R_{\mathbf{y}} $ to compute $ Q_1 $.
+	\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+	\frametitle{Test Statistic: Both ordinal variables}
+	$$ Q_1(\bm{x}, \bm{y}) = \frac{1}{n} \frac{(R_{\bm{x}} \cdot R_{\bm{y}})^2}{\bm{var}(R_{\bm{x}} R_{\bm{y}})} $$
+
+	If $ X \ci Y | Z $, then asymptotically $ Q_1(\bm{x}, \bm{y}) \sim \chi^2(1) $.
+
+	\vspace{1em}
+	\begin{itemize}
+		\setlength\itemsep{1em}
+		\item From the first proposition, population mean $ \mathbb{E}[R_X R_Y] = 0 $
 		\item From Central Limit Theorem, the standardized sample mean of $ R_x R_y $, $ \frac{1}{n} \frac{R_x \cdot R_y}{\sigma(R_xR_y)} \sim \mathcal{N}(0, \frac{1}{\sqrt{n}}) $.
-		\item $ \sqrt{Q_1} $ is standard normal distributed.
 		\item $ Q_1 $ is chi-squared distributed with $ 1 $ degree of freedom (df).
 	\end{itemize}
 \end{frame}
@@ -254,14 +271,29 @@ Independencies for Categorical and Ordinal Data}
 	\vspace{1em}
 	If $ X \ci Y | Z $, then asymptotically $ Q_2(\bm{x}, \bm{y}) \sim \chi^2(k-1) $.
 
-	\todo[inline]{Replace the proof with an example.}
 	\begin{itemize}
 		\setlength\itemsep{1em}
-		\item Dummy/One-hot encode the categorical variable.
+		\item Dummy/one-hot encode the categorical variable.
+		\item Similar to last case, train two estimators: $ E_X = \mathbf{x} \sim \mathbf{z} $ and $ E_Y = \mathbf{y} \sim \mathbf{z} $ and make probability predictions using them: $ \hat{p}(x|z) $ and $ \hat{p}(y | z) $.
+		\item Compute the LS residuals for each dummy variable assuming them to be binary ($ R_{\mathbf{x}} $) and the ordinal variable ($ R_{\mathbf{y}} $).
+		\item $ d $ is the product of residual from each dummy variable and the ordinal variable's residual.
+
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Test Statistic: One ordinal and one categorical}
+	$$ Q_2(\bm{x}, \bm{y}) = \frac{1}{n} (d \times \hat{\Sigma}_d^{-1} \times d^T) $$
+	where $ d = (R_{\mathbb{I}(\mathbf{x}=1)} \cdot R_{\mathbf{y}}, \, \ldots \ ,
+		R_{\mathbb{I}(\mathbf{x}=k-1)} \cdot R_{\mathbf{y}})$ and $ \hat{\Sigma}_d $ is the covariance matrix.
+
+	\vspace{1em}
+	If $ X \ci Y | Z $, then asymptotically $ Q_2(\bm{x}, \bm{y}) \sim \chi^2(k-1) $.
+
+	\begin{itemize}
 		\item Under CI, each component of $ d $ is asymptotically normal.
 		\item Components of $ d $ are linearly correlated. Hence, $ d $ is 
 			a multivariate gaussian distributed.
-		\item $ \sqrt{(Q_2(\bm{x}, \bm{y}))} $ is multivariate standard normal.
 		\item $ Q_2 $ is chi-squared distributed with $ k-1 $ df.
 	\end{itemize}
 \end{frame}
@@ -286,7 +318,6 @@ Independencies for Categorical and Ordinal Data}
 
 	If $ X \ci Y | Z $, then asymptotically $ Q_3(\bm{x}, \bm{y}) \sim \chi^2((k-1)(r-1)) $.
 
-	\todo[inline]{Replace the proof with an example.}
 	\begin{itemize}
 		\setlength\itemsep{1em}
 		\item Same as the last case, $ Q_3(\bm{x}, \bm{y}) $ is chi-squared distributed 
@@ -300,11 +331,11 @@ Independencies for Categorical and Ordinal Data}
 		\setlength\itemsep{1em}
 		\item If either $ X $ or $ Y $ are non-binary categorical,
 			dummy/one-hot encode them.
-		\item Train two estimators $ C_x = \bm{x} \sim \bm{z} $ and
-			$ C_y = \bm{y} \sim \bm{z} $
+		\item Train two estimators $ E_x = \bm{x} \sim \bm{z} $ and
+			$ E_y = \bm{y} \sim \bm{z} $
 		\item Make probability predictions using these two estimators 
-			$ \hat{p}(x) = C_x(\bm{z}) $ and $ \hat{p}(y) =
-			C_y(\bm{\bm{z}}) $.
+			$ \hat{p}(x) = E_x(\bm{z}) $ and $ \hat{p}(y) =
+			E_y(\bm{\bm{z}}) $.
 		\item Use predictions and true values to compute LS-Residuals $ R_{\bm{x}|\bm{z}} $ and $ R_{\bm{y}|\bm{z}} $.	
 		\item Compute the test statistic and df.
 	\end{enumerate}
@@ -344,7 +375,7 @@ Independencies for Categorical and Ordinal Data}
 		classifying simulated ordinal data (8 levels per variable) as
 		conditionally dependent or independent.}	
 	\end{figure}
-	\footnotetext[6]{JT = Jonckheere-Terpstra test}
+	\footnotetext[7]{JT = Jonckheere-Terpstra test}
 \end{frame}
 
 \begin{frame}
