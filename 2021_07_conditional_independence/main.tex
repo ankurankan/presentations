@@ -358,11 +358,27 @@ Independencies for Categorical and Ordinal Data}
 	\frametitle{Empirical Analysis: Discrimination}
 	\begin{figure}
 		\centering
-		\includegraphics{imgs/accuracy.pdf}
-		\caption*{Accuracy (shading: mean $\pm$ standard error, $N=200$)
+		\begin{subfigure}{0.8 \textwidth}
+			\includegraphics{imgs/accuracy.pdf}
+		\end{subfigure}%
+		\begin{subfigure}{0.2 \textwidth}
+			\begin{tikzpicture}[yscale=.75, xscale=.6]
+				\node (x) at (0,0) {$X$};
+				\node (y) at (2,0) {$Y$};
+				\node (z) at (1,1) {$Z_1$};
+				\node at (2,1) {$Z_2$};
+				\node at (3,1) {$\ldots$};
+				\node at (4,1) {$Z_k$};
+				\draw [->] (x) edge node [midway, above] {?} (y);
+				\draw [->] (z) -- (y);
+				\draw [->] (z) -- (x);
+			\end{tikzpicture}
+		\end{subfigure}
+		\caption*{(a) Accuracy (shading: mean $\pm$ standard error, $N=200$)
 		of classifying simulated binary datasets (sample size: $1000$)
-		as conditionally dependent or independent.}
+		as conditionally dependent or independent. (b) The data generating DAG.}
 	\end{figure}
+
 \end{frame}
 
 \begin{frame}
