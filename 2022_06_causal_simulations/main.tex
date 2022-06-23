@@ -1,0 +1,74 @@
+\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}
+\usecolortheme{beaver}
+\usepackage{caption}
+\usepackage{subcaption}
+
+\setbeamertemplate{navigation symbols}{}
+
+\begin{document}
+
+\title{Simulation methods in Causal Inference}
+
+\begin{frame}
+	\begin{itemize}
+		\item Problem Statement
+		\item Monte Carlo simulations
+		\item Generative Deep Learning simulations
+	\end{itemize}
+\end{frame}
+\begin{frame}
+	\frametitle{Problem Statement}
+	\begin{itemize}
+		\item Lots of different methods for estimating causal effect.
+		\item Theoretical properties of them are known but empirical evaluation is limited.
+		\item In correlational models, can split into train and validation sets to evaluate the performance.
+		\item Challenges: Lack of observational datasets for which the interventional effect is known.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{How and when to use experimental data to evaluate}
+	\begin{itemize}
+		\item For associational models, it is easy to split data and evaluate the performance.
+		\item For evaluating causal estimates, we need an observational dataset and the true causal effects
+		\item This approach uses RCT datasets to generate an observational dataset. The RCT can give the true causal effect values and that can then be verified by estimation on the observational dataset.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{How and when to use experimental data to evaluate}
+	\begin{itemize}
+		\item Use some of the covariates (which affect the outcome) to bias the random
+			selection.
+		\item Using the baised treatment selection, sample from the RCT dataset.
+		\item Gives a biased observational dataset, where the bias covariates are the 
+			confounders.
+		\item Use estimators on these observational datasets to estimate the true 
+			causal effect.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Placebo Design}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Structured Design}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Mostly Harmless Simulations}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Using Generative Adversarial Networks}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Using Variational Auto Encoders}
+\end{frame}
+
+
+\end{document}
