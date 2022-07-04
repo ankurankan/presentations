@@ -21,7 +21,7 @@
 
 \begin{document}
 
-\title{Simulation methods in Causal Inference}
+\title{Simulation methods for Causal Effect Estimation}
 \date{}
 \maketitle
 
@@ -38,8 +38,8 @@
 			\end{itemize}
 		\item Generative Deep Learning based
 			\begin{itemize}
-				\item Wasserstein Generative Adversarial Networks
-				\item Variational Autoencoders
+				\item Wasserstein Generative Adversarial Networks (GANs)
+				\item Variational Autoencoders (VAEs)
 			\end{itemize}
 	\end{itemize}
 \end{frame}
@@ -85,10 +85,13 @@
 
 \begin{frame}
 	\frametitle{Treatment Effect Measures}
-	Average Treatment Effect (ATE):
-	$ \mathbb{E}[Y_i(1) - Y_i(0)] $
-	Conditional Average Treatment Effect (CATE):
-	$ \mathbb{E}[Y_i(1) - Y_i(0) | W_i = 1] $
+	\section{Average Treatment Effect (ATE)}
+	
+	$$ \mathbb{E}[Y_i(1) - Y_i(0)] $$
+
+	\section{Conditional Average Treatment Effect (CATE)}
+	
+	$$ \mathbb{E}[Y_i(1) - Y_i(0) | W_i = 1] $$
 \end{frame}
 
 \begin{frame}
@@ -120,6 +123,8 @@
 		\caption*{ATE estimates on the National Support Work Demonstration temporary employment program and income dataset \footcite{parikh2022evaluating}}
 		\label{table:estimates}
 	\end{table}
+	How to choose the estimator?
+	Generate simulated data using the given dataset, and compare performance of the methods on it.
 \end{frame}
 
 \begin{frame}
@@ -130,10 +135,11 @@
 		\item For evaluating causal estimates, we need an observational dataset and the true causal effects
 		\item This approach uses RCT datasets to generate an observational dataset. The RCT can give the true causal effect values and that can then be verified by estimation on the observational dataset.
 	\end{itemize}
+	\footnotetext{Gentzel, Amanda M., Purva Pruthi, and David Jensen. "How and why to use experimental data to evaluate methods for observational causal inference." International Conference on Machine Learning. PMLR, 2021.}
 \end{frame}
 
 \begin{frame}
-	\frametitle{How and when to use experimental data to evaluate}
+	\frametitle{Finite sample performance on data from RCTs}
 	\begin{itemize}
 		\item Use some of the covariates (which affect the outcome) to bias the random
 			selection.
@@ -147,24 +153,31 @@
 
 \begin{frame}
 	\frametitle{Placebo Design}
-	Use the placebo arm with treatment effect 0, and try to estimate it using the methods.
+	Use the placebo arm as the ground truth with treatment effect = $ 0 $. Compare how well
+	the estimators are able to estimate the $ 0 $ effect.
+	\footnotetext{Huber, Martin, Michael Lechner, and Conny Wunsch. "The performance of estimators based on the propensity score." Journal of Econometrics 175.1 (2013): 1-21.}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Structured Design}
-	Assume a data generating structure, and try to estimate the treatment effect from the structure.
+	Assume a data generating structure, which will give us a true treatment effect. Assume
+	that as the true effect and compare the methods on that.
+	\footnotetext{Busso, Matias, John DiNardo, and Justin McCrary. "New evidence on the finite sample properties of propensity score reweighting and matching estimators." Review of Economics and Statistics 96.5 (2014): 885-897.}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Mostly Harmless Simulations}
 	\begin{itemize}
-		\item Both the methods don't really work and just bootstrapping is a better method.
+		\item Both the methods don't really work, the estimator performances are very
+			dependent on the assumptions that we make.
+		\item Bootstrapping might just be a better option.
 		\item Unrealistic assumptions on the data generating process lead to unreliable results.
 	\end{itemize}
+	\footnotetext{Advani, Arun, Toru Kitagawa, and Tymon Słoczyński. "Mostly harmless simulations? Using Monte Carlo studies for estimator selection." Journal of Applied Econometrics 34.6 (2019): 893-910.}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Using Wasserstein Generative Adversarial Networks (GANs)}
+	\frametitle{Using Wasserstein GANs}
 	\begin{itemize}
 		\item Not a single estimator which works well for all.
 		\item Systematic simulation studies can be helpful for selecting methods.
@@ -175,7 +188,7 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Using Variational Auto Encoders}
+	\frametitle{Using VAEs}
 	\begin{itemize}
 		\item Relaxes conditional ignorability. Allows users to specify treatment effects and confounding bias.
 		\item Paper only considers the problem of estimating ATE i.e $ \tau = \mathbb{E}[Y(1) - Y(0)] $.
@@ -188,7 +201,7 @@
 	Assumed data generating process:
 	\begin{equation}
 		\begin{split}
-			\{ \epsilon_{X, i}, \epsilon_{Z, i}, \epsilon_{Y, i} \}_{i=1}^N & \sim \mathcal{N}(\mathbb{0}, \mathbb{1}) \\
+			\{ \epsilon_{X, i}, \epsilon_{Z, i}, \epsilon_{Y, i} \}_{i=1}^N & \sim \mathcal{N}(\mathbf{0}, \mathbf{1}) \\
 			\{ U_i \} & \sim \mathcal{N}(0, 1) \\
 			X_i & \sim \phi_X(\epsilon_(X, i) \\
 			Z_i & \sim \phi_Z(X_i, U_i, \epsilon_{Z, i}) \\
@@ -228,6 +241,14 @@
 	\begin{figure}
 		\includegraphics[width=\textwidth]{fig_4.jpg}
 	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Conclusion}
+	\begin{itemize}
+		\item Simulations can be used to compare performance for selecting estimator.
+		\item No access to true causal effect, assumptions for DGP is made for each method.
+	\end{itemize}
 \end{frame}
 
 \end{document}
