@@ -3,7 +3,16 @@
 \usepackage[utf8]{inputenc}
 \usecolortheme{beaver}
 \usepackage{caption}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
 \usepackage{subcaption}
+\usepackage{mathtools}
+\usepackage[style=verbose, backend=biber]{biblatex}
+
+\DeclarePairedDelimiter\norm{\lVert}{\rVert}%
+
+\addbibresource{references.bib}
 
 \setbeamertemplate{navigation symbols}{}
 
@@ -24,13 +33,28 @@
 		\item Lots of different methods for estimating causal effect.
 		\item Theoretical properties of them are known but empirical evaluation is limited.
 		\item In correlational models, can split into train and validation sets to evaluate the performance.
-		\item Challenges: Lack of observational datasets for which the interventional effect is known.
 	\end{itemize}
+	\begin{table}[h!]
+		\centering
+		\begin{tabular}{||c c c c||} 
+		 \hline
+		 Estimators  & ATE Estimate & Std. Dev. \\ [0.5ex] 
+		 \hline\hline
+		 Difference of Means & 886.30 & 277.37 \\ 
+		 Double Machine Learning & 370.94 & 394.68 \\
+		 Causal Bart & 818.79 & 184.46 \\
+		 Propensity Score Matching & 1079.13 & 158.59 \\ [1ex] 
+		 \hline
+		\end{tabular}
+		\caption{ATE estimates on the National Support Work Demonstration temporary employment program and income dataset \footcite{parikh2022evaluating}}
+		\label{table:1}
+	\end{table}
 \end{frame}
 
 \begin{frame}
 	\frametitle{How and when to use experimental data to evaluate}
 	\begin{itemize}
+		\item Problem Statement: Lack of observational datasets for which the interventional effect is known.
 		\item For associational models, it is easy to split data and evaluate the performance.
 		\item For evaluating causal estimates, we need an observational dataset and the true causal effects
 		\item This approach uses RCT datasets to generate an observational dataset. The RCT can give the true causal effect values and that can then be verified by estimation on the observational dataset.
@@ -72,7 +96,52 @@
 
 \begin{frame}
 	\frametitle{Using Variational Auto Encoders}
+	\begin{itemize}
+		\item Relaxes conditional ignorability. Allows users to specify treatment effects and confounding bias.
+		\item Paper only considers the problem of estimating ATE i.e $ \tau = \mathbb{E}[Y(1) - Y(0)] $.
+		\item Method to generate synthetic data with two features: 1) User-specified causal treatment effect, heterogeneity, and endogeneity. 2) simulated samples that are stochastically indistinguishable from the observed data sample of interest.
+	\end{itemize}
 \end{frame}
+\begin{frame}
+	Assumed data generating process:
+	\begin{equation}
+		\begin{split}
+			\{ \epsilon_{X, i}, \epsilon_{Z, i}, \epsilon_{Y, i} \}_{i=1}^N & \sim \mathcal{N}(\mathbb{0}, \mathbb{1}) \\
+			\{ U_i \} & \sim \mathcal{N}(0, 1) \\
+			X_i & \sim \phi_X(\epsilon_(X, i) \\
+			Z_i & \sim \phi_Z(X_i, U_i, \epsilon_{Z, i}) \\
+			Y_i(1) & \sim \phi_{Y_i(1)} (X_i, U_i, \epsilon_{Y, i}) \\
+			Y_i(0) & \sim \phi_{Y_i(0)} (X_i, U_i, \epsilon_{Y, i})
+		\end{split}
+	\end{equation}
+	User defined inputs:
+	\begin{equation}
+		\begin{split}
+			f(x) &= \mathbb{E}[Y(1) - Y(0) | X=x] \\
+			g(x, z) &= \mathbb{E}[Y(z) | X=x, Z=z] - \mathbb{E}[Y(z) | X=x, Z=1-z] \\
+		\end{split}
+	\end{equation}
+\end{frame}
+\begin{frame}
+	\begin{equation}
+		\begin{split}
+			\mathbf{\min}_{\theta} & \mathbb{E}[d((X, Y, Z), (X', Y', Z'))] + \alpha \norm{\mathbb{E}[Y'(1) - Y'(0) | X' = x'] -f(x') } \\
+						& + \beta \norm{\mathbb{E}[Y'(z') | X'=x', Z'=z] - \mathbb{E}[Y'(z') | X'=x', Z'=1-z'] -g(x', z')}
+		\end{split}
+	\end{equation}
 
+	\begin{itemize}
+		\item First term: Some distance measure on the distributions.
+		\item Second term: Difference between the use-specified causal effect and expected from the generated data.
+		\item Third term: Difference between estimated confounding and use-specified.
+	\end{itemize}
+	Two VAEs, first one to learn $ P(X | Z) $ and second one to learn $ P((Y(1), Y(0)) | X, Z) $.
+\end{frame}
+\begin{frame}
+Figure 3
+\end{frame}
+\begin{frame}
+Figure 4
+\end{frame}
 
 \end{document}
