@@ -90,11 +90,19 @@
 \end{frame}
 
 \begin{frame}
+	\frametitle{Problems with Monte carlo simulations}
+	\begin{itemize}
+		Assumptions on the data generating process.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
 	\frametitle{Using Wasserstein Generative Adversarial Networks (GANs)}
 	\begin{itemize}
 		\item Not a single estimator which works well for all.
 		\item Systematic simulation studies can be helpful for selecting methods.
 		\item Generated data closely resembles the actual data.
+		\item DGP like kernel desnity doesn't work because of oversmooth in case of finite samples. Bootstrp doesn't replace the original samples and there is overlap.
 	\end{itemize}
 \end{frame}
 
@@ -106,6 +114,7 @@
 		\item Method to generate synthetic data with two features: 1) User-specified causal treatment effect, heterogeneity, and endogeneity. 2) simulated samples that are stochastically indistinguishable from the observed data sample of interest.
 	\end{itemize}
 \end{frame}
+
 \begin{frame}
 	Assumed data generating process:
 	\begin{equation}
