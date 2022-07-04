@@ -1,13 +1,16 @@
 \documentclass{beamer}
 
 \usepackage[utf8]{inputenc}
+\DeclareUnicodeCharacter{2212}{-}
 \usecolortheme{beaver}
 \usepackage{caption}
+\usepackage{tabularx}
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{subcaption}
 \usepackage{mathtools}
+\usepackage{graphicx}
 \usepackage[style=verbose, backend=biber]{biblatex}
 
 \DeclarePairedDelimiter\norm{\lVert}{\rVert}%
@@ -19,40 +22,108 @@
 \begin{document}
 
 \title{Simulation methods in Causal Inference}
+\date{}
+\maketitle
 
 \begin{frame}
+	\frametitle{Index}
 	\begin{itemize}
+		\item Potential Outcome Framework
 		\item Problem Statement
-		\item Monte Carlo simulations
-		\item Generative Deep Learning simulations
+		\item Monte Carlo based
+			\begin{itemize}
+				\item Placebo Design
+				\item Structured Design
+				\item Bootstrapping
+			\end{itemize}
+		\item Generative Deep Learning based
+			\begin{itemize}
+				\item Wasserstein Generative Adversarial Networks
+				\item Variational Autoencoders
+			\end{itemize}
 	\end{itemize}
 \end{frame}
+
+\begin{frame}
+	\frametitle{Potential Outcomes Framework}
+	\begin{columns}
+		\begin{column}{0.5 \textwidth}
+		\begin{table}
+			\centering
+			\begin{tabularx}{\textwidth}{| c | c | c | c |} 
+			\hline 
+			\textbf{subject} & $ Y_{t}(u) $  & $ Y_{c}(u) $ & $ Y_{t}(u) - Y_{c}(u) $ \\
+			\hline
+				Joe    & 130     & 135    & −5 \\
+				Mary   & 140     & 150    & −10 \\
+				Sally  & 135     & 125    & 10 \\
+				Bob    & 135     & 150    & −15 \\
+			\hline
+			\hline
+			\end{tabularx}
+		\end{table}
+		\end{column}
+		\begin{column}{0.5 \textwidth}
+		\begin{table}
+			\centering
+			\begin{tabularx}{\textwidth}{| c | c | c | c |} 
+			\hline 
+			\textbf{subject} & $ Y_{t}(u) $  & $ Y_{c}(u) $ & $ Y_{t}(u) - Y_{c}(u) $ \\
+			\hline
+				Joe    & 130     & ? & ? \\
+				Mary   & ? & 150    &  ? \\
+				Sally  & ? & 125    &  ? \\
+				Bob    & 135     & ? & ? \\
+			\hline
+			\hline
+			\end{tabularx}
+		\end{table}
+		\end{column}
+	\end{columns}	
+	\footnotetext[1]{https://www.wikiwand.com/en/Rubin\_causal\_model}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Treatment Effect Measures}
+	Average Treatment Effect (ATE):
+	$ \mathbb{E}[Y_i(1) - Y_i(0)] $
+	Conditional Average Treatment Effect (CATE):
+	$ \mathbb{E}[Y_i(1) - Y_i(0) | W_i = 1] $
+\end{frame}
+
 \begin{frame}
 	\frametitle{Problem Statement}
 	\begin{itemize}
-		\item Lots of different methods for estimating causal effect.
-		\item Theoretical properties of them are known but empirical evaluation is limited.
-		\item In correlational models, can split into train and validation sets to evaluate the performance.
+		\item A lot of different estimators for treatment effect eg. Propensity score matching, Double ML.
+		\item Estimators have similar asymptotic properties but difference finite-sample properties.
+		\item In correlational models, performance of an estimator can be measured by
+			splitting data into training and test sets.
+		\item True causal effect is unknown for most datasets, so estimator performances
+			can't be compared for a given dataset.
 	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Problem Statement: Example}
 	\begin{table}[h!]
 		\centering
-		\begin{tabular}{||c c c c||} 
+		\begin{tabularx}{\textwidth}{||c c c||} 
 		 \hline
-		 Estimators  & ATE Estimate & Std. Dev. \\ [0.5ex] 
+		 \textbf{Estimators}  & \textbf{ATE Estimate} & \textbf{Std. Dev.} \\
 		 \hline\hline
 		 Difference of Means & 886.30 & 277.37 \\ 
 		 Double Machine Learning & 370.94 & 394.68 \\
 		 Causal Bart & 818.79 & 184.46 \\
-		 Propensity Score Matching & 1079.13 & 158.59 \\ [1ex] 
+		 Propensity Score Matching & 1079.13 & 158.59 \\
 		 \hline
-		\end{tabular}
-		\caption{ATE estimates on the National Support Work Demonstration temporary employment program and income dataset \footcite{parikh2022evaluating}}
-		\label{table:1}
+		\end{tabularx}
+		\caption*{ATE estimates on the National Support Work Demonstration temporary employment program and income dataset \footcite{parikh2022evaluating}}
+		\label{table:estimates}
 	\end{table}
 \end{frame}
 
 \begin{frame}
-	\frametitle{How and when to use experimental data to evaluate}
+	\frametitle{Finite sample performance on data from RCTs}
 	\begin{itemize}
 		\item Problem Statement: Lack of observational datasets for which the interventional effect is known.
 		\item For associational models, it is easy to split data and evaluate the performance.
@@ -86,13 +157,9 @@
 
 \begin{frame}
 	\frametitle{Mostly Harmless Simulations}
-	Both the methods don't really work and just bootstrapping is a better method.
-\end{frame}
-
-\begin{frame}
-	\frametitle{Problems with Monte carlo simulations}
 	\begin{itemize}
-		Assumptions on the data generating process.
+		\item Both the methods don't really work and just bootstrapping is a better method.
+		\item Unrealistic assumptions on the data generating process lead to unreliable results.
 	\end{itemize}
 \end{frame}
 
@@ -104,6 +171,7 @@
 		\item Generated data closely resembles the actual data.
 		\item DGP like kernel desnity doesn't work because of oversmooth in case of finite samples. Bootstrp doesn't replace the original samples and there is overlap.
 	\end{itemize}
+	\footnotetext{Athey, Susan, et al. "Using wasserstein generative adversarial networks for the design of monte carlo simulations." Journal of Econometrics (2021)}
 \end{frame}
 
 \begin{frame}
@@ -113,6 +181,7 @@
 		\item Paper only considers the problem of estimating ATE i.e $ \tau = \mathbb{E}[Y(1) - Y(0)] $.
 		\item Method to generate synthetic data with two features: 1) User-specified causal treatment effect, heterogeneity, and endogeneity. 2) simulated samples that are stochastically indistinguishable from the observed data sample of interest.
 	\end{itemize}
+	\footnotetext{Parikh, Harsh, et al. "Evaluating Causal Inference Methods." arXiv preprint arXiv:2202.04208 (2022)}
 \end{frame}
 
 \begin{frame}
@@ -127,7 +196,7 @@
 			Y_i(0) & \sim \phi_{Y_i(0)} (X_i, U_i, \epsilon_{Y, i})
 		\end{split}
 	\end{equation}
-	User defined inputs:
+	User defined inputs/assumptions:
 	\begin{equation}
 		\begin{split}
 			f(x) &= \mathbb{E}[Y(1) - Y(0) | X=x] \\
@@ -145,16 +214,20 @@
 
 	\begin{itemize}
 		\item First term: Some distance measure on the distributions.
-		\item Second term: Difference between the use-specified causal effect and expected from the generated data.
-		\item Third term: Difference between estimated confounding and use-specified.
+		\item Second term: Difference between the user-specified causal effect and expected from the generated data.
+		\item Third term: Difference between estimated confounding and user-specified.
 	\end{itemize}
 	Two VAEs, first one to learn $ P(X | Z) $ and second one to learn $ P((Y(1), Y(0)) | X, Z) $.
 \end{frame}
 \begin{frame}
-Figure 3
+	\begin{figure}
+		\includegraphics[width=\textwidth]{fig_3.jpg}
+	\end{figure}
 \end{frame}
 \begin{frame}
-Figure 4
+	\begin{figure}
+		\includegraphics[width=\textwidth]{fig_4.jpg}
+	\end{figure}
 \end{frame}
 
 \end{document}
