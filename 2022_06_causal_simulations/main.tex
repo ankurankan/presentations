@@ -1,13 +1,16 @@
 \documentclass{beamer}
 
 \usepackage[utf8]{inputenc}
+\DeclareUnicodeCharacter{2212}{-}
 \usecolortheme{beaver}
 \usepackage{caption}
+\usepackage{tabularx}
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{subcaption}
 \usepackage{mathtools}
+\usepackage{graphicx}
 \usepackage[style=verbose, backend=biber]{biblatex}
 
 \DeclarePairedDelimiter\norm{\lVert}{\rVert}%
@@ -18,51 +21,125 @@
 
 \begin{document}
 
-\title{Simulation methods in Causal Inference}
+\title{Simulation methods for Causal Effect Estimation}
+\date{}
+\maketitle
 
 \begin{frame}
+	\frametitle{Index}
 	\begin{itemize}
+		\item Potential Outcome Framework
 		\item Problem Statement
-		\item Monte Carlo simulations
-		\item Generative Deep Learning simulations
+		\item Monte Carlo based
+			\begin{itemize}
+				\item Placebo Design
+				\item Structured Design
+				\item Bootstrapping
+			\end{itemize}
+		\item Generative Deep Learning based
+			\begin{itemize}
+				\item Wasserstein Generative Adversarial Networks (GANs)
+				\item Variational Autoencoders (VAEs)
+			\end{itemize}
 	\end{itemize}
 \end{frame}
+
+\begin{frame}
+	\frametitle{Potential Outcomes Framework}
+	\begin{columns}
+		\begin{column}{0.5 \textwidth}
+		\begin{table}
+			\centering
+			\begin{tabularx}{\textwidth}{| c | c | c | c |} 
+			\hline 
+			\textbf{subject} & $ Y_{t}(u) $  & $ Y_{c}(u) $ & $ Y_{t}(u) - Y_{c}(u) $ \\
+			\hline
+				Joe    & 130     & 135    & −5 \\
+				Mary   & 140     & 150    & −10 \\
+				Sally  & 135     & 125    & 10 \\
+				Bob    & 135     & 150    & −15 \\
+			\hline
+			\hline
+			\end{tabularx}
+		\end{table}
+		\end{column}
+		\begin{column}{0.5 \textwidth}
+		\begin{table}
+			\centering
+			\begin{tabularx}{\textwidth}{| c | c | c | c |} 
+			\hline 
+			\textbf{subject} & $ Y_{t}(u) $  & $ Y_{c}(u) $ & $ Y_{t}(u) - Y_{c}(u) $ \\
+			\hline
+				Joe    & 130     & ? & ? \\
+				Mary   & ? & 150    &  ? \\
+				Sally  & ? & 125    &  ? \\
+				Bob    & 135     & ? & ? \\
+			\hline
+			\hline
+			\end{tabularx}
+		\end{table}
+		\end{column}
+	\end{columns}	
+	\footnotetext[1]{https://www.wikiwand.com/en/Rubin\_causal\_model}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Treatment Effect Measures}
+	\section{Average Treatment Effect (ATE)}
+	
+	$$ \mathbb{E}[Y_i(1) - Y_i(0)] $$
+
+	\section{Conditional Average Treatment Effect (CATE)}
+	
+	$$ \mathbb{E}[Y_i(1) - Y_i(0) | W_i = 1] $$
+\end{frame}
+
 \begin{frame}
 	\frametitle{Problem Statement}
 	\begin{itemize}
-		\item Lots of different methods for estimating causal effect.
-		\item Theoretical properties of them are known but empirical evaluation is limited.
-		\item In correlational models, can split into train and validation sets to evaluate the performance.
+		\item A lot of different estimators for treatment effect eg. Propensity score matching, Double ML.
+		\item Estimators have similar asymptotic properties but difference finite-sample properties.
+		\item In correlational models, performance of an estimator can be measured by
+			splitting data into training and test sets.
+		\item True causal effect is unknown for most datasets, so estimator performances
+			can't be compared for a given dataset.
 	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Problem Statement: Example}
 	\begin{table}[h!]
 		\centering
-		\begin{tabular}{||c c c c||} 
+		\begin{tabularx}{\textwidth}{||c c c||} 
 		 \hline
-		 Estimators  & ATE Estimate & Std. Dev. \\ [0.5ex] 
+		 \textbf{Estimators}  & \textbf{ATE Estimate} & \textbf{Std. Dev.} \\
 		 \hline\hline
 		 Difference of Means & 886.30 & 277.37 \\ 
 		 Double Machine Learning & 370.94 & 394.68 \\
 		 Causal Bart & 818.79 & 184.46 \\
-		 Propensity Score Matching & 1079.13 & 158.59 \\ [1ex] 
+		 Propensity Score Matching & 1079.13 & 158.59 \\
 		 \hline
-		\end{tabular}
-		\caption{ATE estimates on the National Support Work Demonstration temporary employment program and income dataset \footcite{parikh2022evaluating}}
-		\label{table:1}
+		\end{tabularx}
+		\caption*{ATE estimates on the National Support Work Demonstration temporary employment program and income dataset \footcite{parikh2022evaluating}}
+		\label{table:estimates}
 	\end{table}
+	How to choose the estimator?
+	Generate simulated data using the given dataset, and compare performance of the methods on it.
 \end{frame}
 
 \begin{frame}
-	\frametitle{How and when to use experimental data to evaluate}
+	\frametitle{Finite sample performance on data from RCTs}
 	\begin{itemize}
 		\item Problem Statement: Lack of observational datasets for which the interventional effect is known.
 		\item For associational models, it is easy to split data and evaluate the performance.
 		\item For evaluating causal estimates, we need an observational dataset and the true causal effects
 		\item This approach uses RCT datasets to generate an observational dataset. The RCT can give the true causal effect values and that can then be verified by estimation on the observational dataset.
 	\end{itemize}
+	\footnotetext{Gentzel, Amanda M., Purva Pruthi, and David Jensen. "How and why to use experimental data to evaluate methods for observational causal inference." International Conference on Machine Learning. PMLR, 2021.}
 \end{frame}
 
 \begin{frame}
-	\frametitle{How and when to use experimental data to evaluate}
+	\frametitle{Finite sample performance on data from RCTs}
 	\begin{itemize}
 		\item Use some of the covariates (which affect the outcome) to bias the random
 			selection.
@@ -76,50 +153,55 @@
 
 \begin{frame}
 	\frametitle{Placebo Design}
-	Use the placebo arm with treatment effect 0, and try to estimate it using the methods.
+	Use the placebo arm as the ground truth with treatment effect = $ 0 $. Compare how well
+	the estimators are able to estimate the $ 0 $ effect.
+	\footnotetext{Huber, Martin, Michael Lechner, and Conny Wunsch. "The performance of estimators based on the propensity score." Journal of Econometrics 175.1 (2013): 1-21.}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Structured Design}
-	Assume a data generating structure, and try to estimate the treatment effect from the structure.
+	Assume a data generating structure, which will give us a true treatment effect. Assume
+	that as the true effect and compare the methods on that.
+	\footnotetext{Busso, Matias, John DiNardo, and Justin McCrary. "New evidence on the finite sample properties of propensity score reweighting and matching estimators." Review of Economics and Statistics 96.5 (2014): 885-897.}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Mostly Harmless Simulations}
-	Both the methods don't really work and just bootstrapping is a better method.
-\end{frame}
-
-\begin{frame}
-	\frametitle{Problems with Monte carlo simulations}
 	\begin{itemize}
-		Assumptions on the data generating process.
+		\item Both the methods don't really work, the estimator performances are very
+			dependent on the assumptions that we make.
+		\item Bootstrapping might just be a better option.
+		\item Unrealistic assumptions on the data generating process lead to unreliable results.
 	\end{itemize}
+	\footnotetext{Advani, Arun, Toru Kitagawa, and Tymon Słoczyński. "Mostly harmless simulations? Using Monte Carlo studies for estimator selection." Journal of Applied Econometrics 34.6 (2019): 893-910.}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Using Wasserstein Generative Adversarial Networks (GANs)}
+	\frametitle{Using Wasserstein GANs}
 	\begin{itemize}
 		\item Not a single estimator which works well for all.
 		\item Systematic simulation studies can be helpful for selecting methods.
 		\item Generated data closely resembles the actual data.
 		\item DGP like kernel desnity doesn't work because of oversmooth in case of finite samples. Bootstrp doesn't replace the original samples and there is overlap.
 	\end{itemize}
+	\footnotetext{Athey, Susan, et al. "Using wasserstein generative adversarial networks for the design of monte carlo simulations." Journal of Econometrics (2021)}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Using Variational Auto Encoders}
+	\frametitle{Using VAEs}
 	\begin{itemize}
 		\item Relaxes conditional ignorability. Allows users to specify treatment effects and confounding bias.
 		\item Paper only considers the problem of estimating ATE i.e $ \tau = \mathbb{E}[Y(1) - Y(0)] $.
 		\item Method to generate synthetic data with two features: 1) User-specified causal treatment effect, heterogeneity, and endogeneity. 2) simulated samples that are stochastically indistinguishable from the observed data sample of interest.
 	\end{itemize}
+	\footnotetext{Parikh, Harsh, et al. "Evaluating Causal Inference Methods." arXiv preprint arXiv:2202.04208 (2022)}
 \end{frame}
 
 \begin{frame}
 	Assumed data generating process:
 	\begin{equation}
 		\begin{split}
-			\{ \epsilon_{X, i}, \epsilon_{Z, i}, \epsilon_{Y, i} \}_{i=1}^N & \sim \mathcal{N}(\mathbb{0}, \mathbb{1}) \\
+			\{ \epsilon_{X, i}, \epsilon_{Z, i}, \epsilon_{Y, i} \}_{i=1}^N & \sim \mathcal{N}(\mathbf{0}, \mathbf{1}) \\
 			\{ U_i \} & \sim \mathcal{N}(0, 1) \\
 			X_i & \sim \phi_X(\epsilon_(X, i) \\
 			Z_i & \sim \phi_Z(X_i, U_i, \epsilon_{Z, i}) \\
@@ -127,7 +209,7 @@
 			Y_i(0) & \sim \phi_{Y_i(0)} (X_i, U_i, \epsilon_{Y, i})
 		\end{split}
 	\end{equation}
-	User defined inputs:
+	User defined inputs/assumptions:
 	\begin{equation}
 		\begin{split}
 			f(x) &= \mathbb{E}[Y(1) - Y(0) | X=x] \\
@@ -145,16 +227,28 @@
 
 	\begin{itemize}
 		\item First term: Some distance measure on the distributions.
-		\item Second term: Difference between the use-specified causal effect and expected from the generated data.
-		\item Third term: Difference between estimated confounding and use-specified.
+		\item Second term: Difference between the user-specified causal effect and expected from the generated data.
+		\item Third term: Difference between estimated confounding and user-specified.
 	\end{itemize}
 	Two VAEs, first one to learn $ P(X | Z) $ and second one to learn $ P((Y(1), Y(0)) | X, Z) $.
 \end{frame}
 \begin{frame}
-Figure 3
+	\begin{figure}
+		\includegraphics[width=\textwidth]{fig_3.jpg}
+	\end{figure}
 \end{frame}
 \begin{frame}
-Figure 4
+	\begin{figure}
+		\includegraphics[width=\textwidth]{fig_4.jpg}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Conclusion}
+	\begin{itemize}
+		\item Simulations can be used to compare performance for selecting estimator.
+		\item No access to true causal effect, assumptions for DGP is made for each method.
+	\end{itemize}
 \end{frame}
 
 \end{document}
