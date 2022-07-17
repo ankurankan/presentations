@@ -27,9 +27,6 @@
 
 \begin{frame}
 	\frametitle{Positive points}
-	\begin{itemize}
-		\item 
-	\end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -42,7 +39,8 @@
 
 \begin{frame}
 	\begin{itemize}
-		\item Does selection of the variables in the confounding and non-confounding set matter?
+		\item The estimator deals with the case where $ \{ X \} \cup \bm{Z} $ is invertible but $ \{ X \} \cup \bm{Z} \cup \bm{W} $ is not. Given a set of possible covariated, how to select the set $ \bm{Z} $ and $ \bm{W} $ because there would be multiple possible set which should satisfy the condition. Was any work done on this? Or any ways to reduce the possible number of options.
+		\item Any ideas on how to choose the regularization parameter for the estimator. In the predictive setting of regularized regression we can choose the best regularization parameter by testing the predictive performance of test set. Maybe simulation methods for causal inference?
 		\item Properties of the optimization problem?
 		\item Parameter tuning of the regularized regression analysis?
 		\item Applying it to single door criterion?
@@ -50,7 +48,9 @@
 		\item Extending it to other statistical models like GLM, Generalized estimating equations, and proportional hazards model.
 		\item Effect of adjustment set selection on the optimization method.
 		\item How to select the correct regularization lambda, in case of observational can do test-train split. How to choose in this case? Simulations?
-		\itme Think strongly from an application point of view.
+		\item Think strongly from an application point of view.
+		\item Was Lasso and other methods also compared similarly by considering only a subset of variables in the regularization set?
+	\end{itemize}
 \end{frame}
 
 \end{document}
