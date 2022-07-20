@@ -13,34 +13,36 @@
 
 \begin{document}
 
-\title{Discussion: Partially Adaptive Regularized Multiple Regression Analysis for Estimating Linear Causal Effects}
+% \title{Discussion: Partially Adaptive Regularized Multiple Regression Analysis for Estimating Linear Causal Effects}
+
+% \begin{frame}
+% 	\frametitle{Summary}
+% 	\begin{itemize}
+% 		\item Deals with the case when multi-colinearirty is present in the regression equation.
+% 		\item Many ways to deal with it in the non-causal case but they don't work well for causal estimation task.
+% 		\item Normal methods may remove some of the covariates from the regression equation depending on it's parameter value,
+% 			but for causal estimation it is important to keep them in the equation.
+% 		\item Collapsibility condition can be derived to show that the proposed method is consistent with OLS.
+% 	\end{itemize}
+% \end{frame}
+% 
+% \begin{frame}
+% 	\frametitle{Positive points}
+% \end{frame}
+% 
+% \begin{frame}
+% 	\frametitle{Negative Points}
+% 	\begin{itemize}
+% 		\item More intuition for why it's working.
+% 		\item Further compare other methods for selecting variables.
+% 	\end{itemize}
+% \end{frame}
 
 \begin{frame}
-	\frametitle{Recap}
+	\frametitle{Discussion Points}
 	\begin{itemize}
-		\item Deals with the case when multi-colinearirty is present in the regression equation.
-		\item Many ways to deal with it in the non-causal case but they don't work well for causal estimation task.
-		\item Normal methods may remove some of the covariates from the regression equation depending on it's parameter value,
-			but for causal estimation it is important to keep them in the equation.
-		\item Collapsibility condition can be derived to show that the proposed method is consistent with OLS.
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Positive points}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Negative Points}
-	\begin{itemize}
-		\item More intuition for why it's working.
-		\item Further compare other methods for selecting variables.
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\begin{itemize}
-		\item The estimator deals with the case where $ \{ X \} \cup \bm{Z} $ is invertible but $ \{ X \} \cup \bm{Z} \cup \bm{W} $ is not. Given a set of possible covariated, how to select the set $ \bm{Z} $ and $ \bm{W} $ because there would be multiple possible set which should satisfy the condition. Was any work done on this? Or any ways to reduce the possible number of options.
+		\item In practical settings, what are the best strategies to select $ \bm{W} $ and $ \bm{Z} $. Can the selection have any significant effect on the estimates?
+		\item
 		\item Any ideas on how to choose the regularization parameter for the estimator. In the predictive setting of regularized regression we can choose the best regularization parameter by testing the predictive performance of test set. Maybe simulation methods for causal inference?
 		\item Properties of the optimization problem?
 		\item Parameter tuning of the regularized regression analysis?
