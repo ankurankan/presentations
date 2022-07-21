@@ -13,42 +13,15 @@
 
 \begin{document}
 
-% \title{Discussion: Partially Adaptive Regularized Multiple Regression Analysis for Estimating Linear Causal Effects}
-
-% \begin{frame}
-% 	\frametitle{Summary}
-% 	\begin{itemize}
-% 		\item Deals with the case when multi-colinearirty is present in the regression equation.
-% 		\item Many ways to deal with it in the non-causal case but they don't work well for causal estimation task.
-% 		\item Normal methods may remove some of the covariates from the regression equation depending on it's parameter value,
-% 			but for causal estimation it is important to keep them in the equation.
-% 		\item Collapsibility condition can be derived to show that the proposed method is consistent with OLS.
-% 	\end{itemize}
-% \end{frame}
-% 
-% \begin{frame}
-% 	\frametitle{Positive points}
-% \end{frame}
-% 
-% \begin{frame}
-% 	\frametitle{Negative Points}
-% 	\begin{itemize}
-% 		\item More intuition for why it's working.
-% 		\item Further compare other methods for selecting variables.
-% 	\end{itemize}
-% \end{frame}
-
 \begin{frame}
 	\frametitle{Discussion Points}
 	\begin{itemize}
 		\item Best strategies for selecting the confounding set, $
 			\bm{W} $ and the set of possible confounders $ \bm{Z}
 			$. Can the choice affect the estimates?
-		\item How should we choose the optimal hyper-parameters? In the
-			paper a cross-validation approach is used but that
-			could be baised toward predictibility instead of true
-			causal estimates. Maybe some simulation method can be
-			used?
+		\item Choosing the optimal hyper-parameters. Can a prediction based
+			evaluation (eg cross validation) give the optimal parameters
+			or would it be biased?
 		\item Challenges in extending it to other statistical models
 			like GLM, Generalized estimating equations, and
 			proportional hazards model.
