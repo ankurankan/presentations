@@ -11,6 +11,7 @@
 \usepackage{subcaption}
 \usepackage{mathtools}
 \usepackage{graphicx}
+\usepackage{todonotes}
 \usepackage[style=verbose, backend=biber]{biblatex}
 
 \DeclarePairedDelimiter\norm{\lVert}{\rVert}%
@@ -46,13 +47,16 @@
 
 \begin{frame}
 	\frametitle{Potential Outcomes Framework}
+	Average Treatment Effect (ATE): $ \mathbb{E}[Y_t(u) - Y_c(u)] $ \newline
+	Conditional ATE: $ \mathbb{E}[Y_t(u) - Y_c(u) | u=u_i ] $
+
 	\begin{columns}
 		\begin{column}{0.5 \textwidth}
 		\begin{table}
 			\centering
-			\begin{tabularx}{\textwidth}{| c | c | c | c |} 
+			\begin{tabularx}{\linewidth}{| c | c | c | c |} 
 			\hline 
-			\textbf{subject} & $ Y_{t}(u) $  & $ Y_{c}(u) $ & $ Y_{t}(u) - Y_{c}(u) $ \\
+			& $ Y_{t}(u) $  & $ Y_{c}(u) $ & \\
 			\hline
 				Joe    & 130     & 135    & −5 \\
 				Mary   & 140     & 150    & −10 \\
@@ -68,7 +72,7 @@
 			\centering
 			\begin{tabularx}{\textwidth}{| c | c | c | c |} 
 			\hline 
-			\textbf{subject} & $ Y_{t}(u) $  & $ Y_{c}(u) $ & $ Y_{t}(u) - Y_{c}(u) $ \\
+			& $ Y_{t}(u) $  & $ Y_{c}(u) $ & \\
 			\hline
 				Joe    & 130     & ? & ? \\
 				Mary   & ? & 150    &  ? \\
@@ -80,34 +84,16 @@
 		\end{table}
 		\end{column}
 	\end{columns}	
-	\footnotetext[1]{https://www.wikiwand.com/en/Rubin\_causal\_model}
+	\footnotetext[1]{https://en.wikipedia.org/wiki/Rubin\_causal\_model}
 \end{frame}
 
-\begin{frame}
-	\frametitle{Treatment Effect Measures}
-	\section{Average Treatment Effect (ATE)}
-	
-	$$ \mathbb{E}[Y_i(1) - Y_i(0)] $$
-
-	\section{Conditional Average Treatment Effect (CATE)}
-	
-	$$ \mathbb{E}[Y_i(1) - Y_i(0) | W_i = 1] $$
-\end{frame}
 
 \begin{frame}
 	\frametitle{Problem Statement}
 	\begin{itemize}
-		\item A lot of different estimators for treatment effect eg. Propensity score matching, Double ML.
+		\item Lots of different estimators for treatment effect eg. Propensity score matching, Double ML, BART, Causal Forests. \todo[inline]{Check how do these methods work}
 		\item Estimators have similar asymptotic properties but difference finite-sample properties.
-		\item In correlational models, performance of an estimator can be measured by
-			splitting data into training and test sets.
-		\item True causal effect is unknown for most datasets, so estimator performances
-			can't be compared for a given dataset.
 	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Problem Statement: Example}
 	\begin{table}[h!]
 		\centering
 		\begin{tabularx}{\textwidth}{||c c c||} 
@@ -123,32 +109,48 @@
 		\caption*{ATE estimates on the National Support Work Demonstration temporary employment program and income dataset \footcite{parikh2022evaluating}}
 		\label{table:estimates}
 	\end{table}
-	How to choose the estimator?
-	Generate simulated data using the given dataset, and compare performance of the methods on it.
 \end{frame}
 
 \begin{frame}
-	\frametitle{Finite sample performance on data from RCTs}
+	\frametitle{Problem Statement}
 	\begin{itemize}
-		\item Problem Statement: Lack of observational datasets for which the interventional effect is known.
-		\item For associational models, it is easy to split data and evaluate the performance.
-		\item For evaluating causal estimates, we need an observational dataset and the true causal effects
-		\item This approach uses RCT datasets to generate an observational dataset. The RCT can give the true causal effect values and that can then be verified by estimation on the observational dataset.
+		\item In correlational models, performance of an estimator can be measured by
+			splitting data into training and test sets.
+		\item True causal effect is unknown for most datasets, so estimator performances
+			can't be compared for a given dataset.
+		\item Solution: Simulate data with same statistical properties as the original dataset, and compare performance of the estimators.
+		\item Requires assumptions to be made. \todo[inline]{Add examples of kinds of assumptions required}
 	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Finite sample performance comparison using RCTs}
+	\begin{itemize}
+		\item Uses data from Randomized Control Trials(RCT) for true causal effect.
+		\item Observational sampling from RCT data to create simulated
+			observational datasets.
+		\item Estimation is done on the simulated data and compared to the true effect.
+	\end{itemize}
+
+	\begin{figure}
+		\includegraphics[width=\textwidth]{fig_osrct.jpg}
+	\end{figure}
 	\footnotetext{Gentzel, Amanda M., Purva Pruthi, and David Jensen. "How and why to use experimental data to evaluate methods for observational causal inference." International Conference on Machine Learning. PMLR, 2021.}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Finite sample performance on data from RCTs}
+	\frametitle{Finite sample performance comparison using RCTs}
 	\begin{itemize}
 		\item Use some of the covariates (which affect the outcome) to bias the random
 			selection.
 		\item Using the baised treatment selection, sample from the RCT dataset.
 		\item Gives a biased observational dataset, where the bias covariates are the 
 			confounders.
-		\item Use estimators on these observational datasets to estimate the true 
-			causal effect.
 	\end{itemize}
+	\begin{figure}
+		\includegraphics[width=\textwidth]{fig_rct.jpg}
+	\end{figure}
+
 \end{frame}
 
 \begin{frame}
