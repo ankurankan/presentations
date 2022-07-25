@@ -141,12 +141,14 @@
 \begin{frame}
 	\frametitle{Finite sample performance comparison using RCTs}
 	\begin{itemize}
-		\item Use some of the covariates (which affect the outcome) to bias the random
+		\item Use some of the covariates (which also affect the outcome) to bias the random
 			selection.
 		\item Using the baised treatment selection, sample from the RCT dataset.
 		\item Gives a biased observational dataset, where the bias covariates are the 
 			confounders.
+		\item All the estimators perform reasonably well on all the datasets.
 	\end{itemize}
+
 	\begin{figure}
 		\includegraphics[width=\textwidth]{fig_rct.jpg}
 	\end{figure}
@@ -155,15 +157,21 @@
 
 \begin{frame}
 	\frametitle{Placebo Design}
-	Use the placebo arm as the ground truth with treatment effect = $ 0 $. Compare how well
-	the estimators are able to estimate the $ 0 $ effect.
+	\begin{itemize}
+		\item Only useful when the dataset arms are placebo vs treatment.
+		\item Use the placebo arm as the ground truth with known treatment effect = $ 0 $.
+		\item Use the estimators to estimate the effect in the placebo arm and compare results.
+	\end{itemize}
 	\footnotetext{Huber, Martin, Michael Lechner, and Conny Wunsch. "The performance of estimators based on the propensity score." Journal of Econometrics 175.1 (2013): 1-21.}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Structured Design}
-	Assume a data generating structure, which will give us a true treatment effect. Assume
-	that as the true effect and compare the methods on that.
+	\begin{itemize}
+		\item Assume a data generating structure i.e. DAG.
+		\item Use the DAG to compute the true causal effect under structure assumptions.
+		\item Compare estimators to the effect estimated from DAG.
+	\end{itemize}
 	\footnotetext{Busso, Matias, John DiNardo, and Justin McCrary. "New evidence on the finite sample properties of propensity score reweighting and matching estimators." Review of Economics and Statistics 96.5 (2014): 885-897.}
 \end{frame}
 
@@ -249,7 +257,7 @@
 	\frametitle{Conclusion}
 	\begin{itemize}
 		\item Simulations can be used to compare performance for selecting estimator.
-		\item No access to true causal effect, assumptions for DGP is made for each method.
+		\item No assumption free method, different assumptions needed for different methods.
 	\end{itemize}
 \end{frame}
 
