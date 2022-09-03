@@ -20,14 +20,40 @@
 
 \begin{frame}
 	\frametitle{Regularization in Linear Regression}
-		Ridge Regression (L2): $ \sum_{i=1}^{n} (y_i - \sum_{j=1}^{p} x_{ij} \beta_j)^2 + \lambda \sum_{j=1}^{p} \beta_j^2 $
-		Lasso Regression (L1): $ \sum_{i=1}^{n} (y_i - \sum_{j=1}^{p} x_{ij} \beta_j)^2 + \lambda \sum_{j=1}^{p} \mid \beta_j \mid $
-		Elastic net: $ \lambda_2 \mid \beta \mid ^2 + \lambda_1 \mid \beta \mid $
+	\begin{itemize}
+		\item Linear Regression Model: $ \bm{Y} = \bm{XB} + \bm{e} $
+		\item OLS: $ \hat{B} = min_{B} (Y - XB)^2 $
+		\item Ridge Regression (L2): $ \hat{B} = min_{B} (Y-XB)^2 +
+			\lambda \sum B^2 $
+		\item Lasso Regression (L1): $ \hat{B} = min_{B} (Y-XB)^2 +
+			\lambda \sum \mid B \mid $
+		\item Elastic net: $ \lambda_2 \sum \bm{B}^2 + \lambda_1 \sum
+			\mid \bm{B} \mid $
+		\item Used when we have high-dimensional scenarios or
+			correlated covariates as estimates are bad for simple
+			OLS.
+	\end{itemize}
 \end{frame}
 
+\begin{frame}
+	\frametitle{Linear Regression in Causal Inferene}
+	\begin{itemize}
+		\item Given a DAG with the exposure ($ E $) and the outcome
+			variable ($ O $).
+		\item First step would be to find an adjustment set ($ A $).
+		\item Assuming linearity in all relationships, we can then run
+			a linear regression: $ O ~ E + A $ to estimate the
+			treatment effect of $ E $ on $ O $.
+		\item In the case of high dimensional adjustment set, we run
+			into the same problem with OLS.
+		\item But using any regularization scheme would also affect the
+			estimate of the causal effect parameter which would
+			lead to bias.
+	\end{itemize}
+\end{frame}
 
 \begin{frame}
-	\frametitle{Summary}
+	\frametitle{Proposed Soluation: Summary}
 	\begin{itemize}
 		\item Regularization methods for dealing with multicollinearity
 			and high-dimensional datasets can lead to biased
@@ -35,10 +61,9 @@
 		\item A new regularization term is introduced that does a
 			``partial'' regularization on a set of selected
 			covariates.
-		\item The concept of collapsibility is extended to regularized
+		\item Theoretical Results: Extend the collapsibility results to regularized
 			regression analysis.
 	\end{itemize}
-
 \end{frame}
 
 \begin{frame}
