@@ -1,0 +1,57 @@
+\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}
+\usecolortheme{beaver}
+\usepackage{caption}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{subcaption}
+\usepackage{mathtools}
+\usepackage{bm}
+\usepackage[style=verbose, backend=biber]{biblatex}
+
+\title{Partially Adaptive Regularized Multiple Regression Analysis for Estimating Linear Causal Effects}
+\author{Hisayoshi Nanmo, Manabu Kuroki}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{frame}
+	\frametitle{Regularization in Linear Regression}
+		Ridge Regression (L2): $ \sum_{i=1}^{n} (y_i - \sum_{j=1}^{p} x_{ij} \beta_j)^2 + \lambda \sum_{j=1}^{p} \beta_j^2 $
+		Lasso Regression (L1): $ \sum_{i=1}^{n} (y_i - \sum_{j=1}^{p} x_{ij} \beta_j)^2 + \lambda \sum_{j=1}^{p} \mid \beta_j \mid $
+		Elastic net: $ \lambda_2 \mid \beta \mid ^2 + \lambda_1 \mid \beta \mid $
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Summary}
+	\begin{itemize}
+		\item Regularization methods for dealing with multicollinearity
+			and high-dimensional datasets can lead to biased
+			estimates for causal estimation.
+		\item A new regularization term is introduced that does a
+			``partial'' regularization on a set of selected
+			covariates.
+		\item The concept of collapsibility is extended to regularized
+			regression analysis.
+	\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+	\frametitle{Discussion Points}
+	\begin{itemize}
+		\item Best strategies for selecting the confounding set, $
+			\bm{W} $, and the set of possible confounders, $ \bm{Z}
+			$.
+		\item Choosing the optimal hyperparameters. Grid search for best 
+			predictive performance or any other better strategies?
+		\item Extending it to other statistical models like Generalized
+			Linear Models, Generalized Estimating Equations, etc.
+	\end{itemize}
+\end{frame}
+
+\end{document}
