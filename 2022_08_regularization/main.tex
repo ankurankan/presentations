@@ -11,6 +11,8 @@
 \usepackage{bm}
 \usepackage{xcolor}
 \usepackage{soul}
+\usepackage{tikz}
+\usepackage{graphicx}
 \usepackage[style=verbose, backend=biber]{biblatex}
 \newcommand{\mathcolorbox}[2]{\colorbox{#1}{$\displaystyle #2$}}
 
@@ -37,34 +39,57 @@
 
 \begin{frame}
 	\frametitle{Linear Regression in Causal Inferene}
-	\begin{itemize}
-		\item Given a DAG with the exposure ($ E $) and the outcome
-			variable ($ O $).
-		\item First step would be to find an adjustment set ($ A $).
-		\item Assuming linearity in all relationships, we can then run
-			a linear regression: $ O ~ E + A $ to estimate the
-			treatment effect of $ E $ on $ O $.
-		\item In the case of high dimensional adjustment set, we run
-			into the same problem with OLS.
-		\item But using any regularization scheme would also affect the
-			estimate of the causal effect parameter which would
-			lead to bias.
-	\end{itemize}
+	\begin{figure}
+		\centering
+		\begin{tikzpicture}
+			\begin{scope}[every node/.style={circle, thick, draw}]
+				\node (E) at (0, 0) {$ E $};
+				\node (O) at (3, 0) {$ O $};
+				\node (A) at (1.5, 1.5) {$ \bm{A} $};
+			\end{scope}
+
+			\path [draw, thick, ->] (E) -- (O);
+			\path [draw, thick, ->] (A) -- (E);
+			\path [draw, thick, ->] (A) -- (O);
+		\end{tikzpicture}
+		\begin{itemize}
+			\item Estimate the effect of exposure $ E $ on outcome $ O $.
+			\item First step would be to find an adjustment set. In this case, $ \bm{A} $.
+			\item Under linearity assumption, the effect can be estimated by doing a 
+				linear regression: $ O \sim E + A $.
+			\item The regression coefficient of $ E $ is the effect.
+			\item In the case of high dimensional or multicolinear
+				adjustment sets, OLS can be used.
+			\item Using any regularization method in this case
+				would also affect the causal effect estimate
+				and leads to bias.
+		\end{itemize}
+	\end{figure}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Contribution Summary}
 	\begin{itemize}
-		\item A new regularization term is introduced that can do a
-			``partial'' regularization on a set of selected
-			covariates.
-		\item Theoretical Results: Extend the collapsibility results to
-			regularized regression analysis.
+		\item New L1 regularization approach that:
+			\begin{enumerate}
+				\item Provides consistent estimates even with
+					multicollinearity/high-dimensional data
+					problems.
+				\item Doesn't remove the important variables
+					from the regression model.
+			\end{enumerate}
+		\item New optimization algorithm as normal L1 optimization algorithms are not applicable because of the some unregularized terms.
+		\item Theoretical Results: Extend collapsibility to regularized regression analysis.
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Partial Regularization}
+
+\end{frame}
+
+\begin{frame}
+	\frametitle{Optimization Algorithm: i-PRONGLES}
 \end{frame}
 
 \begin{frame}
@@ -79,8 +104,7 @@
 	\frametitle{Discussion Points}
 	\begin{itemize}
 		\item Best strategies for selecting the confounding set, $
-			\bm{W} $, and the set of possible confounders, $ \bm{Z}
-			$.
+			\bm{W} $, and the set of possible confounders, $ \bm{Z} $.
 		\item Choosing the optimal hyperparameters. Grid search for best 
 			predictive performance or any other better strategies?
 		\item Extending it to other statistical models like Generalized
