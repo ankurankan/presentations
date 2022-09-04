@@ -9,7 +9,10 @@
 \usepackage{subcaption}
 \usepackage{mathtools}
 \usepackage{bm}
+\usepackage{xcolor}
+\usepackage{soul}
 \usepackage[style=verbose, backend=biber]{biblatex}
+\newcommand{\mathcolorbox}[2]{\colorbox{#1}{$\displaystyle #2$}}
 
 \title{Partially Adaptive Regularized Multiple Regression Analysis for Estimating Linear Causal Effects}
 \author{Hisayoshi Nanmo, Manabu Kuroki}
@@ -22,16 +25,13 @@
 	\frametitle{Regularization in Linear Regression}
 	\begin{itemize}
 		\item Linear Regression Model: $ \bm{Y} = \bm{XB} + \bm{e} $
-		\item OLS: $ \hat{B} = min_{B} (Y - XB)^2 $
-		\item Ridge Regression (L2): $ \hat{B} = min_{B} (Y-XB)^2 +
-			\lambda \sum B^2 $
-		\item Lasso Regression (L1): $ \hat{B} = min_{B} (Y-XB)^2 +
-			\lambda \sum \mid B \mid $
-		\item Elastic net: $ \lambda_2 \sum \bm{B}^2 + \lambda_1 \sum
-			\mid \bm{B} \mid $
-		\item Used when we have high-dimensional scenarios or
-			correlated covariates as estimates are bad for simple
-			OLS.
+		\item OLS: $ \bm{\hat{B}} = min_{\bm{B}} (\bm{Y} - \bm{XB})^2 $
+		\item OLS fails when have high-dimensional covariates or multicolinearity in covariates. Regularization can be used:
+			\begin{itemize}
+				\item Ridge Regression (L2): $ \bm{\hat{B}} = min_{\bm{B}} [(\bm{Y}-\bm{XB})^2 + \mathcolorbox{yellow}{\lambda \sum \bm{B}^2}] $
+				\item Lasso Regression (L1): $ \bm{\hat{B}} = min_{\bm{B}} [(\bm{Y}-\bm{XB})^2 + \mathcolorbox{yellow}{\lambda \sum \mid \bm{B} \mid}] $
+				\item Elastic net: $ \bm{\hat{B}} = min_{\bm{B}} [(\bm{Y} - \bm{XB})^2 + \mathcolorbox{yellow}{\lambda_2 \sum \bm{B}^2 + \lambda_1 \sum \mid \bm{B} \mid}] $
+			\end{itemize}
 	\end{itemize}
 \end{frame}
 
