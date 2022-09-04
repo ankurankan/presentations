@@ -84,12 +84,15 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Partial Regularization}
+	\frametitle{PALpMA: Partial Regularization}
+	$ \bm{Y} \sim \bm{B_x X} + \bm{B_z Z} + \bm{B_w W} $ where $ \bm{W} \cup \bm{Z} = \bm{A} $ and $ \bm{W} \cap \bm{Z} = \phi $.
+	
+	Loss function: $ min_{B_x, B_z, B_w} (Y - B_x X - B_z Z - B_w W)^2 + \lambda_p \mid \gamma \odot B_w \mid $
 
 \end{frame}
 
 \begin{frame}
-	\frametitle{Optimization Algorithm: i-PRONGLES}
+	\frametitle{Optimization Algorithm: i-PROGLES}
 \end{frame}
 
 \begin{frame}
