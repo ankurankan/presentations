@@ -85,9 +85,12 @@
 
 \begin{frame}
 	\frametitle{PALpMA: Partial Regularization}
-	$ \bm{Y} \sim \bm{B_x X} + \bm{B_z Z} + \bm{B_w W} $ where $ \bm{W} \cup \bm{Z} = \bm{A} $ and $ \bm{W} \cap \bm{Z} = \phi $.
+	Keep the covariates and the a set of \textbf{required} adjustment set unpenalized.
+	$$ \bm{Y} \sim \bm{B_x X} + \bm{B_z Z} + \bm{B_w W} $$ 
+	where $ \bm{W} \cup \bm{Z} = \bm{A} $ and $ \bm{W} \cap \bm{Z} = \phi $
 	
-	Loss function: $ (\bm{\hat{B_x}}, \bm{\hat{B_z}}, \bm{\hat{B_w}}) = min_{\bm{B_x}, \bm{B_z}, \bm{B_w}} (\bm{Y} - \bm{B_x X} - \bm{B_z Z} - \bm{B_w W})^2 + \lambda_p \mid \bm{\gamma} \odot \bm{B_w} \mid $
+	Loss function:
+	$$ (\bm{\hat{B_x}}, \bm{\hat{B_z}}, \bm{\hat{B_w}}) = min_{\bm{B_x}, \bm{B_z}, \bm{B_w}} (\bm{Y} - \bm{B_x X} - \bm{B_z Z} - \bm{B_w W})^2 + \lambda_p \mid \bm{\gamma} \odot \bm{B_w} \mid $$
 
 \end{frame}
 
