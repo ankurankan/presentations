@@ -36,10 +36,12 @@
 		\includegraphics[scale=0.6]{imgs/example_dag.png}
 		\caption*{An example of Directed Acyclic Graph (DAG) \footnotemark}
 	\end{figure}
-	DAGs imply CI: Each variable is conditionally independent of all non-descendants given its parents. E.g. \newline
+	\begin{center}
+	DAGs imply CI: Each variable is conditionally independent of all non-descendants given its parents. E.g.
 
-			\hspace*{20pt} $ \text{\emph{XRay}} \ci \text{\emph{Pollution}} | \text{\emph{Cancer}} $ \newline
-			\hspace*{20pt} $ \text{\emph{Breathing}} \ci \text{\emph{Smoker}} | \text{\emph{Cancer}} $
+			$$ \text{\emph{XRay}} \ci \text{\emph{Pollution}} | \text{\emph{Cancer}} $$
+			$$ \text{\emph{Breathing}} \ci \text{\emph{Smoker}} | \text{\emph{Cancer}} $$
+	\end{center}
 	\footnotetext[1]{\footnotesize{K. B. Korb, A. E. Nicholson. Bayesian Artificial Intelligence}}
 \end{frame}
 
@@ -142,10 +144,57 @@
 		\item Runs test on each stratum and then combines the results.
 	\end{itemize}
 \end{frame}
+
 \begin{frame}
 	\frametitle{Statification Based Tests: Example}
-
+	\begin{block}{}
+	\begin{columns}
+		\begin{column}{0.33 \textwidth}
+			\begin{tabular}{c c c}
+				X  & Y  & Z \\
+				\hline
+				X1 & Y1 & Z1 \\
+				X1 & Y2 & Z2 \\
+				X2 & Y1 & Z1 \\
+				X3 & Y3 & Z2 \\
+				\vdots & \vdots & \vdots \\
+			\end{tabular}
+		\end{column}
+		\begin{column}{0.33 \textwidth}
+			\begin{block}{}
+				\begin{tabular}{c c c}
+					X & Y & Z \\
+					\hline
+					X1 & Y1 & Z1 \\
+					X2 & Y1 & Z1 \\
+					\vdots & \vdots & \vdots \\
+				\end{tabular}
+			\end{block}
+			\begin{block}{}
+				\begin{tabular}{c c c}
+					X & Y & Z \\
+					\hline
+					X1 & Y1 & Z1 \\
+					X2 & Y1 & Z1 \\
+					\vdots & \vdots & \vdots \\
+				\end{tabular}
+			\end{block}
+		\end{column}
+		\begin{column}{0.33 \textwidth}
+			\begin{block}{}
+				Test $X \ci Y$ in $ D_1 $.
+			\end{block}
+			\begin{block}{}
+				Test $X \ci Y$ in $ D_2 $.
+			\end{block}
+		\end{column}
+	\end{columns}
+	\end{block}
+	\begin{block}{}
+		Combine the results
+	\end{block}
 \end{frame}
+
 \begin{frame}
 	\frametitle{Stratification Based Tests: Advantages/Disadvantages}
 	\begin{itemize}
@@ -203,6 +252,12 @@
 
 \begin{frame}
 	\frametitle{Residualization Based Tests: Example}
+	\begin{itemize}
+		\item Train two estimators: $ E_1 = P(X | Z) $ and $ E_2 = P(Y | Z ) $.
+		\item Use the estimators to do predictions for $ X $ and $ Y $. $ \hat{X} = E_1(Z) $, $ \hat{Y} = E_2(Z) $.
+		\item Compute the residuals: $ R_X = X - \hat{X} $ and $ R_Y = Y - \hat{Y} $
+		\item Test for $ Cor(R_X, R_Y) $.
+	\end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -244,6 +299,16 @@
 
 \begin{frame}
 	\frametitle{Residual for ordinal variables: LS-Residuals Example}
+	\begin{columns}
+		\begin{column}{0.5 \textwidth}
+			$$ \hat{p}(Y) = \begin{array}{llll} Y_0 & Y_1 & Y_2 & Y_3 \\ 0.1 & 0.3 & 0.5 & 0.1 \end{array} $$
+			$$ R_{Y_2} = \hat{p}(Y < Y_2) - \hat{p}(Y > Y_2) = 0.3 $$
+			$$ R_{Y_3} = \hat{p}(Y < Y_3) - \hat{p}(Y > Y_3) = 0.9 $$
+		\end{column}
+		\begin{column}{0.5 \textwidth}
+			$$ \hat{p}(Y) = \begin{array}{ll} Y_0 & Y_1 \\ 0.3 & 0.7 \end{array} $$
+		\end{column}
+	\end{columns}
 \end{frame}
 
 \begin{frame}
