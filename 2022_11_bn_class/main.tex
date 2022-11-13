@@ -9,6 +9,7 @@
 \usepackage{amsmath}
 \usepackage{bm}
 \usepackage{listings}
+\usepackage{ragged2e}
 
 \def\ci{\perp\!\!\!\!\!\perp}
 
@@ -25,8 +26,6 @@
 \begin{frame}
 	\frametitle{Overview}
 	\tableofcontents
-	Motivation: How are CI tests used in causal inference.
-	Background: Main types of CI tests with advantages/disadvantages.
 \end{frame}
 
 \section{Motivation}
@@ -38,7 +37,8 @@
 		\caption*{An example of Directed Acyclic Graph (DAG) \footnotemark}
 	\end{figure}
 	\begin{center}
-	DAGs imply CI: Each variable is conditionally independent of all non-descendants given its parents. E.g.
+
+	Each variable is conditionally independent of all non-descendants given its parents.
 
 			$$ \text{\emph{XRay}} \ci \text{\emph{Pollution}} | \text{\emph{Cancer}} $$
 			$$ \text{\emph{Breathing}} \ci \text{\emph{Smoker}} | \text{\emph{Cancer}} $$
@@ -55,13 +55,12 @@
 		\item Important to test whether the model is consistent with the data.
 		\item Conditional Independence (CI) tests can be used to verify model structure.
 	\end{itemize}
-	\vspace{1em}
 	\begin{figure}
  	\begin{verbatim}
-                              x2 df    p.value
- Brth _||_ Pllt | Cncr 4.7571803  2 0.09268115
- Brth _||_ Smkr | Cncr 9.0058063  2 0.01107679
- Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
+	                              x2 df    p.value
+	 Brth _||_ Pllt | Cncr 4.7571803  2 0.09268115
+	 Brth _||_ Smkr | Cncr 9.0058063  2 0.01107679
+	 Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
  	\end{verbatim}
 		\caption*{Example model testing output from R package \emph{dagitty}}
 	\end{figure}
@@ -107,7 +106,26 @@
 	\frametitle{CI Testing is Difficult}
 	\begin{figure}
 		\centering
-		\includegraphics[scale=0.7]{imgs/sl-adult-mi-crop.pdf}
+
+		\begin{tikzpicture}[scale=0.6]
+		\tikzstyle{every node}=[align=center, inner sep=1pt]
+		\node at (0,0) {\footnotesize Income};
+		\node at (3,0) {\footnotesize Workclass};
+		\node at (6,0) {\footnotesize Education};
+		\node (mrts) at (9 ,0) {\footnotesize Marital~Status};
+		
+		\node at (0,-1) {\footnotesize Occupation};
+		\node (rltn) at (6,-1) {\footnotesize Relationship};
+		\node at (3,-1) {\footnotesize Race};
+		\node (sex) at (9,-1) {\footnotesize Sex};
+		
+		\node (hrpw) at (0,-2) {\footnotesize Hours~Per~Week};
+		\node at (6,-2) {\footnotesize Native~Country};
+		\node (age) at (3,-2) {\footnotesize Age};
+		\draw [very thick] (sex) -- (rltn);
+		\draw [very thick] (mrts) -- (rltn);
+		\draw [very thick] (hrpw) -- (age);
+		\end{tikzpicture}
 		\caption*{Learned structure for US census income dataset using chi-square test}
 	\end{figure}
 	\begin{itemize}
@@ -137,8 +155,8 @@
 	\frametitle{Stratification Based Tests}
 	\begin{itemize}
 		\setlength\itemsep{1em}
-		\item Most common type for discrete variables. E.g. chi-square,
-			mutual information based test etc. 
+		\item Most common type for discrete variables. E.g. chi-square, G-test,
+			mutual information based test, etc. 
 		\item Converts CI test into simple independence test by splitting 
 			the dataset.
 		$ D[X, Y, \bm{Z}] = \{ D[X, Y, \bm{Z}=\bm{z_1}], D[X, Y, \bm{Z}=\bm{z_2}], \cdots \} $	
@@ -147,10 +165,11 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Statification Based Tests: Example}
+	\frametitle{Statification Based Tests: Chi-square Example}
 	\begin{block}{}
 	\begin{columns}
-		\begin{column}{0.33 \textwidth}
+		\begin{column}{0.25 \textwidth}
+			\begin{block}{\centering D}
 			\begin{tabular}{c c c}
 				X  & Y  & Z \\
 				\hline
@@ -160,9 +179,10 @@
 				X3 & Y3 & Z2 \\
 				\vdots & \vdots & \vdots \\
 			\end{tabular}
+			\end{block}
 		\end{column}
-		\begin{column}{0.33 \textwidth}
-			\begin{block}{}
+		\begin{column}{0.25 \textwidth}
+			\begin{block}{\centering $D_1$}
 				\begin{tabular}{c c c}
 					X & Y & Z \\
 					\hline
@@ -171,28 +191,34 @@
 					\vdots & \vdots & \vdots \\
 				\end{tabular}
 			\end{block}
-			\begin{block}{}
+			\begin{block}{\centering $ D_2 $}
 				\begin{tabular}{c c c}
 					X & Y & Z \\
 					\hline
-					X1 & Y1 & Z1 \\
-					X2 & Y1 & Z1 \\
+					X1 & Y2 & Z2 \\
+					X3 & Y3 & Z2 \\
 					\vdots & \vdots & \vdots \\
 				\end{tabular}
 			\end{block}
+			\begin{block}{\centering $ D_i $}
+			\end{block}
 		\end{column}
-		\begin{column}{0.33 \textwidth}
+		\begin{column}{0.5 \textwidth}
 			\begin{block}{}
-				Test $X \ci Y$ in $ D_1 $.
+				$(X \ci Y)_{D_1} \to \chi_{D_1} $ and $ df_{D_1} $.
 			\end{block}
 			\begin{block}{}
-				Test $X \ci Y$ in $ D_2 $.
+				$(X \ci Y)_{D_2} \to \chi_{D_2} $ and $ df_{D_2} $.
+			\end{block}
+			\begin{block}{}
+				$(X \ci Y)_{D_i} \to \chi_{D_i} $ and $ df_{D_i} $.
 			\end{block}
 		\end{column}
 	\end{columns}
 	\end{block}
 	\begin{block}{}
-		Combine the results
+		\centering
+		$ (X \ci Y | Z)_{D} \to \sum_i \chi_{D_i} $ and $ df_{D} = \sum_i df_{D_i} $
 	\end{block}
 \end{frame}
 
@@ -214,21 +240,20 @@
 			y, z) $ and $ \hat{p}(x | z) $. E.g. Stochastic
 			Complexity-Based Conditional Independence Test (SCCI) \footnotemark.
 		\item If the simpler model doesn't fit significantly worse, implies $ X \ci Y | Z $.
-		\item Can utilize any statistical model for which a reasonable goodness
-			of fit exist.
 	\end{itemize}
 	\footnotetext[3]{\footnotesize Marx, Alexander, and Jilles Vreeken. "Testing conditional independence on discrete data using stochastic complexity." PMLR, 2019}
 
 \end{frame}
 
 \begin{frame}
-	\frametitle{Variable Importance Tests: Example}
+	\frametitle{Variable Importance Tests: SCCI Example}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Variable Importance Tests: Advantages/Disadvantages}
 	\begin{itemize}
-		\item Can use any probabilistic model.
+		\item Can utilize any statistical model for which a reasonable goodness
+			of fit exist.
 		\item Inherently asymmetrical. The result of $ X \ci Y | Z $
 			can be different from $ Y \ci X | Z $.
 	\end{itemize}
@@ -252,12 +277,15 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Residualization Based Tests: Example}
+	\frametitle{Residualization Based Tests: linear partial-correlation Example}
 	\begin{itemize}
-		\item Train two estimators: $ E_1 = P(X | Z) $ and $ E_2 = P(Y | Z ) $.
-		\item Use the estimators to do predictions for $ X $ and $ Y $. $ \hat{X} = E_1(Z) $, $ \hat{Y} = E_2(Z) $.
-		\item Compute the residuals: $ R_X = X - \hat{X} $ and $ R_Y = Y - \hat{Y} $
-		\item Test for $ Cor(R_X, R_Y) $.
+		\item Train two linear regression models
+			$$ E_1 = X \sim Z \; \; \; \; \; \; \; E_2 = Y \sim Z $$
+		\item Predict $ X $ and $ Y $ using the estimators 
+			$$ \hat{X} = E_1(Z) \; \; \; \; \; \; \; \hat{Y} = E_2(Z) $$
+		\item Compute the residuals
+			$$ R_X = X - \hat{X} \; \; \; \; \; \; \; R_Y = Y - \hat{Y} $$
+		\item Use Pearson correlation test on $ R_X $ and $ R_Y $.
 	\end{itemize}
 \end{frame}
 
@@ -265,18 +293,20 @@
 	\frametitle{Residualization Based Tests: Advantages/Disadvantages}
 	\begin{itemize}
 		\item Any estimator can be used as long as it has ``valid'' residuals.
-		\item There isn't an easy way to define residuals for oridanal or categorical variables. No residualization based test exists for categorical or ordinal variables.
+		\item No easy way to define residuals for ordinal and categorical variables.
+		\item No residualization based test exists for categorical or ordinal variables.
 	\end{itemize}
 \end{frame}
 
-\section{Proposed Method}
+\section{Unified test for all data types}
 \begin{frame}
-	\frametitle{Proposed Method}
+	\frametitle{Unified test for all data types}
 	\begin{itemize}
 		\setlength\itemsep{1em}
 		\item Residualization based approach.
 		\item Uses Li-Shepherd (LS) residuals \footnotemark. \todo[inline]{Partial copula?}
-		\item Any unbiased estimator can be used. We show empirical results using Logistic Regression (GLM) and Random Forest (RFT).
+		\item Any unbiased estimator can be used.
+		\item Empirical results shown using Logistic Regression (GLM) and Random Forest (RFT).
 	\end{itemize}
 	\footnotetext[5]{\footnotesize C. Li and B. E. Shepherd. "A new residual for ordinal outcomes." Biometrika, 2012}
 \end{frame}
@@ -300,41 +330,21 @@
 
 \begin{frame}
 	\frametitle{Residual for ordinal variables: LS-Residuals Example}
-	\begin{columns}
-		\begin{column}{0.5 \textwidth}
-			$$ \hat{p}(Y) = \begin{array}{llll} Y_0 & Y_1 & Y_2 & Y_3 \\ 0.1 & 0.3 & 0.5 & 0.1 \end{array} $$
-			$$ R_{Y_2} = \hat{p}(Y < Y_2) - \hat{p}(Y > Y_2) = 0.3 $$
-			$$ R_{Y_3} = \hat{p}(Y < Y_3) - \hat{p}(Y > Y_3) = 0.9 $$
-		\end{column}
-		\begin{column}{0.5 \textwidth}
-			$$ \hat{p}(Y) = \begin{array}{ll} Y_0 & Y_1 \\ 0.3 & 0.7 \end{array} $$
-			$$ R_{Y_0} = Y_0 - \hat{p}(Y=1) = -0.7 $$
-			$$ R_{Y_1} = Y_1 - \hat{p}(Y=1) = 0.3 $$
-		\end{column}
-	\end{columns}
+	\begin{block}{Ordinal Variable}
+			$ \hat{p}(Y) = \begin{array}{llll} Y_0 & Y_1 & Y_2 & Y_3 \\ 0.1 & 0.3 & 0.5 & 0.1 \end{array} $ \newline
+			If True value is $ Y_2$, $ R_{Y_2} = \hat{p}(Y < Y_2) - \hat{p}(Y > Y_2) = 0.3 $ \newline
+			If True value is $ Y_3$, $ R_{Y_3} = \hat{p}(Y < Y_3) - \hat{p}(Y > Y_3) = 0.9 $
+	\end{block}
+	\begin{block}{Binary Variable}
+			$\hat{p}(Y) = \begin{array}{ll} Y_0 & Y_1 \\ 0.3 & 0.7 \end{array} $ \newline
+			If True value is $ Y_0 $, $ R_{Y_0} = Y_0 - \hat{p}(Y=1) = -0.7 $ \newline
+			If True value is $ Y_1 $, $ R_{Y_1} = Y_1 - \hat{p}(Y=1) = 0.3 $
+	\end{block}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Residual for Continuous variables: Partial Copula}
 \end{frame}
-
-% \begin{frame}
-% 	\frametitle{Proposition}
-% 	If $ X \ci Y | Z $ and $ \hat{p}(x|z) $ and $ \hat{p}(y|z) $ are asymptotically
-% 	unbiased estimators of $ p(x|z) $ and $ p(y|z) $ respectively, then 
-% 	$ \mathrm{Cov}(R_{\bm{x}|\bm{z}}, R_{\bm{y}|\bm{z}}) = 0 $ in large sample limit.	
-% 	\vspace{1em}
-% 
-% 	\begin{itemize}
-% 		\setlength\itemsep{1em}
-% 		\item For asymptotically unbaised estimators, LS-Residuals
-% 			gives ``valid''residuals: $ E[R_{X|Z}] = E[R_{Y|Z}] = 0
-% 			$.
-% 		\item Under $ X \ci Y | \bm{Z} $, valid
-% 			residuals imply $ \mathbb{E}[R_{X|Z} R_{Y|Z}] = 0 $ \footnotemark.
-% 	\end{itemize}
-% 	\footnotetext[6]{\footnotesize Daudin, J. J. "Partial association measures and an application to qualitative regression." Biometrika, 1980}
-% \end{frame}
 
 \begin{frame}
 	\frametitle{Residual for categorical variables: Using dummy encoding}
@@ -345,34 +355,28 @@
 	\frametitle{Test Statistic: Both continuous or ordinal variables}
 	$$ Q_1(\bm{x}, \bm{y}) = \frac{1}{n} \frac{(R_{\bm{x}} \cdot R_{\bm{y}})^2}{\bm{var}(R_{\bm{x}} R_{\bm{y}})} $$
 	\begin{center}
-	If $ X \ci Y | Z $, then asymptotically $ Q_1(\bm{x}, \bm{y}) \sim \chi^2(1) $.
+		\begin{itemize}
+			\item If $ X \ci Y | Z $, asymptotically $ Q_1(\bm{x}, \bm{y}) \sim \chi^2(1) $.
+		\end{itemize}
 	\end{center}
-	\todo[inline]{Show an example}
-
-% 	\vspace{1em}
-% 	\begin{itemize}
-% 		\setlength\itemsep{1em}
-% 		\item Train two estimators: $ E_X = \mathbf{x} \sim \mathbf{z} $ and $ E_Y = \mathbf{y} \sim \mathbf{z} $
-% 		\item Make probability predictions for each data point: $ \hat{p}(x|z) $ and $ \hat{p}(y|z) $ using $ E_X $ and $ E_Y $ respectively.
-% 		\item Compute the LS-Residuals for each data point: $ R_{\mathbf{x}} $ and $ R_{\mathbf{y}} $.
-% 		\item Use $ R_{\mathbf{x}} $ and $ R_{\mathbf{y}} $ to compute $ Q_1 $.
-% 	\end{itemize}
-
 \end{frame}
 
 \begin{frame}
 	\frametitle{Test Statistic: One continuous/ordinal and one categorical}
 	$$ Q_2(\bm{x}, \bm{y}) = \frac{1}{n} (d \times \hat{\Sigma}_d^{-1} \times d^T) $$
-	where $ d = (R_{\mathbb{I}(\mathbf{x}=1)} \cdot R_{\mathbf{y}}, \, \ldots \ ,
-		R_{\mathbb{I}(\mathbf{x}=k-1)} \cdot R_{\mathbf{y}})$ and $ \hat{\Sigma}_d $ is the covariance matrix.
 
+	\begin{equation*}
+		\begin{split}
+		d &= (R_{\mathbb{I}(\mathbf{x}=1)} \cdot R_{\mathbf{y}}, \, \ldots \ , R_{\mathbb{I}(\mathbf{x}=k-1)} \cdot R_{\mathbf{y}}) \\ 
+		\hat{\Sigma}_d &= Cov([R_\mathbb{I}(\mathbf{x}=1) \odot R_\mathbf{y}, \cdots, R_\mathbb{I}(\mathbf{x}=k-1) \odot R_\mathbf{y}])
+		\end{split}
+	\end{equation*}
 	\vspace{1em}
 	\begin{center}
-		If $ X \ci Y | Z $, then asymptotically $ Q_2(\bm{x}, \bm{y}) \sim \chi^2(k-1) $.
+		\begin{itemize}
+			\item If $ X \ci Y | Z $, asymptotically $ Q_2(\bm{x}, \bm{y}) \sim \chi^2(k-1) $.
+		\end{itemize}
 	\end{center}
-
-	\todo[inline]{Show an example}
-
 \end{frame}
 
 \begin{frame}
@@ -380,21 +384,24 @@
 
 	$$ Q_3(\bm{x}, \bm{y}) = \frac{1}{n} (d \times \hat{\Sigma}_d^{-1} \times d^T) $$
 
-	where 
-	\begin{eqnarray*}
-		d &  =  & (R_{\mathbb{I}(\mathbf{x}=1)} \cdot R_{\mathbb{I}(\mathbf{y}=1)}, \, \ldots \ ,
-		R_{\mathbb{I}(\mathbf{x}=k-1)} R_{\mathbb{I}(\mathbf{y}=1)}, \, \ldots \, ,
-		\\
-	 	& & R_{\mathbb{I}(\mathbf{x}=1)} \cdot R_{\mathbb{I}(\mathbf{y}=r-1)}, \, \ldots \ ,
-		R_{\mathbb{I}(\mathbf{x}=k-1)} R_{\mathbb{I}(\mathbf{y}=r-1)}
-		)
-	\end{eqnarray*}
+	\begin{equation*}
+		\begin{split}
+		d = (&R_{\mathbb{I}(\mathbf{x}=1)} \cdot R_{\mathbb{I}(\mathbf{y}=1)}, \, \ldots \ ,
+				R_{\mathbb{I}(\mathbf{x}=k-1)} R_{\mathbb{I}(\mathbf{y}=1)}, \, \ldots \, , \\
+		     &R_{\mathbb{I}(\mathbf{x}=1)} \cdot R_{\mathbb{I}(\mathbf{y}=r-1)}, \, \ldots \ ,
+				R_{\mathbb{I}(\mathbf{x}=k-1)} R_{\mathbb{I}(\mathbf{y}=r-1)}) 
+		\end{split}
+	\end{equation*}
+	\begin{equation*}
+		\hat{\Sigma}_d = Cov([R_\mathbb{I}(\mathbf{x}=1) \odot R_\mathbb{I}(\mathbf{y}=1), \cdots, R_\mathbb{I}(\mathbf{x}=k-1) \odot R_\mathbb{I}(\mathbf{y}=r-1)])
+	\end{equation*}
 	\vspace{1em}
 
 	\begin{center}
-	If $ X \ci Y | Z $, then asymptotically $ Q_3(\bm{x}, \bm{y}) \sim \chi^2((k-1)(r-1)) $.
+		\begin{itemize}
+			\item If $ X \ci Y | Z $, asymptotically $ Q_3(\bm{x}, \bm{y}) \sim \chi^2((k-1)(r-1)) $.
+		\end{itemize}
 	\end{center}
-	\todo[inline]{Show an example}
 
 \end{frame}
 
@@ -417,12 +424,12 @@
 
 \begin{frame}
 	\frametitle{Proof: M-estimation theory}
-	Given a vector of parameters $ \bm{\theta} $, and a function $ \Psi_i(\bm{\theta}) = \Psi(Y_i, X_i, \bm{Z}_i; \bm{\theta}) $, such that the following conditions are satisfied.
-	\begin{itemize}
+	\justifying{Given a vector of parameters $ \bm{\theta} $, and a function $ \Psi_i(\bm{\theta}) = \Psi(Y_i, X_i, \bm{Z}_i; \bm{\theta}) $, such that the following conditions are satisfied.}
+	\begin{enumerate}
 		\item $ \bm{\theta} $ can be estimated using $ \sum_{i=1}^n \Psi_i(\bm{\theta}) = 0 $.
 		\item $ \Psi_i $ doesn't depend on $ i $ or $ n $.
 		\item $ \mathbb{E}[\Psi_i(\bm{\theta})] = 0 $
-	\end{itemize}
+	\end{enumerate}
 
 	From m-estimation theory, if $ \Psi $ is suitably smooth, then as $ n \to \infty $,
 
@@ -448,7 +455,7 @@
 	\begin{itemize}
 		\item Divide our parameter vector into $ 3 $ sets: $ \bm{\theta} = \{ \bm{\theta^\bm{X}}, \bm{\theta^\bm{Y}}, \bm{\theta^\bm{T}} \} $.
 		\item $ \bm{\theta^\bm{X}} $ and $ \bm{\theta^\bm{Y}} $ stay the same for all test
-			statistic and is defined as:
+			statistics:
 
 			\begin{equation*}
 			\Phi_i(\bm{\theta}) = \begin{cases}
@@ -501,7 +508,7 @@
 	\frametitle{Proof: Both categorical case}
 \end{frame}
 
-\section{Empirical Results}
+\section{Empirical Results on test performance}
 \begin{frame}
 	\frametitle{Empirical Analysis: Calibration}
 	\begin{itemize}
