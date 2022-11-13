@@ -308,6 +308,8 @@
 		\end{column}
 		\begin{column}{0.5 \textwidth}
 			$$ \hat{p}(Y) = \begin{array}{ll} Y_0 & Y_1 \\ 0.3 & 0.7 \end{array} $$
+			$$ R_{Y_0} = Y_0 - \hat{p}(Y=1) = -0.7 $$
+			$$ R_{Y_1} = Y_1 - \hat{p}(Y=1) = 0.3 $$
 		\end{column}
 	\end{columns}
 \end{frame}
@@ -336,6 +338,7 @@
 
 \begin{frame}
 	\frametitle{Residual for categorical variables: Using dummy encoding}
+	$$ \hat{p}(Y) = \begin{array}{llll} Y_0 & Y_1 & Y_2 & Y_3 \\ 0.1 & 0.3 & 0.5 & 0.1 \\ 0 & 0 & 1 & 0 \\ -0.1 & -0.3 & 0.5 & -0.1 \end{array} $$
 \end{frame}
 
 \begin{frame}
@@ -499,6 +502,17 @@
 \end{frame}
 
 \section{Empirical Results}
+\begin{frame}
+	\frametitle{Empirical Analysis: Calibration}
+	\begin{itemize}
+		\item A good test should be 1. calibrated 2. have power.
+		\item With calibration, we mean that when the null (i.e. $ X
+			\ci Y | Z $) is true, the p-value should be uniformly
+			distributed.
+		\item We generate datasets of varying sample sizes and number of conditional variables where the null is true, compute the 
+			p-value using the test, and check its distribution.
+	\end{itemize}
+\end{frame}
 
 \begin{frame}
 	\frametitle{Empirical Analysis: Calibration}
@@ -514,6 +528,12 @@
 
 \begin{frame}
 	\frametitle{Empirical Analysis: Discrimination Data generation}
+	\begin{itemize}
+		\item With discrimination analysis, we check how well is the test able to detect dependence/independence.
+		\item We generated data with varying effect strength between variables $ X $ and $ Y $ and number of conditional variables that 
+			acted as noise variables.
+		\item We test the accuracy of correctly classifying the dataset as dependent vs independent.
+	\end{itemize}
 	\begin{figure}
 			\begin{tikzpicture}[yscale=.75, xscale=.6]
 				\node (x) at (0,0) {$X$};
@@ -543,6 +563,7 @@
 
 \begin{frame}
 	\frametitle{Epirical Analysis: Discrimination Data Generation (Ordinal)}
+	Similar analysis as last one but for ordinal datasets.
 \end{frame}
 
 \begin{frame}
@@ -559,6 +580,11 @@
 
 \begin{frame}
 	\frametitle{Applications: Model testing Data generation}
+	\begin{itemize}
+		\item Given a DAG, how well is the test able to identify all the implied CIs in data simulated from the DAG.
+		\item We generate random DAGs with varying edge density to generate implied CIs with varying number of conditional variables.
+		\item Test the precision and recall of identify implied CI in the simulated dataset.
+	\end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -575,10 +601,21 @@
 
 \begin{frame}
 	\frametitle{Constraint-Based Structure Learing}
+	\begin{itemize}
+		\item Systematically performs CI tests on a given dataset to construct a network structure.
+		\item Starts with a fully connected network and removes edges $ X \to Y $ if $ X \ci Y | Z $ in data.
+		\item The number of variables in $ Z $ is increased in each iteration.
+		\item The algorithm reaches higher number of conditional variables in denser graphs.
+	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Applications: Structure Learing data generation}
+	\begin{itemize}
+		\item Test how well is the test able to recover a DAG from data simulated from it.
+		\item We vary the edge density while keeping the sample size same.
+		\item We compute the F-1 score to test how well is the DAG structure recovered.
+	\end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -626,7 +663,6 @@
 		pairs from the CPDAG to correlated variable pairs in the
 		dataset.}
 	\end{figure}
-	\todo[inline]{Update the plot}
 \end{frame}
 
 \begin{frame}
@@ -639,7 +675,6 @@
 		$1000$ samples per dataset.
 		}
 	\end{figure}
-	\todo[inline]{Update the plot}
 \end{frame}
 
 \section{Conclusion}
