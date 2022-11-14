@@ -17,7 +17,7 @@
 
 \begin{document}
 
-\title{A Simple Unified Approach to Testing High-Dimensional Conditional Independencies}
+\title{A Simple Unified Approach to Testing High-Dimensional Conditional Independencies for Ordinal and Categorical Variables}
 \author {Ankur Ankan \and Johannes Textor}
 \institute{Radboud University}
 \date{}
@@ -165,7 +165,7 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Statification Based Tests: Chi-square Example}
+	\frametitle{Statification Based Test Example: Chi-squared}
 	\begin{block}{}
 	\begin{columns}
 		\begin{column}{0.25 \textwidth}
@@ -246,7 +246,7 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Variable Importance Tests: SCCI Example}
+	\frametitle{Variable Importance Test Example: SCCI}
 \end{frame}
 
 \begin{frame}
@@ -277,7 +277,7 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Residualization Based Tests: linear partial-correlation Example}
+	\frametitle{Residualization Based Test Example: Partial-correlation}
 	\begin{itemize}
 		\item Train two linear regression models
 			$$ E_1 = X \sim Z \; \; \; \; \; \; \; E_2 = Y \sim Z $$
@@ -298,13 +298,13 @@
 	\end{itemize}
 \end{frame}
 
-\section{Unified test for all data types}
+\section{Unified test for ordinal and categorical data}
 \begin{frame}
 	\frametitle{Unified test for all data types}
 	\begin{itemize}
 		\setlength\itemsep{1em}
 		\item Residualization based approach.
-		\item Uses Li-Shepherd (LS) residuals \footnotemark. \todo[inline]{Partial copula?}
+		\item Uses Li-Shepherd (LS) residuals \footnotemark.
 		\item Any unbiased estimator can be used.
 		\item Empirical results shown using Logistic Regression (GLM) and Random Forest (RFT).
 	\end{itemize}
@@ -331,24 +331,38 @@
 \begin{frame}
 	\frametitle{Residual for ordinal variables: LS-Residuals Example}
 	\begin{block}{Ordinal Variable}
-			$ \hat{p}(Y) = \begin{array}{llll} Y_0 & Y_1 & Y_2 & Y_3 \\ 0.1 & 0.3 & 0.5 & 0.1 \end{array} $ \newline
-			If True value is $ Y_2$, $ R_{Y_2} = \hat{p}(Y < Y_2) - \hat{p}(Y > Y_2) = 0.3 $ \newline
-			If True value is $ Y_3$, $ R_{Y_3} = \hat{p}(Y < Y_3) - \hat{p}(Y > Y_3) = 0.9 $
+		\vspace{1em}
+			$ \hat{p}(y) = \begin{array}{llll} Y_0 & Y_1 & Y_2 & Y_3 \\ 0.1 & 0.3 & 0.5 & 0.1 \end{array} $
+		\begin{itemize}
+			\item If $ y = Y_2 $, $ R_{y} = \hat{p}(Y < Y_2) - \hat{p}(Y > Y_2) = 0.3 $
+			\item If $ y = Y_3 $, $ R_{y} = \hat{p}(Y < Y_3) - \hat{p}(Y > Y_3) = 0.9 $
+		\end{itemize}
 	\end{block}
 	\begin{block}{Binary Variable}
-			$\hat{p}(Y) = \begin{array}{ll} Y_0 & Y_1 \\ 0.3 & 0.7 \end{array} $ \newline
-			If True value is $ Y_0 $, $ R_{Y_0} = Y_0 - \hat{p}(Y=1) = -0.7 $ \newline
-			If True value is $ Y_1 $, $ R_{Y_1} = Y_1 - \hat{p}(Y=1) = 0.3 $
+		$\hat{p}(Y) = \begin{array}{ll} Y_0 & Y_1 \\ 0.3 & 0.7 \end{array} $
+		\begin{itemize}	
+			\item If $ y = Y_0 $, $ R_{y} = Y_0 - \hat{p}(Y=1) = -0.7 $
+			\item If $ y = Y_1 $, $ R_{y} = Y_1 - \hat{p}(Y=1) = 0.3 $
+		\end{itemize}
 	\end{block}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Residual for Continuous variables: Partial Copula}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Residual for categorical variables: Using dummy encoding}
-	$$ \hat{p}(Y) = \begin{array}{llll} Y_0 & Y_1 & Y_2 & Y_3 \\ 0.1 & 0.3 & 0.5 & 0.1 \\ 0 & 0 & 1 & 0 \\ -0.1 & -0.3 & 0.5 & -0.1 \end{array} $$
+	\begin{block}{Dummy Encoding}
+		Given a random variable, $ Y $ with $ 4 $ possible states: $ \{Y_0, Y_1, Y_2, Y_3 \} $
+		\begin{equation*}
+			\bm{y} = \left[ \begin{array}{c} Y_3 \\ Y_1 \\ Y_2 \\ \vdots \end{array} \right] = \left[ \begin{array}{cccc} 0 & 0 & 0 & 1 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ \vdots & \vdots & \vdots & \vdots \end{array} \right]
+		\end{equation*}
+	\end{block}
+
+	\begin{block}{Residual Example}
+	$\hat{p}(Y) = \begin{array}{cccc} Y_0 & Y_1 & Y_2 & Y_3 \\ 0.1 & 0.3 & 0.5 & 0.1 \end{array} $
+	\begin{itemize}
+		\item If $ y = Y_2 $, $ \begin{array}{cccc} 0 & 0 & 1 & 0 \\ -0.1 & -0.3 & 0.5 & -0.1 \end{array} $
+		\item If $ y = Y_1 $, $ \begin{array}{cccc} 0 & 1 & 0 & 0 \\ -0.1 & 0.7 & -0.5 & -0.1 \end{array} $
+	\end{itemize}
+	\end{block}	
 \end{frame}
 
 \begin{frame}
@@ -357,12 +371,13 @@
 	\begin{center}
 		\begin{itemize}
 			\item If $ X \ci Y | Z $, asymptotically $ Q_1(\bm{x}, \bm{y}) \sim \chi^2(1) $.
+			\item $ R_{\bm{x}} $ and $ R_{\bm{y}} $ are vectors of residuals.
 		\end{itemize}
 	\end{center}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Test Statistic: One continuous/ordinal and one categorical}
+	\frametitle{Test Statistic: One categorical and one ordinal}
 	$$ Q_2(\bm{x}, \bm{y}) = \frac{1}{n} (d \times \hat{\Sigma}_d^{-1} \times d^T) $$
 
 	\begin{equation*}
@@ -371,10 +386,13 @@
 		\hat{\Sigma}_d &= Cov([R_\mathbb{I}(\mathbf{x}=1) \odot R_\mathbf{y}, \cdots, R_\mathbb{I}(\mathbf{x}=k-1) \odot R_\mathbf{y}])
 		\end{split}
 	\end{equation*}
-	\vspace{1em}
 	\begin{center}
 		\begin{itemize}
 			\item If $ X \ci Y | Z $, asymptotically $ Q_2(\bm{x}, \bm{y}) \sim \chi^2(k-1) $.
+			\item $ R_{\bm{x}} $ is a matrix of residuals with each column corresponding to a dummy state and $ R_{\bm{y}} $ is still a vector.
+			\item One of the columns of the dummy encoded variable
+				is dropped as it will be colinear. Including it will
+				result in a non full-rank covariance matrix.
 		\end{itemize}
 	\end{center}
 \end{frame}
@@ -395,11 +413,11 @@
 	\begin{equation*}
 		\hat{\Sigma}_d = Cov([R_\mathbb{I}(\mathbf{x}=1) \odot R_\mathbb{I}(\mathbf{y}=1), \cdots, R_\mathbb{I}(\mathbf{x}=k-1) \odot R_\mathbb{I}(\mathbf{y}=r-1)])
 	\end{equation*}
-	\vspace{1em}
 
 	\begin{center}
 		\begin{itemize}
 			\item If $ X \ci Y | Z $, asymptotically $ Q_3(\bm{x}, \bm{y}) \sim \chi^2((k-1)(r-1)) $.
+			\item Both $ R_{\bm{x}} $ and $ R_{\bm{y}} $ are matrices of residuals.
 		\end{itemize}
 	\end{center}
 
@@ -423,6 +441,11 @@
 \end{frame}
 
 \begin{frame}
+	\frametitle{Code Example}
+	\todo[inline]{Show a code example of how it works}
+\end{frame}
+
+\begin{frame}
 	\frametitle{Proof: M-estimation theory}
 	\justifying{Given a vector of parameters $ \bm{\theta} $, and a function $ \Psi_i(\bm{\theta}) = \Psi(Y_i, X_i, \bm{Z}_i; \bm{\theta}) $, such that the following conditions are satisfied.}
 	\begin{enumerate}
@@ -434,20 +457,38 @@
 	From m-estimation theory, if $ \Psi $ is suitably smooth, then as $ n \to \infty $,
 
 	$$ \sqrt{n}(\hat{\bm{\theta}} - \bm{\theta}) \to \mathcal{N}(0, V(\bm{\theta})) $$
-	where $ V(\bm{\theta}) = A(\bm{\theta}^{-1}) B(\bm{\theta})[A(\bm{\theta})^{-1}]' $, $ A(\bm{\theta}) = \mathbb{E} \left[ - \frac{\partial}{\partial \bm{\theta}} \Psi_i(\bm{\theta}) \right]$, $ B(\bm{\theta}) = \mathbb{E}[\Psi_i(\bm{\theta}) \Psi_i(\bm{\theta})]' $
+	where 
+	\begin{equation*}
+		\begin{split}
+			V(\bm{\theta}) &= A(\bm{\theta}^{-1}) B(\bm{\theta})[A(\bm{\theta})^{-1}]' \\
+			A(\bm{\theta}) &= \mathbb{E} \left[ - \frac{\partial}{\partial \bm{\theta}} \Psi_i(\bm{\theta}) \right] \\ 
+			B(\bm{\theta}) &= \mathbb{E}[\Psi_i(\bm{\theta}) \Psi_i(\bm{\theta})]'
+		\end{split}
+	\end{equation*}
 
 \end{frame}
 
 \begin{frame}
-	\frametitle{M-Estimator example: Maximum Likelihood Estimator}
+	\frametitle{M-Estimator example: Linear Regression: ML Estimator}
+	$$ Y = \bm{\beta} \bm{X} + \epsilon $$
+	Log-likelihood function: $ l(X, Y; \bm{\beta}) = C - \frac{1}{2 \sigma^2} \sum_{i=1}^{N}(y_i - \bm{\beta} x_i)^2 $
+	M-estimator = $ \frac{\partial}{\partial \bm{\beta}} l(X, Y; \bm{\beta}) $
+
+	Implying $ \sqrt{n}(\hat{\bm{\beta}} - \bm{\beta}) = \mathcal{N}(0, V(\bm{\beta}) $.
+
 \end{frame}
 
 \begin{frame}
 	\frametitle{M-Estimator and Delta method}
-	Given a function $ g(\bm{\theta}) $ which is a smooth function of $ \bm{\theta} $, we have:
+	\begin{block}{Delta Method}
+		If there is a sequence of random variables $X_n$ satisfying $ \sqrt{n}[X_n - \theta] \rightarrow \mathcal{N}(0, \sigma^2) $, then
+		$$ \sqrt{n}[g(X_n) - g(\theta)] \rightarrow \mathcal{N}(0, [g'(\theta)] \sigma^2 [g'(\theta)]')$$
+	\end{block}
+	\begin{block}{M-Estimator and Delta Method}
+		Given a function $ g(\bm{\theta}) $ which is a smooth function of $ \bm{\theta} $, we have:
 
-	$$ \sqrt{n} \left[ g(\hat{\bm{\theta}}) - g(\bm{\theta}) \right] \to \mathcal{N}(0, \sigma^2) $$
-	where $ \sigma^2 = \left[ \frac{\partial}{\partial \bm{\theta}} g(\bm{\theta}) \right] V(\bm{\theta}) \left[ \frac{\partial}{\partial \bm{\theta}} g(\bm{\theta}) \right]' $
+		$$ \sqrt{n} \left[ g(\hat{\bm{\theta}}) - g(\bm{\theta}) \right] \to \mathcal{N} \left( 0, \left[ \frac{\partial}{\partial \bm{\theta}} g(\bm{\theta}) \right] V(\bm{\theta}) \left[ \frac{\partial}{\partial \bm{\theta}} g(\bm{\theta}) \right]' \right) $$
+	\end{block}
 \end{frame}
 
 \begin{frame}
@@ -470,54 +511,86 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Proof: Both continuous/ordinal case}
+	\frametitle{Proof: Both ordinal case}
+	\begin{equation*}
+		\begin{split}
+			\bm{\theta}^T &= (\theta_1, \theta_2) \\
+			\Psi (X_i, Y_i, \mathbf{Z}_i; \bm{\theta}^T) &= 
+				\begin{cases}
+					R_{y_i} R_{x_i} - \theta_1 \\
+					(R_{y_i} R_{x_i})^2 - \theta_2
+				\end{cases} \\
+			g(\bm{\theta}) &= \frac{\theta_1}{\sqrt{\theta_2 - \theta_1^2}} \\
+		\end{split}
+	\end{equation*}
+
+
+		% \begin{equation}
+		% 	\begin{split}
+		% 		\hat{\theta}_1 &= \mathbb{E}[R_{\mathbf{x}} R_{\mathbf{y}}] \\
+		% 		\hat{\theta}_2 &= \mathbb{E}[(R_{\mathbf{x}} R_{\mathbf{y}})^2] \\
+		% 	\end{split}
+		% \end{equation}
+
 	\begin{itemize}
-	\item 
-		\begin{equation}
-			\begin{split}
-				\bm{\theta}^T &= (\theta_1, \theta_2) \\
-				\Psi (X_i, Y_i, \mathbf{Z}_i; \bm{\theta}^T) &= 
-					\begin{cases}
-						R_{y_i} R_{x_i} - \theta_1 \\
-						(R_{y_i} R_{x_i})^2 - \theta_2
-					\end{cases} \\
-				g(\bm{\theta}) &= \frac{\theta_1}{\sqrt{\theta_2 - \theta_1^2}} \\
-			\end{split}
-		\end{equation}
-
-	\item
-		\begin{equation}
-			\begin{split}
-				\hat{\theta}_1 &= \mathbb{E}[R_{\mathbf{x}} R_{\mathbf{y}}] \\
-				\hat{\theta}_2 &= \mathbb{E}[(R_{\mathbf{x}} R_{\mathbf{y}})^2] \\
-			\end{split}
-		\end{equation}
-
-	\item As $ n \rightarrow \infty $, $ \sqrt{n} (g(\hat{\bm{\theta}}) - g(\bm{\theta})) \rightarrow \mathcal{N}(0, \sigma^2) $ 
-	
-	\item Since under the null $ g(\bm{\theta}) = 0 $, $\sqrt{n}g(\hat{\bm{\theta}}) \rightarrow \mathcal{N}(0, \sigma^2) $.
+		\item $ g(\bm{\theta}) $ is chosen such that $ Q_1 = (\sqrt{n} g(\bm{\theta}))^2 $.
+		\item As $ n \rightarrow \infty $, $ \sqrt{n} (g(\hat{\bm{\theta}}) - g(\bm{\theta})) \rightarrow \mathcal{N}(0, \sigma^2) $.
+		\item Using $ \Psi(X_i, Y_i, \bm{Z}_i; \bm{\theta}^T) = 0 $: 
+			$$ \hat{\theta}_1 = \mathbb{E}[R_{\mathbf{y}} R_{\mathbf{x}}], \hat{\theta}_2 = \mathbb{E}[(R_{\mathbf{x}} R_{\mathbf{y}})^2] $$
+		\item Since under the null $ g(\bm{\theta}) = 0 $, $\sqrt{n}g(\hat{\bm{\theta}}) \rightarrow \mathcal{N}(0, \sigma^2) $.
 	\end{itemize}
 
 \end{frame}
 
 \begin{frame}
-	\frametitle{Proof: One continuous/ordinal and one categorical case}
+	\frametitle{Proof: One ordinal and one categorical case}
+	\begin{equation*}
+		\begin{split}
+			& \bm{\theta}^T = (\bm{\theta_1}, \bm{\theta_2}) \\
+			& \bm{\theta_1} = (\theta_1^1, \theta_1^2, \cdots, \theta_1^{k-1}) \\
+			& \bm{\theta_2} = (\theta_2^{11}, \cdots, \theta_2^{1(k-1)}, \theta_2^{21}, \cdots, \theta_2^{2(k-1)}, \cdots, \theta_2^{(k-1) (k-1)}) \\
+			& \Psi(X_i, Y_i, \mathbf{Z}_i; \bm{\theta}^T) = 
+				\begin{cases}
+					R_{{\mathbb{I}(x=j)}_i}.R_{y_i} - \theta_1^j \, \, \forall j \in \{ 1, \cdots, k-1 \} \\
+					(R_{{\mathbb{I}(x=j)}_i}.R_{y_i} \times R_{{\mathbb{I}(x=k)}_i}.R_{y_i}) - \theta_{2}^{jk} \,\, \forall j, k \in \{ 1, \cdots, k-1 \} \\
+				\end{cases} \\
+			& g(\bm{\theta}) = \bm{\theta_1} \bm{\wedge}
+		\end{split}
+	\end{equation*}
+
+	where:
+\begin{equation*}
+	\begin{split}
+		\bm{\wedge} &= \bm{\Sigma}^{-\frac{1}{2}} \\
+		\Sigma^{i,j} &= \mathbb{E}[(R_{\mathbb{I}(\mathbf{x}=i)}.R_\mathbf{y})(R_{\mathbb{I}(\mathbf{x}=j)}.R_\mathbf{y})] - \mathbb{E}[R_{\mathbb{I}(\mathbf{x}=i)}.R_\mathbf{y}] \mathbb{E}[R_{\mathbb{I}(\mathbf{x}=j)}.R_\mathbf{y}] \\
+			    &= \theta_2^{ij} - \theta_1^{i} \theta_1^{j} \\
+	\end{split}
+\end{equation*} 
 \end{frame}
 
-\begin{frame}
-	\frametitle{Proof: Both categorical case}
-\end{frame}
-
-\section{Empirical Results on test performance}
+\section{Test performance}
 \begin{frame}
 	\frametitle{Empirical Analysis: Calibration}
 	\begin{itemize}
-		\item A good test should be 1. calibrated 2. have power.
-		\item With calibration, we mean that when the null (i.e. $ X
-			\ci Y | Z $) is true, the p-value should be uniformly
-			distributed.
-		\item We generate datasets of varying sample sizes and number of conditional variables where the null is true, compute the 
-			p-value using the test, and check its distribution.
+		\item Under the null (i.e. $ X \ci Y | Z $), the p-value should
+			be uniformly distributed.
+		\item We test the distribution of p-values on simulated
+			datasets with varying sample sizes and number of
+			conditional variables.
+		\item Independent datasets are generated using the DAG:
+			\begin{figure}
+				\centering
+				\begin{tikzpicture}[yscale=.75]
+				\node (x) at (0,1) {$X$};
+				\node (y) at (2,1) {$Y$};
+				\node (z) at (1,1) {$Z_1$};
+				\node at (3,1) {$Z_2$};
+				\node at (4,1) {$\ldots$};
+				\node at (5,1) {$Z_k$};
+				\draw [->] (z) -- (y);
+				\draw [->] (z) -- (x);
+				\end{tikzpicture}
+			\end{figure}
 	\end{itemize}
 \end{frame}
 
@@ -536,24 +609,24 @@
 \begin{frame}
 	\frametitle{Empirical Analysis: Discrimination Data generation}
 	\begin{itemize}
-		\item With discrimination analysis, we check how well is the test able to detect dependence/independence.
-		\item We generated data with varying effect strength between variables $ X $ and $ Y $ and number of conditional variables that 
-			acted as noise variables.
-		\item We test the accuracy of correctly classifying the dataset as dependent vs independent.
+		\item When the null hypothesis is false, the test should be able to reject the null i.e. should have power.
+		\item We test the accuracy of correctly classifying datasets as dependent or independent.
+		\item Dependent datasets are generated with varying effect strength for $ X \to Y $. Additional independent conditional variables are added as noise.
+			\begin{figure}
+					\begin{tikzpicture}[yscale=.75, xscale=.6]
+						\node (x) at (0,0) {$X$};
+						\node (y) at (2,0) {$Y$};
+						\node (z) at (1,1) {$Z_1$};
+						\node at (2,1) {$Z_2$};
+						\node at (3,1) {$\ldots$};
+						\node at (4,1) {$Z_k$};
+						\draw [->] (x) edge node [midway, above] {?} (y);
+						\draw [->] (z) -- (y);
+						\draw [->] (z) -- (x);
+					\end{tikzpicture}
+			\end{figure}
+		\item Independent datasets are generated by setting the effect to $ 0 $.
 	\end{itemize}
-	\begin{figure}
-			\begin{tikzpicture}[yscale=.75, xscale=.6]
-				\node (x) at (0,0) {$X$};
-				\node (y) at (2,0) {$Y$};
-				\node (z) at (1,1) {$Z_1$};
-				\node at (2,1) {$Z_2$};
-				\node at (3,1) {$\ldots$};
-				\node at (4,1) {$Z_k$};
-				\draw [->] (x) edge node [midway, above] {?} (y);
-				\draw [->] (z) -- (y);
-				\draw [->] (z) -- (x);
-			\end{tikzpicture}
-	\end{figure}
 \end{frame}
 
 \begin{frame}
@@ -561,9 +634,9 @@
 	\begin{figure}
 		\centering
 		\includegraphics{imgs/accuracy.pdf}
-		\caption*{(a) Accuracy (shading: mean $\pm$ standard error, $N=200$)
+		\caption*{Accuracy (shading: mean $\pm$ standard error, $N=200$)
 		of classifying simulated binary datasets (sample size: $1000$)
-		as conditionally dependent or independent. (b) The data generating DAG.}
+		as conditionally dependent or independent.}
 	\end{figure}
 
 \end{frame}
@@ -588,8 +661,10 @@
 \begin{frame}
 	\frametitle{Applications: Model testing Data generation}
 	\begin{itemize}
-		\item Given a DAG, how well is the test able to identify all the implied CIs in data simulated from the DAG.
-		\item We generate random DAGs with varying edge density to generate implied CIs with varying number of conditional variables.
+		\item Given a DAG and a dataset, how well is the test able to detect the implied CIs of the DAG in the data.
+		\item We generate random DAGs with varying edge density 
+
+			to generate implied CIs with varying number of conditional variables.
 		\item Test the precision and recall of identify implied CI in the simulated dataset.
 	\end{itemize}
 \end{frame}
@@ -614,14 +689,16 @@
 		\item The number of variables in $ Z $ is increased in each iteration.
 		\item The algorithm reaches higher number of conditional variables in denser graphs.
 	\end{itemize}
+	\todo[inline]{Show an example}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Applications: Structure Learing data generation}
+	\frametitle{Applications: Structure Learning data generation}
 	\begin{itemize}
-		\item Test how well is the test able to recover a DAG from data simulated from it.
-		\item We vary the edge density while keeping the sample size same.
-		\item We compute the F-1 score to test how well is the DAG structure recovered.
+		\item Test how well is the test able to recover a DAG from given dataset.
+		\item Generated random DAGs while varying the edge probability and simulated datasets from it.
+		\item PC algorithm is used to learn the DAG back from the simulated datasets.
+		\item We compare the edges in the learned and the original DAG.
 	\end{itemize}
 \end{frame}
 
@@ -689,7 +766,7 @@
 	\frametitle{Conclusion/Future Work}
 	\begin{itemize}
 		\setlength\itemsep{1em}
-		\item A residualization based CI test that works for all combination of data types.
+		\item A residualization based CI test that works for a combination of ordinal and categorical variables.
 		\item Properties: 1) Simple to implement; 2) Interpretable chi-square test statistic; 3) Symmetric by construction; 4) Computationally feasible
 		\item Performs reasonably well for low number of
 			conditional variable but performs better for high
