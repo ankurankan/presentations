@@ -449,11 +449,6 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Code Example}
-	\todo[inline]{Show a code example of how it works}
-\end{frame}
-
-\begin{frame}
 	\frametitle{Proof: M-estimation theory}
 	\justifying{Given a vector of parameters $ \bm{\theta} $, and a function $ \Psi_i(\bm{\theta}) = \Psi(Y_i, X_i, \bm{Z}_i; \bm{\theta}) $, such that the following conditions are satisfied.}
 	\begin{enumerate}
@@ -565,6 +560,13 @@
 	\end{split}
 \end{equation*} 
 \end{frame}
+\begin{frame}
+	\frametitle{Proof: One ordinal and one categorical case}
+	\begin{itemize}
+		\item $ g(\bm{\theta}) $ is again chosen such that $ Q_2 = (\sqrt{n} g(\bm{\theta}))^2 $
+		\item Using 
+	\end{itemize}
+\end{frame}
 
 \section{Test performance}
 \begin{frame}
@@ -650,9 +652,9 @@
 		\item Conditionally independent data with $ k $ levels generated as:
 			\begin{equation*}
 				\begin{split}
-					z_i = \textit{Binom}(k-1, 0.5)
-					x = \textit{Binom}(k-1, z_1/k)
-					y = \textit{Binom}(k-1, z_1/k)
+					z_i &= \textit{Binom}(k-1, 0.5) \\
+					x &= \textit{Binom}(k-1, z_1/k) \\
+					y &= \textit{Binom}(k-1, z_1/k) \\
 				\end{split}
 			\end{equation*}
 		\item For conditionally dependent data, $ z_1 $ is randomly permuted.
