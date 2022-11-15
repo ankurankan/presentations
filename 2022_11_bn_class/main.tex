@@ -262,8 +262,10 @@
 	\begin{itemize}
 		\item Can utilize any statistical model for which a reasonable goodness
 			of fit exist.
-		\item Inherently asymmetrical. As the value of $ S(X | Z) - S(X|Y,Z) $ can be different from $ S(Y|Z) - S(Y|X, Z) $,
-			the result of $ X \ci Y | Z $ can be different from $ Y \ci X | Z $.
+		\item Inherently asymmetrical. For example, in the case of SCCI
+			the value of $ S(X | Z) - S(X|Y,Z) $ can be different
+			from $ S(Y|Z) - S(Y|X, Z) $, the result of $ X \ci Y |
+			Z $ can be different from $ Y \ci X | Z $.
 	\end{itemize}
 
 \end{frame}
@@ -542,7 +544,7 @@
 		\item As $ n \rightarrow \infty $, $ \sqrt{n} (g(\hat{\bm{\theta}}) - g(\bm{\theta})) \rightarrow \mathcal{N}(0, \sigma^2) $.
 		 \item Using $ \Psi(X_i, Y_i, \bm{Z}_i; \bm{\theta}^T) = 0 $: 
 		 	$$ \hat{\theta}_1 = \mathbb{E}[R_{\mathbf{y}} R_{\mathbf{x}}], \hat{\theta}_2 = \mathbb{E}[(R_{\mathbf{x}} R_{\mathbf{y}})^2] $$
-		\item Since under the null $ g(\bm{\theta}) = 0 $, $\sqrt{n}g(\hat{\bm{\theta}}) \rightarrow \mathcal{N}(0, \sigma^2) \implies Q_1 \to \chi^2(1) $.
+		\item Since under the null $ g(\bm{\theta}) = 0 $, and $ \sigma^2 = 1 $, $\sqrt{n}g(\hat{\bm{\theta}}) \rightarrow \mathcal{N}(0, 1) \implies Q_1 \to \chi^2(1) $.
 	\end{itemize}
 
 \end{frame}
@@ -571,6 +573,9 @@
 			    &= \theta_2^{ij} - \theta_1^{i} \theta_1^{j} \\
 	\end{split}
 \end{equation*} 
+	\begin{itemize}
+		\item $ \sqrt{n}g(\hat{\bm{\theta}}) \to \mathcal{N}(0, \mathbb{I}_{(k-1)}) \implies Q_2 \to \chi^2(k-1) $
+	\end{itemize}
 \end{frame}
 % \begin{frame}
 % 	\frametitle{Proof: One ordinal and one categorical case}
