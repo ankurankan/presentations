@@ -160,7 +160,7 @@
 		\item Converts CI test into simple independence test by splitting 
 			the dataset.
 		$ D[X, Y, \bm{Z}] = \{ D[X, Y, \bm{Z}=\bm{z_1}], D[X, Y, \bm{Z}=\bm{z_2}], \cdots \} $	
-		\item Runs test on each stratum and then combines the results.
+		\item Runs non-conditional test on each stratum and then combines the results.
 	\end{itemize}
 \end{frame}
 
@@ -272,6 +272,7 @@
 	\frametitle{Residualization Based Tests}
 	\begin{itemize}
 		\setlength\itemsep{1em}
+		\item Commonly used for continuous variables.
 		\item Uses two estimators $ \mathbb{E}[X| Z] $ and $
 			\mathbb{E}[Y | Z] $ and checks for the multiplicative
 			association between the residuals. E.g.
@@ -485,6 +486,17 @@
 \end{frame}
 
 \begin{frame}
+	\frametitle{Proof Outline}
+	\begin{itemize}
+		\item Define parameters such that our test statistics can be written as a function of the parameters.
+		\item Define a function $ g(\bm{\theta}) $ for each of the test statistic such that $ Q = (\sqrt{n}g(\bm{\theta}))^2 $.
+		\item As $ \sqrt{n}(g(\hat{\bm{\theta}}) - g(\bm{\theta})) \to \mathcal{N}(0, \sigma^2) $, show that $ g(\bm{\theta}) = 0 $, and $ \sigma^2 = \mathbb{I} $ for our test statistics.
+		\item As the square-root of test statistic is asymptotically standard normal, the test statistic is asymptotically chi-square distributed.
+	\end{itemize}
+
+\end{frame}
+
+\begin{frame}
 	\frametitle{M-Estimator for the test statistic}
 	\begin{itemize}
 		\item Divide our parameter vector into $ 3 $ sets: $ \bm{\theta} = \{ \bm{\theta^\bm{X}}, \bm{\theta^\bm{Y}}, \bm{\theta^\bm{T}} \} $.
@@ -528,9 +540,9 @@
 	\begin{itemize}
 		\item $ g(\bm{\theta}) $ is chosen such that $ Q_1 = (\sqrt{n} g(\bm{\theta}))^2 $.
 		\item As $ n \rightarrow \infty $, $ \sqrt{n} (g(\hat{\bm{\theta}}) - g(\bm{\theta})) \rightarrow \mathcal{N}(0, \sigma^2) $.
-		\item Using $ \Psi(X_i, Y_i, \bm{Z}_i; \bm{\theta}^T) = 0 $: 
-			$$ \hat{\theta}_1 = \mathbb{E}[R_{\mathbf{y}} R_{\mathbf{x}}], \hat{\theta}_2 = \mathbb{E}[(R_{\mathbf{x}} R_{\mathbf{y}})^2] $$
-		\item Since under the null $ g(\bm{\theta}) = 0 $, $\sqrt{n}g(\hat{\bm{\theta}}) \rightarrow \mathcal{N}(0, \sigma^2) $.
+		 \item Using $ \Psi(X_i, Y_i, \bm{Z}_i; \bm{\theta}^T) = 0 $: 
+		 	$$ \hat{\theta}_1 = \mathbb{E}[R_{\mathbf{y}} R_{\mathbf{x}}], \hat{\theta}_2 = \mathbb{E}[(R_{\mathbf{x}} R_{\mathbf{y}})^2] $$
+		\item Since under the null $ g(\bm{\theta}) = 0 $, $\sqrt{n}g(\hat{\bm{\theta}}) \rightarrow \mathcal{N}(0, \sigma^2) \implies Q_1 \to \chi^2(1) $.
 	\end{itemize}
 
 \end{frame}
@@ -560,13 +572,13 @@
 	\end{split}
 \end{equation*} 
 \end{frame}
-\begin{frame}
-	\frametitle{Proof: One ordinal and one categorical case}
-	\begin{itemize}
-		\item $ g(\bm{\theta}) $ is again chosen such that $ Q_2 = (\sqrt{n} g(\bm{\theta}))^2 $
-		\item Using 
-	\end{itemize}
-\end{frame}
+% \begin{frame}
+% 	\frametitle{Proof: One ordinal and one categorical case}
+% 	\begin{itemize}
+% 		\item $ g(\bm{\theta}) $ is again chosen such that $ Q_2 = (\sqrt{n} g(\bm{\theta}))^2 $
+% 		\item Using 
+% 	\end{itemize}
+% \end{frame}
 
 \section{Test performance}
 \begin{frame}
@@ -591,6 +603,7 @@
 				\draw [->] (z) -- (x);
 				\end{tikzpicture}
 			\end{figure}
+		\item $ \bm{z}_1 $ is randomly generated. $ X $ and $ Y $ each are sampled from the binomial distribution $ \textit{Binom}(2, \bm{z}_1/3) $.
 	\end{itemize}
 \end{frame}
 
@@ -649,7 +662,7 @@
 	\frametitle{Epirical Analysis: Discrimination Data Generation (Ordinal)}
 	\begin{itemize}
 		\item Same as the last analysis but ordinal datasets are used.
-		\item Conditionally independent data with $ k $ levels generated as:
+		\item Conditionally independent data with $ k $ levels are generated as:
 			\begin{equation*}
 				\begin{split}
 					z_i &= \textit{Binom}(k-1, 0.5) \\
@@ -676,10 +689,11 @@
 \begin{frame}
 	\frametitle{Applications: Model testing Data generation}
 	\begin{itemize}
-		\item Given a DAG and a dataset, how well is the test able to detect the implied CIs of the DAG in the data.
-		\item We generate random DAGs with varying edge density 
-
-			to generate implied CIs with varying number of conditional variables.
+		\item Given a DAG and a dataset, how well is the test able to
+			detect the implied CIs of the DAG in a given dataset.
+		\item We generate random DAGs with varying edge density.
+		\item We use the CI test to test all the implied CIs and an equal number of 
+			randomly generated CIs in the simulated dataset.
 		\item Test the precision and recall of identify implied CI in the simulated dataset.
 	\end{itemize}
 \end{frame}
@@ -700,7 +714,7 @@
 	\frametitle{Constraint-Based Structure Learing}
 	\begin{itemize}
 		\item Systematically performs CI tests on a given dataset to construct a network structure.
-		\item Starts with a fully connected network and removes edges $ X \to Y $ if $ X \ci Y | Z $ in data.
+		\item Starts with a fully connected network and removes edge b/w $ X $ and $ Y $  if $ X \ci Y | Z $ in data.
 		\item The number of conditional variables is increased in each iteration.
 		\item In denser graphs, the algorithm performs higher dimensional independence tests.
 	\end{itemize}
