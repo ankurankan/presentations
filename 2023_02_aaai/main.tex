@@ -49,7 +49,7 @@
 	\tableofcontents
 \end{frame}
 
-\section{Motivation/Applications of Conditional Independence (CI) Tests}
+\section{Motivation/Applications}
 \begin{frame}
 	\begin{center} \Huge{Motivation/Applications} \end{center}
 \end{frame}
@@ -354,7 +354,7 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 % 	\end{itemize}
 % \end{frame}
 
-\section{Proposed Unified Test for Ordinal and Categorical Data}
+\section{Proposed Unified Test}
 \begin{frame}
 	\begin{center} \Huge{Proposed Unified Test for Ordinal and Categorical Data} \end{center}
 \end{frame}
@@ -381,7 +381,6 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 
 	For the binary case with $ Y \in \{0, 1\} $:
 	$$ R_{y_i} = y_i - \hat{p}(Y = 1) $$
-	\vspace{1em}
 
 	For the conditional case for sample $ (y|z)_i $,
 	$$ R_{y_i | z_i} = \hat{p}(Y < y_i | Z=z_i) - \hat{p}(Y>y_i|Z=z_i) $$
@@ -645,6 +644,30 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 \begin{frame}
 	\begin{center} \Huge{Empirical Results} \end{center}
 \end{frame}
+\begin{frame}{Empirical Analysis}
+	\begin{itemize}
+		\item Use the proposed test with two estimators Random Forest (RFT) and Generalized Linear Models (GLM).
+		\item Even though RF is not an M-Estimator, we use it as a sensitivity analysis for
+			how well the test works with non M-Estimators.
+		\item We compared our proposed test to 4 other tests:
+			\begin{enumerate}
+				\item Mutual Information based Test (MI)
+				\item Monte Carlo Permutation Test (MC-MI)
+				\item Stochastic Complexity based CI (SCCI)
+				\item Jonckheere-Terpstra Test (JT) (Only for ordinal case)
+			\end{enumerate}
+		\item List of analyses:
+			\begin{enumerate}
+				\item Calibration
+				\item Discrimination
+				\item Model Testing
+				\item Simulated data Strucutre Learning
+				\item Read Dataset Structure Learning
+				\item Runtime
+			\end{enumerate}
+
+	\end{itemize}
+\end{frame}
 \begin{frame}
 	\frametitle{Empirical Analysis: Calibration}
 	\begin{itemize}
@@ -747,7 +770,6 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 		classifying simulated ordinal data (8 levels per variable) as
 		conditionally dependent or independent.}	
 	\end{figure}
-	\footnotetext[7]{JT = Jonckheere-Terpstra test}
 \end{frame}
 
 \begin{frame}
