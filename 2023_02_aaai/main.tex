@@ -476,9 +476,10 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 	\frametitle{Test Statistic: One categorical and one ordinal}
 	\begin{proposition}
 
+		$$ Q_2(\bm{x}, \bm{y}) = \frac{1}{n} (d \times \hat{\Sigma}_d^{-1} \times d^T) $$
+	where
 	\begin{equation*}
 		\begin{split}
-		Q_2(\bm{x}, \bm{y}) &= \frac{1}{n} (d \times \hat{\Sigma}_d^{-1} \times d^T) \\
 		d &= (R_{\mathbb{I}(\mathbf{x}=1)} \cdot R_{\mathbf{y}}, \, \ldots \ , R_{\mathbb{I}(\mathbf{x}=k-1)} \cdot R_{\mathbf{y}}) \\ 
 		\hat{\Sigma}_d &= Cov([R_\mathbb{I}(\mathbf{x}=1) \odot R_\mathbf{y}, \cdots, R_\mathbb{I}(\mathbf{x}=k-1) \odot R_\mathbf{y}])
 		\end{split}
@@ -497,10 +498,12 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 
 \begin{frame}
 	\frametitle{Test Statistic: Both categorical}
+	\todo[inline]{Fix equation alignment}
 	\begin{proposition}
 
 	$$ Q_3(\bm{x}, \bm{y}) = \frac{1}{n} (d \times \hat{\Sigma}_d^{-1} \times d^T) $$
 
+	where
 	\begin{equation*}
 		\begin{split}
 		d = (&R_{\mathbb{I}(\mathbf{x}=1)} \cdot R_{\mathbb{I}(\mathbf{y}=1)}, \, \ldots \ ,
@@ -525,18 +528,18 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 
 \begin{frame}
 	\frametitle{Test Summary}
+	Given a dataset, $ \mathbf{D} $ and a CI statement $ X \ci Y | \bm{Z} $:
 	\begin{enumerate}
 		\setlength\itemsep{1em}
 		\item If $\mathbf{Z} = \emptyset $ , do a non-conditional chi-squared test.
 		\item If either $ X $ or $ Y $ are non-binary categorical,
-			dummy/one-hot encode them.
-		\item Train two estimators $ E_x = \bm{x} \sim \bm{z} $ and
-			$ E_y = \bm{y} \sim \bm{z} $
+			dummy encode them.
+		\item Train two probability estimators $ p_x = \bm{x} \sim \bm{z} $ and
+			$ p_y = \bm{y} \sim \bm{z} $
 		\item Make probability predictions using these two estimators 
-			$ \hat{p}(x) = E_x(\bm{z}) $ and $ \hat{p}(y) =
-			E_y(\bm{\bm{z}}) $.
-		\item Use predictions and true values to compute LS-Residuals $ R_{\bm{x}|\bm{z}} $ and $ R_{\bm{y}|\bm{z}} $.	
-		\item Compute the test statistic and df.
+			$ \hat{p}(\bm{x}) = p_x(\bm{z}) $ and $ \hat{p}(\bm{y}) = p_y(\bm{\bm{z}}) $.
+		\item Use $ \hat{p}(\bm{x}) $, $ \hat{p}(\bm{y}) $, and $ D $ to compute LS-Residuals $ R_{\bm{x}|\bm{z}} $ and $ R_{\bm{y}|\bm{z}} $.	
+		\item Compute test statistic and df using $ R_{\bm{x}|\bm{z}} $ and $ R_{\bm{y}|\bm{z}} $.
 	\end{enumerate}
 \end{frame}
 
@@ -680,9 +683,8 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 \end{frame}
 \begin{frame}{Empirical Analysis}
 	\begin{itemize}
-		\item Use the proposed test with two estimators Random Forest (RFT) and Generalized Linear Models (GLM).
-		\item Even though RF is not an M-Estimator, we use it as a sensitivity analysis for
-			how well the test works with non M-Estimators.
+		\item Analysis shown using two estimators Generalized Linear Models (GLM) and Random Forest (RFT).
+		\item Even though RF is not an M-Estimator, we use it as a sensitivity analysis for non M-estimators.
 		\item We compared our proposed test to 4 other tests:
 			\begin{enumerate}
 				\item Mutual Information based Test (MI)
@@ -724,8 +726,16 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 				\draw [->] (z) -- (x);
 				\end{tikzpicture}
 			\end{figure}
-		\item $ \bm{z}_1 $ is randomly generated. $ X $ and $ Y $ each are sampled from the binomial distribution $ \textit{Binom}(2, \bm{z}_1/3) $.
+			\begin{equation*}
+				\begin{split}
+					\bm{z_1} &= Binom(1, 0.5) \\
+					\bm{x} &= Binom(1, \bm{z_1} / 3) \\
+					\bm{y} &= Binom(1, \bm{z_1} / 3) \\
+					\bm{z_i} &= Uniform([0, 1]) \forall i \in \{ 2, \cdots, k \} \\
+				\end{split}
+			\end{equation*}
 	\end{itemize}
+	\todo[inline]{Check the data generation equations}
 \end{frame}
 
 \begin{frame}
@@ -733,10 +743,9 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 	\begin{figure}
 		\centering
 		\includegraphics[scale=0.8]{imgs/calibration_add_vars.pdf}
-		\caption*{Type I error vs significance level for sample sizes (top to
+		\caption*{Type I error vs significance level for varying sample sizes (top to
 		bottom): $ [20, 40, 80] $ and number of conditional variables (left to
-		right): $ [1, 3, 5] $ on conditionally independent simulated binary
-		datasets.}
+		right): $ [1, 3, 5] $}
 	\end{figure}
 \end{frame}
 
@@ -744,8 +753,8 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 	\frametitle{Empirical Analysis: Discrimination Data generation}
 	\begin{itemize}
 		\item When the null hypothesis is false, the test should be able to reject the null i.e. should have power.
-		\item We test the accuracy of correctly classifying datasets as dependent or independent.
-		\item Dependent datasets are generated with varying effect strength for $ X \to Y $. Additional independent conditional variables are added as noise.
+		\item We test the accuracy of correctly classifying datasets as conditionally dependent or independent.
+		\item Dependent datasets are generated with varying effect strength for $ X \to Y $: 
 			\begin{figure}
 					\begin{tikzpicture}[yscale=.75, xscale=.6]
 						\node (x) at (0,0) {$X$};
@@ -783,7 +792,7 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 	\frametitle{Epirical Analysis: Discrimination Data Generation (Ordinal)}
 	\begin{itemize}
 		\item Same as the last analysis but ordinal datasets are used.
-		\item Conditionally independent data with $ k $ levels are generated as:
+		\item Conditionally independent data with $ k = 8 $ levels are generated as:
 			\begin{equation*}
 				\begin{split}
 					z_i &= \textit{Binom}(k-1, 0.5) \\
@@ -811,10 +820,12 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 	\begin{itemize}
 		\item Given a DAG and a dataset, how well is the test able to
 			detect the implied CIs of the DAG in a given dataset.
-		\item We generate random DAGs with varying edge density.
-		\item We use the CI test to test all the implied CIs and an equal number of 
+		\item We generate random DAGs on 20 variables with varying edge density.
+		\item We then simulate data (sample size of $1000 $) from the
+			DAGs using logistic regression and a fixed effect of
+			0.15 for all edges.
+		\item We use the CI tests to test all the implied CIs and an equal number of 
 			randomly generated CIs in the simulated dataset.
-		\item Test the precision and recall of identify implied CI in the simulated dataset.
 	\end{itemize}
 \end{frame}
 
@@ -825,28 +836,20 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 		\includegraphics{imgs/model_testing.pdf}
 		\caption*{Precision and recall (shading: mean $\pm$ standard
 		error) of testing implied CIs and equal number of randomly
-		generated CIs in binary datasets (sample size: $1000$)
-		simulated from random DAGs on $ 20 $ variables.}
+		generated CIs in binary datasets}
 	\end{figure}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Constraint-Based Structure Learing}
-	\begin{itemize}
-		\item Systematically performs CI tests on a given dataset to construct a network structure.
-		\item Starts with a fully connected network and removes edge b/w $ X $ and $ Y $  if $ X \ci Y | Z $ in data.
-		\item The number of conditional variables is increased in each iteration.
-		\item In denser graphs, the algorithm performs higher dimensional independence tests.
-	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Applications: Structure Learning data generation}
 	\begin{itemize}
 		\item Test how well is the test able to recover a DAG from given dataset.
-		\item Generated random DAGs while varying the edge probability and simulated datasets from it.
-		\item PC algorithm is used to learn the DAG back from the simulated datasets.
-		\item We compare the edges in the learned and the original DAG.
+		\item Generated random DAGs on 20 variables with varying the edge probability.
+		\item We then simulate data (sample size of $1000 $) from the
+			DAGs using logistic regression and a fixed effect of
+			0.15 for all edges.
+		\item PC algorithm (stable variant) is used to learn the DAG back from the simulated datasets.
+		\item F1-Score is computed for comparing the true and the learnt edges.
 	\end{itemize}
 \end{frame}
 
@@ -855,10 +858,9 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 	\begin{figure}
 		\centering
 		\includegraphics{imgs/sl_density.pdf}
-		\caption*{Structure learning on simulated data. F1-score
+		\caption*{F1-score
 		(shading: mean $\pm$ standard error) of the learned model
-		skeletons for randomly generated DAGs with $20$ variables and
-		varying edge probabilities.}
+		skeletons.}
 	\end{figure}
 \end{frame}
 
