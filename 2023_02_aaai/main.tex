@@ -498,7 +498,6 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 
 \begin{frame}
 	\frametitle{Test Statistic: Both categorical}
-	\todo[inline]{Fix equation alignment}
 	\begin{proposition}
 
 	$$ Q_3(\bm{x}, \bm{y}) = \frac{1}{n} (d \times \hat{\Sigma}_d^{-1} \times d^T) $$
@@ -634,9 +633,7 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 	\begin{itemize}
 		\item $ g(\bm{\theta}) $ is chosen such that $ Q_1 = (\sqrt{n} g(\bm{\theta}))^2 $.
 		\item As $ n \rightarrow \infty $, $ \sqrt{n} (g(\hat{\bm{\theta}}) - g(\bm{\theta})) \rightarrow \mathcal{N}(0, \sigma^2) $.
-		 \item Using $ \Psi(X_i, Y_i, \bm{Z}_i; \bm{\theta}^T) = 0 $: 
-		 	$$ \hat{\theta}_1 = \mathbb{E}[R_{\mathbf{y}} R_{\mathbf{x}}], \hat{\theta}_2 = \mathbb{E}[(R_{\mathbf{x}} R_{\mathbf{y}})^2] $$
-		\item Since under the null $ g(\bm{\theta}) = 0 $, and $ \sigma^2 = 1 $, $\sqrt{n}g(\hat{\bm{\theta}}) \rightarrow \mathcal{N}(0, 1) \implies Q_1 \to \chi^2(1) $.
+		\item Solving the equations, $ \sigma^2 = 1 \implies \sqrt{n}g(\hat{\bm{\theta}}) \rightarrow \mathcal{N}(0, 1) \implies Q_1 \to \chi^2(1) $.
 	\end{itemize}
 
 \end{frame}
@@ -735,7 +732,6 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 				\end{split}
 			\end{equation*}
 	\end{itemize}
-	\todo[inline]{Check the data generation equations}
 \end{frame}
 
 \begin{frame}
