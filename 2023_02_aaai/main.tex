@@ -406,6 +406,7 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 
 \begin{frame}
 	\frametitle{Residual for Ordinal Variables: LS-Residual Example}
+	\todo[inline]{Finish this example}
 	\[
 		\begin{array}{ccc}
 			Y & \hat{p}(y) & R_y \\
@@ -427,25 +428,34 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 			\end{bmatrix} \\
 		\end{array}
 	\]
-
 \end{frame}
 
 \begin{frame}
 	\frametitle{Residual for categorical variables: Using dummy encoding}
-	\begin{block}{Dummy Encoding}
-		Given a random variable, $ Y $ with $ 4 $ possible states: $ \{Y_0, Y_1, Y_2, Y_3 \} $
-		\begin{equation*}
-			\bm{y} = \left[ \begin{array}{c} Y_3 \\ Y_1 \\ Y_2 \\ \vdots \end{array} \right] = \left[ \begin{array}{cccc} 0 & 0 & 0 & 1 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ \vdots & \vdots & \vdots & \vdots \end{array} \right]
-		\end{equation*}
-	\end{block}
-
-	\begin{block}{Residual Example}
-	$\hat{p}(Y) = \begin{array}{cccc} Y_0 & Y_1 & Y_2 & Y_3 \\ 0.1 & 0.3 & 0.5 & 0.1 \end{array} $
-	\begin{itemize}
-		\item If $ y = Y_2 $, $ \begin{array}{cccc} 0 & 0 & 1 & 0 \\ -0.1 & -0.3 & 0.5 & -0.1 \end{array} $
-		\item If $ y = Y_1 $, $ \begin{array}{cccc} 0 & 1 & 0 & 0 \\ -0.1 & 0.7 & -0.5 & -0.1 \end{array} $
-	\end{itemize}
-	\end{block}	
+	\todo[inline]{Finish this example}
+	\[
+		\begin{array}{cccc}
+			y & y & \hat{p}(y) & R_y \\
+			\begin{bmatrix} Y_3 \\ Y_1 \\ Y_2 \\ \vdots \end{bmatrix} & 
+			\begin{bmatrix}
+				0 & 0 & 0 & 1 \\
+				0 & 1 & 0 & 0 \\
+				0 & 0 & 1 & 0 \\
+				0 & 0 & 1 & 0 \\
+				\vdots & \vdots & \vdots & \vdots \\
+			\end{bmatrix} & 
+			\begin{bmatrix}
+				0.1 & 0.3 & 0.5 & 0.1 \\
+				0.2 & 0.3 & 0.2 & 0.3 \\
+				\vdots & \vdots & \vdots & \vdots \\
+			\end{bmatrix} & 
+			\begin{bmatrix}
+				-0.1 & -0.3 & 0.5 & -0.1 \\
+				-0.1 & 0.7 & -0.5 & -0.1 \\
+				\vdots & \vdots & \vdots & \vdots \\
+			\end{bmatrix} \\
+		\end{array}
+	\]
 \end{frame}
 
 \begin{frame}
