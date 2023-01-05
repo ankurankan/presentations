@@ -406,52 +406,52 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 
 \begin{frame}
 	\frametitle{Residual for Ordinal Variables: LS-Residual Example}
-	\todo[inline]{Finish this example}
+	For ordinal variable:
 	\[
 		\begin{array}{ccc}
-			Y & \hat{p}(y) & R_y \\
+			\bm{y} & \hat{p}(\bm{y}) & R_{y} \\
 
 			\begin{bmatrix}
 				Y_2 \\
 				Y_3 \\
+				Y_1 \\
 				\vdots
 			\end{bmatrix} &
 			\begin{bmatrix}
 				0.1 & 0.3 & 0.5 & 0.1 \\
 				0.2 & 0.3 & 0.2 & 0.3 \\
+				0.4 & 0.2 & 0.2 & 0.2 \\
 				\vdots & \vdots & \vdots & \vdots
 			\end{bmatrix} &
 			\begin{bmatrix}
 				\hat{p}(Y < Y_2) - \hat{p}(Y>Y_2) = 0.3 \\
 				\hat{p}(Y < Y_3) - \hat{p}(Y>Y_3) = 0.9 \\
+				\hat{p}(Y < Y_1) - \hat{p}(Y>Y_1) = 0 \\
 				\vdots
 			\end{bmatrix} \\
 		\end{array}
 	\]
-\end{frame}
 
-\begin{frame}
-	\frametitle{Residual for categorical variables: Using dummy encoding}
-	\todo[inline]{Finish this example}
+	For categorical variable:
 	\[
-		\begin{array}{cccc}
-			y & y & \hat{p}(y) & R_y \\
-			\begin{bmatrix} Y_3 \\ Y_1 \\ Y_2 \\ \vdots \end{bmatrix} & 
+		\begin{array}{ccc}
+			\bm{y} & \hat{p}(\bm{y}) & R_{\bm{y}} \\
 			\begin{bmatrix}
-				0 & 0 & 0 & 1 \\
-				0 & 1 & 0 & 0 \\
-				0 & 0 & 1 & 0 \\
-				0 & 0 & 1 & 0 \\
+				Y_3: & 0 & 0 & 0 & 1 \\
+				Y_1: & 0 & 1 & 0 & 0 \\
+				Y_2: & 0 & 0 & 1 & 0 \\
 				\vdots & \vdots & \vdots & \vdots \\
 			\end{bmatrix} & 
 			\begin{bmatrix}
 				0.1 & 0.3 & 0.5 & 0.1 \\
 				0.2 & 0.3 & 0.2 & 0.3 \\
+				0.4 & 0.2 & 0.2 & 0.2 \\
 				\vdots & \vdots & \vdots & \vdots \\
 			\end{bmatrix} & 
 			\begin{bmatrix}
 				-0.1 & -0.3 & 0.5 & -0.1 \\
 				-0.1 & 0.7 & -0.5 & -0.1 \\
+				-0.4 & -0.2 & 0.8 & -0.2 \\
 				\vdots & \vdots & \vdots & \vdots \\
 			\end{bmatrix} \\
 		\end{array}
