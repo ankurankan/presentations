@@ -541,50 +541,51 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 		\item Compute test statistic and df using $ R_{\bm{x}|\bm{z}} $ and $ R_{\bm{y}|\bm{z}} $.
 	\end{enumerate}
 \end{frame}
-
-\begin{frame}
-	\frametitle{Proof: M-estimation theory}
-	\justifying{Given a vector of parameters $ \bm{\theta} $, and a function $ \Psi_i(\bm{\theta}) = \Psi(Y_i, X_i, \bm{Z}_i; \bm{\theta}) $, such that the following conditions are satisfied.}
-	\begin{enumerate}
-		\item $ \bm{\theta} $ can be estimated using $ \sum_{i=1}^n \Psi_i(\bm{\theta}) = 0 $.
-		\item $ \Psi_i $ doesn't depend on $ i $ or $ n $.
-		\item $ \mathbb{E}[\Psi_i(\bm{\theta})] = 0 $
-	\end{enumerate}
-
-	From m-estimation theory, if $ \Psi $ is suitably smooth, then as $ n \to \infty $,
-
-	$$ \sqrt{n}(\hat{\bm{\theta}} - \bm{\theta}) \to \mathcal{N}(0, V(\bm{\theta})) $$
-	where 
-	\begin{equation*}
-		\begin{split}
-			V(\bm{\theta}) &= A(\bm{\theta}^{-1}) B(\bm{\theta})[A(\bm{\theta})^{-1}]' \\
-			A(\bm{\theta}) &= \mathbb{E} \left[ - \frac{\partial}{\partial \bm{\theta}} \Psi_i(\bm{\theta}) \right] \\ 
-			B(\bm{\theta}) &= \mathbb{E}[\Psi_i(\bm{\theta}) \Psi_i(\bm{\theta})]'
-		\end{split}
-	\end{equation*}
-
-\end{frame}
-
-\begin{frame}
-	\frametitle{M-Estimator and Delta method}
-	\begin{block}{Delta Method}
-		If there is a sequence of random variables $X_n$ satisfying $ \sqrt{n}[X_n - \theta] \rightarrow \mathcal{N}(0, \sigma^2) $, then
-		$$ \sqrt{n}[g(X_n) - g(\theta)] \rightarrow \mathcal{N}(0, [g'(\theta)] \sigma^2 [g'(\theta)]')$$
-	\end{block}
-	\begin{block}{M-Estimator and Delta Method}
-		Given a function $ g(\bm{\theta}) $ which is a smooth function of $ \bm{\theta} $, we have:
-
-		$$ \sqrt{n} \left[ g(\hat{\bm{\theta}}) - g(\bm{\theta}) \right] \to \mathcal{N} \left( 0, \left[ \frac{\partial}{\partial \bm{\theta}} g(\bm{\theta}) \right] V(\bm{\theta}) \left[ \frac{\partial}{\partial \bm{\theta}} g(\bm{\theta}) \right]' \right) $$
-	\end{block}
-\end{frame}
+% 
+% \begin{frame}
+% 	\frametitle{Proof: M-estimation theory}
+% 	\justifying{Given a vector of parameters $ \bm{\theta} $, and a function $ \Psi_i(\bm{\theta}) = \Psi(Y_i, X_i, \bm{Z}_i; \bm{\theta}) $, such that the following conditions are satisfied.}
+% 	\begin{enumerate}
+% 		\item $ \bm{\theta} $ can be estimated using $ \sum_{i=1}^n \Psi_i(\bm{\theta}) = 0 $.
+% 		\item $ \Psi_i $ doesn't depend on $ i $ or $ n $.
+% 		\item $ \mathbb{E}[\Psi_i(\bm{\theta})] = 0 $
+% 	\end{enumerate}
+% 
+% 	From m-estimation theory, if $ \Psi $ is suitably smooth, then as $ n \to \infty $,
+% 
+% 	$$ \sqrt{n}(\hat{\bm{\theta}} - \bm{\theta}) \to \mathcal{N}(0, V(\bm{\theta})) $$
+% 	where 
+% 	\begin{equation*}
+% 		\begin{split}
+% 			V(\bm{\theta}) &= A(\bm{\theta}^{-1}) B(\bm{\theta})[A(\bm{\theta})^{-1}]' \\
+% 			A(\bm{\theta}) &= \mathbb{E} \left[ - \frac{\partial}{\partial \bm{\theta}} \Psi_i(\bm{\theta}) \right] \\ 
+% 			B(\bm{\theta}) &= \mathbb{E}[\Psi_i(\bm{\theta}) \Psi_i(\bm{\theta})]'
+% 		\end{split}
+% 	\end{equation*}
+% 
+% \end{frame}
+% 
+% \begin{frame}
+% 	\frametitle{M-Estimator and Delta method}
+% 	\begin{block}{Delta Method}
+% 		If there is a sequence of random variables $X_n$ satisfying $ \sqrt{n}[X_n - \theta] \rightarrow \mathcal{N}(0, \sigma^2) $, then
+% 		$$ \sqrt{n}[g(X_n) - g(\theta)] \rightarrow \mathcal{N}(0, [g'(\theta)] \sigma^2 [g'(\theta)]')$$
+% 	\end{block}
+% 	\begin{block}{M-Estimator and Delta Method}
+% 		Given a function $ g(\bm{\theta}) $ which is a smooth function of $ \bm{\theta} $, we have:
+% 
+% 		$$ \sqrt{n} \left[ g(\hat{\bm{\theta}}) - g(\bm{\theta}) \right] \to \mathcal{N} \left( 0, \left[ \frac{\partial}{\partial \bm{\theta}} g(\bm{\theta}) \right] V(\bm{\theta}) \left[ \frac{\partial}{\partial \bm{\theta}} g(\bm{\theta}) \right]' \right) $$
+% 	\end{block}
+% \end{frame}
 
 \begin{frame}
 	\frametitle{Proof Outline}
 	\begin{itemize}
-		\item Define parameters such that our test statistics can be written as a function of the parameters.
-		\item Define a function $ g(\bm{\theta}) $ for each of the test statistic such that $ Q = (\sqrt{n}g(\bm{\theta}))^2 $.
-		\item As $ \sqrt{n}(g(\hat{\bm{\theta}}) - g(\bm{\theta})) \to \mathcal{N}(0, \sigma^2) $, show that $ g(\bm{\theta}) = 0 $, and $ \sigma^2 = \mathbb{I} $ for our test statistics.
-		\item As the square-root of test statistic is asymptotically standard normal, the test statistic is asymptotically chi-square distributed.
+		\item Define parameters such that our test statistics can be written as M-Estimators.
+		\item Define a function, $ g(\bm{\theta}) $ on the M-Estimator parameters, $ \bm{\theta} $ for each of the test statistics such that $ Q = (\sqrt{n}g(\bm{\theta}))^2 $.
+		\item From M-Estimator theory and delta method, as $ \sqrt{n}(g(\hat{\bm{\theta}}) - g(\bm{\theta})) \to \mathcal{N}(0, \sigma^2) $.
+		\item We show that $ g(\bm{\theta}) = 0 $, implying $ \sqrt{n}g(\hat{\bm{\theta}}) \rightarrow \mathcal{N}(0, \sigma^2) $
+		\item As $ Q = (\sqrt{n}g(\bm{\theta}))^2 $, $ Q \rightarrow \chi^2 $.
 	\end{itemize}
 
 \end{frame}
@@ -619,21 +620,13 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 					(R_{y_i} R_{x_i})^2 - \theta_2
 				\end{cases} \\
 			g(\bm{\theta}) &= \frac{\theta_1}{\sqrt{\theta_2 - \theta_1^2}} \\
+			Q_1 &= (\sqrt{n} g(\bm{\theta}))^2 \\
 		\end{split}
 	\end{equation*}
 
-
-		% \begin{equation}
-		% 	\begin{split}
-		% 		\hat{\theta}_1 &= \mathbb{E}[R_{\mathbf{x}} R_{\mathbf{y}}] \\
-		% 		\hat{\theta}_2 &= \mathbb{E}[(R_{\mathbf{x}} R_{\mathbf{y}})^2] \\
-		% 	\end{split}
-		% \end{equation}
-
 	\begin{itemize}
-		\item $ g(\bm{\theta}) $ is chosen such that $ Q_1 = (\sqrt{n} g(\bm{\theta}))^2 $.
-		\item As $ n \rightarrow \infty $, $ \sqrt{n} (g(\hat{\bm{\theta}}) - g(\bm{\theta})) \rightarrow \mathcal{N}(0, \sigma^2) $.
-		\item Solving the equations, $ \sigma^2 = 1 \implies \sqrt{n}g(\hat{\bm{\theta}}) \rightarrow \mathcal{N}(0, 1) \implies Q_1 \to \chi^2(1) $.
+		\item As $ n \rightarrow \infty $, $ \sqrt{n} (g(\hat{\bm{\theta}}) - g(\bm{\theta})) \rightarrow \mathcal{N}(0, 1) $.
+		\item As $ g(\bm{\theta}) = 0 $, $ \sqrt{n}(g(\hat{\bm{\theta}}) \rightarrow \mathcal{N}(0, 1) \implies Q_1 \rightarrow \chi^2(1) $
 	\end{itemize}
 
 \end{frame}
