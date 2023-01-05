@@ -55,14 +55,14 @@
 \end{frame}
 \begin{frame}
 	\frametitle{Directed Acyclic Graphs}
+	\begin{block}{Causal Markov Condition}
+		Every node in the DAG is conditionally independent of its non-descendants, given its parents.
+	\end{block}
 	\begin{figure}
 		\centering
 		\includegraphics[scale=0.6]{imgs/example_dag.png}
 		\caption*{An example of Directed Acyclic Graph (DAG) \footnotemark}
 	\end{figure}
-	\begin{block}{Causal Markov Condition}
-		Every node in the DAG is conditionally independent of its non-descendants, given its parents.
-	\end{block}
 	In the DAG shown above,
 	\begin{equation*}
 		\begin{split}
@@ -191,12 +191,12 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 			the dataset such that conditional variables are constant in each stratum. \newline
 			$$ D[X, Y, \bm{Z}] = \{ D[X, Y, \bm{Z}=\bm{z_1}], D[X, Y, \bm{Z}=\bm{z_2}], \cdots \} $$
 		\item Runs non-conditional test on each stratum and combines the results.
-		\item Most common type for discrete variables. Examples are chi-square, G-test,
-			mutual information based test, etc. 
- 		\item As the number of conditional variables is increased, exponentially
- 			less data is available in each stratum.
- 		\item Looses power when number of conditonal variables
- 			are increased.
+		\item Most common type of test for discrete variables. Examples
+			are chi-square, G-test, mutual information based test,
+			etc. 
+		\item As the number or cardinality of conditional variables is
+			increased, exponentially less data is available in each
+			stratum, resulting in it loosing power.
 	\end{itemize}
 \end{frame}
 
@@ -273,18 +273,18 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 	\begin{itemize}
 		\setlength\itemsep{1em}
 		\item Based on comparing the probability models: $\hat{p}(x |
-			y, z) $ and $ \hat{p}(x | z) $. E.g. Stochastic
-			Complexity-Based Conditional Independence Test (SCCI) \footnotemark.
+			y, z) $ and $ \hat{p}(x | z) $. 
+		\item The idea being that if adding the additional variable to
+			the predictors doesn't improve the fit, the varible
+			doesn't have any extra infromation.  E.g. Stochastic
+			Complexity-Based Conditional Independence Test (SCCI)
+			\footnotemark.
 		\item The two probability models are trained and some goodness of fit is compared.
-		\item If the simpler model doesn't fit significantly worse, implies $ X \ci Y | Z $.
-		\item The idea is that if adding the additional variable to the predictor doesn't improve the fit, the variable
-			doesn't have any extra information.
 		\item Can utilize any statistical model for which a reasonable goodness
 			of fit exist.
-		\item Inherently asymmetrical. For example, in the case of SCCI
-			the value of $ S(X | Z) - S(X|Y,Z) $ can be different
-			from $ S(Y|Z) - S(Y|X, Z) $, the result of $ X \ci Y |
-			Z $ can be different from $ Y \ci X | Z $.
+		\item Main disadvantage is that these tests are inherently
+			asymmetrical i.e. the result of $ X \ci Y | Z $ can be
+			different from $ Y \ci X | Z $.
 	\end{itemize}
 	\footnotetext[3]{\footnotesize Marx, Alexander, and Jilles Vreeken. "Testing conditional independence on discrete data using stochastic complexity." PMLR, 2019}
 
@@ -316,7 +316,6 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 	\frametitle{Residualization Based Tests}
 	\begin{itemize}
 		\setlength\itemsep{1em}
-		\item Commonly used for continuous variables.
 		\item Uses two estimators $ \mathbb{E}[X| Z] $ and $
 			\mathbb{E}[Y | Z] $ and checks for the multiplicative
 			association between the residuals. E.g.
@@ -327,7 +326,6 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 			then $ \mathbb{E}[R_{X|Z} R_{Y|Z}] = 0 $.
 		\item Any estimator can be used as long as it has ``valid'' residuals.
 		\item No easy way to define residuals for ordinal and categorical variables.
-		\item No residualization based test exists for categorical or ordinal variables.
 	\end{itemize}
 	\footnotetext[4]{\footnotesize Daudin, J. J. "Partial association measures and an application to qualitative regression." Biometrika, 1980}
 \end{frame}
@@ -387,23 +385,49 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 
 \end{frame}
 
+% \begin{frame}
+% 	\frametitle{Residual for ordinal variables: LS-Residuals Example}
+% 	\begin{block}{Ordinal Variable}
+% 		\vspace{1em}
+% 			$ \hat{p}(y) = \begin{array}{llll} Y_0 & Y_1 & Y_2 & Y_3 \\ 0.1 & 0.3 & 0.5 & 0.1 \end{array} $
+% 		\begin{itemize}
+% 			\item If $ y = Y_2 $, $ R_{y} = \hat{p}(Y < Y_2) - \hat{p}(Y > Y_2) = 0.3 $
+% 			\item If $ y = Y_3 $, $ R_{y} = \hat{p}(Y < Y_3) - \hat{p}(Y > Y_3) = 0.9 $
+% 		\end{itemize}
+% 	\end{block}
+% 	\begin{block}{Binary Variable}
+% 		$\hat{p}(Y) = \begin{array}{ll} Y_0 & Y_1 \\ 0.3 & 0.7 \end{array} $
+% 		\begin{itemize}	
+% 			\item If $ y = Y_0 $, $ R_{y} = Y_0 - \hat{p}(Y=1) = -0.7 $
+% 			\item If $ y = Y_1 $, $ R_{y} = Y_1 - \hat{p}(Y=1) = 0.3 $
+% 		\end{itemize}
+% 	\end{block}
+% \end{frame}
+
 \begin{frame}
-	\frametitle{Residual for ordinal variables: LS-Residuals Example}
-	\begin{block}{Ordinal Variable}
-		\vspace{1em}
-			$ \hat{p}(y) = \begin{array}{llll} Y_0 & Y_1 & Y_2 & Y_3 \\ 0.1 & 0.3 & 0.5 & 0.1 \end{array} $
-		\begin{itemize}
-			\item If $ y = Y_2 $, $ R_{y} = \hat{p}(Y < Y_2) - \hat{p}(Y > Y_2) = 0.3 $
-			\item If $ y = Y_3 $, $ R_{y} = \hat{p}(Y < Y_3) - \hat{p}(Y > Y_3) = 0.9 $
-		\end{itemize}
-	\end{block}
-	\begin{block}{Binary Variable}
-		$\hat{p}(Y) = \begin{array}{ll} Y_0 & Y_1 \\ 0.3 & 0.7 \end{array} $
-		\begin{itemize}	
-			\item If $ y = Y_0 $, $ R_{y} = Y_0 - \hat{p}(Y=1) = -0.7 $
-			\item If $ y = Y_1 $, $ R_{y} = Y_1 - \hat{p}(Y=1) = 0.3 $
-		\end{itemize}
-	\end{block}
+	\frametitle{Residual for Ordinal Variables: LS-Residual Example}
+	\[
+		\begin{array}{ccc}
+			Y & \hat{p}(y) & R_y \\
+
+			\begin{bmatrix}
+				Y_2 \\
+				Y_3 \\
+				\vdots
+			\end{bmatrix} &
+			\begin{bmatrix}
+				0.1 & 0.3 & 0.5 & 0.1 \\
+				0.2 & 0.3 & 0.2 & 0.3 \\
+				\vdots & \vdots & \vdots & \vdots
+			\end{bmatrix} &
+			\begin{bmatrix}
+				\hat{p}(Y < Y_2) - \hat{p}(Y>Y_2) = 0.3 \\
+				\hat{p}(Y < Y_3) - \hat{p}(Y>Y_3) = 0.9 \\
+				\vdots
+			\end{bmatrix} \\
+		\end{array}
+	\]
+
 \end{frame}
 
 \begin{frame}
@@ -676,7 +700,7 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 		\item We test the distribution of p-values on simulated
 			datasets with varying sample sizes and number of
 			conditional variables.
-		\item Independent datasets are generated using the DAG:
+		\item Conditionally Independent datasets are generated using the DAG:
 			\begin{figure}
 				\centering
 				\begin{tikzpicture}[yscale=.75]
@@ -887,9 +911,9 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 			number of conditional variables.
 		\item For structure learning, a hybrid approach can be used with other
 			tests.
-		\item Since Random Forests can work with combination of discrete and 
+		\item Estmiators like Random Forests can work with combination of discrete and 
 			continuous variables, can possibly be extended to a single 
-			unified test.
+			unified test for all data types.
 	\end{itemize}
 \end{frame}
 
