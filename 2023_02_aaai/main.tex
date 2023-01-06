@@ -357,7 +357,7 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 	\begin{center} \Huge{Proposed Unified Test for Ordinal and Categorical Data} \end{center}
 \end{frame}
 \begin{frame}
-	\frametitle{Unified test for all data types}
+	\frametitle{Unified Test for Ordinal and Categorical Data}
 	\begin{itemize}
 		\setlength\itemsep{1em}
 		\item Residualization based approach.
@@ -578,87 +578,87 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 % 	\end{block}
 % \end{frame}
 
-\begin{frame}
-	\frametitle{Proof Outline}
-	\begin{itemize}
-		\item Define parameters such that our test statistics can be written as M-Estimators.
-		\item Define a function, $ g(\bm{\theta}) $ on the M-Estimator parameters, $ \bm{\theta} $ for each of the test statistics such that $ Q = (\sqrt{n}g(\bm{\theta}))^2 $.
-		\item From M-Estimator theory and delta method, as $ \sqrt{n}(g(\hat{\bm{\theta}}) - g(\bm{\theta})) \to \mathcal{N}(0, \sigma^2) $.
-		\item We show that $ g(\bm{\theta}) = 0 $, implying $ \sqrt{n}g(\hat{\bm{\theta}}) \rightarrow \mathcal{N}(0, \sigma^2) $
-		\item As $ Q = (\sqrt{n}g(\bm{\theta}))^2 $, $ Q \rightarrow \chi^2 $.
-	\end{itemize}
-
-\end{frame}
-
-\begin{frame}
-	\frametitle{M-Estimator for the test statistic}
-	\begin{itemize}
-		\item Divide our parameter vector into $ 3 $ sets: $ \bm{\theta} = \{ \bm{\theta^\bm{X}}, \bm{\theta^\bm{Y}}, \bm{\theta^\bm{T}} \} $.
-		\item $ \bm{\theta^\bm{X}} $ and $ \bm{\theta^\bm{Y}} $ stay the same for all test
-			statistics:
-
-			\begin{equation*}
-			\Phi_i(\bm{\theta}) = \begin{cases}
-				\frac{\partial}{\partial \bm{\theta}^{\bm{Y}}} l_Y (Y_i, \bm{Z}_i; \bm{\theta^{Y}}) \\
-				\frac{\partial}{\partial \bm{\theta}^{\bm{X}}} l_X (X_i, \bm{Z}_i; \bm{\theta^{X}}) \\
-				\end{cases}
-			\end{equation*}
-
-		\item $ l_X $ and $ l_Y $ are log-likelihood functions of the probability models $ P(X | \bm{Z}) $ and $ P(Y | \bm{Z}) $ with parameters $ \bm{\theta}^X $ and $ \bm{\theta}^Y $ respectively.
-		\item We use this as a partial M-estimator for our test statistic and define $ \bm{\theta}^T $ for each of our test statistic.
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Proof: Both ordinal case}
-	\begin{equation*}
-		\begin{split}
-			\bm{\theta}^T &= (\theta_1, \theta_2) \\
-			\Psi (X_i, Y_i, \mathbf{Z}_i; \bm{\theta}^T) &= 
-				\begin{cases}
-					R_{y_i} R_{x_i} - \theta_1 \\
-					(R_{y_i} R_{x_i})^2 - \theta_2
-				\end{cases} \\
-			g(\bm{\theta}) &= \frac{\theta_1}{\sqrt{\theta_2 - \theta_1^2}} \\
-			Q_1 &= (\sqrt{n} g(\bm{\theta}))^2 \\
-		\end{split}
-	\end{equation*}
-
-	\begin{itemize}
-		\item As $ n \rightarrow \infty $, $ \sqrt{n} (g(\hat{\bm{\theta}}) - g(\bm{\theta})) \rightarrow \mathcal{N}(0, 1) $.
-		\item As $ g(\bm{\theta}) = 0 $, $ \sqrt{n}(g(\hat{\bm{\theta}}) \rightarrow \mathcal{N}(0, 1) \implies Q_1 \rightarrow \chi^2(1) $
-	\end{itemize}
-
-\end{frame}
-
-\begin{frame}
-	\frametitle{Proof: One ordinal and one categorical case}
-	\begin{equation*}
-		\begin{split}
-			& \bm{\theta}^T = (\bm{\theta_1}, \bm{\theta_2}) \\
-			& \bm{\theta_1} = (\theta_1^1, \theta_1^2, \cdots, \theta_1^{k-1}) \\
-			& \bm{\theta_2} = (\theta_2^{11}, \cdots, \theta_2^{1(k-1)}, \theta_2^{21}, \cdots, \theta_2^{2(k-1)}, \cdots, \theta_2^{(k-1) (k-1)}) \\
-			& \Psi(X_i, Y_i, \mathbf{Z}_i; \bm{\theta}^T) = 
-				\begin{cases}
-					R_{{\mathbb{I}(x=j)}_i}.R_{y_i} - \theta_1^j \, \, \forall j \in \{ 1, \cdots, k-1 \} \\
-					(R_{{\mathbb{I}(x=j)}_i}.R_{y_i} \times R_{{\mathbb{I}(x=k)}_i}.R_{y_i}) - \theta_{2}^{jk} \,\, \forall j, k \in \{ 1, \cdots, k-1 \} \\
-				\end{cases} \\
-			& g(\bm{\theta}) = \bm{\theta_1} \bm{\wedge}
-		\end{split}
-	\end{equation*}
-
-	where:
-\begin{equation*}
-	\begin{split}
-		\bm{\wedge} &= \bm{\Sigma}^{-\frac{1}{2}} \\
-		\Sigma^{i,j} &= \mathbb{E}[(R_{\mathbb{I}(\mathbf{x}=i)}.R_\mathbf{y})(R_{\mathbb{I}(\mathbf{x}=j)}.R_\mathbf{y})] - \mathbb{E}[R_{\mathbb{I}(\mathbf{x}=i)}.R_\mathbf{y}] \mathbb{E}[R_{\mathbb{I}(\mathbf{x}=j)}.R_\mathbf{y}] \\
-			    &= \theta_2^{ij} - \theta_1^{i} \theta_1^{j} \\
-	\end{split}
-\end{equation*} 
-	\begin{itemize}
-		\item $ \sqrt{n}g(\hat{\bm{\theta}}) \to \mathcal{N}(0, \mathbb{I}_{(k-1)}) \implies Q_2 \to \chi^2(k-1) $
-	\end{itemize}
-\end{frame}
+% \begin{frame}
+% 	\frametitle{Proof Outline}
+% 	\begin{itemize}
+% 		\item Define parameters such that our test statistics can be written as M-Estimators.
+% 		\item Define a function, $ g(\bm{\theta}) $ on the M-Estimator parameters, $ \bm{\theta} $ for each of the test statistics such that $ Q = (\sqrt{n}g(\bm{\theta}))^2 $.
+% 		\item From M-Estimator theory and delta method, as $ \sqrt{n}(g(\hat{\bm{\theta}}) - g(\bm{\theta})) \to \mathcal{N}(0, \sigma^2) $.
+% 		\item We show that $ g(\bm{\theta}) = 0 $, implying $ \sqrt{n}g(\hat{\bm{\theta}}) \rightarrow \mathcal{N}(0, \sigma^2) $
+% 		\item As $ Q = (\sqrt{n}g(\bm{\theta}))^2 $, $ Q \rightarrow \chi^2 $.
+% 	\end{itemize}
+% 
+% \end{frame}
+% 
+% \begin{frame}
+% 	\frametitle{M-Estimator for the test statistic}
+% 	\begin{itemize}
+% 		\item Divide our parameter vector into $ 3 $ sets: $ \bm{\theta} = \{ \bm{\theta^\bm{X}}, \bm{\theta^\bm{Y}}, \bm{\theta^\bm{T}} \} $.
+% 		\item $ \bm{\theta^\bm{X}} $ and $ \bm{\theta^\bm{Y}} $ stay the same for all test
+% 			statistics:
+% 
+% 			\begin{equation*}
+% 			\Phi_i(\bm{\theta}) = \begin{cases}
+% 				\frac{\partial}{\partial \bm{\theta}^{\bm{Y}}} l_Y (Y_i, \bm{Z}_i; \bm{\theta^{Y}}) \\
+% 				\frac{\partial}{\partial \bm{\theta}^{\bm{X}}} l_X (X_i, \bm{Z}_i; \bm{\theta^{X}}) \\
+% 				\end{cases}
+% 			\end{equation*}
+% 
+% 		\item $ l_X $ and $ l_Y $ are log-likelihood functions of the probability models $ P(X | \bm{Z}) $ and $ P(Y | \bm{Z}) $ with parameters $ \bm{\theta}^X $ and $ \bm{\theta}^Y $ respectively.
+% 		\item We use this as a partial M-estimator for our test statistic and define $ \bm{\theta}^T $ for each of our test statistic.
+% 	\end{itemize}
+% \end{frame}
+% 
+% \begin{frame}
+% 	\frametitle{Proof: Both ordinal case}
+% 	\begin{equation*}
+% 		\begin{split}
+% 			\bm{\theta}^T &= (\theta_1, \theta_2) \\
+% 			\Psi (X_i, Y_i, \mathbf{Z}_i; \bm{\theta}^T) &= 
+% 				\begin{cases}
+% 					R_{y_i} R_{x_i} - \theta_1 \\
+% 					(R_{y_i} R_{x_i})^2 - \theta_2
+% 				\end{cases} \\
+% 			g(\bm{\theta}) &= \frac{\theta_1}{\sqrt{\theta_2 - \theta_1^2}} \\
+% 			Q_1 &= (\sqrt{n} g(\bm{\theta}))^2 \\
+% 		\end{split}
+% 	\end{equation*}
+% 
+% 	\begin{itemize}
+% 		\item As $ n \rightarrow \infty $, $ \sqrt{n} (g(\hat{\bm{\theta}}) - g(\bm{\theta})) \rightarrow \mathcal{N}(0, 1) $.
+% 		\item As $ g(\bm{\theta}) = 0 $, $ \sqrt{n}(g(\hat{\bm{\theta}}) \rightarrow \mathcal{N}(0, 1) \implies Q_1 \rightarrow \chi^2(1) $
+% 	\end{itemize}
+% 
+% \end{frame}
+% 
+% \begin{frame}
+% 	\frametitle{Proof: One ordinal and one categorical case}
+% 	\begin{equation*}
+% 		\begin{split}
+% 			& \bm{\theta}^T = (\bm{\theta_1}, \bm{\theta_2}) \\
+% 			& \bm{\theta_1} = (\theta_1^1, \theta_1^2, \cdots, \theta_1^{k-1}) \\
+% 			& \bm{\theta_2} = (\theta_2^{11}, \cdots, \theta_2^{1(k-1)}, \theta_2^{21}, \cdots, \theta_2^{2(k-1)}, \cdots, \theta_2^{(k-1) (k-1)}) \\
+% 			& \Psi(X_i, Y_i, \mathbf{Z}_i; \bm{\theta}^T) = 
+% 				\begin{cases}
+% 					R_{{\mathbb{I}(x=j)}_i}.R_{y_i} - \theta_1^j \, \, \forall j \in \{ 1, \cdots, k-1 \} \\
+% 					(R_{{\mathbb{I}(x=j)}_i}.R_{y_i} \times R_{{\mathbb{I}(x=k)}_i}.R_{y_i}) - \theta_{2}^{jk} \,\, \forall j, k \in \{ 1, \cdots, k-1 \} \\
+% 				\end{cases} \\
+% 			& g(\bm{\theta}) = \bm{\theta_1} \bm{\wedge}
+% 		\end{split}
+% 	\end{equation*}
+% 
+% 	where:
+% \begin{equation*}
+% 	\begin{split}
+% 		\bm{\wedge} &= \bm{\Sigma}^{-\frac{1}{2}} \\
+% 		\Sigma^{i,j} &= \mathbb{E}[(R_{\mathbb{I}(\mathbf{x}=i)}.R_\mathbf{y})(R_{\mathbb{I}(\mathbf{x}=j)}.R_\mathbf{y})] - \mathbb{E}[R_{\mathbb{I}(\mathbf{x}=i)}.R_\mathbf{y}] \mathbb{E}[R_{\mathbb{I}(\mathbf{x}=j)}.R_\mathbf{y}] \\
+% 			    &= \theta_2^{ij} - \theta_1^{i} \theta_1^{j} \\
+% 	\end{split}
+% \end{equation*} 
+% 	\begin{itemize}
+% 		\item $ \sqrt{n}g(\hat{\bm{\theta}}) \to \mathcal{N}(0, \mathbb{I}_{(k-1)}) \implies Q_2 \to \chi^2(k-1) $
+% 	\end{itemize}
+% \end{frame}
 % \begin{frame}
 % 	\frametitle{Proof: One ordinal and one categorical case}
 % 	\begin{itemize}
@@ -674,7 +674,6 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 \begin{frame}{Empirical Analysis}
 	\begin{itemize}
 		\item Analysis shown using two estimators Generalized Linear Models (GLM) and Random Forest (RFT).
-		\item Even though RF is not an M-Estimator, we use it as a sensitivity analysis for non M-estimators.
 		\item We compared our proposed test to 4 other tests:
 			\begin{enumerate}
 				\item Mutual Information based Test (MI)
@@ -912,7 +911,7 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 			number of conditional variables.
 		\item For structure learning, a hybrid approach can be used with other
 			tests.
-		\item Estmiators like Random Forests can work with combination of discrete and 
+		\item Estimators like Random Forests can work with combination of discrete and 
 			continuous variables, can possibly be extended to a single 
 			unified test for all data types.
 	\end{itemize}
