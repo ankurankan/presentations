@@ -44,10 +44,10 @@
 \date{}
 \maketitle
 
-\begin{frame}
-	\frametitle{Overview}
-	\tableofcontents
-\end{frame}
+% \begin{frame}
+% 	\frametitle{Overview}
+% 	\tableofcontents
+% \end{frame}
 
 \section{Motivation/Applications}
 \begin{frame}
@@ -136,8 +136,8 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 	\begin{block}{Conditional Independence}
 		Two random variables $ X $ and $ Y $ and are said to be
 		conditionally independent given $ \bm{Z} $, $ X \ci Y | \bm{Z}
-		$ if and only if for all $ z $ with $ p(z) > 0 $, $ P(X, Y |
-		Z=z) = P(X | Z=z) \cdot P(Y | Z=z) $
+		$ if and only if for all $ \bm{z} $ with $ p(\bm{z}) > 0 $, $ P(X, Y |
+		\bm{Z}=\bm{z}) = P(X | \bm{Z}=\bm{z}) \cdot P(Y | \bm{Z}=\bm{z}) $
 	\end{block}
 \end{frame}
 
@@ -420,10 +420,10 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 
 \begin{frame}
 	\frametitle{Residual for Ordinal Variables: LS-Residual Example}
-	For ordinal variable:
+	\begin{block}{Ordinal Variable Example}
 	\[
 		\begin{array}{ccc}
-			\bm{y} & \hat{p}(\bm{y}) & R_{y} \\
+			\bm{y} & \hat{p}(\bm{y}) & R_{\bm{y}} \\
 
 			\begin{bmatrix}
 				Y_2 \\
@@ -445,9 +445,10 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 			\end{bmatrix} \\
 		\end{array}
 	\]
+	\end{block}
 
-	For categorical variable:
-	\[
+	\begin{block}{Categorical Variable Example}
+		\begin{equation*}
 		\begin{array}{ccc}
 			\bm{y} & \hat{p}(\bm{y}=1) & R_{\bm{y}} \\
 			\begin{bmatrix}
@@ -469,7 +470,8 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 				\vdots & \vdots & \vdots & \vdots \\
 			\end{bmatrix} \\
 		\end{array}
-	\]
+		\end{equation*}	
+	\end{block}
 \end{frame}
 
 \begin{frame}
@@ -743,24 +745,25 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 			\begin{figure}
 				\begin{subfigure}{\linewidth}
 					\centering
-					\begin{tikzpicture}[yscale=.75]
-						\node (x) at (0,1) {$X$};
-						\node (y) at (2,1) {$Y$};
+					\begin{tikzpicture}[yscale=.75, xscale=.6]
+					\tikzstyle{every node}=[align=center, inner sep=1pt]
+						\node (x) at (0,0) {$X$};
+						\node (y) at (2,0) {$Y$};
 						\node (z) at (1,1) {$Z_1$};
-						\node at (0,2) {$Z_2$};
-						\node at (1,2) {$\ldots$};
-						\node at (2,2) {$Z_k$};
+						\node at (2,1) {$Z_2$};
+						\node at (3,1) {$\ldots$};
+						\node at (4,1) {$Z_k$};
 						\draw [->] (z) -- (y);
 						\draw [->] (z) -- (x);
-						\end{tikzpicture}
+					\end{tikzpicture}
 				\end{subfigure}
 				\begin{subfigure}{\linewidth}
 					\centering
 					\begin{equation*}
 						\begin{split}
-							\bm{z_i} &= B(1, 0.5) \\
-							\bm{x} &= B(1, \bm{z_1} / 3) \\
-							\bm{y} &= B(1, \bm{z_1} / 3) \\
+							\bm{z_i} &\sim B(1, 0.5) \\
+							\bm{x} &\sim B(1, \bm{z_1} / 3) \\
+							\bm{y} &\sim B(1, \bm{z_1} / 3) \\
 						\end{split}
 					\end{equation*}
 				\end{subfigure}
@@ -811,6 +814,7 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 			\begin{figure}
 				\begin{subfigure}{\linewidth}
 					\begin{tikzpicture}[yscale=.75, xscale=.6]
+					\tikzstyle{every node}=[align=center, inner sep=1pt]
 						\node (x) at (0,0) {$X$};
 						\node (y) at (2,0) {$Y$};
 						\node (z) at (1,1) {$Z_1$};
@@ -840,39 +844,54 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 			\end{figure}
 		\end{column}
 	\end{columns}
-	\center{Accuracy (shading: mean $\pm$ standard error, $N=200$)
-		of classifying simulated binary datasets (sample size: $1000$)
+	\center{Accuracy of classifying simulated binary datasets (sample size: $1000$)
 			as conditionally dependent or independent.}
 \end{frame}
 
-\begin{frame}
-	\frametitle{Epirical Analysis: Discrimination Data Generation (Ordinal)}
-	\begin{itemize}
-		\item Same as the last analysis but ordinal datasets are used.
-		\item Conditionally independent data with $ k = 8 $ levels are generated as:
-			\begin{equation*}
-				\begin{split}
-					z_i &= \textit{B}(k-1, 0.5) \\
-					x &= \textit{B}(k-1, z_1/k) \\
-					y &= \textit{B}(k-1, z_1/k) \\
-				\end{split}
-			\end{equation*}
-		\item For conditionally dependent data, $ z_1 $ is randomly permuted.
-	\end{itemize}
-\end{frame}
+% \begin{frame}
+% 	\frametitle{Epirical Analysis: Discrimination Data Generation (Ordinal)}
+% 	\begin{itemize}
+% 		\item Same as the last analysis but ordinal datasets are used.
+% 		\item Conditionally independent data with $ k = 8 $ levels are generated as:
+% 			\begin{equation*}
+% 				\begin{split}
+% 					z_i &= \textit{B}(k-1, 0.5) \\
+% 					x &= \textit{B}(k-1, z_1/k) \\
+% 					y &= \textit{B}(k-1, z_1/k) \\
+% 				\end{split}
+% 			\end{equation*}
+% 		\item For conditionally dependent data, $ z_1 $ is randomly permuted.
+% 	\end{itemize}
+% \end{frame}
 
 \begin{frame}
 	\frametitle{Empirical Analysis: Discrimination (Ordinal)}
 	\begin{columns}
 		\begin{column}{0.3\textwidth}
 			\begin{figure}
-			\begin{equation*}
-				\begin{split}
-					z_i &= \textit{B}(k-1, 0.5) \\
-					x &= \textit{B}(k-1, z_1/k) \\
-					y &= \textit{B}(k-1, z_1/k) \\
-				\end{split}
-			\end{equation*}
+				\begin{subfigure}{\linewidth}
+					\centering
+					\begin{tikzpicture}[yscale=.75, xscale=.6]
+					\tikzstyle{every node}=[align=center, inner sep=1pt]
+						\node (x) at (0,0) {$X$};
+						\node (y) at (2,0) {$Y$};
+						\node (z) at (1,1) {$Z_1$};
+						\node at (2,1) {$Z_2$};
+						\node at (3,1) {$\ldots$};
+						\node at (4,1) {$Z_k$};
+						\draw [->] (z) -- (y);
+						\draw [->] (z) -- (x);
+					\end{tikzpicture}
+				\end{subfigure}
+				\begin{subfigure}{\linewidth}
+				\begin{equation*}
+					\begin{split}
+						\bm{z_i} &\sim \textit{B}(k-1, 0.5) \\
+						\bm{x} &\sim \textit{B}(k-1, \bm{z_1}/k) \\
+						\bm{y} &\sim \textit{B}(k-1, \bm{z_1}/k) \\
+					\end{split}
+				\end{equation*}
+				\end{subfigure}
 			\end{figure}
 		\end{column}
 		\begin{column}{0.7\textwidth}
@@ -882,58 +901,86 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 		\end{figure}
 		\end{column}
 	\end{columns}
-	\center{Accuracy (shading: mean $\pm$ standard error) of
-			classifying simulated ordinal data (8 levels per variable) as
-			conditionally dependent or independent.}	
+	\center{Accuracy of classifying simulated ordinal data (8 levels per
+		variable) as conditionally dependent or independent.}	
 \end{frame}
 
-\begin{frame}
-	\frametitle{Applications: Model testing Data generation}
-	\begin{itemize}
-		\item Given a DAG and a dataset, how well is the test able to
-			detect the implied CIs of the DAG in a given dataset.
-		\item We generate random DAGs on 20 variables with varying edge density.
-		\item We then simulate data (sample size of $1000 $) from the
-			DAGs using logistic regression and a fixed effect of
-			0.15 for all edges.
-		\item We use the CI tests to test all the implied CIs and an equal number of 
-			randomly generated CIs in the simulated dataset.
-	\end{itemize}
-\end{frame}
+% \begin{frame}
+% 	\frametitle{Applications: Model testing Data generation}
+% 	\begin{itemize}
+% 		\item Given a DAG and a dataset, how well is the test able to
+% 			detect the implied CIs of the DAG in a given dataset.
+% 		\item We generate random DAGs on 20 variables with varying edge density.
+% 		\item We then simulate data (sample size of $1000 $) from the
+% 			DAGs using logistic regression and a fixed effect of
+% 			0.15 for all edges.
+% 		\item We use the CI tests to test all the implied CIs and an equal number of 
+% 			randomly generated CIs in the simulated dataset.
+% 	\end{itemize}
+% \end{frame}
 
 \begin{frame}
 	\frametitle{Applications: Model testing}
+	\begin{columns}
+	\begin{column}{0.3\textwidth}
+		\begin{tikzpicture}
+		\tikzstyle{every node}=[align=center, inner sep=1pt]
+			\node (dag) at (0, 0) {Random DAG \\ ($20$ variables)};
+			\node (data) at (0, -1.2) {Simulate binary data \\ (n=$1000$)};
+			\node (test) at (0, -2.4) {Test implied and \\ random CIs in data};
+			\draw [->] (dag) -- (data);
+			\draw [->] (data) -- (test);	
+		\end{tikzpicture}
+	\end{column}
+	\begin{column}{0.7\textwidth}
 	\begin{figure}
 		\centering
 		\includegraphics{imgs/model_testing.pdf}
-		\caption*{Precision and recall (shading: mean $\pm$ standard
+	\end{figure}
+	\end{column}
+	\end{columns}
+	\center{Precision and recall (shading: mean $\pm$ standard
 		error) of testing implied CIs and equal number of randomly
 		generated CIs in binary datasets}
-	\end{figure}
 \end{frame}
 
-\begin{frame}
-	\frametitle{Applications: Structure Learning data generation}
-	\begin{itemize}
-		\item Test how well is the test able to recover a DAG from given dataset.
-		\item Generated random DAGs on 20 variables with varying the edge probability.
-		\item We then simulate data (sample size of $1000 $) from the
-			DAGs using logistic regression and a fixed effect of
-			0.15 for all edges.
-		\item PC algorithm (stable variant) is used to learn the DAG back from the simulated datasets.
-		\item F1-Score is computed for comparing the true and the learnt edges.
-	\end{itemize}
-\end{frame}
+% \begin{frame}
+% 	\frametitle{Applications: Structure Learning data generation}
+% 	\begin{itemize}
+% 		\item Test how well is the test able to recover a DAG from given dataset.
+% 		\item Generated random DAGs on 20 variables with varying the edge probability.
+% 		\item We then simulate data (sample size of $1000 $) from the
+% 			DAGs using logistic regression and a fixed effect of
+% 			0.15 for all edges.
+% 		\item PC algorithm (stable variant) is used to learn the DAG back from the simulated datasets.
+% 		\item F1-Score is computed for comparing the true and the learnt edges.
+% 	\end{itemize}
+% \end{frame}
 
 \begin{frame}
 	\frametitle{Applications: Structure Learning}
+	\begin{columns}
+	\begin{column}{0.3\textwidth}
+		\begin{tikzpicture}
+		\tikzstyle{every node}=[align=center, inner sep=1pt]
+			\node (dag) at (0, 0) {Random DAG \\ ($20$ variables)};
+			\node (data) at (0, -1.2) {Simulate binary data \\ (n=$1000$)};
+			\node (sl) at (0, -2.4) {Learn model structure \\ using PC};
+			\node (test) at (0, -3.0) {Compare skeletons};
+			\draw [->] (dag) -- (data);
+			\draw [->] (data) -- (sl);
+			\draw [->] (sl) -- (test);
+		\end{tikzpicture}
+	\end{column}
+	\begin{column}{0.7\textwidth}
 	\begin{figure}
 		\centering
 		\includegraphics{imgs/sl_density.pdf}
-		\caption*{F1-score
-		(shading: mean $\pm$ standard error) of the learned model
-		skeletons.}
 	\end{figure}
+	\end{column}
+	\end{columns}
+	\center{F1-score (shading: mean $\pm$ standard error) of the learned model
+		skeletons.}
 \end{frame}
 
 \begin{frame}
