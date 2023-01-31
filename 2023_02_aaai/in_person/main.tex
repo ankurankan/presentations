@@ -184,16 +184,29 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 \begin{frame}
 	\frametitle{Approaches to CI Testing}
 	\begin{itemize}
-		\item \textbf{Stratification based tests}: Converts CI tests into a
-			bunch of non-conditional independence tests by
-			splitting the dataset smaller datasets with constant
-			values of $ Z $. Runs the test on each of them and
-			combines the results.
- 			$$ D[X, Y, \bm{Z}] = \{ D[X, Y, \bm{Z}=\bm{z_1}], D[X, Y, \bm{Z}=\bm{z_2}], \cdots \} $$
+ 		\setlength\itemsep{1em}
+		\item \textbf{Stratification based tests}: Converts CI tests into 
+			non-conditional independence tests by
+			splitting the dataset as:
+			$$ D[X, Y, \bm{Z}] = \{ D[X, Y, \bm{Z}=\bm{z_1}], D[X, Y, \bm{Z}=\bm{z_2}], \cdots \} $$
+			\vspace{-1.5em}
+			\begin{itemize}
+				\item Most commonly used for discrete variables.
+				\item Looses power very quickly for high dimensional cases.
+			\end{itemize}
 		\item \textbf{Variable Importance based tests}: Uses two probability estimators $ \hat{p}(x | y, z) $ and $ \hat{p}(x | z) $ to compare the goodness of fit.
-		\item \textbf{Residulaization based tests}: Uses two estimators $
+			\begin{itemize}
+				\item Any estimator with goodness of fit measure can be used.
+				\item Inherently asymmetrical.
+			\end{itemize}
+		\item \textbf{Residualization based tests}: Uses two estimators $
 			\mathbb{E}[X | Z] $ and $ \mathbb{E}[Y|Z] $ and test
 			for multiplicative association between the residuals.
+			\begin{itemize}
+				\item Any estimator can be used.
+				\item Symmetric.
+				\item No such test exists for categorical variables.
+			\end{itemize}
 	\end{itemize}
 \end{frame}
 
