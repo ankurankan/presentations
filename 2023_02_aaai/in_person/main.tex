@@ -58,61 +58,76 @@
 	\begin{block}{Causal Markov Condition}
 		Every node in the DAG is conditionally independent of its non-descendants, given its parents.
 	\end{block}
+	\vspace{2em}
 	\begin{figure}
-		\centering
-		\includegraphics[scale=0.6]{imgs/example_dag.png}
-		\caption*{An example of Directed Acyclic Graph (DAG) \footnotemark}
+		\begin{subfigure}{0.45\textwidth}
+			\centering
+			\includegraphics[scale=0.6]{imgs/example_dag.png}
+		\end{subfigure}%
+		\begin{subfigure}{0.1\textwidth}
+			$$ \implies $$
+		\end{subfigure}%
+		\begin{subfigure}{0.45\textwidth}
+			\begin{equation*}
+				\begin{split}
+					\text{\emph{XRay}} \ci & \text{\emph{Pollution}} | \text{\emph{Cancer}} \\
+					\text{\emph{Breathing}} \ci & \text{\emph{Smoker}} | \text{\emph{Cancer}} \\
+					& \vdots \\
+				\end{split}
+			\end{equation*}
+		\end{subfigure}
+		\caption*{Example of Causal Markov Condition in a DAG \footnotemark}
 	\end{figure}
-	In the DAG shown above,
-	\begin{equation*}
-		\begin{split}
-			\text{\emph{XRay}} \ci & \text{\emph{Pollution}} | \text{\emph{Cancer}} \\
-			\text{\emph{Breathing}} \ci & \text{\emph{Smoker}} | \text{\emph{Cancer}} \\
-			& \vdots \\
-		\end{split}
-	\end{equation*}
 	\footnotetext[1]{\footnotesize{K. B. Korb, A. E. Nicholson. Bayesian Artificial Intelligence}}
 \end{frame}
 
-\begin{frame}[fragile]
-	\frametitle{Model Testing}
-	\begin{itemize}
-		\item In applied research, most of the DAGs are constructed by hand
-			based on domain knowledge.
-		\item Important to test whether the theorized model is consistent with data.
-		\item Conditional Independence (CI) tests can be used to verify whether the implied
-			CIs of the model are valid in the data.
-	\end{itemize}
-
-	\begin{figure}
-		\centering
- 		\begin{BVerbatim}
-		             x2 df    p.value
-Brth _||_ Pllt | Cncr 4.7571803  2 0.09268115
-Brth _||_ Smkr | Cncr 9.0058063  2 0.01107679
-Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
- 		\end{BVerbatim}
-		\caption*{Example model testing output from R package \emph{dagitty}}
-	\end{figure}
-\end{frame}
-
 \begin{frame}
-	\frametitle{Structure Learning}
+	\frametitle{Applications}
 	\begin{itemize}
-		\setlength\itemsep{1em}
-		\item CI implies that no direct causal link exists between the variables. \newline
-			$ \text{\emph{XRay}} \ci \text{\emph{Smoker}} | \text{\emph{Cancer}} \implies \text{No edge b/w \emph{XRay} and \emph{Smoker}} $
-
-		\item Constraint-Based structure learning algorithms like PC
-			and FCI use CI tests to systematically search for CIs
-			in the dataset to determine model skeletons.
-	\end{itemize}
-	\begin{figure}
-		\centering
-		\includegraphics[scale=0.6]{imgs/example_sl.png}
-		\caption*{Structure Learning Example}
-	\end{figure}
+		\item Model Testing 
+		\item Structure Learning
+	\end{itemize}	
 \end{frame}
+
+% \begin{frame}[fragile]
+% 	\frametitle{Model Testing}
+% 	\begin{itemize}
+% 		\item In applied research, most of the DAGs are constructed by hand
+% 			based on domain knowledge.
+% 		\item Important to test whether the theorized model is consistent with data.
+% 		\item Conditional Independence (CI) tests can be used to verify whether the implied
+% 			CIs of the model are valid in the data.
+% 	\end{itemize}
+% 
+% 	\begin{figure}
+% 		\centering
+%  		\begin{BVerbatim}
+% 		             x2 df    p.value
+% Brth _||_ Pllt | Cncr 4.7571803  2 0.09268115
+% Brth _||_ Smkr | Cncr 9.0058063  2 0.01107679
+% Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
+%  		\end{BVerbatim}
+% 		\caption*{Example model testing output from R package \emph{dagitty}}
+% 	\end{figure}
+% \end{frame}
+% 
+% \begin{frame}
+% 	\frametitle{Structure Learning}
+% 	\begin{itemize}
+% 		\setlength\itemsep{1em}
+% 		\item CI implies that no direct causal link exists between the variables. \newline
+% 			$ \text{\emph{XRay}} \ci \text{\emph{Smoker}} | \text{\emph{Cancer}} \implies \text{No edge b/w \emph{XRay} and \emph{Smoker}} $
+% 
+% 		\item Constraint-Based structure learning algorithms like PC
+% 			and FCI use CI tests to systematically search for CIs
+% 			in the dataset to determine model skeletons.
+% 	\end{itemize}
+% 	\begin{figure}
+% 		\centering
+% 		\includegraphics[scale=0.6]{imgs/example_sl.png}
+% 		\caption*{Structure Learning Example}
+% 	\end{figure}
+% \end{frame}
 
 \section{Background}
 \begin{frame}
@@ -163,10 +178,11 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 	\begin{itemize}
 		\item Testing for CI is much harder compared to testing for
 			non-conditional independence.
-		\item Especially in case of high cardinality or high number of
-			conditional variables.
-		\item In the continuous case, no test can exist which is calibrated and
-			has power over all distributions where CI is True. \footnotemark
+		\item Especially when the cardinality or number of conditional
+			variables is high.
+		\item For continuous variable case, no test can exist which is
+			calibrated and has power over all distributions where
+			CI is True. \footnotemark
 		\item Many different approaches and tests have been proposed.
 	\end{itemize}
 
@@ -174,161 +190,168 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 \end{frame}
 
 \begin{frame}
-	\frametitle{Main Classes of Tests}
+	\frametitle{Approaches to CI Testing}
 	\begin{enumerate}
 		\setlength\itemsep{1em}
-		\item Stratification based tests
-		\item Variable Importance based tests
-		\item Residulaization based tests
+		\item Stratification based tests: Converts CI tests into a
+			bunch of non-conditional independence tests by
+			splitting the dataset smaller datasets with constant
+			values of $ Z $. Runs the test on each of them and
+			combines the results.
+ 			$$ D[X, Y, \bm{Z}] = \{ D[X, Y, \bm{Z}=\bm{z_1}], D[X, Y, \bm{Z}=\bm{z_2}], \cdots \} $$
+		\item Variable Importance based tests: Uses two probability estimators $ \hat{p}(x | y, z) $ and $ \hat{p}(x | z) $ to compare the goodness of fit.
+		\item Residulaization based tests: Uses two estimators $
+			\mathbb{E}[X | Z] $ and $ \mathbb{E}[Y|Z] $ and test
+			for multiplicative association between the residuals.
 	\end{enumerate}
 \end{frame}
 
-\begin{frame}
-	\frametitle{Stratification Based Tests}
-	\begin{itemize}
-		\setlength\itemsep{1em}
-		\item Converts CI test into simple non-conditional independence test by splitting 
-			the dataset such that conditional variables are constant in each stratum. \newline
-			$$ D[X, Y, \bm{Z}] = \{ D[X, Y, \bm{Z}=\bm{z_1}], D[X, Y, \bm{Z}=\bm{z_2}], \cdots \} $$
-		\item Runs non-conditional test on each stratum and combines the results.
-		\item Most common type of test for discrete variables. Examples
-			are chi-square, G-test, mutual information based test,
-			etc. 
-		\item As the number or cardinality of conditional variables is
-			increased, exponentially less data is available in each
-			stratum, resulting in it loosing power.
-	\end{itemize}
-\end{frame}
-
 % \begin{frame}
-% 	\frametitle{Statification Based Test Example: Chi-squared}
-% 	\begin{block}{}
-% 	\begin{columns}
-% 		\begin{column}{0.25 \textwidth}
-% 			\begin{block}{\centering D}
-% 			\begin{tabular}{c c c}
-% 				X  & Y  & Z \\
-% 				\hline
-% 				X1 & Y1 & Z1 \\
-% 				X1 & Y2 & Z2 \\
-% 				X2 & Y1 & Z1 \\
-% 				X3 & Y3 & Z2 \\
-% 				\vdots & \vdots & \vdots \\
-% 			\end{tabular}
-% 			\end{block}
-% 		\end{column}
-% 		\begin{column}{0.25 \textwidth}
-% 			\begin{block}{\centering $D_1$}
-% 				\begin{tabular}{c c c}
-% 					X & Y & Z \\
-% 					\hline
-% 					X1 & Y1 & Z1 \\
-% 					X2 & Y1 & Z1 \\
-% 					\vdots & \vdots & \vdots \\
-% 				\end{tabular}
-% 			\end{block}
-% 			\begin{block}{\centering $ D_2 $}
-% 				\begin{tabular}{c c c}
-% 					X & Y & Z \\
-% 					\hline
-% 					X1 & Y2 & Z2 \\
-% 					X3 & Y3 & Z2 \\
-% 					\vdots & \vdots & \vdots \\
-% 				\end{tabular}
-% 			\end{block}
-% 			\begin{block}{\centering $ D_i $}
-% 			\end{block}
-% 		\end{column}
-% 		\begin{column}{0.5 \textwidth}
-% 			\begin{block}{}
-% 				$(X \ci Y)_{D_1} \to \chi_{D_1} $ and $ df_{D_1} $.
-% 			\end{block}
-% 			\begin{block}{}
-% 				$(X \ci Y)_{D_2} \to \chi_{D_2} $ and $ df_{D_2} $.
-% 			\end{block}
-% 			\begin{block}{}
-% 				$(X \ci Y)_{D_i} \to \chi_{D_i} $ and $ df_{D_i} $.
-% 			\end{block}
-% 		\end{column}
-% 	\end{columns}
-% 	\end{block}
-% 	\begin{block}{}
-% 		\centering
-% 		$ (X \ci Y | Z)_{D} \to \sum_i \chi_{D_i} $ and $ df_{D} = \sum_i df_{D_i} $
-% 	\end{block}
-% \end{frame}
-
-% \begin{frame}
-% 	\frametitle{Stratification Based Tests: Advantages/Disadvantages}
+% 	\frametitle{Stratification Based Tests}
 % 	\begin{itemize}
-% 		\item As the number of conditional variables is increased, exponentially
-% 			less data is available in each stratum.
-% 		\item Looses power when number of conditonal variables
-% 			are increased.
+% 		\setlength\itemsep{1em}
+% 		\item Converts CI test into simple non-conditional independence test by splitting 
+% 			the dataset such that conditional variables are constant in each stratum. \newline
+% 			$$ D[X, Y, \bm{Z}] = \{ D[X, Y, \bm{Z}=\bm{z_1}], D[X, Y, \bm{Z}=\bm{z_2}], \cdots \} $$
+% 		\item Runs non-conditional test on each stratum and combines the results.
+% 		\item Most common type of test for discrete variables. Examples
+% 			are chi-square, G-test, mutual information based test,
+% 			etc. 
+% 		\item As the number or cardinality of conditional variables is
+% 			increased, exponentially less data is available in each
+% 			stratum, resulting in it loosing power.
 % 	\end{itemize}
 % \end{frame}
-
-\begin{frame}
-	\frametitle{Variable Importance Tests}
-	\begin{itemize}
-		\setlength\itemsep{1em}
-		\item Based on comparing the probability models: $\hat{p}(x |
-			y, z) $ and $ \hat{p}(x | z) $. 
-		\item The idea being that if adding the additional variable to
-			the predictors doesn't improve the fit, the varible
-			doesn't have any extra infromation.  E.g. Stochastic
-			Complexity-Based Conditional Independence Test (SCCI)
-			\footnotemark.
-		\item The two probability models are trained and some goodness of fit is compared.
-		\item Can utilize any statistical model for which a reasonable goodness
-			of fit exist.
-		\item Main disadvantage is that these tests are inherently
-			asymmetrical i.e. the result of $ X \ci Y | Z $ can be
-			different from $ Y \ci X | Z $.
-	\end{itemize}
-	\footnotetext[3]{\footnotesize Marx, Alexander, and Jilles Vreeken. "Testing conditional independence on discrete data using stochastic complexity." PMLR, 2019}
-
-\end{frame}
-
+% 
+% % \begin{frame}
+% % 	\frametitle{Statification Based Test Example: Chi-squared}
+% % 	\begin{block}{}
+% % 	\begin{columns}
+% % 		\begin{column}{0.25 \textwidth}
+% % 			\begin{block}{\centering D}
+% % 			\begin{tabular}{c c c}
+% % 				X  & Y  & Z \\
+% % 				\hline
+% % 				X1 & Y1 & Z1 \\
+% % 				X1 & Y2 & Z2 \\
+% % 				X2 & Y1 & Z1 \\
+% % 				X3 & Y3 & Z2 \\
+% % 				\vdots & \vdots & \vdots \\
+% % 			\end{tabular}
+% % 			\end{block}
+% % 		\end{column}
+% % 		\begin{column}{0.25 \textwidth}
+% % 			\begin{block}{\centering $D_1$}
+% % 				\begin{tabular}{c c c}
+% % 					X & Y & Z \\
+% % 					\hline
+% % 					X1 & Y1 & Z1 \\
+% % 					X2 & Y1 & Z1 \\
+% % 					\vdots & \vdots & \vdots \\
+% % 				\end{tabular}
+% % 			\end{block}
+% % 			\begin{block}{\centering $ D_2 $}
+% % 				\begin{tabular}{c c c}
+% % 					X & Y & Z \\
+% % 					\hline
+% % 					X1 & Y2 & Z2 \\
+% % 					X3 & Y3 & Z2 \\
+% % 					\vdots & \vdots & \vdots \\
+% % 				\end{tabular}
+% % 			\end{block}
+% % 			\begin{block}{\centering $ D_i $}
+% % 			\end{block}
+% % 		\end{column}
+% % 		\begin{column}{0.5 \textwidth}
+% % 			\begin{block}{}
+% % 				$(X \ci Y)_{D_1} \to \chi_{D_1} $ and $ df_{D_1} $.
+% % 			\end{block}
+% % 			\begin{block}{}
+% % 				$(X \ci Y)_{D_2} \to \chi_{D_2} $ and $ df_{D_2} $.
+% % 			\end{block}
+% % 			\begin{block}{}
+% % 				$(X \ci Y)_{D_i} \to \chi_{D_i} $ and $ df_{D_i} $.
+% % 			\end{block}
+% % 		\end{column}
+% % 	\end{columns}
+% % 	\end{block}
+% % 	\begin{block}{}
+% % 		\centering
+% % 		$ (X \ci Y | Z)_{D} \to \sum_i \chi_{D_i} $ and $ df_{D} = \sum_i df_{D_i} $
+% % 	\end{block}
+% % \end{frame}
+% 
+% % \begin{frame}
+% % 	\frametitle{Stratification Based Tests: Advantages/Disadvantages}
+% % 	\begin{itemize}
+% % 		\item As the number of conditional variables is increased, exponentially
+% % 			less data is available in each stratum.
+% % 		\item Looses power when number of conditonal variables
+% % 			are increased.
+% % 	\end{itemize}
+% % \end{frame}
+% 
 % \begin{frame}
-% 	\frametitle{Variable Importance Test Example: SCCI}
+% 	\frametitle{Variable Importance Tests}
 % 	\begin{itemize}
-% 		\item Given random variables $ X $, $Y $, and $Z$,
-% 			$$ S(X | Z ) - S(X|Z, Y) \le 0 \implies (X \ci Y | Z) $$
-% 		\item $ S $ is the conditional stochastic complexity measure defined using normalized maximum likelihood.
-% 	\end{itemize}
-% \end{frame}
-
-% \begin{frame}
-% 	\frametitle{Variable Importance Tests: Advantages/Disadvantages}
-% 	\begin{itemize}
+% 		\setlength\itemsep{1em}
+% 		\item Based on comparing the probability models: $\hat{p}(x |
+% 			y, z) $ and $ \hat{p}(x | z) $. 
+% 		\item The idea being that if adding the additional variable to
+% 			the predictors doesn't improve the fit, the varible
+% 			doesn't have any extra infromation.  E.g. Stochastic
+% 			Complexity-Based Conditional Independence Test (SCCI)
+% 			\footnotemark.
+% 		\item The two probability models are trained and some goodness of fit is compared.
 % 		\item Can utilize any statistical model for which a reasonable goodness
 % 			of fit exist.
-% 		\item Inherently asymmetrical. For example, in the case of SCCI
-% 			the value of $ S(X | Z) - S(X|Y,Z) $ can be different
-% 			from $ S(Y|Z) - S(Y|X, Z) $, the result of $ X \ci Y |
-% 			Z $ can be different from $ Y \ci X | Z $.
+% 		\item Main disadvantage is that these tests are inherently
+% 			asymmetrical i.e. the result of $ X \ci Y | Z $ can be
+% 			different from $ Y \ci X | Z $.
 % 	\end{itemize}
+% 	\footnotetext[3]{\footnotesize Marx, Alexander, and Jilles Vreeken. "Testing conditional independence on discrete data using stochastic complexity." PMLR, 2019}
 % 
 % \end{frame}
-
-\begin{frame}
-	\frametitle{Residualization Based Tests}
-	\begin{itemize}
-		\setlength\itemsep{1em}
-		\item Uses two estimators $ \mathbb{E}[X| Z] $ and $
-			\mathbb{E}[Y | Z] $ and checks for the multiplicative
-			association between the residuals. E.g.
-			Partial Correlation test, generalized covariance measure etc.
-		\item Relies on the theorem from Daudin [1980] \footnotemark 
-			that under CI, if the estimators have ``valid'' residuals
-			such that $ \mathbb{E}[R_{X|Z}] = \mathbb{E}[R_{Y|Z}] = 0 $,
-			then $ \mathbb{E}[R_{X|Z} R_{Y|Z}] = 0 $.
-		\item Any estimator can be used as long as it has ``valid'' residuals.
-		\item No easy way to define residuals for ordinal and categorical variables.
-	\end{itemize}
-	\footnotetext[4]{\footnotesize Daudin, J. J. "Partial association measures and an application to qualitative regression." Biometrika, 1980}
-\end{frame}
+% 
+% % \begin{frame}
+% % 	\frametitle{Variable Importance Test Example: SCCI}
+% % 	\begin{itemize}
+% % 		\item Given random variables $ X $, $Y $, and $Z$,
+% % 			$$ S(X | Z ) - S(X|Z, Y) \le 0 \implies (X \ci Y | Z) $$
+% % 		\item $ S $ is the conditional stochastic complexity measure defined using normalized maximum likelihood.
+% % 	\end{itemize}
+% % \end{frame}
+% 
+% % \begin{frame}
+% % 	\frametitle{Variable Importance Tests: Advantages/Disadvantages}
+% % 	\begin{itemize}
+% % 		\item Can utilize any statistical model for which a reasonable goodness
+% % 			of fit exist.
+% % 		\item Inherently asymmetrical. For example, in the case of SCCI
+% % 			the value of $ S(X | Z) - S(X|Y,Z) $ can be different
+% % 			from $ S(Y|Z) - S(Y|X, Z) $, the result of $ X \ci Y |
+% % 			Z $ can be different from $ Y \ci X | Z $.
+% % 	\end{itemize}
+% % 
+% % \end{frame}
+% 
+% \begin{frame}
+% 	\frametitle{Residualization Based Tests}
+% 	\begin{itemize}
+% 		\setlength\itemsep{1em}
+% 		\item Uses two estimators $ \mathbb{E}[X| Z] $ and $
+% 			\mathbb{E}[Y | Z] $ and checks for the multiplicative
+% 			association between the residuals. E.g.
+% 			Partial Correlation test, generalized covariance measure etc.
+% 		\item Relies on the theorem from Daudin [1980] \footnotemark 
+% 			that under CI, if the estimators have ``valid'' residuals
+% 			such that $ \mathbb{E}[R_{X|Z}] = \mathbb{E}[R_{Y|Z}] = 0 $,
+% 			then $ \mathbb{E}[R_{X|Z} R_{Y|Z}] = 0 $.
+% 		\item Any estimator can be used as long as it has ``valid'' residuals.
+% 		\item No easy way to define residuals for ordinal and categorical variables.
+% 	\end{itemize}
+% 	\footnotetext[4]{\footnotesize Daudin, J. J. "Partial association measures and an application to qualitative regression." Biometrika, 1980}
+% \end{frame}
 
 % \begin{frame}
 % 	\frametitle{Residualization Based Test Example: Partial-correlation}
@@ -370,7 +393,7 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 
 
 \begin{frame}
-	\frametitle{Residual for ordinal variables: LS-Residuals}
+	\frametitle{Residual for Ordinal Variables: LS-Residuals}
 	\begin{block}{LS-Residuals}
 	Given an ordinal variable $ Y $ and an estimate $ \hat{p}(y) $ of $
 	p(y) $, LS-Residual for sample $ y_i $ is defined as:
@@ -435,7 +458,7 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 	For categorical variable:
 	\[
 		\begin{array}{ccc}
-			\bm{y} & \hat{p}(\bm{y}) & R_{\bm{y}} \\
+			\bm{y} & \hat{p}(\bm{y}=1) & R_{\bm{y}} \\
 			\begin{bmatrix}
 				Y_3: & 0 & 0 & 0 & 1 \\
 				Y_1: & 0 & 1 & 0 & 0 \\
@@ -449,8 +472,8 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 				\vdots & \vdots & \vdots & \vdots \\
 			\end{bmatrix} & 
 			\begin{bmatrix}
-				-0.1 & -0.3 & 0.5 & -0.1 \\
-				-0.1 & 0.7 & -0.5 & -0.1 \\
+				-0.1 & -0.3 & -0.5 & 0.9 \\
+				-0.2 & 0.7 & -0.2& -0.3 \\
 				-0.4 & -0.2 & 0.8 & -0.2 \\
 				\vdots & \vdots & \vdots & \vdots \\
 			\end{bmatrix} \\
@@ -459,7 +482,7 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 \end{frame}
 
 \begin{frame}
-	\frametitle{Test Statistic: Both ordinal variables}
+	\frametitle{Test Statistic: Both Ordinal Variables}
 	\begin{proposition}
 	$$ Q_1(\bm{x}, \bm{y}) = \frac{1}{n} \frac{(R_{\bm{x}} \cdot R_{\bm{y}})^2}{\bm{var}(R_{\bm{x}} R_{\bm{y}})} $$
 		\begin{center} If $ X \ci Y | Z $, asymptotically $ Q_1(\bm{x}, \bm{y}) \sim \chi^2(1) $. \end{center}
@@ -467,13 +490,14 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 	\begin{center}
 		\begin{itemize}
 			\item $ R_{\bm{x}} $ and $ R_{\bm{y}} $ are vectors of residuals.
-			\item Square root of Generalized Covariance Measure (GCM) proposed by Shah and Peters (2020)
+			\item $ Q_1 $ is normalized product of residuals.
+			\item Square root of Generalized Covariance Measure (GCM)\footnotemark.
 		\end{itemize}
 	\end{center}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Test Statistic: One categorical and one ordinal}
+	\frametitle{Test Statistic: One Categorical and One Ordinal}
 	\begin{proposition}
 
 		$$ Q_2(\bm{x}, \bm{y}) = \frac{1}{n} (d \times \hat{\Sigma}_d^{-1} \times d^T) $$
@@ -497,7 +521,7 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 \end{frame}
 
 \begin{frame}
-	\frametitle{Test Statistic: Both categorical}
+	\frametitle{Test Statistic: Both Categorical}
 	\begin{proposition}
 
 	$$ Q_3(\bm{x}, \bm{y}) = \frac{1}{n} (d \times \hat{\Sigma}_d^{-1} \times d^T) $$
@@ -687,8 +711,7 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 				\item Discrimination
 				\item Model Testing
 				\item Simulated data Strucutre Learning
-				\item Read Dataset Structure Learning
-				\item Runtime
+				\item Real Dataset Structure Learning
 			\end{enumerate}
 
 	\end{itemize}
@@ -729,11 +752,36 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 \begin{frame}
 	\frametitle{Empirical Analysis: Calibration}
 	\begin{figure}
-		\centering
-		\includegraphics[scale=0.8]{imgs/calibration_add_vars.pdf}
-		\caption*{Type I error vs significance level for varying sample sizes (top to
-		bottom): $ [20, 40, 80] $ and number of conditional variables (left to
-		right): $ [1, 3, 5] $}
+		\begin{subfigure}{0.7\textwidth}
+				\centering
+				\includegraphics[scale=0.8]{imgs/calibration_add_vars.pdf}
+				\caption*{Sample sizes (top to bottom): $ [20,
+					  40, 80] $. No. of conditional variables (left
+					  to right): $ [1, 3, 5] $}
+		\end{subfigure}%
+		\begin{subfigure}{0.3\textwidth}
+			\centering
+			\begin{tikzpicture}[yscale=.75]
+				\node (x) at (0,1) {$X$};
+				\node (y) at (2,1) {$Y$};
+				\node (z) at (1,1) {$Z_1$};
+				\node at (3,1) {$Z_2$};
+				\node at (4,1) {$\ldots$};
+				\node at (5,1) {$Z_k$};
+				\draw [->] (z) -- (y);
+				\draw [->] (z) -- (x);
+				\end{tikzpicture}
+		\end{subfigure}
+		\begin{subfigure}{0.3\textwidth}
+			\begin{equation*}
+				\begin{split}
+					\bm{z_1} &= Binom(1, 0.5) \\
+					\bm{x} &= Binom(1, \bm{z_1} / 3) \\
+					\bm{y} &= Binom(1, \bm{z_1} / 3) \\
+					\bm{z_i} &= Uniform([0, 1]) \forall i \in \{ 2, \cdots, k \} \\
+				\end{split}
+			\end{equation*}
+		\end{subfigure}
 	\end{figure}
 \end{frame}
 
@@ -867,13 +915,18 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 	\frametitle{Applications: Structure Learning}
 	\begin{figure}
 		\centering
-		\begin{subfigure}{0.5\textwidth}
+		\begin{subfigure}{0.33\textwidth}
+			\centering
+			\includegraphics{imgs/sl-adult-rf.pdf}
+			\caption*{}
+		\end{subfigure}%
+		\begin{subfigure}{0.33\textwidth}
 			\centering
 			\includegraphics[scale=0.85]{imgs/sl-adult-rf.pdf}
 			\caption*{}
 			\label{fig:sl_adult_model}
 		\end{subfigure}%
-		\begin{subfigure}{0.5\textwidth}
+		\begin{subfigure}{0.33\textwidth}
 			\centering
 			\includegraphics{imgs/adult_F1.pdf}
 			\caption*{}
@@ -904,25 +957,28 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 	\frametitle{Conclusion/Future Work}
 	\begin{itemize}
 		\setlength\itemsep{1em}
-		\item A residualization based CI test that works for a combination of ordinal and categorical variables.
-		\item Properties: 1) Simple to implement; 2) Interpretable chi-square test statistic; 3) Symmetric by construction; 4) Computationally feasible
-		\item Performs reasonably well for low number of
-			conditional variable but performs better for high
-			number of conditional variables.
-		\item For structure learning, a hybrid approach can be used with other
-			tests.
-		\item Estimators like Random Forests can work with combination of discrete and 
-			continuous variables, can possibly be extended to a single 
-			unified test for all data types.
+		\item A residualization based CI test that works for a
+			combination of ordinal and categorical variables.
+		\item Properties: 1) Simple to implement; 2) Interpretable
+			chi-square test statistic; 3) Symmetric by
+			construction; 4) Computationally feasible
+		\item Performs reasonably well for low number of conditional
+			variable but performs better for high number of
+			conditional variables.
+		\item For structure learning, a hybrid approach can be used
+			with other tests.
+		\item Estimators like Random Forests can work with combination
+			of discrete and continuous variables, can possibly be
+			extended to a single unified test for all data types.
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\begin{center}
-		\Huge{Questions}
+		\Huge{Thanks for listening. Questions?}
 	\end{center}
 	\begin{center}
-		Paper preprint: https://arxiv.org/pdf/2206.04356.pdf
+		Preprint: https://arxiv.org/pdf/2206.04356.pdf
 	\end{center}
 \end{frame}
 
