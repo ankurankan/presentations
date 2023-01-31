@@ -54,20 +54,20 @@
 	\begin{center} \Huge{Motivation/Applications} \end{center}
 \end{frame}
 \begin{frame}
-	\frametitle{Directed Acyclic Graphs}
+	\frametitle{Directed Acyclic Graphs (DAG)}
 	\begin{block}{Causal Markov Condition}
 		Every node in the DAG is conditionally independent of its non-descendants, given its parents.
 	\end{block}
-	\vspace{2em}
+	\vspace{1em}
 	\begin{figure}
-		\begin{subfigure}{0.45\textwidth}
+		\begin{subfigure}{0.46\textwidth}
 			\centering
-			\includegraphics[scale=0.6]{imgs/example_dag.png}
+			\includegraphics[scale=0.7]{imgs/example_dag.png}
 		\end{subfigure}%
-		\begin{subfigure}{0.1\textwidth}
-			$$ \implies $$
+		\begin{subfigure}{0.08\textwidth}
+			$$ \bm{\implies} $$
 		\end{subfigure}%
-		\begin{subfigure}{0.45\textwidth}
+		\begin{subfigure}{0.46\textwidth}
 			\begin{equation*}
 				\begin{split}
 					\text{\emph{XRay}} \ci & \text{\emph{Pollution}} | \text{\emph{Cancer}} \\
@@ -81,53 +81,45 @@
 	\footnotetext[1]{\footnotesize{K. B. Korb, A. E. Nicholson. Bayesian Artificial Intelligence}}
 \end{frame}
 
-\begin{frame}
-	\frametitle{Applications}
+\begin{frame}[fragile]
+	\frametitle{Model Testing}
 	\begin{itemize}
-		\item Model Testing 
-		\item Structure Learning
-	\end{itemize}	
+		\item In applied research, most of the DAGs are constructed by hand
+			based on domain knowledge.
+		\item Important to test whether the theorized model is consistent with data.
+		\item Conditional Independence (CI) tests can be used to verify whether the implied
+			CIs of the model are valid in the data.
+	\end{itemize}
+
+	\begin{figure}
+		\centering
+ 		\begin{BVerbatim}
+		             x2 df    p.value
+Brth _||_ Pllt | Cncr 4.7571803  2 0.09268115
+Brth _||_ Smkr | Cncr 9.0058063  2 0.01107679
+Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
+ 		\end{BVerbatim}
+		\caption*{Example model testing output from R package \emph{dagitty}}
+	\end{figure}
 \end{frame}
 
-% \begin{frame}[fragile]
-% 	\frametitle{Model Testing}
-% 	\begin{itemize}
-% 		\item In applied research, most of the DAGs are constructed by hand
-% 			based on domain knowledge.
-% 		\item Important to test whether the theorized model is consistent with data.
-% 		\item Conditional Independence (CI) tests can be used to verify whether the implied
-% 			CIs of the model are valid in the data.
-% 	\end{itemize}
-% 
-% 	\begin{figure}
-% 		\centering
-%  		\begin{BVerbatim}
-% 		             x2 df    p.value
-% Brth _||_ Pllt | Cncr 4.7571803  2 0.09268115
-% Brth _||_ Smkr | Cncr 9.0058063  2 0.01107679
-% Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
-%  		\end{BVerbatim}
-% 		\caption*{Example model testing output from R package \emph{dagitty}}
-% 	\end{figure}
-% \end{frame}
-% 
-% \begin{frame}
-% 	\frametitle{Structure Learning}
-% 	\begin{itemize}
-% 		\setlength\itemsep{1em}
-% 		\item CI implies that no direct causal link exists between the variables. \newline
-% 			$ \text{\emph{XRay}} \ci \text{\emph{Smoker}} | \text{\emph{Cancer}} \implies \text{No edge b/w \emph{XRay} and \emph{Smoker}} $
-% 
-% 		\item Constraint-Based structure learning algorithms like PC
-% 			and FCI use CI tests to systematically search for CIs
-% 			in the dataset to determine model skeletons.
-% 	\end{itemize}
-% 	\begin{figure}
-% 		\centering
-% 		\includegraphics[scale=0.6]{imgs/example_sl.png}
-% 		\caption*{Structure Learning Example}
-% 	\end{figure}
-% \end{frame}
+\begin{frame}
+	\frametitle{Structure Learning}
+	\begin{itemize}
+		\setlength\itemsep{1em}
+		\item CI implies that no direct causal link exists between the variables. \newline
+			$ \text{\emph{XRay}} \ci \text{\emph{Smoker}} | \text{\emph{Cancer}} \implies \text{No edge b/w \emph{XRay} and \emph{Smoker}} $
+
+		\item Constraint-Based structure learning algorithms like PC
+			and FCI use CI tests to systematically search for CIs
+			in the dataset to determine model skeletons.
+	\end{itemize}
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.6]{imgs/example_sl.png}
+		\caption*{Structure Learning Example}
+	\end{figure}
+\end{frame}
 
 \section{Background}
 \begin{frame}
@@ -191,19 +183,18 @@
 
 \begin{frame}
 	\frametitle{Approaches to CI Testing}
-	\begin{enumerate}
-		\setlength\itemsep{1em}
-		\item Stratification based tests: Converts CI tests into a
+	\begin{itemize}
+		\item \textbf{Stratification based tests}: Converts CI tests into a
 			bunch of non-conditional independence tests by
 			splitting the dataset smaller datasets with constant
 			values of $ Z $. Runs the test on each of them and
 			combines the results.
  			$$ D[X, Y, \bm{Z}] = \{ D[X, Y, \bm{Z}=\bm{z_1}], D[X, Y, \bm{Z}=\bm{z_2}], \cdots \} $$
-		\item Variable Importance based tests: Uses two probability estimators $ \hat{p}(x | y, z) $ and $ \hat{p}(x | z) $ to compare the goodness of fit.
-		\item Residulaization based tests: Uses two estimators $
+		\item \textbf{Variable Importance based tests}: Uses two probability estimators $ \hat{p}(x | y, z) $ and $ \hat{p}(x | z) $ to compare the goodness of fit.
+		\item \textbf{Residulaization based tests}: Uses two estimators $
 			\mathbb{E}[X | Z] $ and $ \mathbb{E}[Y|Z] $ and test
 			for multiplicative association between the residuals.
-	\end{enumerate}
+	\end{itemize}
 \end{frame}
 
 % \begin{frame}
@@ -716,82 +707,115 @@
 
 	\end{itemize}
 \end{frame}
+% \begin{frame}
+% 	\frametitle{Empirical Analysis: Calibration}
+% 	\begin{itemize}
+% 		\item Under the null (i.e. $ X \ci Y | Z $), the p-value should
+% 			be uniformly distributed.
+% 		\item We test the distribution of p-values on simulated
+% 			datasets with varying sample sizes and number of
+% 			conditional variables.
+% 		\item Conditionally Independent datasets are generated using the DAG:
+% 			\begin{figure}
+% 				\centering
+% 				\begin{tikzpicture}[yscale=.75]
+% 				\node (x) at (0,1) {$X$};
+% 				\node (y) at (2,1) {$Y$};
+% 				\node (z) at (1,1) {$Z_1$};
+% 				\node at (3,1) {$Z_2$};
+% 				\node at (4,1) {$\ldots$};
+% 				\node at (5,1) {$Z_k$};
+% 				\draw [->] (z) -- (y);
+% 				\draw [->] (z) -- (x);
+% 				\end{tikzpicture}
+% 			\end{figure}
+% 			\begin{equation*}
+% 				\begin{split}
+% 					\bm{z_1} &= Binom(1, 0.5) \\
+% 					\bm{x} &= Binom(1, \bm{z_1} / 3) \\
+% 					\bm{y} &= Binom(1, \bm{z_1} / 3) \\
+% 					\bm{z_i} &= Uniform([0, 1]) \forall i \in \{ 2, \cdots, k \} \\
+% 				\end{split}
+% 			\end{equation*}
+% 	\end{itemize}
+% \end{frame}
+
 \begin{frame}
 	\frametitle{Empirical Analysis: Calibration}
-	\begin{itemize}
-		\item Under the null (i.e. $ X \ci Y | Z $), the p-value should
-			be uniformly distributed.
-		\item We test the distribution of p-values on simulated
-			datasets with varying sample sizes and number of
-			conditional variables.
-		\item Conditionally Independent datasets are generated using the DAG:
+	\begin{columns}
+		\begin{column}{0.2\textwidth}
 			\begin{figure}
-				\centering
-				\begin{tikzpicture}[yscale=.75]
-				\node (x) at (0,1) {$X$};
-				\node (y) at (2,1) {$Y$};
-				\node (z) at (1,1) {$Z_1$};
-				\node at (3,1) {$Z_2$};
-				\node at (4,1) {$\ldots$};
-				\node at (5,1) {$Z_k$};
-				\draw [->] (z) -- (y);
-				\draw [->] (z) -- (x);
-				\end{tikzpicture}
+				\begin{subfigure}{\linewidth}
+					\centering
+					\begin{tikzpicture}[yscale=.75]
+						\node (x) at (0,1) {$X$};
+						\node (y) at (2,1) {$Y$};
+						\node (z) at (1,1) {$Z_1$};
+						\node at (0,2) {$Z_2$};
+						\node at (1,2) {$\ldots$};
+						\node at (2,2) {$Z_k$};
+						\draw [->] (z) -- (y);
+						\draw [->] (z) -- (x);
+						\end{tikzpicture}
+				\end{subfigure}
+				\begin{subfigure}{\linewidth}
+					\centering
+					\begin{equation*}
+						\begin{split}
+							\bm{z_1} &= Binom(1, 0.5) \\
+							\bm{x} &= Binom(1, \bm{z_1} / 3) \\
+							\bm{y} &= Binom(1, \bm{z_1} / 3) \\
+							\bm{z_i} &= Uniform([0, 1]) \\
+								 & \;\;\;\;\; \forall i \in \{ 2, \cdots, k \} \\
+						\end{split}
+					\end{equation*}
+				\end{subfigure}
 			\end{figure}
-			\begin{equation*}
-				\begin{split}
-					\bm{z_1} &= Binom(1, 0.5) \\
-					\bm{x} &= Binom(1, \bm{z_1} / 3) \\
-					\bm{y} &= Binom(1, \bm{z_1} / 3) \\
-					\bm{z_i} &= Uniform([0, 1]) \forall i \in \{ 2, \cdots, k \} \\
-				\end{split}
-			\end{equation*}
-	\end{itemize}
+		\end{column}
+		\begin{column}{0.8\textwidth}
+			\begin{figure}	
+				\includegraphics{imgs/calibration_add_vars.pdf}
+			\end{figure}
+		\end{column}
+	\end{columns}
+	\begin{center}
+	Sample sizes (top to bottom): $ [20, 40, 80] $. No. of conditional variables (left to right): $ [1, 3, 5] $
+	\end{center}
 \end{frame}
 
-\begin{frame}
-	\frametitle{Empirical Analysis: Calibration}
-	\begin{figure}
-		\begin{subfigure}{0.7\textwidth}
-				\centering
-				\includegraphics[scale=0.8]{imgs/calibration_add_vars.pdf}
-				\caption*{Sample sizes (top to bottom): $ [20,
-					  40, 80] $. No. of conditional variables (left
-					  to right): $ [1, 3, 5] $}
-		\end{subfigure}%
-		\begin{subfigure}{0.3\textwidth}
-			\centering
-			\begin{tikzpicture}[yscale=.75]
-				\node (x) at (0,1) {$X$};
-				\node (y) at (2,1) {$Y$};
-				\node (z) at (1,1) {$Z_1$};
-				\node at (3,1) {$Z_2$};
-				\node at (4,1) {$\ldots$};
-				\node at (5,1) {$Z_k$};
-				\draw [->] (z) -- (y);
-				\draw [->] (z) -- (x);
-				\end{tikzpicture}
-		\end{subfigure}
-		\begin{subfigure}{0.3\textwidth}
-			\begin{equation*}
-				\begin{split}
-					\bm{z_1} &= Binom(1, 0.5) \\
-					\bm{x} &= Binom(1, \bm{z_1} / 3) \\
-					\bm{y} &= Binom(1, \bm{z_1} / 3) \\
-					\bm{z_i} &= Uniform([0, 1]) \forall i \in \{ 2, \cdots, k \} \\
-				\end{split}
-			\end{equation*}
-		\end{subfigure}
-	\end{figure}
-\end{frame}
+% \begin{frame}
+% 	\frametitle{Empirical Analysis: Discrimination Data generation}
+% 	\begin{itemize}
+% 		\item When the null hypothesis is false, the test should be able to reject the null i.e. should have power.
+% 		\item We test the accuracy of correctly classifying datasets as conditionally dependent or independent.
+% 		\item Dependent datasets are generated with varying effect strength for $ X \to Y $: 
+% 			\begin{figure}
+% 					\begin{tikzpicture}[yscale=.75, xscale=.6]
+% 						\node (x) at (0,0) {$X$};
+% 						\node (y) at (2,0) {$Y$};
+% 						\node (z) at (1,1) {$Z_1$};
+% 						\node at (2,1) {$Z_2$};
+% 						\node at (3,1) {$\ldots$};
+% 						\node at (4,1) {$Z_k$};
+% 						\draw [->] (x) edge node [midway, above] {?} (y);
+% 						\draw [->] (z) -- (y);
+% 						\draw [->] (z) -- (x);
+% 					\end{tikzpicture}
+% 			\end{figure}
+% 		\item Binary data is generated using the logistic model: 
+% 			\begin{equation*}
+% 				p( y_i = 1 ) = \lambda\left( \sum_{X \text{ is a parent of } Y} \beta x_i \right) ; \lambda(x) = \frac{e^x}{e^x + 1}
+% 			\end{equation*}
+% 		\item Independent datasets are generated by setting the effect to $ 0 $.
+% 	\end{itemize}
+% \end{frame}
 
 \begin{frame}
-	\frametitle{Empirical Analysis: Discrimination Data generation}
-	\begin{itemize}
-		\item When the null hypothesis is false, the test should be able to reject the null i.e. should have power.
-		\item We test the accuracy of correctly classifying datasets as conditionally dependent or independent.
-		\item Dependent datasets are generated with varying effect strength for $ X \to Y $: 
+	\frametitle{Empirical Analysis: Discrimination}
+	\begin{columns}
+		\begin{column}{0.2 \textwidth}
 			\begin{figure}
+				\begin{subfigure}{\linewidth}
 					\begin{tikzpicture}[yscale=.75, xscale=.6]
 						\node (x) at (0,0) {$X$};
 						\node (y) at (2,0) {$Y$};
@@ -803,25 +827,28 @@
 						\draw [->] (z) -- (y);
 						\draw [->] (z) -- (x);
 					\end{tikzpicture}
+				\end{subfigure}
+				\begin{subfigure}{\linewidth}
+					\begin{equation*}
+						\begin{split}
+							p( y_i = 1 ) &= \lambda( \sum_{X} \bm{\beta} x_i) \\ 
+							\lambda(x) &= \frac{e^x}{e^x + 1}
+						\end{split}
+					\end{equation*}
+				\end{subfigure}
 			\end{figure}
-		\item Binary data is generated using the logistic model: 
-			\begin{equation*}
-				p( y_i = 1 ) = \lambda\left( \sum_{X \text{ is a parent of } Y} \beta x_i \right) ; \lambda(x) = \frac{e^x}{e^x + 1}
-			\end{equation*}
-		\item Independent datasets are generated by setting the effect to $ 0 $.
-	\end{itemize}
-\end{frame}
 
-\begin{frame}
-	\frametitle{Empirical Analysis: Discrimination}
-	\begin{figure}
-		\centering
-		\includegraphics{imgs/accuracy.pdf}
-		\caption*{Accuracy (shading: mean $\pm$ standard error, $N=200$)
+		\end{column}
+		\begin{column}{0.8 \textwidth}
+			\begin{figure}
+				\centering
+				\includegraphics{imgs/accuracy.pdf}
+			\end{figure}
+		\end{column}
+	\end{columns}
+	\center{Accuracy (shading: mean $\pm$ standard error, $N=200$)
 		of classifying simulated binary datasets (sample size: $1000$)
-		as conditionally dependent or independent.}
-	\end{figure}
-
+			as conditionally dependent or independent.}
 \end{frame}
 
 \begin{frame}
@@ -913,44 +940,63 @@
 
 \begin{frame}
 	\frametitle{Applications: Structure Learning}
-	\begin{figure}
+	\begin{columns}
+	\begin{column}{0.65 \textwidth}
+		\begin{figure}
 		\centering
-		\begin{subfigure}{0.33\textwidth}
+		\begin{subfigure}{\linewidth}
 			\centering
-			\includegraphics{imgs/sl-adult-rf.pdf}
-			\caption*{}
-		\end{subfigure}%
-		\begin{subfigure}{0.33\textwidth}
+				\begin{tikzpicture}[scale=0.55]
+				\tikzstyle{every node}=[align=center, inner sep=1pt]
+				\node at (0,0) {\footnotesize Income};
+				\node at (3,0) {\footnotesize Workclass};
+				\node at (6,0) {\footnotesize Education};
+				\node (mrts) at (9 ,0) {\footnotesize Marital~Status};
+				
+				\node at (0,-1) {\footnotesize Occupation};
+				\node (rltn) at (6,-1) {\footnotesize Relationship};
+				\node at (3,-1) {\footnotesize Race};
+				\node (sex) at (9,-1) {\footnotesize Sex};
+				
+				\node (hrpw) at (0,-2) {\footnotesize Hours~Per~Week};
+				\node at (6,-2) {\footnotesize Native~Country};
+				\node (age) at (3,-2) {\footnotesize Age};
+				\draw [very thick] (sex) -- (rltn);
+				\draw [very thick] (mrts) -- (rltn);
+				\draw [very thick] (hrpw) -- (age);
+				\end{tikzpicture}
+		\end{subfigure}
+		\begin{subfigure}{\linewidth}
 			\centering
-			\includegraphics[scale=0.85]{imgs/sl-adult-rf.pdf}
-			\caption*{}
-			\label{fig:sl_adult_model}
-		\end{subfigure}%
-		\begin{subfigure}{0.33\textwidth}
+			\includegraphics[scale=0.75]{imgs/sl-adult-rf.pdf}
+		\end{subfigure}
+		\end{figure}
+	\end{column}
+	\begin{column}{0.35\textwidth}	
+		\begin{figure}
 			\centering
 			\includegraphics{imgs/adult_F1.pdf}
-			\caption*{}
-			\label{fig:sl_adult}
-		\end{subfigure}
-		\caption*{Structure learning on US census income dataset. (a)
+		\end{figure}
+	\end{column}
+	\end{columns}
+	\center{Structure learning on US census income dataset. (a)
 		Learnt skeleton using RFT. (b) F1-score (shading: mean $\pm$
 		standard error, $N=10$) when comparing $d$-connected variable
 		pairs from the CPDAG to correlated variable pairs in the
 		dataset.}
-	\end{figure}
 \end{frame}
 
-\begin{frame}
-	\frametitle{Runtime Analysis}
-	\begin{figure}
-		\centering
-		\includegraphics{imgs/runtime.pdf}
-		\caption*{Runtime (shading: mean $\pm$ standard error, $N=100$)
-		for CI tests with varying numbers of conditional variables and
-		$1000$ samples per dataset.
-		}
-	\end{figure}
-\end{frame}
+% \begin{frame}
+% 	\frametitle{Runtime Analysis}
+% 	\begin{figure}
+% 		\centering
+% 		\includegraphics{imgs/runtime.pdf}
+% 		\caption*{Runtime (shading: mean $\pm$ standard error, $N=100$)
+% 		for CI tests with varying numbers of conditional variables and
+% 		$1000$ samples per dataset.
+% 		}
+% 	\end{figure}
+% \end{frame}
 
 \section{Conclusion}
 \begin{frame}
