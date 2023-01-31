@@ -689,13 +689,17 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 \begin{frame}{Empirical Analysis}
 	\begin{itemize}
 		\setlength\itemsep{1em}
-		\item Analysis shown using two estimators Generalized Linear Models (GLM) and Random Forest (RFT).
+		\item We show results for our proposed method using two estimators:
+			\begin{enumerate}
+				\item \textbf{GLM}: Generalized Linear Models
+				\item \textbf{RFT}: Random Forest
+			\end{enumerate}
 		\item We compared our proposed test to 4 other tests:
 			\begin{enumerate}
-				\item Mutual Information based Test (MI)
-				\item Monte Carlo Permutation Test (MC-MI)
-				\item Stochastic Complexity based CI (SCCI)
-				\item Jonckheere-Terpstra Test (JT) (Only for ordinal case)
+				\item \textbf{MI}: Mutual Information based Test
+				\item \textbf{MC-MI}: Monte Carlo Permutation Test
+				\item \textbf{SCCI}: Stochastic Complexity based CI
+				\item \textbf{JT}: Jonckheere-Terpstra Test (Only for ordinal case)
 			\end{enumerate}
 	\end{itemize}
 \end{frame}
@@ -754,11 +758,9 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 					\centering
 					\begin{equation*}
 						\begin{split}
-							\bm{z_1} &= Binom(1, 0.5) \\
-							\bm{x} &= Binom(1, \bm{z_1} / 3) \\
-							\bm{y} &= Binom(1, \bm{z_1} / 3) \\
-							\bm{z_i} &= Uniform([0, 1]) \\
-								 & \;\;\;\;\; \forall i \in \{ 2, \cdots, k \} \\
+							\bm{z_i} &= B(1, 0.5) \\
+							\bm{x} &= B(1, \bm{z_1} / 3) \\
+							\bm{y} &= B(1, \bm{z_1} / 3) \\
 						\end{split}
 					\end{equation*}
 				\end{subfigure}
@@ -850,9 +852,9 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 		\item Conditionally independent data with $ k = 8 $ levels are generated as:
 			\begin{equation*}
 				\begin{split}
-					z_i &= \textit{Binom}(k-1, 0.5) \\
-					x &= \textit{Binom}(k-1, z_1/k) \\
-					y &= \textit{Binom}(k-1, z_1/k) \\
+					z_i &= \textit{B}(k-1, 0.5) \\
+					x &= \textit{B}(k-1, z_1/k) \\
+					y &= \textit{B}(k-1, z_1/k) \\
 				\end{split}
 			\end{equation*}
 		\item For conditionally dependent data, $ z_1 $ is randomly permuted.
@@ -866,9 +868,9 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 			\begin{figure}
 			\begin{equation*}
 				\begin{split}
-					z_i &= \textit{Binom}(k-1, 0.5) \\
-					x &= \textit{Binom}(k-1, z_1/k) \\
-					y &= \textit{Binom}(k-1, z_1/k) \\
+					z_i &= \textit{B}(k-1, 0.5) \\
+					x &= \textit{B}(k-1, z_1/k) \\
+					y &= \textit{B}(k-1, z_1/k) \\
 				\end{split}
 			\end{equation*}
 			\end{figure}
