@@ -82,7 +82,7 @@
 \end{frame}
 
 \begin{frame}[fragile]
-	\frametitle{Model Testing}
+	\frametitle{Applications: Model Testing}
 	\begin{itemize}
 		\item In applied research, most of the DAGs are constructed by hand
 			based on domain knowledge.
@@ -104,7 +104,7 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 \end{frame}
 
 \begin{frame}
-	\frametitle{Structure Learning}
+	\frametitle{Applications: Structure Learning}
 	\begin{itemize}
 		\setlength\itemsep{1em}
 		\item CI implies that no direct causal link exists between the variables. \newline
@@ -481,7 +481,7 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 	\begin{center}
 		\begin{itemize}
 			\item $ R_{\bm{x}} $ and $ R_{\bm{y}} $ are vectors of residuals.
-			\item $ Q_1 $ is normalized product of residuals.
+			\item $ Q_1 $ is normalized dot product of residuals.
 			\item Square root of Generalized Covariance Measure (GCM)\footnotemark.
 		\end{itemize}
 	\end{center}
@@ -688,6 +688,7 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 \end{frame}
 \begin{frame}{Empirical Analysis}
 	\begin{itemize}
+		\setlength\itemsep{1em}
 		\item Analysis shown using two estimators Generalized Linear Models (GLM) and Random Forest (RFT).
 		\item We compared our proposed test to 4 other tests:
 			\begin{enumerate}
@@ -696,15 +697,6 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 				\item Stochastic Complexity based CI (SCCI)
 				\item Jonckheere-Terpstra Test (JT) (Only for ordinal case)
 			\end{enumerate}
-		\item List of analyses:
-			\begin{enumerate}
-				\item Calibration
-				\item Discrimination
-				\item Model Testing
-				\item Simulated data Strucutre Learning
-				\item Real Dataset Structure Learning
-			\end{enumerate}
-
 	\end{itemize}
 \end{frame}
 % \begin{frame}
@@ -869,13 +861,28 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 
 \begin{frame}
 	\frametitle{Empirical Analysis: Discrimination (Ordinal)}
-	\begin{figure}
-		\centering
-		\includegraphics{imgs/accuracy_ordinal.pdf}
-		\caption*{Accuracy (shading: mean $\pm$ standard error) of
-		classifying simulated ordinal data (8 levels per variable) as
-		conditionally dependent or independent.}	
-	\end{figure}
+	\begin{columns}
+		\begin{column}{0.3\textwidth}
+			\begin{figure}
+			\begin{equation*}
+				\begin{split}
+					z_i &= \textit{Binom}(k-1, 0.5) \\
+					x &= \textit{Binom}(k-1, z_1/k) \\
+					y &= \textit{Binom}(k-1, z_1/k) \\
+				\end{split}
+			\end{equation*}
+			\end{figure}
+		\end{column}
+		\begin{column}{0.7\textwidth}
+		\begin{figure}
+			\centering
+			\includegraphics{imgs/accuracy_ordinal.pdf}
+		\end{figure}
+		\end{column}
+	\end{columns}
+	\center{Accuracy (shading: mean $\pm$ standard error) of
+			classifying simulated ordinal data (8 levels per variable) as
+			conditionally dependent or independent.}	
 \end{frame}
 
 \begin{frame}
