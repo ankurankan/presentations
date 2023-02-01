@@ -58,7 +58,6 @@
 	\begin{block}{Causal Markov Condition}
 		Every node in the DAG is conditionally independent of its non-descendants, given its parents.
 	\end{block}
-	\vspace{1em}
 	\begin{figure}
 		\begin{subfigure}{0.46\textwidth}
 			\centering
@@ -107,8 +106,8 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 	\frametitle{Applications: Structure Learning}
 	\begin{itemize}
 		\setlength\itemsep{1em}
-		\item CI implies that no direct causal link exists between the variables. \newline
-			$ \text{\emph{XRay}} \ci \text{\emph{Smoker}} | \text{\emph{Cancer}} \implies \text{No edge b/w \emph{XRay} and \emph{Smoker}} $
+		\item CI implies that no direct causal link exists between the variables.
+			$$ \text{\emph{XRay}} \ci \text{\emph{Smoker}} | \text{\emph{Cancer}} \implies \text{No edge b/w \emph{XRay} and \emph{Smoker}} $$
 
 		\item Constraint-Based structure learning algorithms like PC
 			and FCI use CI tests to systematically search for CIs
@@ -185,22 +184,26 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 	\frametitle{Approaches to CI Testing}
 	\begin{itemize}
  		\setlength\itemsep{1em}
-		\item \textbf{Stratification based tests}: Converts CI tests into 
-			non-conditional independence tests by
-			splitting the dataset as:
+		\item \textbf{Stratification based tests}: Converts CI
+			test into a set of non-conditional independence tests
+			by splitting the dataset, and finally combines the
+			results.
 			$$ D[X, Y, \bm{Z}] = \{ D[X, Y, \bm{Z}=\bm{z_1}], D[X, Y, \bm{Z}=\bm{z_2}], \cdots \} $$
 			\vspace{-1.5em}
 			\begin{itemize}
-				\item Most commonly used for discrete variables.
-				\item Looses power very quickly for high dimensional cases.
+				\item Commonly used for discrete variables.
+				\item Looses power quickly with increasing number of conditional variables.
 			\end{itemize}
-		\item \textbf{Variable Importance based tests}: Uses two probability estimators $ \hat{p}(x | y, z) $ and $ \hat{p}(x | z) $ to compare the goodness of fit.
+		\item \textbf{Variable Importance based tests}: Uses two
+			probability estimators $ \hat{p}(x | y, z) $ and $
+			\hat{p}(x | z) $, and compares the goodness of fit.
 			\begin{itemize}
-				\item Any estimator with goodness of fit measure can be used.
+				\item Any estimator with goodness of fit
+					measure can be used.
 				\item Inherently asymmetrical.
 			\end{itemize}
 		\item \textbf{Residualization based tests}: Uses two estimators $
-			\mathbb{E}[X | Z] $ and $ \mathbb{E}[Y|Z] $ and test
+			\mathbb{E}[X | Z] $ and $ \mathbb{E}[Y|Z] $ and tests
 			for multiplicative association between the residuals.
 			\begin{itemize}
 				\item Any estimator can be used.
@@ -385,14 +388,22 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 \end{frame}
 \begin{frame}
 	\frametitle{Unified Test for Ordinal and Categorical Data}
-	\begin{itemize}
+	We propose a residualization based approach which requires:
+	\vspace{1em}
+	\begin{enumerate}
 		\setlength\itemsep{1em}
-		\item Residualization based approach.
-		\item Uses Li-Shepherd (LS) residuals \footnotemark.
-		\item Any unbiased estimator can be used.
-		\item Empirical results shown using Logistic Regression (GLM) and Random Forest (RFT).
-	\end{itemize}
-	\footnotetext[5]{\footnotesize C. Li and B. E. Shepherd. "A new residual for ordinal outcomes." Biometrika, 2012}
+		\item \textbf{Estimator:} Asymptotic results require the
+			estimators to be M-Estimators (e.g. Generalized Linear
+			Model (GLM)).
+			\begin{itemize}
+				\item We show empirical results using GLM and
+					Random Forest.
+			\end{itemize}
+		\item \textbf{Residuals:} Li-Shepherd (LS) residuals \footnotemark.
+		\item \textbf{Test Statistic:} Hotelling's $ T^2 $ test (a
+			multidimensional location test) on residual products.
+	\end{enumerate}
+	\footnotetext[3]{\footnotesize C. Li and B. E. Shepherd. "A new residual for ordinal outcomes." Biometrika, 2012}
 \end{frame}
 
 
@@ -496,10 +507,10 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 	\begin{center}
 		\begin{itemize}
 			\item $ R_{\bm{x}} $ and $ R_{\bm{y}} $ are vectors of residuals.
-			\item $ Q_1 $ is normalized dot product of residuals.
 			\item Square root of Generalized Covariance Measure (GCM)\footnotemark.
 		\end{itemize}
 	\end{center}
+	\footnotetext[4]{\footnotesize{Shah, Rajen D., and Jonas Peters. "The hardness of conditional independence testing and the generalised covariance measure." The Annals of Statistics, 2020}}
 \end{frame}
 
 \begin{frame}
@@ -842,8 +853,8 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 				\begin{subfigure}{\linewidth}
 					\begin{equation*}
 						\begin{split}
-							p( y_i = 1 ) &= \lambda( \sum_{X} \bm{\beta} x_i) \\ 
-							\lambda(x) &= \frac{e^x}{e^x + 1}
+							p(y) &= S( \sum_{x_i \in \textit{Pa}_y} \bm{\beta} x_i) \\ 
+							S(x) &= \frac{1}{1 + e^{-x}}
 						\end{split}
 					\end{equation*}
 				\end{subfigure}
@@ -880,7 +891,7 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 \begin{frame}
 	\frametitle{Empirical Analysis: Discrimination (Ordinal)}
 	\begin{columns}
-		\begin{column}{0.3\textwidth}
+		\begin{column}{0.2\textwidth}
 			\begin{figure}
 				\begin{subfigure}{\linewidth}
 					\centering
@@ -907,7 +918,7 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 				\end{subfigure}
 			\end{figure}
 		\end{column}
-		\begin{column}{0.7\textwidth}
+		\begin{column}{0.8\textwidth}
 		\begin{figure}
 			\centering
 			\includegraphics{imgs/accuracy_ordinal.pdf}
@@ -935,7 +946,7 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 \begin{frame}
 	\frametitle{Applications: Model testing}
 	\begin{columns}
-	\begin{column}{0.3\textwidth}
+	\begin{column}{0.2\textwidth}
 		\begin{tikzpicture}
 		\tikzstyle{every node}=[align=center, inner sep=1pt]
 			\node (dag) at (0, 0) {Random DAG \\ ($20$ variables)};
@@ -945,16 +956,14 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 			\draw [->] (data) -- (test);	
 		\end{tikzpicture}
 	\end{column}
-	\begin{column}{0.7\textwidth}
+	\begin{column}{0.8\textwidth}
 	\begin{figure}
 		\centering
 		\includegraphics{imgs/model_testing.pdf}
 	\end{figure}
 	\end{column}
 	\end{columns}
-	\center{Precision and recall (shading: mean $\pm$ standard
-		error) of testing implied CIs and equal number of randomly
-		generated CIs in binary datasets}
+	\center{Precision and recall  of testing CIs in binary datasets}
 \end{frame}
 
 % \begin{frame}
@@ -973,27 +982,26 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 \begin{frame}
 	\frametitle{Applications: Structure Learning}
 	\begin{columns}
-	\begin{column}{0.3\textwidth}
+	\begin{column}{0.2\textwidth}
 		\begin{tikzpicture}
 		\tikzstyle{every node}=[align=center, inner sep=1pt]
 			\node (dag) at (0, 0) {Random DAG \\ ($20$ variables)};
 			\node (data) at (0, -1.2) {Simulate binary data \\ (n=$1000$)};
-			\node (sl) at (0, -2.4) {Learn model structure \\ using PC};
-			\node (test) at (0, -3.0) {Compare skeletons};
+			\node (sl) at (0, -2.4) {Learn model \\ skeleton};
+			\node (test) at (0, -3.4) {Compare skeletons};
 			\draw [->] (dag) -- (data);
 			\draw [->] (data) -- (sl);
 			\draw [->] (sl) -- (test);
 		\end{tikzpicture}
 	\end{column}
-	\begin{column}{0.7\textwidth}
+	\begin{column}{0.8\textwidth}
 	\begin{figure}
 		\centering
 		\includegraphics{imgs/sl_density.pdf}
 	\end{figure}
 	\end{column}
 	\end{columns}
-	\center{F1-score (shading: mean $\pm$ standard error) of the learned model
-		skeletons.}
+	\center{F1-score of the learned model skeletons.}
 \end{frame}
 
 \begin{frame}
@@ -1001,10 +1009,9 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 	\begin{figure}
 		\centering
 		\includegraphics{imgs/sl.pdf}
-		\caption*{Structure learning on (a) ``alarm'', and (b)
-		``insurance'' datasets.  F1-score (shading: mean $\pm$ standard
-		error, $N=10$) of the learned model skeletons.}
 	\end{figure}
+	\center{Structure learning on (a) ``alarm'', and (b)
+		``insurance'' datasets.  F1-score of the learned model skeletons.}
 \end{frame}
 
 \begin{frame}
@@ -1048,11 +1055,10 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 		\end{figure}
 	\end{column}
 	\end{columns}
-	\center{Structure learning on US census income dataset. (a)
-		Learnt skeleton using RFT. (b) F1-score (shading: mean $\pm$
-		standard error, $N=10$) when comparing $d$-connected variable
-		pairs from the CPDAG to correlated variable pairs in the
-		dataset.}
+	\center{Structure learning on US census income dataset. (top-left)
+		Learnt skeleton using chi-squared test, (bottom-left) Learnt skeleton
+		using RFT. (right) F1-score when comparing $d$-connected variable pairs
+		from the CPDAG to correlated variable pairs in the dataset.}
 \end{frame}
 
 % \begin{frame}
