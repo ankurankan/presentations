@@ -203,8 +203,9 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 				\item Inherently asymmetrical.
 			\end{itemize}
 		\item \textbf{Residualization based tests}: Uses two estimators $
-			\mathbb{E}[X | Z] $ and $ \mathbb{E}[Y|Z] $ and tests
+			\mathbb{E}[X | Z] $ and $ \mathbb{E}[Y|Z] $, and tests
 			for multiplicative association between the residuals.
+
 			\begin{itemize}
 				\item Any estimator can be used.
 				\item Symmetric.
@@ -388,21 +389,20 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 \end{frame}
 \begin{frame}
 	\frametitle{Unified Test for Ordinal and Categorical Data}
-	We propose a residualization based approach which requires:
+	We propose a residualization based approach.
 	\vspace{1em}
-	\begin{enumerate}
+	\begin{itemize}
 		\setlength\itemsep{1em}
 		\item \textbf{Estimator:} Asymptotic results require the
 			estimators to be M-Estimators (e.g. Generalized Linear
 			Model (GLM)).
 			\begin{itemize}
-				\item We show empirical results using GLM and
-					Random Forest.
+				\item But in empirical analysis, we show that it works with non M-Estimators as well.
 			\end{itemize}
 		\item \textbf{Residuals:} Li-Shepherd (LS) residuals \footnotemark.
 		\item \textbf{Test Statistic:} Hotelling's $ T^2 $ test (a
 			multidimensional location test) on residual products.
-	\end{enumerate}
+	\end{itemize}
 	\footnotetext[3]{\footnotesize C. Li and B. E. Shepherd. "A new residual for ordinal outcomes." Biometrika, 2012}
 \end{frame}
 
