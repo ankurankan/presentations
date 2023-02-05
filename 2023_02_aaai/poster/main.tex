@@ -1,5 +1,5 @@
 \documentclass{beamer}
-\usepackage[orientation=portrait,width=30in,height=40in,scale=1.4,debug]{beamerposter}
+\usepackage[orientation=portrait,width=30in,height=40in,scale=1.35,debug]{beamerposter}
 \mode<presentation>{\usetheme{ZH}}
 \usepackage{chemformula}
 \usepackage[utf8]{inputenc}
@@ -52,62 +52,73 @@
 						\end{figure}
 
 	\begin{itemize}
-		\item In applied research, most of the DAGs are constructed by hand
-			based on domain knowledge.
-		\item Important to test whether the theorized model is consistent with data.
-		\item Conditional Independence (CI) tests can be used to verify whether the implied
-			CIs of the model are valid in the data.
-		\item CI implies that no direct causal link exists between the variables.
-			$$ \text{\emph{XRay}} \ci \text{\emph{Smoker}} | \text{\emph{Cancer}} \implies \text{No edge b/w \emph{XRay} and \emph{Smoker}} $$
-
-		\item Constraint-Based structure learning algorithms like PC
-			and FCI use CI tests to systematically search for CIs
-			in the dataset to determine model skeletons.
+		\item In applied research, most of the DAGs are constructed by
+			hand based on domain knowledge. Hence, it is important
+			to test whether the theorized model is consistent with
+			the data. Conditional Independence (CI) tests can be
+			used to test these models by verifying whether the
+			implied CIs of the model are valid in the data or not.
+		\item Constraint-Based structure learning algorithms like PC and FCI exploit
+			the CI in the data to construct the model skeleton. They start with
+			a fully connected network, and iteratively remove edges if the variables 
+			are independent given some of their neighbours.
+			% CI implies that no direct causal link exists between the variables.
+			% $$ \text{\emph{XRay}} \ci \text{\emph{Smoker}} | \text{\emph{Cancer}} \implies \text{No edge b/w \emph{XRay} and \emph{Smoker}} $$
 	\end{itemize}
 
 					\end{myblock}\vfill
 					\begin{myblock}{Current Approaches to CI Testing}
 						\begin{itemize}
- 							\setlength\itemsep{1em}
 							\item \textbf{Stratification based tests}: Converts CI
 								test into a set of non-conditional independence tests
-								by splitting the dataset, and finally combines the
-								results.
-								$$ D[X, Y, \bm{Z}] = \{ D[X, Y, \bm{Z}=\bm{z_1}], D[X, Y, \bm{Z}=\bm{z_2}], \cdots \} $$
-								\vspace{-1.5em}
-								\begin{itemize}
-									\item Commonly used for discrete variables.
-									\item Looses power quickly with increasing number of conditional variables.
-								\end{itemize}
+								by splitting the dataset into smaller datasets corresponding to
+								every possible value for conditional variables, and finally combines 
+								the results. This approach is commonly used for discrete variables, and
+								the main drawback is that it looses power quickly as the number of conditional variables
+								is increased.
+
+								% $$ D[X, Y, \bm{Z}] = \{ D[X, Y, \bm{Z}=\bm{z_1}], D[X, Y, \bm{Z}=\bm{z_2}], \cdots \} $$
+								% \begin{itemize}
+								% 	\item Commonly used for discrete variables.
+								% 	\item Looses power quickly with increasing number of conditional variables.
+								% \end{itemize}
 							\item \textbf{Variable Importance based tests}: Uses two
 								probability estimators $ \hat{p}(x | y, z) $ and $
 								\hat{p}(x | z) $, and compares the goodness of fit.
-								\begin{itemize}
-									\item Any estimator with goodness of fit
-										measure can be used.
-									\item Inherently asymmetrical.
-								\end{itemize}
+								If the simpler model does fit worse, it implies independence
+								between the variables. A benefit is that any estimator with a 
+								goodness of fit measure can be used but these are inherently asymmetrical.
 							\item \textbf{Residualization based tests}: Uses two estimators $
 								\mathbb{E}[X | Z] $ and $ \mathbb{E}[Y|Z] $, and tests
-								for multiplicative association between the residuals.
+								for multiplicative association between the residuals \cite{Daudin1980}. Any unbaised
+								estimator can be used and is also symmetrical. But residuals
+								aren't easy to define for categorical/ordinal variables.
 
-								\begin{itemize}
-									\item Any estimator can be used.
-									\item Symmetric.
-									\item No such test exists for categorical variables.
-								\end{itemize}
+								% \begin{itemize}
+								% 	\item Any estimator can be used.
+								% 	\item Symmetric.
+								% 	\item No such test exists for categorical variables.
+								% \end{itemize}
 						\end{itemize}
 					\end{myblock}\vfill
 					\begin{myblock}{Proposed Test}
-						Given an ordinal variable $ Y $ and an estimate $ \hat{p}(y) $ of $
-						p(y) $, LS-Residual for sample $ y_i $ is defined as:
-						$$ R_{y_i} = \hat{p}(Y < y_i) - \hat{p}(Y > y_i) $$
+						\begin{itemize}
+							\item \textbf{Estimator:} Asymptotic results require the
+								estimators to be M-Estimators (e.g. Generalized Linear
+								Model (GLM)). But in empirical analysis, we show that it works with non M-Estimators as well.
+							\item \textbf{Residuals:} Li-Shepherd (LS) residuals \cite{li2012}.
+								Given an ordinal variable $ Y $ and an estimate $ \hat{p}(y) $ of $
+								p(y) $, LS-Residual for sample $ y_i $ is defined as:
+								$$ R_{y_i} = \hat{p}(Y < y_i) - \hat{p}(Y > y_i) $$
 
-						For the binary case with $ Y \in \{0, 1\} $:
-						$$ R_{y_i} = y_i - \hat{p}(Y = 1) $$
+								For the binary case with $ Y \in \{0, 1\} $:
+								$$ R_{y_i} = y_i - \hat{p}(Y = 1) $$
 
-						For the conditional case for sample $ (y|z)_i $,
-						$$ R_{y_i | z_i} = \hat{p}(Y < y_i | Z=z_i) - \hat{p}(Y>y_i|Z=z_i) $$
+								For the conditional case for sample $ (y|z)_i $,
+								$$ R_{y_i | z_i} = \hat{p}(Y < y_i | Z=z_i) - \hat{p}(Y>y_i|Z=z_i) $$
+							\item \textbf{Test Statistic:} Hotelling's $ T^2 $ test (a
+								multidimensional location test) on residual products.
+						\end{itemize}
 					\end{myblock}\vfill
 		}\end{minipage}\end{beamercolorbox}
 	\end{column}
@@ -116,41 +127,34 @@
 			\begin{minipage}{.98\textwidth} % tweaks the width, makes a new \textwidth
 				\parbox[t][\columnheight]{\textwidth}{ % must be some better way to set the the height, width and textwidth simultaneously
 					\begin{myblock}{Test Statistic}
-						Ordinal-Ordinal Variable:
+						\begin{itemize}
+							\setlength\itemsep{0.5em}
+							\item \textbf{Both Ordinal Variables:}
 							$$ Q_1(\bm{x}, \bm{y}) = \frac{1}{n} \frac{(R_{\bm{x}} \cdot R_{\bm{y}})^2}{\bm{var}(R_{\bm{x}} R_{\bm{y}})} $$
-								\begin{center} If $ X \ci Y | Z $, asymptotically $ Q_1(\bm{x}, \bm{y}) \sim \chi^2(1) $. \end{center}
-						Ordinal-Categorical Variable:
-							$$ Q_2(\bm{x}, \bm{y}) = \frac{1}{n} (d \times \hat{\Sigma}_d^{-1} \times d^T) $$
-							where
+							If $ X \ci Y | Z $, asymptotically $ Q_1 \sim \chi^2(1) $.
+							\item \textbf{One Ordinal and One Categorical Variable:}
+										$$ Q_2(\bm{x}, \bm{y}) = \frac{1}{n} (d \times \hat{\Sigma}_d^{-1} \times d^T) $$
+										$$ d = (R_{\mathbb{I}(\mathbf{x}=1)} \cdot R_{\mathbf{y}}, \, \ldots \ , R_{\mathbb{I}(\mathbf{x}=k-1)} \cdot R_{\mathbf{y}}) $$
+								If $ X \ci Y | Z $, asymptotically $ Q_2 \sim \chi^2(k-1) $.
+							\item \textbf{Both Categorical Variables:}
 							\begin{equation*}
 								\begin{split}
-								d &= (R_{\mathbb{I}(\mathbf{x}=1)} \cdot R_{\mathbf{y}}, \, \ldots \ , R_{\mathbb{I}(\mathbf{x}=k-1)} \cdot R_{\mathbf{y}}) \\ 
-								\hat{\Sigma}_d &= Cov([R_\mathbb{I}(\mathbf{x}=1) \odot R_\mathbf{y}, \cdots, R_\mathbb{I}(\mathbf{x}=k-1) \odot R_\mathbf{y}])
-								\end{split}
-							\end{equation*}
-								If $ X \ci Y | Z $, asymptotically $ Q_2(\bm{x}, \bm{y}) \sim \chi^2(k-1) $.
-						Categorical-Categorical Variable:	
-							$$ Q_3(\bm{x}, \bm{y}) = \frac{1}{n} (d \times \hat{\Sigma}_d^{-1} \times d^T) $$	
-							where
-							\begin{equation*}
-								\begin{split}
+									& Q_3(\bm{x}, \bm{y}) = \frac{1}{n} (d \times \hat{\Sigma}_d^{-1} \times d^T) \\
 								d = (&R_{\mathbb{I}(\mathbf{x}=1)} \cdot R_{\mathbb{I}(\mathbf{y}=1)}, \, \ldots \ ,
 										R_{\mathbb{I}(\mathbf{x}=k-1)} R_{\mathbb{I}(\mathbf{y}=1)}, \, \ldots \, , \\
 								     &R_{\mathbb{I}(\mathbf{x}=1)} \cdot R_{\mathbb{I}(\mathbf{y}=r-1)}, \, \ldots \ ,
 										R_{\mathbb{I}(\mathbf{x}=k-1)} R_{\mathbb{I}(\mathbf{y}=r-1)}) 
 								\end{split}
 							\end{equation*}
-							\begin{equation*}
-								\hat{\Sigma}_d = Cov([R_\mathbb{I}(\mathbf{x}=1) \odot R_\mathbb{I}(\mathbf{y}=1), \cdots, R_\mathbb{I}(\mathbf{x}=k-1) \odot R_\mathbb{I}(\mathbf{y}=r-1)])
-							\end{equation*}
 							
-							If $ X \ci Y | Z $, asymptotically $ Q_3(\bm{x}, \bm{y}) \sim \chi^2((k-1)(r-1)) $.
+							If $ X \ci Y | Z $, asymp. $ Q_3 \sim \chi^2((k-1)(r-1)) $.
+						\end{itemize}
 
 					\end{myblock}\vfill
 					\begin{myblock}{Empirical Analysis}
 						\begin{figure}
 							\centering
-							\includegraphics[scale=2.5]{../in_person/imgs/calibration_add_vars.pdf}
+							\includegraphics[scale=3]{../in_person/imgs/calibration_add_vars.pdf}
 							\caption{Type I error vs significance level for sample sizes (top to
 							bottom): $ [20, 40, 80] $ and number of conditional variables (left to
 							right): $ [1, 3, 5] $ on conditionally independent simulated binary
@@ -159,7 +163,7 @@
 						\end{figure}
 						\begin{figure}
 							\centering
-							\includegraphics[scale=2.5]{../in_person/imgs/accuracy.pdf}
+							\includegraphics[scale=3]{../in_person/imgs/accuracy.pdf}
 							\caption{Accuracy (shading: mean $\pm$ standard error, $N=200$) of classifying
 							simulated binary datasets (sample size: $1000$) as conditionally
 							dependent or independent.}
@@ -167,7 +171,7 @@
 						\end{figure}
 						\begin{figure}
 							\centering
-							\includegraphics[scale=2.5]{../in_person/imgs/accuracy_ordinal.pdf}
+							\includegraphics[scale=3]{../in_person/imgs/accuracy_ordinal.pdf}
 							\caption{Accuracy (shading: mean $\pm$ standard error, N=200) of
 								classifying simulated ordinal data (8 levels per variable) as
 								conditionally dependent or independent.}
@@ -180,10 +184,10 @@
 		\begin{beamercolorbox}[center]{postercolumn}
 			\begin{minipage}{.98\textwidth} % tweaks the width, makes a new \textwidth
 				\parbox[t][\columnheight]{\textwidth}{ % must be some better way to set the the height, width and textwidth simultaneously
-					\begin{myblock}{Empirical Analysis}
+					\begin{myblock}{Empirical Analysis Cont.}
 						\begin{figure}
 							\centering
-							\includegraphics[scale=2.5]{../in_person/imgs/model_testing.pdf}
+							\includegraphics[scale=3]{../in_person/imgs/model_testing.pdf}
 							\caption{Precision and recall of testing implied versus non-implied CIs
 								 in binary data (N=1000) simulated from random DAGs on $ 20 $ variables.
 								 Shading: mean $\pm$ standard error.} 
@@ -191,7 +195,7 @@
 						\end{figure}
 						\begin{figure}
 							\centering
-							\includegraphics[scale=2.5]{../in_person/imgs/sl_density.pdf}
+							\includegraphics[scale=3]{../in_person/imgs/sl_density.pdf}
 							\caption{Structure learning on simulated data: Mean F1 scores (10
 								 simulated binary datasets per point) for varying graph densities. Each
 								 dataset contains 1000 samples and is simulated from a randomly
@@ -200,7 +204,7 @@
 						\end{figure}
 						\begin{figure}
 							\centering
-							\includegraphics[scale=2.5]{../in_person/imgs/sl.pdf}
+							\includegraphics[scale=3]{../in_person/imgs/sl.pdf}
 							\caption{Structure learning on datasets ``alarm'' (left) and ``insurance'' (right):
 								Mean F1~scores (10 subsampled datasets per sample size) of the learned
 								model skeletons.  Presence of an edge is considered the ``positive'' case
@@ -209,7 +213,7 @@
 						\end{figure}
 						\begin{figure}
 							\centering
-							\begin{subfigure}{0.6\columnwidth}
+							\begin{subfigure}[b]{0.6\columnwidth}
 								\centering
 								\begin{tikzpicture}[scale=5]
 									\tikzstyle{every node}=[inner sep=1pt, align=center]
@@ -240,8 +244,8 @@
 								\caption{}
 								\label{fig:sl_adult_model}
 							\end{subfigure}%
-							\begin{subfigure}{0.4\columnwidth}
-								\includegraphics[scale=2.5]{../in_person/imgs/adult_F1.pdf}
+							\begin{subfigure}[b]{0.4\columnwidth}
+								\includegraphics[scale=2.7]{../in_person/imgs/adult_F1.pdf}
 								\caption{}
 								\label{fig:sl_adult}
 							\end{subfigure}
