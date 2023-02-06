@@ -50,16 +50,15 @@
 			\end{subfigure}
 			\caption*{Causal Markov Condition in a DAG \footnotemark}
 		\end{figure}
-
 		\begin{itemize}
-			\item In applied research, most of the DAGs are constructed by
+			\item \justifying In applied research, most of the DAGs are constructed by
 				hand based on domain knowledge. Hence, it is crucial 
 				to test whether the theorized model is consistent with
 				the data. Conditional Independence (CI) tests can be
 				used to test these models by verifying whether the
 				implied CIs of the model are valid in the data or not.
-			\item Constraint-Based structure learning algorithms like PC and FCI exploit
-				the CIs in the data to construct the model skeleton. They start with
+			\item \justifying Constraint-Based structure learning algorithms like PC and FCI systematically search
+				for CIs in data to construct the model skeleton. They start with
 				a fully connected network and iteratively remove edges if the variables 
 				are (conditionally) independent given some of their neighbours.
 				% CI implies that no direct causal link exists between the variables.
@@ -68,18 +67,18 @@
 
 	\end{myblock}\vfill
 	\begin{myblock}{Current Approaches to CI Testing}
-		\begin{itemize}
-			\item \textbf{Stratification tests}: Converts a CI
+		\justifying \textbf{Stratification tests:} Converts a CI
 				test into a set of non-conditional independence
 				tests by splitting the dataset into smaller
 				datasets corresponding to every possible value
-				of conditional variables and finally combines
+				of conditional variables and combines
 				the results. This is the most common approach
 				for discrete variables. The main drawback is
 				that tests lose power quickly as the number
 				of conditional variables increases. E.g.,
-				Chi-Squared test.
-			\item \textbf{Variable Importance tests}: Based
+				Chi-Squared test, G-test. \\
+				\vspace{0.8em}
+		\justifying \textbf{Variable Importance tests:} Based
 				on comparing the ``goodness of fit'' of two
 				estimators: $ \hat{p}(x | y, z) $ and $
 				\hat{p}(x|z) $. If the simpler model does not
@@ -87,8 +86,9 @@
 				conditionally independent. A benefit is that
 				any estimator with a goodness of fit measure
 				can be used, but tests are inherently
-				asymmetrical. E.g., SCCI.
-			\item \textbf{Residualization tests}: Uses two
+				asymmetrical. E.g., SCCI. \\
+				\vspace{0.8em}
+		\justifying \textbf{Residualization tests:} Uses two
 				estimators, $ \mathbb{E}[X | Z] $ and $
 				\mathbb{E}[Y|Z] $, and tests for multiplicative
 				association between their residuals
@@ -97,17 +97,16 @@
 				no such test for categorical/ordinal variables,
 				as there is no straightforward definition of
 				residuals. E.g., Generalized Covariance
-				Measure.
-		\end{itemize}
+				Measure(GCM), partial correlation.
 	\end{myblock}\vfill
 	\begin{myblock}{Proposed Residualization Based Test}
-		\begin{itemize}
-			\item \textbf{Estimator:} Asymptotic results require
+		\justifying \textbf{Estimator:} Asymptotic results require
 				the estimators to be M-Estimators (e.g.,
 				Generalized Linear Model (GLM)). However, in
 				empirical analysis, we show that it is not a
-				strict requirement.
-			\item \textbf{Residuals:} We use Li-Shepherd (LS) residuals \cite{li2012}.
+				strict requirement. \\
+				\vspace{0.8em}
+		\justifying \textbf{Residuals:} We use Li-Shepherd (LS) residuals \cite{li2012}.
 				Given an ordinal variable $ Y $ and an estimate $ \hat{p}(y) $ of $
 				p(y) $, LS-Residual for sample $ y_i $ is defined as:
 				$$ R_{y_i} = \hat{p}(Y < y_i) - \hat{p}(Y > y_i) $$
@@ -116,15 +115,14 @@
 				$$ R_{y_i} = y_i - \hat{p}(Y = 1) $$
 
 				For the conditional case for sample $ (y|z)_i $,
-				$$ R_{y_i | z_i} = \hat{p}(Y < y_i | Z=z_i) - \hat{p}(Y>y_i|Z=z_i) $$
-			\item \textbf{Test Statistic:} Hotelling's $ T^2 $ test
+				$$ R_{y_i | z_i} = \hat{p}(Y < y_i | Z=z_i) - \hat{p}(Y>y_i|Z=z_i) $$ \\
+				\vspace{0.8em}
+		\justifying \textbf{Test Statistic:} Hotelling's $ T^2 $ test
 				(a multidimensional location test) on residual
 				products.
-		\end{itemize}
 	\end{myblock}\vfill
 	\begin{myblock}{Test Statistic}
 		\begin{itemize}
-			\setlength\itemsep{0.5em}
 			\item \textbf{Both Ordinal Variables:}
 			$$ Q_1(\bm{x}, \bm{y}) = \frac{1}{n} \frac{(R_{\bm{x}} \cdot R_{\bm{y}})^2}{\bm{var}(R_{\bm{x}} R_{\bm{y}})} $$
 			If $ X \ci Y | Z $, asymptotically $ Q_1 \sim \chi^2(1) $.
@@ -141,7 +139,6 @@
 				\parbox[t][\columnheight]{\textwidth}{ % must be some better way to set the the height, width and textwidth simultaneously
 	\begin{myblock}{Test Statistic Cont.}
 		\begin{itemize}
-			\setlength\itemsep{0.5em}
 			\item \textbf{One Ordinal and One Categorical Variable:}
 						$$ Q_2(\bm{x}, \bm{y}) = \frac{1}{n} (d \times \hat{\Sigma}_d^{-1} \times d^T) $$
 						$$ d = (R_{\mathbb{I}(\mathbf{x}=1)} \cdot R_{\mathbf{y}}, \, \ldots \ , R_{\mathbb{I}(\mathbf{x}=k-1)} \cdot R_{\mathbf{y}}) $$
@@ -294,19 +291,19 @@
 	\end{myblock}\vfill
 	\begin{myblock}{Conclusion}
 		\begin{itemize}
-			\item A residualization-based CI test that works for a
+			\item \justifying A residualization-based CI test that works for a
 				combination of ordinal and categorical
 				variables.
-			\item Properties: 1) Simple to implement; 2)
+			\item \justifying Properties: 1) Simple to implement; 2)
 				Interpretable chi-square test statistic; 3)
 				Symmetric by construction; 4) Computationally
 				feasible for structure learning applications.
-			\item Performs reasonably well for low number of
+			\item \justifying Performs reasonably well for low number of
 				conditional variables but performs better for
 				high number of conditional variables.
-			\item For structure learning, a hybrid approach can be
+			\item \justifying For structure learning, a hybrid approach can be
 				used with other tests.
-			\item  Estimators like Random Forests can work with a
+			\item  \justifying Estimators like Random Forests can work with a
 				combination of discrete and continuous
 				variables, and hence we can possibly extend to
 				a single unified test for all data types.
