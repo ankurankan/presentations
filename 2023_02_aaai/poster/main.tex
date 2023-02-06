@@ -225,52 +225,71 @@
 		\end{figure}
 		\begin{figure}
 			\centering
-			\begin{subfigure}[b]{0.55\textwidth}
+			\begin{subfigure}[t]{0.55\textwidth}
 				\centering
 				\begin{tikzpicture}[scale=5]
 					\tikzstyle{every node}=[inner sep=1pt, align=center]
 					\scriptsize
-					\node (hrpw) at (0:1.2cm) {HrPW};
-					\node (race) at (-33:1.2cm) {Race};
-					\node (ntvc) at (-61:1.2cm) {NtvC};
-					\node (edct) at (-98:1.2cm) {Edct};
-					\node (age) at (-131:1.2cm) {Age};
-					\node (mrts) at (-164:1.2cm) {MrtS};
-					\node (rltn) at (-196:1.2cm) {Rltn};
-					\node (sex) at (-225:1.2cm) {Sex};
-					\node (occp) at (-262:1.2cm) {Occp};
-					\node (incm) at (-300:1.2cm) {Incm};
-					\node (wrkc) at (-333:1.2cm) {Wrkc};
+					\begin{scope}[scale=0.2, shift={(-5cm, 0)}]
+						\node at (0,0) {\footnotesize Incm};
+						\node at (3,0) {\footnotesize Wrkc};
+						\node at (6,0) {\footnotesize Edct};
+						\node (mrts) at (9 ,0) {\footnotesize MrtS};
+						
+						\node at (0,-1) {\footnotesize Occp};
+						\node (rltn) at (6,-1) {\footnotesize Rltn};
+						\node at (3,-1) {\footnotesize Race};
+						\node (sex) at (9,-1) {\footnotesize Sex};
+						
+						\node (hrpw) at (0,-2) {\footnotesize HrPW};
+						\node at (6,-2) {\footnotesize NtvC};
+						\node (age) at (3,-2) {\footnotesize Age};
+						\draw [very thick] (sex) -- (rltn);
+						\draw [very thick] (mrts) -- (rltn);
+						\draw [very thick] (hrpw) -- (age);
+					\end{scope}
+					\begin{scope}[shift={(0, -2cm)}]
+						\node (hrpw) at (0:1.2cm) {HrPW};
+						\node (race) at (-33:1.2cm) {Race};
+						\node (ntvc) at (-61:1.2cm) {NtvC};
+						\node (edct) at (-98:1.2cm) {Edct};
+						\node (age) at (-131:1.2cm) {Age};
+						\node (mrts) at (-164:1.2cm) {MrtS};
+						\node (rltn) at (-196:1.2cm) {Rltn};
+						\node (sex) at (-225:1.2cm) {Sex};
+						\node (occp) at (-262:1.2cm) {Occp};
+						\node (incm) at (-300:1.2cm) {Incm};
+						\node (wrkc) at (-333:1.2cm) {Wrkc};
 		
-					\draw [] (hrpw) -- (race) -- (ntvc) -- (edct) -- (age) -- 
-						(mrts) -- (rltn) -- (sex) -- (occp) -- (incm) -- (wrkc) -- (hrpw);
+						\draw [] (hrpw) -- (race) -- (ntvc) -- (edct) -- (age) -- 
+							(mrts) -- (rltn) -- (sex) -- (occp) -- (incm) -- (wrkc) -- (hrpw);
 		
-					\draw [] (hrpw) -- (incm) -- (age) -- (hrpw);
+						\draw [] (hrpw) -- (incm) -- (age) -- (hrpw);
 		
-					\draw [] (wrkc) -- (edct) -- (occp) -- (wrkc);
+						\draw [] (wrkc) -- (edct) -- (occp) -- (wrkc);
 		
-					\draw [] (edct) -- (rltn) -- (age);
+						\draw [] (edct) -- (rltn) -- (age);
 		
-					\draw [] (hrpw) -- (edct) -- (incm);
+						\draw [] (hrpw) -- (edct) -- (incm);
+					\end{scope}
 				\end{tikzpicture}
 				\caption{}
 				\label{fig:sl_adult_model}
 			\end{subfigure}%
-			\begin{subfigure}[b]{0.4\textwidth}
+			\begin{subfigure}[t]{0.4\textwidth}
 				\includegraphics[scale=2.7]{../in_person/imgs/adult_F1.pdf}
 				\caption{}
 				\label{fig:sl_adult}
 			\end{subfigure}
 			\caption{Structure learning on adult income data. (a) Skeleton
-				estimated by the stable PC algorithm from the data in
-				Figure~\ref{fig:pcerror} when using our Random-Forest based
-				test (RFT). (b) Mean F1 score ($10$ adult income data subsamples
-				per point)
-				when comparing $d$-connected variable pairs in the CPDAG to
-				correlated variable pairs in the dataset. Presence of
-				d-connection is used as the positive case for the
-				F1 score. Shading: mean $\pm$ standard
-				error.}
+				estimated by the stable PC algorithm using
+				(top) Chi-Squared test (bottom) RFT (b) Mean F1
+				score ($10$ adult income data subsamples per
+				point) when comparing $d$-connected variable
+				pairs in the CPDAG to correlated variable pairs
+				in the dataset. Presence of d-connection is
+				used as the positive case for the F1 score.
+				Shading: mean $\pm$ standard error.}
 		\end{figure}
 	\end{myblock}\vfill
 	\begin{myblock}{Conclusion}
