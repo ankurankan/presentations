@@ -21,7 +21,7 @@
 
 % edit this depending on how tall your header is. We should make this scaling automatic :-/
 \newlength{\columnheight}
-\setlength{\columnheight}{104cm}
+\setlength{\columnheight}{106cm}
 
 \begin{document}
 \begin{frame}
@@ -73,8 +73,8 @@
 								test into a set of non-conditional independence tests
 								by splitting the dataset into smaller datasets corresponding to
 								every possible value for conditional variables, and finally combines 
-								the results. This approach is commonly used for discrete variables, and
-								the main drawback is that it looses power quickly as the number of conditional variables
+								the results. This is the most common approach for discrete variables. 
+								The main drawback is that it looses power quickly as the number of conditional variables
 								is increased.
 
 								% $$ D[X, Y, \bm{Z}] = \{ D[X, Y, \bm{Z}=\bm{z_1}], D[X, Y, \bm{Z}=\bm{z_2}], \cdots \} $$
@@ -82,26 +82,19 @@
 								% 	\item Commonly used for discrete variables.
 								% 	\item Looses power quickly with increasing number of conditional variables.
 								% \end{itemize}
-							\item \textbf{Variable Importance based tests}: Uses two
-								probability estimators $ \hat{p}(x | y, z) $ and $
-								\hat{p}(x | z) $, and compares the goodness of fit.
-								If the simpler model does fit worse, it implies independence
-								between the variables. A benefit is that any estimator with a 
-								goodness of fit measure can be used but these are inherently asymmetrical.
+							\item \textbf{Variable Importance based tests}: Based on comparing the ``goodness of
+								fit'' of two estimators: $ \hat{p}(x | y, z) $ and $ \hat{p}(x|z) $.
+								If the simpler model doesn't fits worse, it implies that the variables 
+								are conditional independent. A benefit is that any estimator with a 
+								goodness of fit measure can be used but this class of tests are inherently asymmetrical.
 							\item \textbf{Residualization based tests}: Uses two estimators $
 								\mathbb{E}[X | Z] $ and $ \mathbb{E}[Y|Z] $, and tests
-								for multiplicative association between the residuals \cite{Daudin1980}. Any unbaised
-								estimator can be used and is also symmetrical. But residuals
-								aren't easy to define for categorical/ordinal variables.
-
-								% \begin{itemize}
-								% 	\item Any estimator can be used.
-								% 	\item Symmetric.
-								% 	\item No such test exists for categorical variables.
-								% \end{itemize}
+								for multiplicative association between their residuals \cite{Daudin1980}. Any unbiased
+								estimator can be used and is symmetrical. But there is no straightforward definition for
+								categorial/ordinal variables.
 						\end{itemize}
 					\end{myblock}\vfill
-					\begin{myblock}{Proposed Test}
+					\begin{myblock}{Proposed Residualization Based Test}
 						\begin{itemize}
 							\item \textbf{Estimator:} Asymptotic results require the
 								estimators to be M-Estimators (e.g. Generalized Linear
@@ -116,26 +109,26 @@
 
 								For the conditional case for sample $ (y|z)_i $,
 								$$ R_{y_i | z_i} = \hat{p}(Y < y_i | Z=z_i) - \hat{p}(Y>y_i|Z=z_i) $$
-							\item \textbf{Test Statistic:} Hotelling's $ T^2 $ test (a
-								multidimensional location test) on residual products.
+							\item \textbf{Test Statistic:} Hotelling's $ T^2 $ test (a location test) on residual products.
 						\end{itemize}
 					\end{myblock}\vfill
 					\begin{myblock}{Test Statistic}
 						\begin{itemize}
+							\setlength\itemsep{0.5em}
 							\item \textbf{Both Ordinal Variables:}
 							$$ Q_1(\bm{x}, \bm{y}) = \frac{1}{n} \frac{(R_{\bm{x}} \cdot R_{\bm{y}})^2}{\bm{var}(R_{\bm{x}} R_{\bm{y}})} $$
 							If $ X \ci Y | Z $, asymptotically $ Q_1 \sim \chi^2(1) $.
 						\end{itemize}
-					\end{myblock}
+					\end{myblock}\vfill
 		}\end{minipage}\end{beamercolorbox}
 	\end{column}
 	\begin{column}{.33\textwidth}
 		\begin{beamercolorbox}[center]{postercolumn}
 			\begin{minipage}{.98\textwidth} % tweaks the width, makes a new \textwidth
 				\parbox[t][\columnheight]{\textwidth}{ % must be some better way to set the the height, width and textwidth simultaneously
-					\begin{myblock}{Test Statistic}
+					\begin{myblock}{Test Statistic Cont.}
 						\begin{itemize}
-							\setlength\itemsep{1em}
+							\setlength\itemsep{0.5em}
 							\item \textbf{One Ordinal and One Categorical Variable:}
 										$$ Q_2(\bm{x}, \bm{y}) = \frac{1}{n} (d \times \hat{\Sigma}_d^{-1} \times d^T) $$
 										$$ d = (R_{\mathbb{I}(\mathbf{x}=1)} \cdot R_{\mathbf{y}}, \, \ldots \ , R_{\mathbb{I}(\mathbf{x}=k-1)} \cdot R_{\mathbf{y}}) $$
@@ -161,8 +154,7 @@
 							\includegraphics[scale=3]{../in_person/imgs/calibration_add_vars.pdf}
 							\caption{Type I error vs significance level for sample sizes (top to
 							bottom): $ [20, 40, 80] $ and number of conditional variables (left to
-							right): $ [1, 3, 5] $ on conditionally independent simulated binary
-							datasets.}
+							right): $ [1, 3, 5] $ on conditionally independent datasets.}
 							\label{fig:calibration}
 						\end{figure}
 						\begin{figure}
@@ -271,7 +263,7 @@
 								combination of ordinal and categorical variables.
 							\item Properties: 1) Simple to implement; 2) Interpretable
 								chi-square test statistic; 3) Symmetric by
-								construction; 4) Computationally feasible
+								construction; 4) Computationally feasible for structure learning applications.
 							\item Performs reasonably well for low number of conditional
 								variable but performs better for high number of
 								conditional variables.
