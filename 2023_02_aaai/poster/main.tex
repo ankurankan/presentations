@@ -6,7 +6,7 @@
 \usepackage[english]{babel} % required for rendering German special characters
 \usepackage{hyperref} %enable hyperlink for urls
 \usepackage{ragged2e}
-\usepackage[font=footnotesize, justification=justified]{caption}
+\usepackage[font=small, justification=justified]{caption}
 \usepackage{array,booktabs,tabularx}
 \usepackage{bm}
 \usepackage{subcaption}
@@ -59,9 +59,9 @@
 			used to test these models by verifying whether the
 			implied CIs of the model are valid in the data or not.
 		\item Constraint-Based structure learning algorithms like PC and FCI exploit
-			the CI in the data to construct the model skeleton. They start with
+			the CIs in the data to construct the model skeleton. They start with
 			a fully connected network, and iteratively remove edges if the variables 
-			are independent given some of their neighbours.
+			are (conditionally) independent given some of their neighbours.
 			% CI implies that no direct causal link exists between the variables.
 			% $$ \text{\emph{XRay}} \ci \text{\emph{Smoker}} | \text{\emph{Cancer}} \implies \text{No edge b/w \emph{XRay} and \emph{Smoker}} $$
 	\end{itemize}
@@ -120,6 +120,13 @@
 								multidimensional location test) on residual products.
 						\end{itemize}
 					\end{myblock}\vfill
+					\begin{myblock}{Test Statistic}
+						\begin{itemize}
+							\item \textbf{Both Ordinal Variables:}
+							$$ Q_1(\bm{x}, \bm{y}) = \frac{1}{n} \frac{(R_{\bm{x}} \cdot R_{\bm{y}})^2}{\bm{var}(R_{\bm{x}} R_{\bm{y}})} $$
+							If $ X \ci Y | Z $, asymptotically $ Q_1 \sim \chi^2(1) $.
+						\end{itemize}
+					\end{myblock}
 		}\end{minipage}\end{beamercolorbox}
 	\end{column}
 	\begin{column}{.33\textwidth}
@@ -128,10 +135,7 @@
 				\parbox[t][\columnheight]{\textwidth}{ % must be some better way to set the the height, width and textwidth simultaneously
 					\begin{myblock}{Test Statistic}
 						\begin{itemize}
-							\setlength\itemsep{0.5em}
-							\item \textbf{Both Ordinal Variables:}
-							$$ Q_1(\bm{x}, \bm{y}) = \frac{1}{n} \frac{(R_{\bm{x}} \cdot R_{\bm{y}})^2}{\bm{var}(R_{\bm{x}} R_{\bm{y}})} $$
-							If $ X \ci Y | Z $, asymptotically $ Q_1 \sim \chi^2(1) $.
+							\setlength\itemsep{1em}
 							\item \textbf{One Ordinal and One Categorical Variable:}
 										$$ Q_2(\bm{x}, \bm{y}) = \frac{1}{n} (d \times \hat{\Sigma}_d^{-1} \times d^T) $$
 										$$ d = (R_{\mathbb{I}(\mathbf{x}=1)} \cdot R_{\mathbf{y}}, \, \ldots \ , R_{\mathbb{I}(\mathbf{x}=k-1)} \cdot R_{\mathbf{y}}) $$
@@ -177,14 +181,6 @@
 								conditionally dependent or independent.}
 							\label{fig:accuracy_ord}
 						\end{figure}
-					\end{myblock}
-		}\end{minipage}\end{beamercolorbox}
-	\end{column}
-	\begin{column}{0.33\textwidth}
-		\begin{beamercolorbox}[center]{postercolumn}
-			\begin{minipage}{.98\textwidth} % tweaks the width, makes a new \textwidth
-				\parbox[t][\columnheight]{\textwidth}{ % must be some better way to set the the height, width and textwidth simultaneously
-					\begin{myblock}{Empirical Analysis Cont.}
 						\begin{figure}
 							\centering
 							\includegraphics[scale=3]{../in_person/imgs/model_testing.pdf}
@@ -193,6 +189,14 @@
 								 Shading: mean $\pm$ standard error.} 
 							\label{fig:model_testing}
 						\end{figure}
+					\end{myblock}
+		}\end{minipage}\end{beamercolorbox}
+	\end{column}
+	\begin{column}{0.33\textwidth}
+		\begin{beamercolorbox}[center]{postercolumn}
+			\begin{minipage}{.98\textwidth} % tweaks the width, makes a new \textwidth
+				\parbox[t][\columnheight]{\textwidth}{ % must be some better way to set the the height, width and textwidth simultaneously
+					\begin{myblock}{Empirical Analysis Cont.}
 						\begin{figure}
 							\centering
 							\includegraphics[scale=3]{../in_person/imgs/sl_density.pdf}
