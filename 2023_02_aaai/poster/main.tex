@@ -51,13 +51,15 @@
 			\caption*{Causal Markov Condition in a DAG \footnotemark}
 		\end{figure}
 		\begin{itemize}
-			\item \justifying In applied research, most of the DAGs are constructed by
-				hand based on domain knowledge. Hence, it is crucial 
-				to test whether the theorized model is consistent with
-				the data. Conditional Independence (CI) tests can be
-				used to test these models by verifying whether the
-				implied CIs of the model are valid in the data or not.
-			\item \justifying Constraint-Based structure learning algorithms like PC and FCI systematically search
+			\item \justifying In applied research, most DAGs are
+				manually constructed based on domain knowledge.
+				Therefore, it is crucial to test whether the
+				theorized model is consistent with the data.
+				Conditional Independence (CI) tests can be used
+				to test these models by verifying whether the
+				implied CIs of the model are valid in the data
+				or not.
+			\item \justifying Constraint-based structure learning algorithms like PC and FCI systematically search
 				for CIs in data to construct the model skeleton. They start with
 				a fully connected network and iteratively remove edges if the variables 
 				are (conditionally) independent given some of their neighbours.
@@ -78,13 +80,13 @@
 				of conditional variables increases. E.g.,
 				Chi-Squared test, G-test. \\
 				\vspace{0.8em}
-		\justifying \textbf{Variable Importance tests:} Based
-				on comparing the ``goodness of fit'' of two
+		\justifying \textbf{Variable Importance tests:} Compares
+				the ``goodness of fit'' of two
 				estimators: $ \hat{p}(x | y, z) $ and $
 				\hat{p}(x|z) $. If the simpler model does not
 				fit worse, it implies that the variables are
-				conditionally independent. A benefit is that
-				any estimator with a goodness of fit measure
+				conditionally independent. 
+				Any estimator with a goodness of fit measure
 				can be used, but tests are inherently
 				asymmetrical. E.g., SCCI. \\
 				\vspace{0.8em}
@@ -94,16 +96,16 @@
 				association between their residuals
 				\cite{Daudin1980}. Any unbiased estimator can
 				be used and the tests are symmetrical. There is
-				no such test for categorical/ordinal variables,
-				as there is no straightforward definition of
+				no such test for categorical/ordinal variables because
+				there is no straightforward definition of
 				residuals. E.g., Generalized Covariance
 				Measure(GCM), partial correlation.
 	\end{myblock}\vfill
-	\begin{myblock}{Proposed Residualization Based Test}
+	\begin{myblock}{Proposed Residualization-Based Test}
 		\justifying \textbf{Estimator:} Asymptotic results require
 				the estimators to be M-Estimators (e.g.,
 				Generalized Linear Model (GLM)). However, in
-				empirical analysis, we show that it is not a
+				the empirical analysis, we show that it is not a
 				strict requirement. \\
 				\vspace{0.8em}
 		\justifying \textbf{Residuals:} We use Li-Shepherd (LS) residuals \cite{li2012}.
@@ -291,7 +293,7 @@
 	\end{myblock}\vfill
 	\begin{myblock}{Conclusion}
 		\begin{itemize}
-			\item \justifying A residualization-based CI test that works for a
+			\item \justifying We propose a residualization-based CI test that works for a
 				combination of ordinal and categorical
 				variables.
 			\item \justifying Properties: 1) Simple to implement; 2)
@@ -303,10 +305,10 @@
 				high number of conditional variables.
 			\item \justifying For structure learning, a hybrid approach can be
 				used with other tests.
-			\item  \justifying Estimators like Random Forests can work with a
-				combination of discrete and continuous
-				variables, and hence we can possibly extend to
-				a single unified test for all data types.
+			\item  \justifying We can potentially extend our
+				approach to a single unified test for all data
+				types using estimators like Random Forest, which
+				can work with a combination of variable types.
 		\end{itemize}
 	\end{myblock}\vfill
 	\begin{myblock}{References}
