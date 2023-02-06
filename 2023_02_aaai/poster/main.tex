@@ -32,23 +32,23 @@
 				\parbox[t][\columnheight]{\textwidth}{ % must be some better way to set the the height, width and textwidth simultaneously
 					\begin{myblock}{Introduction}
 						\begin{figure}
-							\begin{subfigure}{0.46\textwidth}
+							\begin{subfigure}{0.38\textwidth}
 								\centering
 								\includegraphics[scale=1.5]{../in_person/imgs/example_dag.png}
 							\end{subfigure}%
-							\begin{subfigure}{0.08\textwidth}
+							\begin{subfigure}{0.1\textwidth}
 								$$ \bm{\implies} $$
 							\end{subfigure}%
-							\begin{subfigure}{0.46\textwidth}
+							\begin{subfigure}{0.52\textwidth}
 								\begin{equation*}
 									\begin{split}
 										\text{\emph{XRay}} \ci & \text{\emph{Pollution}} | \text{\emph{Cancer}} \\
 										\text{\emph{Breathing}} \ci & \text{\emph{Smoker}} | \text{\emph{Cancer}} \\
-										& \vdots \\
+										& \cdot \cdot \cdot \\
 									\end{split}
 								\end{equation*}
 							\end{subfigure}
-							\caption*{Example of Causal Markov Condition in a DAG \footnotemark}
+							\caption*{Causal Markov Condition in a DAG \footnotemark}
 						\end{figure}
 
 	\begin{itemize}
@@ -209,7 +209,7 @@
 						\end{figure}
 						\begin{figure}
 							\centering
-							\begin{subfigure}[b]{0.6\columnwidth}
+							\begin{subfigure}[b]{0.55\textwidth}
 								\centering
 								\begin{tikzpicture}[scale=5]
 									\tikzstyle{every node}=[inner sep=1pt, align=center]
@@ -240,7 +240,7 @@
 								\caption{}
 								\label{fig:sl_adult_model}
 							\end{subfigure}%
-							\begin{subfigure}[b]{0.4\columnwidth}
+							\begin{subfigure}[b]{0.4\textwidth}
 								\includegraphics[scale=2.7]{../in_person/imgs/adult_F1.pdf}
 								\caption{}
 								\label{fig:sl_adult}
