@@ -83,12 +83,15 @@
 \begin{frame}[fragile]
 	\frametitle{Applications: Model Testing}
 	\begin{itemize}
-		\item In applied research, most of the DAGs are constructed manually
+		\item In applied research, most DAGs are manually constructed
 			based on domain knowledge.
-		\item Important to test whether the theorized model is consistent with data.
-		\item Conditional Independence (CI) tests can be used to verify whether the implied
-			CIs of the model are valid in the data.
+		\item Therefore, it is Important to test whether the theorized model is
+			consistent with the data.
+		\item Conditional Independence (CI) tests can be used to test
+			these models by verifying whether the implied CIs of the model
+			are valid in the data.
 	\end{itemize}
+	\vspace{1em}
 
 	\begin{figure}
 		\centering
@@ -109,9 +112,9 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 		\item CI implies that no direct causal link exists between the variables.
 			$$ \text{\emph{XRay}} \ci \text{\emph{Smoker}} | \text{\emph{Cancer}} \implies \text{No edge b/w \emph{XRay} and \emph{Smoker}} $$
 
-		\item Constraint-Based structure learning algorithms like PC
-			and FCI use CI tests to systematically search for CIs
-			in the dataset to determine model skeletons.
+		\item Constraint-based structure learning algorithms like PC
+			and FCI systematically search for CIs in the dataset to 
+			determine model skeletons.
 	\end{itemize}
 	\begin{figure}
 		\centering
@@ -133,10 +136,11 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 	\vspace{1em}
 
 	\begin{block}{Conditional Independence}
-		Two random variables $ X $ and $ Y $ and are said to be
-		conditionally independent given $ \bm{Z} $, $ X \ci Y | \bm{Z}
-		$ if and only if for all $ \bm{z} $ with $ p(\bm{z}) > 0 $, $ P(X, Y |
-		\bm{Z}=\bm{z}) = P(X | \bm{Z}=\bm{z}) \cdot P(Y | \bm{Z}=\bm{z}) $
+		Two random variables $ X $ and $ Y $ are conditionally
+		independent given $ \bm{Z} $, $ X \ci Y | \bm{Z} $ if and only
+		if for all $ \bm{z} $ with $ p(\bm{z}) > 0 $, $ P(X, Y |
+		\bm{Z}=\bm{z}) = P(X | \bm{Z}=\bm{z}) \cdot P(Y |
+		\bm{Z}=\bm{z}) $
 	\end{block}
 \end{frame}
 
@@ -169,7 +173,7 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 	\begin{itemize}
 		\item Testing for CI is much harder compared to testing for
 			non-conditional independence.
-		\item Especially when the cardinality or number of conditional
+		\item Especially when the cardinality or the number of conditional
 			variables is high.
 		\item For the continuous variable case, no test can exist which is
 			calibrated and has power over all distributions where
@@ -183,33 +187,37 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 \begin{frame}
 	\frametitle{Approaches to CI Testing}
 	\begin{itemize}
- 		\setlength\itemsep{1em}
-		\item \textbf{Stratification based tests}: Converts CI
-			test into a set of non-conditional independence tests
-			by splitting the dataset, and finally combines the
-			results.
+		\item \textbf{Stratification based tests}: Converts a CI test
+			into a set of non-conditional independence tests by
+			splitting the dataset, and combines the results. E.g., chi-squared, G-test.
+			\vspace{-0.5em}
 			$$ D[X, Y, \bm{Z}] = \{ D[X, Y, \bm{Z}=\bm{z_1}], D[X, Y, \bm{Z}=\bm{z_2}], \cdots \} $$
 			\vspace{-1.5em}
 			\begin{itemize}
-				\item Commonly used for discrete variables.
-				\item Looses power quickly with increasing number of conditional variables.
+				\item Most common approach for discrete variables.
+				\item Looses power quickly when number of conditional variables increases.
 			\end{itemize}
-		\item \textbf{Variable Importance based tests}: Uses two
-			probability estimators $ \hat{p}(x | y, z) $ and $
-			\hat{p}(x | z) $, and compares the goodness of fit.
+		\item \textbf{Variable Importance based tests}: Compares the
+			``goodness of fit'' of two probability estimators
+			$\hat{p}(x|y, z) $ and $ \hat{p}(x | z) $. If the
+			simpler model does not fit significantly worse, implies
+			CI. E.g., SCCI
 			\begin{itemize}
-				\item Any estimator with goodness of fit
+				\item Any estimator with a goodness of fit
 					measure can be used.
 				\item Inherently asymmetrical.
 			\end{itemize}
-		\item \textbf{Residualization based tests}: Uses two estimators $
-			\mathbb{E}[X | Z] $ and $ \mathbb{E}[Y|Z] $, and tests
-			for multiplicative association between the residuals.
+		\item \textbf{Residualization based tests}: Tests for
+			multiplicative association between the residuals of
+			estimators $ \mathbb{E}[X | Z] $ and $ \mathbb{E}[Y|Z]
+			$. Relies on the theorem that if $ \mathbb{E}[R_{X|Z}] =
+			\mathbb{E}[R_{Y|Z}] = 0 $, then under CI $\mathbb{E}[R_{X|Z}
+			R_{Y|Z}] = 0 $.
 
 			\begin{itemize}
-				\item Any estimator can be used.
+				\item Any unbiased estimator can be used.
 				\item Symmetric.
-				\item No such test exists for categorical variables.
+				\item No such test exists for categorical or ordinal variables.
 			\end{itemize}
 	\end{itemize}
 \end{frame}
@@ -1086,9 +1094,9 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 			conditional variables.
 		\item For structure learning, a hybrid approach can be used
 			with other tests.
-		\item Estimators like Random Forests can work with combination
-			of discrete and continuous variables, can possibly be
-			extended to a single unified test for all data types.
+		\item We can potentially extend our approach to a single unified test
+			for all data types using estimators like Random Forest, which
+			can work with a combination of variable types.
 	\end{itemize}
 \end{frame}
 
