@@ -85,7 +85,7 @@
 	\begin{itemize}
 		\item In applied research, most DAGs are manually constructed
 			based on domain knowledge.
-		\item Therefore, it is Important to test whether the theorized model is
+		\item Therefore, it is important to test whether the theorized model is
 			consistent with the data.
 		\item Conditional Independence (CI) tests can be used to test
 			these models by verifying whether the implied CIs of the model
@@ -168,7 +168,7 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 		\draw [very thick] (mrts) -- (rltn);
 		\draw [very thick] (hrpw) -- (age);
 		\end{tikzpicture}
-		\caption*{Learned structure for US census income dataset using chi-square test}
+		\caption*{Learned structure for US census income dataset using chi-squared test}
 	\end{figure}
 	\begin{itemize}
 		\item Testing for CI is much harder compared to testing for
@@ -201,11 +201,11 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 			``goodness of fit'' of two probability estimators
 			$\hat{p}(x|y, z) $ and $ \hat{p}(x | z) $. If the
 			simpler model does not fit significantly worse, implies
-			CI. E.g., SCCI
+			CI. E.g., SCCI.
 			\begin{itemize}
 				\item Any estimator with a goodness of fit
 					measure can be used.
-				\item Inherently asymmetrical.
+				\item Inherently asymmetrical i.e. Testing $ X \ci Y | Z \neq Y \ci X | Z $.
 			\end{itemize}
 		\item \textbf{Residualization based tests}: Tests for
 			multiplicative association between the residuals of
@@ -577,6 +577,7 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 \begin{frame}
 	\frametitle{Test Summary}
 	Given a dataset, $ \mathbf{D} $ and a CI statement $ X \ci Y | \bm{Z} $:
+	\vspace{1em}
 	\begin{enumerate}
 		\setlength\itemsep{1em}
 		\item If $\mathbf{Z} = \emptyset $ , do a non-conditional chi-squared test.
@@ -728,7 +729,7 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 				\item \textbf{GLM}: Generalized Linear Models
 				\item \textbf{RFT}: Random Forest
 			\end{enumerate}
-		\item We compared our proposed test to 4 other tests:
+		\item We compare GLM and RFT to the following tests:
 			\begin{enumerate}
 				\item \textbf{MI}: Mutual Information based Test
 				\item \textbf{MC-MI}: Monte Carlo Permutation Test
@@ -854,7 +855,7 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 						\node at (2,1) {$Z_2$};
 						\node at (3,1) {$\ldots$};
 						\node at (4,1) {$Z_k$};
-						\draw [->] (x) -- (y);
+						\draw [->] (x) edge node [midway, below] {$\beta$} (y);
 						\draw [->] (z) -- (y);
 						\draw [->] (z) -- (x);
 					\end{tikzpicture}
