@@ -205,7 +205,7 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 			\begin{itemize}
 				\item Any estimator with a goodness of fit
 					measure can be used.
-				\item Inherently asymmetrical i.e. Testing $ X \ci Y | Z \neq Y \ci X | Z $.
+				\item Inherently asymmetrical i.e. testing $ X \ci Y | Z \neq Y \ci X | Z $.
 			\end{itemize}
 		\item \textbf{Residualization based tests}: Tests for
 			multiplicative association between the residuals of
@@ -408,6 +408,11 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 				\item However, this is not a strict requirement as we show in empirical analysis.
 			\end{itemize}
 		\item \textbf{Residuals:} Li-Shepherd (LS) residuals \footnotemark.
+			\begin{itemize}
+				\item Gives valid residuals for ordinal
+					variables allowing us to use the
+					residualization approach.
+			\end{itemize}
 		\item \textbf{Test Statistic:} Hotelling's $ T^2 $ test (a
 			multidimensional location test) on residual products.
 	\end{itemize}
@@ -453,6 +458,7 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 \begin{frame}
 	\frametitle{LS-Residuals Example}
 	\begin{block}{Ordinal Variable Example}
+		\vspace{-1em}
 	\[
 		\begin{array}{ccc}
 			\bm{y} & \hat{p}(\bm{y}) & R_{\bm{y}} \\
@@ -471,7 +477,7 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 			\end{bmatrix} &
 			\begin{bmatrix}
 				\hat{p}(Y < Y_2) - \hat{p}(Y>Y_2) = 0.3 \\
-				\hat{p}(Y < Y_3) - \hat{p}(Y>Y_3) = 0.9 \\
+				\hat{p}(Y < Y_3) - \hat{p}(Y>Y_3) = 0.7 \\
 				\hat{p}(Y < Y_1) - \hat{p}(Y>Y_1) = 0 \\
 				\vdots
 			\end{bmatrix} \\
@@ -480,6 +486,7 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 	\end{block}
 
 	\begin{block}{Categorical Variable Example}
+		\vspace{-1em}
 		\begin{equation*}
 		\begin{array}{ccc}
 			\bm{y} & \hat{p}(\bm{y}=1) & R_{\bm{y}} \\
@@ -495,6 +502,7 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 				0.4 & 0.2 & 0.2 & 0.2 \\
 				\vdots & \vdots & \vdots & \vdots \\
 			\end{bmatrix} & 
+			\setlength\arraycolsep{2.5pt}
 			\begin{bmatrix}
 				-0.1 & -0.3 & -0.5 & 0.9 \\
 				-0.2 & 0.7 & -0.2& -0.3 \\
