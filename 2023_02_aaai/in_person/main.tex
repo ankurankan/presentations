@@ -405,7 +405,7 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 			estimators to be M-Estimators (e.g. Generalized Linear
 			Model (GLM)).
 			\begin{itemize}
-				\item But in empirical analysis, we show that it works with non M-Estimators as well.
+				\item However, this is not a strict requirement as we show in empirical analysis.
 			\end{itemize}
 		\item \textbf{Residuals:} Li-Shepherd (LS) residuals \footnotemark.
 		\item \textbf{Test Statistic:} Hotelling's $ T^2 $ test (a
@@ -732,10 +732,11 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 			\begin{enumerate}
 				\item \textbf{MI}: Mutual Information based Test
 				\item \textbf{MC-MI}: Monte Carlo Permutation Test
-				\item \textbf{SCCI}: Stochastic Complexity based CI
+				\item \textbf{SCCI}: Stochastic Complexity based CI \footnotemark
 				\item \textbf{JT}: Jonckheere-Terpstra Test (Only for ordinal case)
 			\end{enumerate}
 	\end{itemize}
+	\footnotetext[5]{Marx, Alexander, and Jilles Vreeken. "Testing conditional independence on discrete data using stochastic complexity." The 22nd International Conference on Artificial Intelligence and Statistics. PMLR, 2019.}
 \end{frame}
 % \begin{frame}
 % 	\frametitle{Empirical Analysis: Calibration}
@@ -853,7 +854,7 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 						\node at (2,1) {$Z_2$};
 						\node at (3,1) {$\ldots$};
 						\node at (4,1) {$Z_k$};
-						\draw [->] (x) edge node [midway, above] {?} (y);
+						\draw [->] (x) -- (y);
 						\draw [->] (z) -- (y);
 						\draw [->] (z) -- (x);
 					\end{tikzpicture}
@@ -959,7 +960,7 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 		\tikzstyle{every node}=[align=center, inner sep=1pt]
 			\node (dag) at (0, 0) {Random DAG \\ ($20$ variables)};
 			\node (data) at (0, -1.2) {Simulate binary data \\ (n=$1000$)};
-			\node (test) at (0, -2.4) {Test implied and \\ random CIs in data};
+			\node (test) at (0, -2.6) {Test implied and \\ random CI statements \\ in data};
 			\draw [->] (dag) -- (data);
 			\draw [->] (data) -- (test);	
 		\end{tikzpicture}
