@@ -69,8 +69,8 @@
 		\begin{subfigure}{0.46\textwidth}
 			\begin{equation*}
 				\begin{split}
-					\text{\emph{XRay}} \ci & \text{\emph{Pollution}} | \text{\emph{Cancer}} \\
-					\text{\emph{Breathing}} \ci & \text{\emph{Smoker}} | \text{\emph{Cancer}} \\
+					\text{\emph{XRay}} \ci & \text{ \emph{Pollution}} | \text{\emph{Cancer}} \\
+					\text{\emph{Breathing}} \ci & \text{ \emph{Smoker}} | \text{\emph{Cancer}} \\
 					& \vdots \\
 				\end{split}
 			\end{equation*}
@@ -171,13 +171,13 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 		\caption*{Learned structure for US census income dataset using chi-squared test}
 	\end{figure}
 	\begin{itemize}
-		\item Testing for CI is much harder compared to testing for
-			non-conditional independence.
-		\item Especially when the cardinality or the number of conditional
-			variables is high.
-		\item For the continuous variable case, no test can exist which is
-			calibrated and has power over all distributions where
-			CI is True. \footnotemark
+		\item It is much harder to test for CI than for non-conditional
+			independence.
+		\item This is especially true when the cardinality or the number of 
+			conditional variables is high.
+		\item For continuous variables, a test which is calibrated and
+			has power over all distributions where CI is True can
+			not exist. \footnotemark
 		\item Many different approaches and tests have been proposed.
 	\end{itemize}
 
@@ -195,16 +195,16 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 			\vspace{-1.5em}
 			\begin{itemize}
 				\item Most common approach for discrete variables.
-				\item Looses power quickly when number of conditional variables increases.
+				\item Loses power quickly when number of conditional variables increases.
 			\end{itemize}
 		\item \textbf{Variable Importance based tests}: Compares the
 			``goodness of fit'' of two probability estimators
 			$\hat{p}(x|y, z) $ and $ \hat{p}(x | z) $. If the
-			simpler model does not fit significantly worse, implies
+			simpler model does not fit significantly worse, it implies
 			CI. E.g., SCCI.
 			\begin{itemize}
-				\item Any estimator with a goodness of fit
-					measure can be used.
+				\item Can use any estimator with a goodness of
+					fit measure.
 				\item Inherently asymmetrical i.e. testing $ X \ci Y | Z \neq Y \ci X | Z $.
 			\end{itemize}
 		\item \textbf{Residualization based tests}: Tests for
@@ -215,7 +215,7 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 			R_{Y|Z}] = 0 $.
 
 			\begin{itemize}
-				\item Any unbiased estimator can be used.
+				\item Can use any unbiased estimator.
 				\item Symmetric.
 				\item No such test exists for categorical or ordinal variables.
 			\end{itemize}
@@ -402,7 +402,7 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 	\begin{itemize}
 		\setlength\itemsep{1em}
 		\item \textbf{Estimator:} Asymptotic results require the
-			estimators to be M-Estimators (e.g. Generalized Linear
+			estimators to be M-Estimators (e.g., Generalized Linear
 			Model (GLM)).
 			\begin{itemize}
 				\item However, this is not a strict requirement as we show in empirical analysis.
@@ -523,7 +523,7 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 	\begin{center}
 		\begin{itemize}
 			\item $ R_{\bm{x}} $ and $ R_{\bm{y}} $ are vectors of residuals.
-			\item Square root of Generalized Covariance Measure (GCM)\footnotemark.
+			\item $ Q_1 $ is the square root of Generalized Covariance Measure (GCM)\footnotemark.
 		\end{itemize}
 	\end{center}
 	\footnotetext[4]{\footnotesize{Shah, Rajen D., and Jonas Peters. "The hardness of conditional independence testing and the generalised covariance measure." The Annals of Statistics, 2020}}
@@ -547,7 +547,7 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 		\begin{itemize}
 			\item $ R_{\bm{x}} $ is a matrix of residuals with each column corresponding to a dummy state and $ R_{\bm{y}} $ is still a vector.
 			\item One of the columns of the dummy encoded variable
-				is dropped as it will be colinear. Including it will
+				is dropped as it is colinear. Including it would
 				result in a non full-rank covariance matrix.
 		\end{itemize}
 	\end{center}
@@ -584,15 +584,15 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 
 \begin{frame}
 	\frametitle{Test Summary}
-	Given a dataset, $ \mathbf{D} $ and a CI statement $ X \ci Y | \bm{Z} $:
+	Given a dataset $ \mathbf{D} $ and a CI statement $ X \ci Y | \bm{Z} $:
 	\vspace{1em}
 	\begin{enumerate}
 		\setlength\itemsep{1em}
 		\item If $\mathbf{Z} = \emptyset $ , do a non-conditional chi-squared test.
-		\item If either $ X $ or $ Y $ are non-binary categorical,
+		\item If either $ X $ or $ Y $ are non-binary categorical variables,
 			dummy encode them.
 		\item Train two probability estimators $ p_x = \bm{x} \sim \bm{z} $ and
-			$ p_y = \bm{y} \sim \bm{z} $
+			$ p_y = \bm{y} \sim \bm{z} $.
 		\item Make probability predictions using these two estimators 
 			$ \hat{p}(\bm{x}) = p_x(\bm{z}) $ and $ \hat{p}(\bm{y}) = p_y(\bm{\bm{z}}) $.
 		\item Use $ \hat{p}(\bm{x}) $, $ \hat{p}(\bm{y}) $, and $ D $ to compute LS-Residuals $ R_{\bm{x}|\bm{z}} $ and $ R_{\bm{y}|\bm{z}} $.	
@@ -1094,11 +1094,11 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999
 	\frametitle{Conclusion/Future Work}
 	\begin{itemize}
 		\setlength\itemsep{1em}
-		\item A residualization based CI test that works for a
-			combination of ordinal and categorical variables.
+		\item  We propose a residualization-based CI test that works
+			for a combination of ordinal and categorical variables.
 		\item Properties: 1) Simple to implement; 2) Interpretable
 			chi-square test statistic; 3) Symmetric by
-			construction; 4) Computationally feasible
+			construction; 4) Computationally feasible.
 		\item Performs reasonably well for low number of conditional
 			variable but performs better for high number of
 			conditional variables.
