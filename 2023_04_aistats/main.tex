@@ -14,6 +14,10 @@
 
 \def\ci{\perp\!\!\!\!\!\perp}
 
+\tikzstyle{latent} = [ draw, circle, inner sep = 2pt, minimum size = 0.65cm ]
+\tikzstyle{observed} = [ draw, rectangle, inner sep = 2pt, minimum size = 0.65cm ]
+\tikzstyle{tikztext} = [ draw, inner sep = 2pt, minimum size = 0.65cm, rounded corners=0.1cm ]
+
 \newtheorem{proposition}{Proposition}
 
 \setbeamertemplate{section in toc}{\inserttocsectionnumber.~\inserttocsection}
@@ -46,17 +50,103 @@
 
 \section{Overview}
 \begin{frame}
-	\frametitle{The identfication problem}
+	\frametitle{Identification}
+	\begin{block}{Problem Statement}
+		Given a DAG $ G = (V, E) $ and an observational dataset on $ V $, is the causal effect
+		of $ \bm{X} \in V $ on $ \bm{Y} \in V $ estimable?
+	\end{block}
+	\begin{figure}
+		\centering
+		\begin{subfigure}{0.5 \textwidth}
+			\centering
+			\begin{tikzpicture}
+				\tikzstyle{every node}=[align=center, inner sep=1pt]
+				\node[latent] (u) at (1.5, 1.5) {$ U $};
+				\node[observed] (x) at (0, 0) {$ X $};
+				\node[observed] (y) at (3, 0) {$ Y $};
+				\draw[->] (u) -- (x) node[midway, above]{$ \beta_{xu} $};
+				\draw[->] (u) -- (y) node[midway, above]{$ \beta_{yu} $};
+				\draw[->] (x) -- (y) node[midway, below]{$ \beta_{yx} $};
+				\node at (1.5, -1) {Not Identified};
+				\node at (1.5, -2) {$\beta_{yx} + \beta_{xu} \beta_{yu} = Cov(X, Y) $};
+			\end{tikzpicture}
+		\end{subfigure}%
+		\begin{subfigure}{0.5 \textwidth}
+			\centering
+			\begin{tikzpicture}
+				\tikzstyle{every node}=[align=center, inner sep=1pt]
+				\node[observed] (u) at (1.5, 1.5) {$ U $};
+				\node[observed] (x) at (0, 0) {$ X $};
+				\node[observed] (y) at (3, 0) {$ Y $};
+				\draw[->] (u) -- (x) node[midway, above]{$ \beta_{xu} $};
+				\draw[->] (u) -- (y) node[midway, above]{$ \beta_{yu} $};
+				\draw[->] (x) -- (y) node[midway, below]{$ \beta_{yx} $};
+				\node at (1.5, -1) {Not Identified};
+				\node at (1.5, -2) {$ \beta_{xu} = Cov(X, U); \beta_{yu} = Cov(Y, U); $};
+			\end{tikzpicture}
+		\end{subfigure}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Identification}
+	\begin{block}{Pearl's do-calculus}
+		do-calculus can give formulas on observed distribution for 
+		every possible identifiable parameter.
+	\end{block}
+	\begin{itemize}
+		\item But no efficient algorithm for checking identifablity using
+			do-calculus.
+		\item Different criteria have been proposed which can identify 
+			parameters in special cases.
+		\item For example Back-door criterion, front-door criterion etc.
+		\item Another method for identification is the IV based estimation 
+			method
+	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Instrumental Variable(IV) Estimation}
+	\begin{figure}
+		\centering
+		\begin{tikzpicture}
+			\tikzstyle{every node}=[align=center, inner sep=1pt]
+			\node[observed] (z) at (0, 0) {$ Z $};
+			\node[observed] (x) at (2, 0) {$ X $};
+			\node[observed] (y) at (4, 0) {$ Y $};
+			\node[latent] (u) at (3, 1) {$ U $};
+			\draw[->] (z) -- (x) node[midway, below] {$ \beta_{xz} $};
+			\draw[->] (x) -- (y) node[midway, below] {$ \beta_{yx} $};
+			\draw[->] (u) -- (x);
+			\draw[->] (u) -- (y);
+		\end{tikzpicture}
+	\end{figure}
+	$$ Cov(X, Y) = \frac{Cov(Y, Z)}{Cov(Z, X)} $$
+	IV definition. \\
+	Need to find these IVs in the model. IV criterion
 \end{frame}
 
 \begin{frame}
 	\frametitle{Overview}
-	Graphical Models IV criteria $\downarrow $ \\
-	IV estimation in SEM $ \rightarrow $ Graphical L2O transformation $ \rightarrow $ Graphical identification for SEM $ \rightarrow $ Can apply any graphical criteria to SEMs; Equivalence proof between Instrumental Sets and MIIV approach; Relaxing normality condition for graphical criteria.
+	\begin{figure}
+		\centering
+		\begin{tikzpicture}
+			\tikzstyle{every node}=[align=center, inner sep=1pt]
+			\node[tikztext] (ivdag) at (6, 2) {IV criteria for \\ graphical models};
+			\node[tikztext] (ivsem) at (0, 0) {IV iden. \\ in SEM};
+			\node[tikztext] (graphl2o) at (3, 0) {Graphical L2O \\ transform};
+			\node[tikztext] (graphidden) at (6, 0) {Graphical iden. \\ for SEM};
+			\node[tikztext] (graphcri) at (9, 3) {Can apply any \\ graphical criteria \\ to SEMs};
+			\node[tikztext] (equival) at (9, 0) {Equivalence proof};
+			\node[tikztext] (normal) at (9, -3) {Relaxing normality \\ condition}; 
+			\draw[->] (ivsem) -- (graphl2o);
+			\draw[->] (ivdag) -- (graphidden);
+			\draw[->] (graphl2o) -- (graphidden);
+			\draw[->] (graphidden) -- (graphcri);
+			\draw[->] (graphidden) -- (equival);
+			\draw[->] (graphidden) -- (normal);
+		\end{tikzpicture}
+	\end{figure}
 \end{frame}
 
 \begin{frame}
