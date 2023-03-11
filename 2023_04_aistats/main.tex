@@ -43,7 +43,7 @@
 \begin{document}
 
 \title[Combining Graphical and Algebraic Approaches for Parameter Identification in Latent Variable SEM]{Combining Graphical and Algebraic Approaches for Parameter Identification in Latent Variable Structural Equation Models}
-\author {Ankur Ankan \and Johannes Textor}
+\author {Ankur Ankan \and Inge Wortel \and Kenneth A. Bollen \and Johannes Textor}
 \institute[]{Radboud University, Netherlands}
 \date{}
 \maketitle
@@ -81,7 +81,7 @@
 				\draw[->] (u) -- (x) node[midway, above]{$ \beta_{xu} $};
 				\draw[->] (u) -- (y) node[midway, above]{$ \beta_{yu} $};
 				\draw[->] (x) -- (y) node[midway, below]{$ \beta_{yx} $};
-				\node at (1.5, -1) {Not Identified};
+				\node at (1.5, -1) {Identified};
 				\node at (1.5, -2) {$ \beta_{xu} = Cov(X, U); \beta_{yu} = Cov(Y, U); $};
 			\end{tikzpicture}
 		\end{subfigure}
@@ -151,6 +151,26 @@
 
 \begin{frame}
 	\frametitle{Graphical Approach}
+	\begin{block}{Instrumental Set Criterion (Brito and Pearl 2002)}
+Given an ADMG $\cal
+	G$, a variable $y$, and a subset $X$ of the parents of $y$, 
+	a set of variables
+	$I$ fulfills the 
+	\emph{instrumental set condition}
+	if for {some} permutation $ i_1 \ldots i_k $ of
+	$ I $ and {some} permutation
+	$ x_1 \ldots x_k $ of $ X $ we have: 
+	\begin{enumerate}
+		\item There are no treks from $I$ to $y$ in the graph ${\cal
+			G}_{\overline{X}}$ obtained by removing all arrows 
+			between $X$ and $y$. 
+		\item For each $j$, $1 \leq j \leq k$, there is a trek $\pi_j$ from
+			$I_j$ to $X_j$ such that for all $i < j$: (1) $I_i$ does not
+			occur on any trek $\pi_j$; and (2) all intersections between
+			$\pi_i$ and $\pi_j$ are on the left side of $\pi_i$ and the
+			right side of $\pi_j$.
+	\end{enumerate}
+	\end{block}
 \end{frame}
 
 \begin{frame}
