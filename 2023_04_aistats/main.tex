@@ -50,7 +50,8 @@
 
 \section{Overview}
 \begin{frame}
-	\frametitle{Identification}
+	\frametitle{Parameter Identification}
+	\todo[inline]{Add Bollen's institute}
 	\begin{block}{Problem Statement}
 		Given a DAG $ G = (V, E) $ and an observational dataset on $ V $, is the causal effect
 		of $ \bm{X} \in V $ on $ \bm{Y} \in V $ estimable?
@@ -88,42 +89,68 @@
 	\end{figure}
 \end{frame}
 
+% \begin{frame}
+% 	\frametitle{Identification}
+% 	\begin{block}{Pearl's do-calculus}
+% 		do-calculus can give formulas on observed distribution for 
+% 		every possible identifiable parameter.
+% 	\end{block}
+% 	\begin{itemize}
+% 		\item But no efficient algorithm for checking identifablity using
+% 			do-calculus.
+% 		\item Different criteria have been proposed which can identify 
+% 			parameters in special cases.
+% 		\item For example Back-door criterion, front-door criterion etc.
+% 		\item Another method for identification is the IV based estimation 
+% 			method
+% 	\end{itemize}
+% \end{frame}
+
 \begin{frame}
-	\frametitle{Identification}
-	\begin{block}{Pearl's do-calculus}
-		do-calculus can give formulas on observed distribution for 
-		every possible identifiable parameter.
+	\frametitle{Identifiability using Instrumental Variables(IV)}
+	\begin{block}{Instrumental Variable}
+		A variable $ Z $ is an IV for estimating the effect $ X \rightarrow Y $
+		if $ Z $ is d-connected to $ X $ and all open paths to $ Y $ go through
+		$ X $.
 	\end{block}
-	\begin{itemize}
-		\item But no efficient algorithm for checking identifablity using
-			do-calculus.
-		\item Different criteria have been proposed which can identify 
-			parameters in special cases.
-		\item For example Back-door criterion, front-door criterion etc.
-		\item Another method for identification is the IV based estimation 
-			method
-	\end{itemize}
+	\todo[inline]{Replace this with a better definition.}
+	\begin{figure}
+		\centering
+		\begin{subfigure}{0.5\linewidth}
+			\begin{tikzpicture}
+				\tikzstyle{every node}=[align=center, inner sep=1pt]
+				\node[observed] (z) at (0, 0) {$ Z $};
+				\node[observed] (x) at (2, 0) {$ X $};
+				\node[observed] (y) at (4, 0) {$ Y $};
+				\node[latent] (u) at (3, 1) {$ U $};
+				\draw[->] (z) -- (x) node[midway, below] {$ \beta_{xz} $};
+				\draw[->] (x) -- (y) node[midway, below] {$ \beta_{yx} $};
+				\draw[->] (u) -- (x);
+				\draw[->] (u) -- (y);
+			\end{tikzpicture}
+		\end{subfigure}%
+		\begin{subfigure}{0.5\linewidth}
+			$$ \beta_{yx} = \frac{Cov(Y, Z)}{Cov(Z, X)} = \frac{\beta_{yx} \beta_{xz}}{\beta_{xz}}$$
+		\end{subfigure}
+	\end{figure}
+	\begin{block}{Instrumental Set Criterion}
+	\end{block}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Instrumental Variable(IV) Estimation}
-	\begin{figure}
-		\centering
-		\begin{tikzpicture}
-			\tikzstyle{every node}=[align=center, inner sep=1pt]
-			\node[observed] (z) at (0, 0) {$ Z $};
-			\node[observed] (x) at (2, 0) {$ X $};
-			\node[observed] (y) at (4, 0) {$ Y $};
-			\node[latent] (u) at (3, 1) {$ U $};
-			\draw[->] (z) -- (x) node[midway, below] {$ \beta_{xz} $};
-			\draw[->] (x) -- (y) node[midway, below] {$ \beta_{yx} $};
-			\draw[->] (u) -- (x);
-			\draw[->] (u) -- (y);
-		\end{tikzpicture}
-	\end{figure}
-	$$ Cov(X, Y) = \frac{Cov(Y, Z)}{Cov(Z, X)} $$
-	IV definition. \\
-	Need to find these IVs in the model. IV criterion
+	\frametitle{Structural Equation Models}
+	\begin{itemize}
+		\item In DAG literature, the effect being estimated is between two
+			observed variables.
+		\item This is rarely the case in Latent Variable SEMs where we usually
+			assume a latent underlying structure and observed variables
+			act as measurements for the latents.
+		\item Similar to the DAG literature, SEMs literature has a IV 
+			identification criterion called Model Implied Instrumental 
+			Variables (MIIV).
+		\item The main ideas behind MIIV approach is scale setting and Latent-
+			to-observed transformation.
+	\end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -193,10 +220,38 @@ Given an ADMG $\cal
 
 \begin{frame}
 	\frametitle{The proposed graphical transformation}
+	The proposed graphical transformation is analogous to the algebraic 
+	transformation such that it makes edges between observed variables
+	with the path coefficient we want to estimate.
 \end{frame}
 
 \begin{frame}
 	\frametitle{Examples}
+		\begin{figure}[t]
+		    \centering
+		    \begin{subfigure}[b]{.33\linewidth}
+		    	\centering
+			\includegraphics[scale=0.6, page=4]{figures-inge.pdf}
+		        \caption{}
+			\label{fig:l2o_parent}
+		    \end{subfigure}%
+		    \begin{subfigure}[b]{.33\linewidth}
+		    	\centering
+			\includegraphics[scale=0.6, page=5]{figures-inge.pdf}
+		        \caption{}
+			\label{fig:l2o_child}
+		    \end{subfigure}%
+		    \begin{subfigure}[b]{.33\linewidth}
+		    	\centering
+			\includegraphics[scale=0.6, page=6]{figures-inge.pdf}
+		        \caption{}
+			\label{fig:l2o_both}
+		    \end{subfigure}
+			\caption{Example L2O transformations for path
+			coefficients (a) from a latent to an observed variable;
+			(b) from an observed to a latent variable; (c) between
+			two latent variables.}
+		\end{figure}
 \end{frame}
 
 \end{document}
