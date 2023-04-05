@@ -43,19 +43,19 @@
 \begin{document}
 
 \title[Combining Graphical and Algebraic Approaches for Parameter Identification in Latent Variable SEM]{Combining Graphical and Algebraic Approaches for Parameter Identification in Latent Variable Structural Equation Models}
-\author {Ankur Ankan \and Inge Wortel \and Kenneth A. Bollen \and Johannes Textor}
-\institute[]{Radboud University, Netherlands}
+\author {Ankur Ankan \inst{1} \and Inge Wortel \inst{1} \and Kenneth A. Bollen \inst{2} \and \\ Johannes Textor \inst{1}}
+\institute[]{\inst{1} Radboud University \and \inst{2} University of North Carolina}
 \date{}
 \maketitle
 
 \section{Overview}
 \begin{frame}
 	\frametitle{Parameter Identification}
-	\todo[inline]{Add Bollen's institute}
-	\begin{block}{Problem Statement}
+	\begin{block}{Identificaiton}
 		Given a DAG $ G = (V, E) $ and an observational dataset on $ V $, is the causal effect
 		of $ \bm{X} \in V $ on $ \bm{Y} \in V $ estimable?
 	\end{block}
+	\vspace{1em}
 	\begin{figure}
 		\centering
 		\begin{subfigure}{0.5 \textwidth}
@@ -65,11 +65,11 @@
 				\node[latent] (u) at (1.5, 1.5) {$ U $};
 				\node[observed] (x) at (0, 0) {$ X $};
 				\node[observed] (y) at (3, 0) {$ Y $};
-				\draw[->] (u) -- (x) node[midway, above]{$ \beta_{xu} $};
-				\draw[->] (u) -- (y) node[midway, above]{$ \beta_{yu} $};
-				\draw[->] (x) -- (y) node[midway, below]{$ \beta_{yx} $};
+				\draw[->] (u) -- (x);
+				\draw[->] (u) -- (y);
+				\draw[->] (x) -- (y) node[midway, below]{$ \beta $};
 				\node at (1.5, -1) {Not Identified};
-				\node at (1.5, -2) {$\beta_{yx} + \beta_{xu} \beta_{yu} = Cov(X, Y) $};
+				% \node at (1.5, -2) {$\beta_{yx} + \beta_{xu} \beta_{yu} = Cov(X, Y) $};
 			\end{tikzpicture}
 		\end{subfigure}%
 		\begin{subfigure}{0.5 \textwidth}
@@ -79,11 +79,11 @@
 				\node[observed] (u) at (1.5, 1.5) {$ U $};
 				\node[observed] (x) at (0, 0) {$ X $};
 				\node[observed] (y) at (3, 0) {$ Y $};
-				\draw[->] (u) -- (x) node[midway, above]{$ \beta_{xu} $};
-				\draw[->] (u) -- (y) node[midway, above]{$ \beta_{yu} $};
-				\draw[->] (x) -- (y) node[midway, below]{$ \beta_{yx} $};
+				\draw[->] (u) -- (x);
+				\draw[->] (u) -- (y);
+				\draw[->] (x) -- (y) node[midway, below]{$ \beta $};
 				\node at (1.5, -1) {Identified};
-				\node at (1.5, -2) {$ \beta_{xu} = Cov(X, U); \beta_{yu} = Cov(Y, U); $};
+				% \node at (1.5, -2) {$ \beta_{xu} = Cov(X, U); \beta_{yu} = Cov(Y, U); $};
 			\end{tikzpicture}
 		\end{subfigure}
 	\end{figure}
@@ -107,13 +107,12 @@
 % \end{frame}
 
 \begin{frame}
-	\frametitle{Identifiability using Instrumental Variables(IV)}
+	\frametitle{Instrumental Variables(IV)}
 	\begin{block}{Instrumental Variable}
 		A variable $ Z $ is an IV for estimating the effect $ X \rightarrow Y $
 		if $ Z $ is d-connected to $ X $ and all open paths to $ Y $ go through
 		$ X $.
 	\end{block}
-	\todo[inline]{Replace this with a better definition.}
 	\begin{figure}
 		\centering
 		\begin{subfigure}{0.5\linewidth}
@@ -123,17 +122,39 @@
 				\node[observed] (x) at (2, 0) {$ X $};
 				\node[observed] (y) at (4, 0) {$ Y $};
 				\node[latent] (u) at (3, 1) {$ U $};
-				\draw[->] (z) -- (x) node[midway, below] {$ \beta_{xz} $};
-				\draw[->] (x) -- (y) node[midway, below] {$ \beta_{yx} $};
+				\draw[->] (z) -- (x) node[midway, below] {$ \alpha $};
+				\draw[->] (x) -- (y) node[midway, below] {$ \beta $};
 				\draw[->] (u) -- (x);
 				\draw[->] (u) -- (y);
 			\end{tikzpicture}
 		\end{subfigure}%
 		\begin{subfigure}{0.5\linewidth}
-			$$ \beta_{yx} = \frac{Cov(Y, Z)}{Cov(Z, X)} = \frac{\beta_{yx} \beta_{xz}}{\beta_{xz}}$$
+			$$ \beta = \frac{Cov(Y, Z)}{Cov(Z, X)} = \frac{\alpha \beta}{\alpha}$$
 		\end{subfigure}
 	\end{figure}
-	\begin{block}{Instrumental Set Criterion}
+\end{frame}
+
+\begin{frame}
+	\frametitle{IV based identification criterion for DAGs}
+	\begin{block}{Instrumental Set Criterion (Brito and Pearl 2002)}
+Given an ADMG $\cal
+	G$, a variable $y$, and a subset $X$ of the parents of $y$, 
+	a set of variables
+	$I$ fulfills the 
+	\emph{instrumental set condition}
+	if for {some} permutation $ i_1 \ldots i_k $ of
+	$ I $ and {some} permutation
+	$ x_1 \ldots x_k $ of $ X $ we have: 
+	\begin{enumerate}
+		\item There are no treks from $I$ to $y$ in the graph ${\cal
+			G}_{\overline{X}}$ obtained by removing all arrows 
+			between $X$ and $y$. 
+		\item For each $j$, $1 \leq j \leq k$, there is a trek $\pi_j$ from
+			$I_j$ to $X_j$ such that for all $i < j$: (1) $I_i$ does not
+			occur on any trek $\pi_j$; and (2) all intersections between
+			$\pi_i$ and $\pi_j$ are on the left side of $\pi_i$ and the
+			right side of $\pi_j$.
+	\end{enumerate}
 	\end{block}
 \end{frame}
 
@@ -178,26 +199,6 @@
 
 \begin{frame}
 	\frametitle{Graphical Approach}
-	\begin{block}{Instrumental Set Criterion (Brito and Pearl 2002)}
-Given an ADMG $\cal
-	G$, a variable $y$, and a subset $X$ of the parents of $y$, 
-	a set of variables
-	$I$ fulfills the 
-	\emph{instrumental set condition}
-	if for {some} permutation $ i_1 \ldots i_k $ of
-	$ I $ and {some} permutation
-	$ x_1 \ldots x_k $ of $ X $ we have: 
-	\begin{enumerate}
-		\item There are no treks from $I$ to $y$ in the graph ${\cal
-			G}_{\overline{X}}$ obtained by removing all arrows 
-			between $X$ and $y$. 
-		\item For each $j$, $1 \leq j \leq k$, there is a trek $\pi_j$ from
-			$I_j$ to $X_j$ such that for all $i < j$: (1) $I_i$ does not
-			occur on any trek $\pi_j$; and (2) all intersections between
-			$\pi_i$ and $\pi_j$ are on the left side of $\pi_i$ and the
-			right side of $\pi_j$.
-	\end{enumerate}
-	\end{block}
 \end{frame}
 
 \begin{frame}
