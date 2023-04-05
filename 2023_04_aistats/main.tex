@@ -49,9 +49,9 @@
 
 \begin{frame}
 	\frametitle{Parameter Identification}
-	\begin{block}{Identificaiton}
+	\begin{block}{Identification}
 		Given a DAG $ G = (V, E) $ and an observational dataset on $ V $, is the causal effect
-		of $ \bm{X} \in V $ on $ \bm{Y} \in V $ estimable?
+		of $ \bm{X} \in V $ on $ Y \in V $ estimable?
 	\end{block}
 	\vspace{1em}
 	\begin{figure}
@@ -107,14 +107,15 @@
 \begin{frame}
 	\frametitle{Instrumental Variables(IV)}
 	\begin{itemize}
-		\item Parameter Identificaiton methodology has received intense attention in the graphical modelling field.
-		\item Pearl's do-calculus provides a complete solution in non-parametric models.
-		\item But no practical general algorithm exists. Criteria like back-door, front-door, intrumental set provide convenient solutions in special cases.
+		\item Parameter Identification methodology has received intense attention in the graphical modelling/DAG field.
+		\item Pearl's do-calculus provides a complete solution for non-parametric models.
+		\item But no practical general algorithm exists.
+		\item Criteria like back-door, front-door, intrumental set provide convenient solutions in special cases.
 	\end{itemize}
 
 	\begin{block}{Instrumental Variables}
 		A variable $ Z $ is an IV for estimating the effect $ X \rightarrow Y $
-		if $ Z $ is d-connected to $ X $ and all open paths to $ Y $ go through
+		if $ Z $ has an open path to $ X $ and all open paths to $ Y $ go through
 		$ X $.
 	\end{block}
 	\begin{figure}
@@ -139,19 +140,16 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Instrumental Set Criterion}
+	\frametitle{IV Based Identification Criterion}
 	\begin{block}{Instrumental Set Criterion (Brito and Pearl 2002)}
-Given an ADMG $\cal
-	G$, a variable $y$, and a subset $X$ of the parents of $y$, 
-	a set of variables
-	$I$ fulfills the 
-	\emph{instrumental set condition}
-	if for {some} permutation $ i_1 \ldots i_k $ of
-	$ I $ and {some} permutation
-	$ x_1 \ldots x_k $ of $ X $ we have: 
+		Given an ADMG $\cal G$, a variable $y$, and a subset $X$ of the
+		parents of $y$,  a set of variables $I$ fulfills the
+		\emph{instrumental set condition} if for {some} permutation $
+		i_1 \ldots i_k $ of $ I $ and {some} permutation $ x_1 \ldots
+		x_k $ of $ X $ we have: 
 	\begin{enumerate}
 		\item There are no treks from $I$ to $y$ in the graph ${\cal
-			G}_{\overline{X}}$ obtained by removing all arrows 
+			G}_{\overline{X}}$ obtained by removing all arrows
 			between $X$ and $y$. 
 		\item For each $j$, $1 \leq j \leq k$, there is a trek $\pi_j$ from
 			$I_j$ to $X_j$ such that for all $i < j$: (1) $I_i$ does not
@@ -160,21 +158,21 @@ Given an ADMG $\cal
 			right side of $\pi_j$.
 	\end{enumerate}
 	\end{block}
+	\todo[inline]{Check if this is an identification criterion}
+	Other proposed ones: Conditional Instrumental Set, Auxiliary variables, Instrumental Cutsets.
 \end{frame}
 
 \begin{frame}
 	\frametitle{IV criterion for Structural Equation Models (SEMs)}
 	\begin{itemize}
-		\item In DAG literature, the effect being estimated is between two
-			observed variables.
+		\item One of the problem with the DAG literature approach is that it is always assumed that 
+			the effect is being estimated between two observed variables.
 		\item This is rarely the case in Latent Variable SEMs where we usually
 			assume a latent underlying structure and observed variables
 			act as measurements for the latents.
-		\item Similar to the DAG literature, SEMs literature has a IV 
-			identification criterion called Model Implied Instrumental 
-			Variables (MIIV).
-		\item The main ideas behind MIIV approach is scale setting and Latent-
-			to-observed transformation.
+		\item But in SEM literature also there is a IV based criteria called MIIV.
+		\item The main idea behind this criteria/algorithm is to convert the estimation between latent and latent/observed variables to 
+			between observed variables by scale setting.
 	\end{itemize}
 \end{frame}
 
