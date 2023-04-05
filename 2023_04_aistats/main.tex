@@ -16,7 +16,6 @@
 
 \tikzstyle{latent} = [ draw, circle, inner sep = 2pt, minimum size = 0.65cm ]
 \tikzstyle{observed} = [ draw, rectangle, inner sep = 2pt, minimum size = 0.65cm ]
-\tikzstyle{tikztext} = [ draw, inner sep = 2pt, minimum size = 0.65cm, rounded corners=0.1cm ]
 
 \newtheorem{proposition}{Proposition}
 
@@ -43,12 +42,11 @@
 \begin{document}
 
 \title[Combining Graphical and Algebraic Approaches for Parameter Identification in Latent Variable SEM]{Combining Graphical and Algebraic Approaches for Parameter Identification in Latent Variable Structural Equation Models}
-\author {Ankur Ankan \inst{1} \and Inge Wortel \inst{1} \and Kenneth A. Bollen \inst{2} \and \\ Johannes Textor \inst{1}}
+\author {Ankur Ankan \inst{1} \and Inge Wortel \inst{1} \and Kenneth Bollen \inst{2} \and Johannes Textor \inst{1}}
 \institute[]{\inst{1} Radboud University \and \inst{2} University of North Carolina}
 \date{}
 \maketitle
 
-\section{Overview}
 \begin{frame}
 	\frametitle{Parameter Identification}
 	\begin{block}{Identificaiton}
@@ -108,7 +106,13 @@
 
 \begin{frame}
 	\frametitle{Instrumental Variables(IV)}
-	\begin{block}{Instrumental Variable}
+	\begin{itemize}
+		\item Parameter Identificaiton methodology has received intense attention in the graphical modelling field.
+		\item Pearl's do-calculus provides a complete solution in non-parametric models.
+		\item But no practical general algorithm exists. Criteria like back-door, front-door, intrumental set provide convenient solutions in special cases.
+	\end{itemize}
+
+	\begin{block}{Instrumental Variables}
 		A variable $ Z $ is an IV for estimating the effect $ X \rightarrow Y $
 		if $ Z $ is d-connected to $ X $ and all open paths to $ Y $ go through
 		$ X $.
@@ -135,7 +139,7 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{IV based identification criterion for DAGs}
+	\frametitle{Instrumental Set Criterion}
 	\begin{block}{Instrumental Set Criterion (Brito and Pearl 2002)}
 Given an ADMG $\cal
 	G$, a variable $y$, and a subset $X$ of the parents of $y$, 
@@ -159,7 +163,7 @@ Given an ADMG $\cal
 \end{frame}
 
 \begin{frame}
-	\frametitle{Structural Equation Models}
+	\frametitle{IV criterion for Structural Equation Models (SEMs)}
 	\begin{itemize}
 		\item In DAG literature, the effect being estimated is between two
 			observed variables.
@@ -175,84 +179,91 @@ Given an ADMG $\cal
 \end{frame}
 
 \begin{frame}
-	\frametitle{Overview}
+	\frametitle{Contributions}
 	\begin{figure}
 		\centering
 		\begin{tikzpicture}
 			\tikzstyle{every node}=[align=center, inner sep=1pt]
-			\node[tikztext] (ivdag) at (6, 2) {IV criteria for \\ graphical models};
-			\node[tikztext] (ivsem) at (0, 0) {IV iden. \\ in SEM};
-			\node[tikztext] (graphl2o) at (3, 0) {Graphical L2O \\ transform};
-			\node[tikztext] (graphidden) at (6, 0) {Graphical iden. \\ for SEM};
-			\node[tikztext] (graphcri) at (9, 3) {Can apply any \\ graphical criteria \\ to SEMs};
-			\node[tikztext] (equival) at (9, 0) {Equivalence proof};
-			\node[tikztext] (normal) at (9, -3) {Relaxing normality \\ condition}; 
-			\draw[->] (ivsem) -- (graphl2o);
-			\draw[->] (ivdag) -- (graphidden);
-			\draw[->] (graphl2o) -- (graphidden);
-			\draw[->] (graphidden) -- (graphcri);
-			\draw[->] (graphidden) -- (equival);
-			\draw[->] (graphidden) -- (normal);
+			\node (miiv) at (0, 0)  {MIIV Approach};
+			\node (graphical) at (0, -1) {Proposed Graphical Transformation};
+			\node (equivalent) at (0, -2) {Equivalent model with parameters b/w observed variables};
+			\node (moreiden) at (-3, -3) {More identified};
+			\node (equiproof) at (0, -4) {MIIV == Instrumental Set};
+			\node (relax) at (3, -3) {Normality can be relaxed};
+			
+			\draw[->](miiv.south) -- (graphical.north);
+			\draw[->](graphical) -- (equivalent);
+			\draw[->](equivalent) -- (moreiden);
+			\draw[->](equivalent) -- (equiproof);
+			\draw[->](equivalent) -- (relax);
+
+
+			% \node[tikztext] (ivdag) at (6, 2) {IV criteria for \\ graphical models};
+			% \node[tikztext] (ivsem) at (0, 0) {IV iden. \\ in SEM};
+			% \node[tikztext] (graphl2o) at (3, 0) {Graphical L2O \\ transform};
+			% \node[tikztext] (graphidden) at (6, 0) {Graphical iden. \\ for SEM};
+			% \node[tikztext] (graphcri) at (9, 3) {Can apply any \\ graphical criteria \\ to SEMs};
+			% \node[tikztext] (equival) at (9, 0) {Equivalence proof};
+			% \node[tikztext] (normal) at (9, -3) {Relaxing normality \\ condition}; 
+			% \draw[->] (ivsem) -- (graphl2o);
+			% \draw[->] (ivdag) -- (graphidden);
+			% \draw[->] (graphl2o) -- (graphidden);
+			% \draw[->] (graphidden) -- (graphcri);
+			% \draw[->] (graphidden) -- (equival);
+			% \draw[->] (graphidden) -- (normal);
 		\end{tikzpicture}
 	\end{figure}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Graphical Approach}
+	\frametitle{SEM and Latent-to-Observed (L2O) Transformation}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Why can't we directly apply graphical criteria to SEMs}
-	\begin{itemize}
-		\item Criterion have been developed assuming that the parameters 
-			begin identified are between observed variables.
-		\item Show an example of a SEM where we are looking to identify 
-			the parameter on latent variables.
-	\end{itemize}
+	\frametitle{Proposed graphical transformation: Latent $ \rightarrow $ Observed}
+	\begin{figure}
+		\centering
+		\includegraphics[page=4]{figures-inge.pdf}
+		\caption{}
+		\label{fig:l2o_parent}
+	\end{figure}
+\end{frame}
+\begin{frame}
+	\frametitle{Proposed graphical transformation: Observed $ \rightarrow $ Latent}
+	\begin{figure}
+		\centering
+		\includegraphics[page=5]{figures-inge.pdf}
+		\caption{}
+		\label{fig:l2o_child}
+	\end{figure}
+\end{frame}
+\begin{frame}
+	\frametitle{Proposed graphical transformation: Latent $ \rightarrow $ Latent}
+	\begin{figure}
+		\centering
+		\includegraphics[page=6]{figures-inge.pdf}
+		\caption{}
+		\label{fig:l2o_both}
+	\end{figure}
 \end{frame}
 
 \begin{frame}
-	\frametitle{MIIV Approach}
-	\begin{itemize}
-		\item The MIIV approach deals with these cases by doing a
-			Latent-to-Observed (L2O) transformation.
-	\end{itemize}
+	\frametitle{Instrumental Set and Algebraic Instrumental Set are Equivalent}
 \end{frame}
 
 \begin{frame}
-	\frametitle{The proposed graphical transformation}
-	The proposed graphical transformation is analogous to the algebraic 
-	transformation such that it makes edges between observed variables
-	with the path coefficient we want to estimate.
+	\frametitle{Identification Examples: Full Equations}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Examples}
-		\begin{figure}[t]
-		    \centering
-		    \begin{subfigure}[b]{.33\linewidth}
-		    	\centering
-			\includegraphics[scale=0.6, page=4]{figures-inge.pdf}
-		        \caption{}
-			\label{fig:l2o_parent}
-		    \end{subfigure}%
-		    \begin{subfigure}[b]{.33\linewidth}
-		    	\centering
-			\includegraphics[scale=0.6, page=5]{figures-inge.pdf}
-		        \caption{}
-			\label{fig:l2o_child}
-		    \end{subfigure}%
-		    \begin{subfigure}[b]{.33\linewidth}
-		    	\centering
-			\includegraphics[scale=0.6, page=6]{figures-inge.pdf}
-		        \caption{}
-			\label{fig:l2o_both}
-		    \end{subfigure}
-			\caption{Example L2O transformations for path
-			coefficients (a) from a latent to an observed variable;
-			(b) from an observed to a latent variable; (c) between
-			two latent variables.}
-		\end{figure}
+	\frametitle{Identification Examples: Partial Equations}
 \end{frame}
 
+\begin{frame}
+	\frametitle{More Identification: Conditional IVs}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Example: Identified but not estimable}
+\end{frame}
 \end{document}
