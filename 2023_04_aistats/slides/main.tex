@@ -11,6 +11,9 @@
 \usepackage{listings}
 \usepackage{ragged2e}
 \usepackage{fancyvrb}
+\usepackage{titlecaps}
+
+\Addlcwords{for a is but and with of in as the etc on to if}
 
 \def\ci{\perp\!\!\!\!\!\perp}
 
@@ -48,12 +51,11 @@
 \maketitle
 
 \begin{frame}
-	\frametitle{Parameter Identification}
+	\frametitle{\titlecap{Parameter identification}}
 	\begin{block}{Identification}
 		Given a DAG $ G = (V, E) $ and an observational dataset on $ V $, is the causal effect
 		of $ \bm{X} \in V $ on $ Y \in V $ estimable?
 	\end{block}
-	\vspace{1em}
 	\begin{figure}
 		\centering
 		\begin{subfigure}{0.5 \textwidth}
@@ -63,12 +65,13 @@
 				\node[latent] (u) at (1.5, 1.5) {$ U $};
 				\node[observed] (x) at (0, 0) {$ X $};
 				\node[observed] (y) at (3, 0) {$ Y $};
+				\node[text=red] (text) at (3, 2) {Latent};
 				\draw[->] (u) -- (x);
 				\draw[->] (u) -- (y);
 				\draw[->] (x) -- (y) node[midway, below]{$ \beta $};
-				\node at (1.5, -1) {Not Identified};
-				% \node at (1.5, -2) {$\beta_{yx} + \beta_{xu} \beta_{yu} = Cov(X, Y) $};
+				\draw[->, red] (text) to [out=220, in=40] (u);
 			\end{tikzpicture}
+			\caption*{$ \beta $ is not identified}
 		\end{subfigure}%
 		\begin{subfigure}{0.5 \textwidth}
 			\centering
@@ -77,32 +80,36 @@
 				\node[observed] (u) at (1.5, 1.5) {$ U $};
 				\node[observed] (x) at (0, 0) {$ X $};
 				\node[observed] (y) at (3, 0) {$ Y $};
+				\node[text=red] (text) at (3, 2) {Observed};
 				\draw[->] (u) -- (x);
 				\draw[->] (u) -- (y);
 				\draw[->] (x) -- (y) node[midway, below]{$ \beta $};
-				\node at (1.5, -1) {Identified};
-				% \node at (1.5, -2) {$ \beta_{xu} = Cov(X, U); \beta_{yu} = Cov(Y, U); $};
+				\draw[->, red] (text) to [out=220, in=40] (u);
 			\end{tikzpicture}
+			\caption*{$ \beta $ is identified}
 		\end{subfigure}
 	\end{figure}
+	\begin{itemize}
+		\item \justifying{Pearl's do-calculus provides a complete solution for identification in non-parametric models.}
+		\item \justifying{No practical general algorithm exists.}
+		\item \justifying{Criteria like back-door, front-door, intrumental sets, etc. provide convenient solutions in special cases.}
+	\end{itemize}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Instrumental Variables(IV)}
-	\begin{itemize}
-		\item Pearl's do-calculus provides a complete solution for identification in non-parametric models.
-		\item No practical general algorithm exists.
-		\item Criteria like back-door, front-door, intrumental sets, etc. provide convenient solutions in special cases.
-	\end{itemize}
+	\frametitle{\titlecap{Instrumental Variables(IV)}}
 
-	\begin{block}{Instrumental Variables}
-		A variable $ Z $ is an IV for estimating the effect $ X \rightarrow Y $
-		if $ Z $ has an open path to $ X $ and all open paths to $ Y $ go through
-		$ X $.
+	\begin{block}{Instrumental Variable}
+		A variable $ Z $ qualifies as instrumental, relative to a cause $ X $ and effect $ Y $ if:
+		\begin{enumerate}
+			\item $ Z $ is independent of all error terms that have an influence on $ Y $ which is not mediated by $ X $
+			\item $ Z $ is not independent of $ X $.
+		\end{enumerate}
 	\end{block}
 	\begin{figure}
 		\centering
 		\begin{subfigure}{0.5\linewidth}
+			\centering
 			\begin{tikzpicture}
 				\tikzstyle{every node}=[align=center, inner sep=1pt]
 				\node[observed] (z) at (0, 0) {$ Z $};
@@ -114,37 +121,47 @@
 				\draw[->] (u) -- (x);
 				\draw[->] (u) -- (y);
 			\end{tikzpicture}
+			\caption{}
 		\end{subfigure}%
 		\begin{subfigure}{0.5\linewidth}
+			\centering
 			$$ \beta = \frac{Cov(Y, Z)}{Cov(Z, X)} = \frac{\alpha \beta}{\alpha}$$
+			\caption{}
 		\end{subfigure}
+		\caption*{\centering{(a) $ Z $ is an IV for estimating $ \beta $ (b) Estimating $ \beta $ from observational data using $ Z $ as an IV.}}
 	\end{figure}
 \end{frame}
 
 \begin{frame}
-	\frametitle{IV Based Identification Criterion for DAGs}
-	\begin{block}{Instrumental Set Criterion (Brito and Pearl 2002)}
-		Given an ADMG $\cal G$, a variable $y$, and a subset $X$ of the
-		parents of $y$,  a set of variables $I$ fulfills the
-		\emph{instrumental set condition} if for {some} permutation $
-		i_1 \ldots i_k $ of $ I $ and {some} permutation $ x_1 \ldots
-		x_k $ of $ X $ we have: 
-	\begin{enumerate}
-		\item There are no treks from $I$ to $y$ in the graph ${\cal
-			G}_{\overline{X}}$ obtained by removing all arrows
-			between $X$ and $y$. 
-		\item For each $j$, $1 \leq j \leq k$, there is a trek $\pi_j$ from
-			$I_j$ to $X_j$ such that for all $i < j$: (1) $I_i$ does not
-			occur on any trek $\pi_j$; and (2) all intersections between
-			$\pi_i$ and $\pi_j$ are on the left side of $\pi_i$ and the
-			right side of $\pi_j$.
-	\end{enumerate}
-	\end{block}
-	Other proposed ones: Conditional Instrumental Set, Auxiliary variables, Instrumental Cutsets.
+	\frametitle{\titlecap{IV Based Identification Criterion for Directed Acyclic Graphs (DAGs)}}
+	\begin{itemize}
+		\item In more complicated cases where the variables $ X $ and $ Y $ are sets we need to be more careful.
+			\todo[inline]{Add an example of more complicated example here}
+		\item Well studied problem and few identification criteria have been proposed.
+		\item Examples are Instrumental Set (Brito and Pearl 2022), Instrumental Cutsets, Auxiliary Variables.
+	\end{itemize}
+	\todo[inline]{Add references here}
+	% \begin{block}{Instrumental Set Criterion (Brito and Pearl 2002)}
+	% 	Given an ADMG $\cal G$, a variable $y$, and a subset $X$ of the
+	% 	parents of $y$,  a set of variables $I$ fulfills the
+	% 	\emph{instrumental set condition} if for {some} permutation $
+	% 	i_1 \ldots i_k $ of $ I $ and {some} permutation $ x_1 \ldots
+	% 	x_k $ of $ X $ we have: 
+	% \begin{enumerate}
+	% 	\item There are no treks from $I$ to $y$ in the graph ${\cal
+	% 		G}_{\overline{X}}$ obtained by removing all arrows
+	% 		between $X$ and $y$. 
+	% 	\item For each $j$, $1 \leq j \leq k$, there is a trek $\pi_j$ from
+	% 		$I_j$ to $X_j$ such that for all $i < j$: (1) $I_i$ does not
+	% 		occur on any trek $\pi_j$; and (2) all intersections between
+	% 		$\pi_i$ and $\pi_j$ are on the left side of $\pi_i$ and the
+	% 		right side of $\pi_j$.
+	% \end{enumerate}
+	% \end{block}
 \end{frame}
 
 \begin{frame}
-	\frametitle{IV Based criterion for Structural Equation Models (SEMs)} 
+	\frametitle{\titlecap{IV Based criterion for Structural Equation Models (SEMs)}}
 		\begin{itemize}
 		\item The IV criteria developed for DAGs always assume that the effect being estimated is between two observed variables.
 		\item These criteria cannot be directly applied to SEMs as they usually have a latent level and observed measurement variables.
@@ -172,7 +189,7 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Contributions}
+	\frametitle{\titlecap{Contributions}}
 	\begin{figure}
 		\centering
 		\begin{tikzpicture}
@@ -209,7 +226,7 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{SEM and Latent-to-Observed (L2O) Transformation}
+	\frametitle{\titlecap{SEM and Latent-to-Observed (L2O) Transformation}}
 	\begin{equation}
 		\begin{split}
 			X &= \mathbf{B} X + E \\
@@ -222,7 +239,7 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Proposed graphical transformation: Latent $ \rightarrow $ Observed}
+	\frametitle{\titlecap{Proposed graphical transformation: Latent $ \rightarrow $ Observed}}
 	\begin{figure}
 		\centering
 		\includegraphics[page=4]{figures-inge.pdf}
@@ -231,7 +248,7 @@
 	\end{figure}
 \end{frame}
 \begin{frame}
-	\frametitle{Proposed graphical transformation: Observed $ \rightarrow $ Latent}
+	\frametitle{\titlecap{Proposed graphical transformation: Observed $ \rightarrow $ Latent}}
 	\begin{figure}
 		\centering
 		\includegraphics[page=5]{figures-inge.pdf}
@@ -240,7 +257,7 @@
 	\end{figure}
 \end{frame}
 \begin{frame}
-	\frametitle{Proposed graphical transformation: Latent $ \rightarrow $ Latent}
+	\frametitle{\titlecap{Proposed graphical transformation: Latent $ \rightarrow $ Latent}}
 	\begin{figure}
 		\centering
 		\includegraphics[page=6]{figures-inge.pdf}
@@ -250,28 +267,7 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Instrumental Set and Algebraic Instrumental Set are Equivalent}
-		\begin{definition}[Permutation-free Instrumental Sets]
-		\label{defn:graphicistrek}
-			Given an ADMG $\cal G$, a variable $y$ and a subset $X$ of the parents
-			of $y$, a set of variables $I$ fulfills the \emph{permutation-free
-			instrumental set condition} if: (1) There are no treks from $I$ to $y$
-			in the graph ${\cal G}_{\overline{X}}$ obtained by removing all arrows
-			leaving $X$, and (2) All $t$-separators $(L,R)$ of $I$ and $X$ have
-			size $\geq k$. 
-		\end{definition}
-
-		\begin{definition}[Algebraic Instrumental Sets]
-			\label{defn:algebraicis}
-			Given a regression equation $y = B \cdot X + \epsilon$, where $X$ possibly
-			correlates with $\epsilon$, a set of variables
-			$I$ fulfills the \emph{algebraic instrumental set condition} if: (1) $I \ci \epsilon$,
-			(2) $\textrm{rk}(\bm{\Sigma}[I,X]) = |X|$, and (3) $\textrm{rk}(\bm{\Sigma}[I]) = |I|$
-		\end{definition}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Identification Examples: Full Equations}
+	\frametitle{\titlecap{Identification Examples: Full Equations}}
 		\begin{figure}[t]
 			\begin{subfigure}[b]{0.5 \linewidth}
 				\centering
@@ -296,7 +292,7 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Identification Examples: Partial Equations}
+	\frametitle{\titlecap{Identification Examples: Partial Equations}}
 		\begin{figure}[t]
 			\centering
 			\begin{subfigure}[b]{0.33 \linewidth}
@@ -328,7 +324,7 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{More Identification: Conditional IVs}
+	\frametitle{\titlecap{More Identification: Conditional IVs}}
 	\begin{figure}[t]
 		\centering
 		\begin{subfigure}[b]{0.5 \linewidth}
@@ -359,7 +355,7 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Example: Identified but not estimable}
+	\frametitle{\titlecap{Example: Identified but not estimable}}
 \begin{figure}[t]
 	\centering
 	\begin{subfigure}[b]{0.33 \linewidth}
@@ -399,7 +395,28 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Conclusion}
+	\frametitle{\titlecap{Instrumental Set and Algebraic Instrumental Set are Equivalent}}
+		\begin{definition}[Permutation-free Instrumental Sets]
+		\label{defn:graphicistrek}
+			Given an ADMG $\cal G$, a variable $y$ and a subset $X$ of the parents
+			of $y$, a set of variables $I$ fulfills the \emph{permutation-free
+			instrumental set condition} if: (1) There are no treks from $I$ to $y$
+			in the graph ${\cal G}_{\overline{X}}$ obtained by removing all arrows
+			leaving $X$, and (2) All $t$-separators $(L,R)$ of $I$ and $X$ have
+			size $\geq k$. 
+		\end{definition}
+
+		\begin{definition}[Algebraic Instrumental Sets]
+			\label{defn:algebraicis}
+			Given a regression equation $y = B \cdot X + \epsilon$, where $X$ possibly
+			correlates with $\epsilon$, a set of variables
+			$I$ fulfills the \emph{algebraic instrumental set condition} if: (1) $I \ci \epsilon$,
+			(2) $\textrm{rk}(\bm{\Sigma}[I,X]) = |X|$, and (3) $\textrm{rk}(\bm{\Sigma}[I]) = |I|$
+		\end{definition}
+\end{frame}
+
+\begin{frame}
+	\frametitle{\titlecap{Conclusion}}
 	\begin{itemize}
 		\item We propose a graphical L2O tranform similar to the algebraic L2O transform used in MIIV approach.
 		\item The graphical transformation allows to use the graphical IV criteria on latent varialbe SEM.
