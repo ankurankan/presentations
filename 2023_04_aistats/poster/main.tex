@@ -101,13 +101,13 @@
 		\vspace{0.9em}
 
 		\begin{itemize}
-			\item \justifying Many graphical IV criteria have been
-				proposed for Directed Acyclic Graphs (DAGs).
+			\item \justifying Many graphical IV based criteria have been
+				proposed for Directed Acyclic Graphs (DAGs) --
 				E.g., Instrumental Sets, Instrumental Cutsets,
 				Auxiliary Variables, etc.
 			\item \justifying The graphical criteria assume that
 				the parameter(s) of interest are between
-				observed variables, hence are not directly
+				observed variables; hence they are not directly
 				applicable to latent variable Structural Equation Models(SEMs).
 			\item \justifying A \textbf{Model Implied Instrumental
 				Variable (MIIV)} approach has been proposed for
@@ -119,7 +119,7 @@
 		\end{itemize}
 	\end{myblock}\vfill
 	\begin{myblock}{\titlecap{Background}}
-		\textbf{SEM:} A system of linear equations.
+		\justifying \textbf{SEM:} A system of linear equations.
 			\begin{equation*}
 				\begin{split}
 					\bm{X} &= \bm{BX} + \bm{E} \\
@@ -212,9 +212,9 @@
 								\centering
 								\includegraphics[page=8, scale=3]{../slides/figures-inge.pdf}
 							\end{subfigure}
-							\caption*{\textbf{\textcolor{black}{Full Equation Identification:}} \textbf{(Left)} Example model; \textbf{(Right)} L2O 
-										transformed model for the equation $ y_3 = l_1 + l_2 $. Both the parameters $ \lambda_{13} $ and 
-										$ \lambda_{23} $ are identified using both MIIV and Instrumental Sets.}
+							\caption*{\textbf{\textcolor{black}{Full Equation Identification:}} \textbf{(Left)} Example model adapted from \citet{Shen2001}; 
+										\textbf{(Right)} L2O transformed model for the equation $ y_3 = l_1 + l_2 $. The parameters 
+										$ \lambda_{13} $ and $ \lambda_{23} $ are identified using both MIIV and Instrumental Sets.}
 						\end{figure}
 						\vspace{0.6em}
 						\begin{figure}
@@ -248,7 +248,7 @@
 							\end{subfigure}
 							\caption*{\textbf{\textcolor{black}{Identification using Conditional IVs:}} \textbf{(Left)} Original model;
 									\textbf{(Right)} L2O transformed model for the partial equation, $ y_3 = l_2 $. $ \lambda_{23} $ is not 
-									identified through simple IVs but $y_5$ can be used as a conditional IV when conditioned on $ y_6 $.}						\end{figure}
+									identified as there are no IVs, but $y_5$ can be used as a conditional IV when conditioned on $ y_6 $.}						\end{figure}
 					\end{myblock}\vfill
  				}
 			\end{minipage}
@@ -276,14 +276,14 @@
 							\includegraphics[page=18, scale=3]{../slides/figures-inge.pdf}
 						\end{subfigure}
 						\caption*{\textbf{\textcolor{black}{Inestimable Parameters in Identified Equation:}} \textbf{(Left)} Example model 
-						from \citet{griliches1977estimating}; \textbf{(Center)} Slightly modified version; \textbf{(Right)} L2O transformed
+						from \citet{griliches1977estimating}; \textbf{(Center)} Slightly modified version of the model; \textbf{(Right)} L2O transformed
 						model for the equation, $ y_4 = l_1 + y_2 + y_3 $. Even though the equation is identified, $ \lambda_{13} $ and 
 						$ \lambda_{34} $ cannot be individually estimated.}
 					\end{figure}
 				\end{myblock}
 	\begin{myblock}{\titlecap{MIIV is equivalent to Instrumental sets}}
 		\textbf{Instrumental Sets \citep{BritoP02}:}
-		Given an ADMG $\cal
+		\justifying Given an ADMG $\cal
 			G$, a variable $y$, and a subset $X$ of the parents of $y$, 
 			a set of variables
 			$I$ fulfills the 
@@ -301,32 +301,32 @@
 					$\pi_i$ and $\pi_j$ are on the left side of $\pi_i$ and the
 					right side of $\pi_j$.
 			\end{enumerate}
-		\vspace{1em}
+		\vspace{0.5em}
 
 		\textbf{Permutation-free Instrumental Sets:}
-			Given an ADMG $\cal G$, a variable $y$ and a subset $X$ of the parents
+			\justifying Given an ADMG $\cal G$, a variable $y$ and a subset $X$ of the parents
 			of $y$, a set of variables $I$ fulfills the \emph{permutation-free
 			instrumental set condition} if: (1) There are no treks from $I$ to $y$
 			in the graph ${\cal G}_{\overline{X}}$ obtained by removing all arrows
 			leaving $X$, and (2) All $t$-separators $(L,R)$ of $I$ and $X$ have
 			size $\geq k$.
-		\vspace{1em}
+		\vspace{0.5em}
 
 		\textbf{Algebraic Instrumental Sets \citep{bollen2012instrumental}:}
-			Given a regression equation $y = B \cdot X + \epsilon$, where $X$ possibly
+			\justifying Given a regression equation $y = B \cdot X + \epsilon$, where $X$ possibly
 			correlates with $\epsilon$, a set of variables
 			$I$ fulfills the \emph{algebraic instrumental set condition} if: (1) $I \ci \epsilon$,
 			(2) $\textrm{rk}(\bm{\Sigma}[I,X]) = |X|$, and (3) $\textrm{rk}(\bm{\Sigma}[I]) = |I|$
 		
 	\end{myblock}\vfill
-	\begin{myblock}{\titlecap{Conclusion}}
+	\begin{myblock}{\titlecap{Conclusions}}
 		\begin{itemize}
-			\item \justifying We extend the L2O transformation to do partial equation identification.
-			\item \justifying We propose a graphical L20 transformation allowing us to apply graphical identification criteria to latent variable SEMs.
-			\item \justifying Application of graphical criteria leads to identification of more parameter compared to MIIV approach.
-			\item \justifying Further, we show that the Instrumental set criterion is equivalent to the MIIV approach.
-			\item \justifying This equivalence proof also allows us to relax the normality requirement in graphical criterion.
-			\item \justifying We bridge the two fields.
+			\item \justifying We extend the algebraic L2O transformation to do partial equation identification through partial transformation.
+			\item \justifying We propose a graphical L20 transformation allowing us to apply graphical identification criteria developed for DAGs to latent variable SEMs.
+			\item \justifying This leads to the identification of more parameters compared to the MIIV approach.
+			\item \justifying We show that the MIIV approach is equivalent to applying the graphical L2O transformation followed by the Instrumental Set criterion.
+			\item \justifying As normality assumption is not required for estimation using two-stage least squares in the MIIV approach, our results imply 
+				that it is not required for Instrumental Sets either.
 		\end{itemize}
 	\end{myblock}\vfill
 	\begin{myblock}{References}
