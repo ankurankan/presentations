@@ -1,0 +1,335 @@
+\documentclass{beamer}
+\usepackage[orientation=portrait,width=84.1cm,height=59.4cm,scale=1.4,debug]{beamerposter}
+\mode<presentation>{\usetheme{ZH}}
+\usepackage{chemformula}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel} % required for rendering German special characters
+\usepackage{hyperref} %enable hyperlink for urls
+\usepackage{ragged2e}
+\usepackage[font=small, justification=justified]{caption}
+\usepackage{array,booktabs,tabularx}
+\usepackage{bm}
+\usepackage{subcaption}
+\usepackage{titlecaps}
+\usepackage{natbib}
+
+\Addlcwords{for a is but and with of in as the etc on to if}
+\def\ci{\perp\!\!\!\!\!\perp}
+\tikzstyle{latent} = [ draw, circle, inner sep = 5pt, minimum size = 1.5cm, line width=1mm]
+\tikzstyle{observed} = [ draw, rectangle, inner sep = 5pt, minimum size = 1.5cm, line width=1mm ]
+
+\newcolumntype{Z}{>{\centering\arraybackslash}X} % centered tabularx columns
+\title{\huge Combining Graphical and Algebraic Approaches for Parameter Identification in Latent Variable Structural Equation Models}
+\author{Ankur Ankan \inst{1} \and Inge Wortel \inst{1} \and Kenneth A. Bollen \inst{2} \and Johannes Textor \inst{1}}
+\institute[]{\inst{1} Institute for Computing and Information Sciences, Radboud University \\ \inst{2} Department of Psychology and Neuroscience, University of North Carolina at Chappel Hill}
+\date{\today}
+
+% edit this depending on how tall your header is. We should make this scaling automatic :-/
+\newlength{\columnheight}
+\setlength{\columnheight}{106cm}
+
+\begin{document}
+\begin{frame}
+\begin{columns}
+	\begin{column}{.33\textwidth}
+		\begin{beamercolorbox}[center]{postercolumn}
+			\begin{minipage}{.98\textwidth}  % tweaks the width, makes a new \textwidth
+				\parbox[t][\columnheight]{\textwidth}{ % must be some better way to set the the height, width and textwidth simultaneously
+	\begin{myblock}{\titlecap{Introduction}}
+		\justifying \textbf{Parameter Identification:} Is the causal parameter(s) estimable from observational data?
+			\begin{figure}
+				\centering
+				\begin{subfigure}{0.5 \textwidth}
+					\centering
+					\begin{tikzpicture}[scale=1.5]
+						\tikzstyle{every node}=[align=center, inner sep=1pt]
+						\node[latent] (u) at (1.5, 1.5) {$ U $};
+						\node[observed] (x) at (0, 0) {$ X $};
+						\node[observed] (y) at (3, 0) {$ Y $};
+						\node[text=red] (text) at (3.5, 2.5) {Latent};
+						\draw[->, line width=1mm] (u) -- (x);
+						\draw[->, line width=1mm] (u) -- (y);
+						\draw[->, line width=1mm] (x) -- (y) node[midway, below]{$ \beta $};
+						\draw[->, line width=1mm, red] (text) to [out=220, in=40] (u);
+					\end{tikzpicture}
+					\caption*{\textbf{$ \beta $ is not identified}}
+				\end{subfigure}%
+				\begin{subfigure}{0.5 \textwidth}
+					\centering
+					\begin{tikzpicture}[scale=1.5]
+						\tikzstyle{every node}=[align=center, inner sep=1pt]
+						\node[observed] (u) at (1.5, 1.5) {$ U $};
+						\node[observed] (x) at (0, 0) {$ X $};
+						\node[observed] (y) at (3, 0) {$ Y $};
+						\node[text=red] (text) at (3.5, 2.5) {Observed};
+						\draw[->, line width=1mm] (u) -- (x);
+						\draw[->, line width=1mm] (u) -- (y);
+						\draw[->, line width=1mm] (x) -- (y) node[midway, below]{$ \beta $};
+						\draw[->, line width=1mm, red] (text) to [out=220, in=40] (u);
+					\end{tikzpicture}
+					\caption*{\textbf{$ \beta $ is identified}}
+				\end{subfigure}
+			\end{figure}
+			\justifying \textbf{Instrumental Variables (IV):} Can be used to estimate causal effect in the presence of confounding.
+				\begin{figure}
+					\centering
+					\begin{subfigure}{0.5\linewidth}
+						\centering
+						\begin{tikzpicture}[scale=2]
+							\tikzstyle{every node}=[align=center, inner sep=1pt]
+							\node[observed] (z) at (0, 0) {$ Z $};
+							\node[observed] (x) at (2, 0) {$ X $};
+							\node[observed] (y) at (4, 0) {$ Y $};
+							\node[latent] (u) at (3, 1) {$ U $};
+							\draw[->, line width=1mm] (z) -- (x) node[midway, below] {$ \alpha $};
+							\draw[->, line width=1mm] (x) -- (y) node[midway, below] {$ \beta $};
+							\draw[->, line width=1mm] (u) -- (x);
+							\draw[->, line width=1mm] (u) -- (y);
+						\end{tikzpicture}
+						\caption*{}
+					\end{subfigure}%
+					\begin{subfigure}{0.5\linewidth}
+						\centering
+						$$ \beta = \frac{Cov(Y, Z)}{Cov(Z, X)} = \frac{\alpha \beta}{\alpha}$$
+						\caption*{}
+					\end{subfigure}
+				\end{figure}
+			\vspace{-0.9em}
+			$ Z $ qualifies as an IV for $ X \to Y $ if: 1)
+			All open paths from $ Z $ to $ Y $ are mediated through
+			$ X $. b) $ Z $ is not independent of $ X $.
+		\vspace{0.9em}
+
+		\begin{itemize}
+			\item \justifying Many graphical IV criteria have been
+				proposed for Directed Acyclic Graphs (DAGs).
+				E.g., Instrumental Sets, Instrumental Cutsets,
+				Auxiliary Variables, etc.
+			\item \justifying The graphical criteria assume that
+				the parameter(s) of interest are between
+				observed variables, hence are not directly
+				applicable to latent variable Structural Equation Models(SEMs).
+			\item \justifying A \textbf{Model Implied Instrumental
+				Variable (MIIV)} approach has been proposed for
+				SEMs.
+			\item \justifying MIIV approach deals with latent
+				variables by using \textbf{Scaling
+				Indicators} to do \textbf{Latent-to-Observed (L2O)}
+				transformations.
+		\end{itemize}
+	\end{myblock}\vfill
+	\begin{myblock}{\titlecap{Background}}
+		\textbf{SEM:} A system of linear equations.
+			\begin{equation*}
+				\begin{split}
+					\bm{X} &= \bm{BX} + \bm{E} \\
+					x_i &= \epsilon_i + \sum_{x_j \in Co(x_i)} \beta_{x_j \to x_i} x_j 
+				\end{split}
+			\end{equation*}
+		\textbf{Scaling Indicator:} Fixes the scale of each latent variable to an arbitrary value (e.g., 1).
+			$$ x_j = x_j^s - \epsilon_{x_j^s} $$
+		\textbf{\titlecap{Algebraic L2O transformation:}} Replaces all latent variables with their scaling indicators.
+ 			$$ x_i = \epsilon_i + \sum_{x_j \in Co_l(x_i)} \beta_{x_j \rightarrow x_i} (x_j^s - \epsilon_{x_j^s}) + \sum_{x_k \in Co_o(x_i)} \beta_{x_k \rightarrow x_i} x_k $$
+		\textbf{\titlecap{Partial Algebraic L2O transformation:}} Replaces latents only for parameter(s) of interest.
+			\begin{equation*}
+			\begin{split}
+				x_i = \epsilon_i + & \sum_{x_j \in Co_l^i(x_i)} \beta_{x_j \rightarrow x_i} (x_j^s - \epsilon_{x_j^s}) +  \\
+						   & \sum_{x_k \in Co_l(x_i) \setminus Co_l^i(x_i)} \beta_{x_k \rightarrow x_i} x_k + \sum_{x_l \in Co_o(x_i)} \beta_{x_l \rightarrow x_i} x_l
+			\end{split}
+			\end{equation*}
+	\end{myblock} \vfill
+	\begin{myblock}{\titlecap{Proposed Graphical L2O Transformation}}
+		\begin{enumerate}
+			\item \textbf{Latent-to-Observed arrow:}
+				\begin{figure}
+					\centering
+					\includegraphics[page=4, scale=3]{../slides/figures-inge.pdf}
+					\label{fig:l2o_lat_obs}
+				\end{figure}
+				\begin{equation*}
+					\begin{split}
+						y_3 &= \beta l_1 + \beta_{y_5 \to y_3} y_5 + \epsilon_3 \\
+						l_1 &= y_2 - \epsilon_{2} + \beta_{y_1 \to y_2} y_1 \\
+						y_3 &= \beta y_2 - \beta \beta_{y_1 \to y_2} y_1 + \beta_{y_5 \to y_3} y_5 - \beta \epsilon_2 + \epsilon_3\\
+					\end{split}
+				\end{equation*}
+		\end{enumerate}
+	\end{myblock}\vfill
+		}\end{minipage}\end{beamercolorbox}
+	\end{column}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Second Column %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+	\begin{column}{.33\textwidth}
+ 		\begin{beamercolorbox}[center]{postercolumn}
+ 			\begin{minipage}{.98\textwidth} % tweaks the width, makes a new \textwidth
+ 				\parbox[t][\columnheight]{\textwidth}{ % must be some better way to set the the height, width and textwidth simultaneously
+					\begin{myblock}{\titlecap{Proposed Graphical L2O Transformation (Cont.)}}
+						\begin{enumerate}
+							\setcounter{enumi}{1}
+							\item \textbf{Observed-to-Latent arrow:}
+								\begin{figure}
+									\centering
+									\includegraphics[page=5, scale=3]{../slides/figures-inge.pdf}
+									\label{fig:l2o_obs_lat}
+								\end{figure}
+								\begin{equation*}
+									\begin{split}
+										y_4 &= l_1 + \beta_{y_2 \to y_4} y_2 + \beta_{y_3 \to y_4} + \epsilon_4 \\
+										l_1 &= \beta y_1 + \zeta_1 \\
+										y_4 &= \beta y_1 + \beta_{y_3 \to y_4} y_3 + \beta_{y_2 \to y_4} y_2 + \zeta_1 + \epsilon_4 \\
+									\end{split}
+								\end{equation*}
+							\vspace{0.9em}	
+							\item \textbf{Latent-to-Latent arrow:}
+								\begin{figure}
+									\centering
+									\includegraphics[page=6, scale=3]{../slides/figures-inge.pdf}
+									\label{fig:l2o_lat_lat}
+								\end{figure}
+								\begin{equation*}
+									\begin{split}
+										l_2 &= \beta l_1 + \zeta_2 \\
+										y_2 &= l_2 + \epsilon_2; y_1 = l_1 + \epsilon_1 \\
+										y_2 &= \beta y_1 - \beta \epsilon_1 + \zeta_2 + \epsilon_2
+									\end{split}
+								\end{equation*}
+						\end{enumerate}
+					\end{myblock}\vfill
+					\begin{myblock}{\titlecap{Examples of Graphical Identification in SEMs}}
+						\begin{figure}
+							\begin{subfigure}{0.5 \linewidth}
+								\centering
+								\includegraphics[page=7, scale=3]{../slides/figures-inge.pdf}
+							\end{subfigure}%
+							\begin{subfigure}{0.5 \linewidth}
+								\centering
+								\includegraphics[page=8, scale=3]{../slides/figures-inge.pdf}
+							\end{subfigure}
+							\caption*{\textbf{\textcolor{black}{Full Equation Identification:}} \textbf{(Left)} Example model; \textbf{(Right)} L2O 
+										transformed model for the equation $ y_3 = l_1 + l_2 $. Both the parameters $ \lambda_{13} $ and 
+										$ \lambda_{23} $ are identified using both MIIV and Instrumental Sets.}
+						\end{figure}
+						\vspace{0.9em}
+						\begin{figure}
+							\begin{subfigure}{0.33 \linewidth}
+								\centering
+								\includegraphics[page=11, scale=3]{../slides/figures-inge.pdf}
+							\end{subfigure}%
+							\begin{subfigure}{0.33 \linewidth}
+								\centering
+								\includegraphics[page=12, scale=3]{../slides/figures-inge.pdf}
+							\end{subfigure}%
+							\begin{subfigure}{0.33 \linewidth}
+								\centering
+								\includegraphics[page=13, scale=3]{../slides/figures-inge.pdf}
+							\end{subfigure}
+							\caption*{\textbf{\textcolor{black}{Partial Equation Identification:}} \textbf{(Left)} Example model; 
+										\textbf{(Center)} L2O transformed model for the equation $ y_3 = l_1 + l_2 $. The parameters 
+										$ \lambda_{23} $ and $ \lambda_{13} $ are not identified together; \textbf{(Right)} L2O 
+										transformed model for the partial equation, $ y_3 = l_2 $. $ \lambda_{23} $ is identified in this case.
+										}
+						\end{figure}
+						\vspace{0.9em}
+						\begin{figure}
+							\begin{subfigure}{0.5 \linewidth}
+								\centering
+								\includegraphics[page=14, scale=3]{../slides/figures-inge.pdf}
+							\end{subfigure}%
+							\begin{subfigure}{0.5 \linewidth}
+								\centering
+								\includegraphics[page=15, scale=3]{../slides/figures-inge.pdf}
+							\end{subfigure}
+							\caption*{\textbf{\textcolor{black}{Identification using Conditional IVs:}} \textbf{(Left)} Original model;
+									\textbf{(Right)} L2O transformed model for the partial equation, $ y_3 = l_2 $. $ \lambda_{23} $ is not 
+									identified through simple IVs but $y_5$ can be used as a conditional IV when conditioned on $ y_6 $.}						\end{figure}
+					\end{myblock}\vfill
+ 				}
+			\end{minipage}
+		\end{beamercolorbox}
+	\end{column}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Third column %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\begin{column}{0.33\textwidth}
+		\begin{beamercolorbox}[center]{postercolumn}
+			\begin{minipage}{.98\textwidth} % tweaks the width, makes a new \textwidth
+				\parbox[t][\columnheight]{\textwidth}{ % must be some better way to set the the height, width and textwidth simultaneously
+				\begin{myblock}{\titlecap{Examples of Graphical Identification in SEMs}}
+					\begin{figure}
+						\begin{subfigure}{0.33 \linewidth}
+							\centering
+							\includegraphics[page=16, scale=3]{../slides/figures-inge.pdf}
+						\end{subfigure}%
+						\begin{subfigure}{0.33 \linewidth}
+							\centering
+							\includegraphics[page=17, scale=3]{../slides/figures-inge.pdf}
+						\end{subfigure}%
+						\begin{subfigure}{0.33 \linewidth}
+							\centering
+							\includegraphics[page=18, scale=3]{../slides/figures-inge.pdf}
+						\end{subfigure}
+						\caption*{\textbf{\textcolor{black}{Inestimable Parameters in Identified Equation:}} \textbf{(Left)} Example model 
+						from \citet{griliches1977estimating}; \textbf{(Center)} Slightly modified version; \textbf{(Right)} L2O transformed
+						model for the equation, $ y_4 = l_1 + y_2 + y_3 $. Even though the equation is identified, $ \lambda_{13} $ and 
+						$ \lambda_{34} $ cannot be individually estimated.}
+					\end{figure}
+				\end{myblock}
+	\begin{myblock}{\titlecap{MIIV is equivalent to Instrumental sets}}
+		\textbf{Instrumental Sets \citep{BritoP02}:}
+		Given an ADMG $\cal
+			G$, a variable $y$, and a subset $X$ of the parents of $y$, 
+			a set of variables
+			$I$ fulfills the 
+			\emph{instrumental set condition}
+			if for {some} permutation $ i_1 \ldots i_k $ of
+			$ I $ and {some} permutation
+			$ x_1 \ldots x_k $ of $ X $ we have: 
+			\begin{enumerate}
+				\item There are no treks from $I$ to $y$ in the graph ${\cal
+					G}_{\overline{X}}$ obtained by removing all arrows 
+					between $X$ and $y$. 
+				\item For each $j$, $1 \leq j \leq k$, there is a trek $\pi_j$ from
+					$I_j$ to $X_j$ such that for all $i < j$: (1) $I_i$ does not
+					occur on any trek $\pi_j$; and (2) all intersections between
+					$\pi_i$ and $\pi_j$ are on the left side of $\pi_i$ and the
+					right side of $\pi_j$.
+			\end{enumerate}
+		\vspace{1em}
+
+		\textbf{Permutation-free Instrumental Sets:}
+			Given an ADMG $\cal G$, a variable $y$ and a subset $X$ of the parents
+			of $y$, a set of variables $I$ fulfills the \emph{permutation-free
+			instrumental set condition} if: (1) There are no treks from $I$ to $y$
+			in the graph ${\cal G}_{\overline{X}}$ obtained by removing all arrows
+			leaving $X$, and (2) All $t$-separators $(L,R)$ of $I$ and $X$ have
+			size $\geq k$.
+		\vspace{1em}
+
+		\textbf{Algebraic Instrumental Sets \citep{bollen2012instrumental}:}
+			Given a regression equation $y = B \cdot X + \epsilon$, where $X$ possibly
+			correlates with $\epsilon$, a set of variables
+			$I$ fulfills the \emph{algebraic instrumental set condition} if: (1) $I \ci \epsilon$,
+			(2) $\textrm{rk}(\bm{\Sigma}[I,X]) = |X|$, and (3) $\textrm{rk}(\bm{\Sigma}[I]) = |I|$
+		
+	\end{myblock}\vfill
+	\begin{myblock}{\titlecap{Conclusion}}
+		\begin{itemize}
+			\item \justifying We extend the L2O transformation to do partial equation identification.
+			\item \justifying We propose a graphical L20 transformation allowing us to apply graphical identification criteria to latent variable SEMs.
+			\item \justifying Application of graphical criteria leads to identification of more parameter compared to MIIV approach.
+			\item \justifying Further, we show that the Instrumental set criterion is equivalent to the MIIV approach.
+			\item \justifying This equivalence proof also allows us to relax the normality requirement in graphical criterion.
+			\item \justifying We bridge the two fields.
+		\end{itemize}
+	\end{myblock}\vfill
+	\begin{myblock}{References}
+		\footnotesize
+		\bibliographystyle{apalike}
+		\bibliography{./bib}
+	\end{myblock}\vfill
+		}\end{minipage}\end{beamercolorbox}
+	\end{column}
+\end{columns}
+\end{frame}
+\end{document}
