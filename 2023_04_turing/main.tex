@@ -1,0 +1,115 @@
+\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}
+\usecolortheme{beaver}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{mathtools}
+\usepackage{todonotes}
+\usepackage{amsmath}
+\usepackage{bm}
+\usepackage{listings}
+\usepackage{ragged2e}
+\usepackage{fancyvrb}
+\usepackage{titlecaps}
+
+\Addlcwords{for a is but and with of in as the etc on to if}
+
+\def\ci{\perp\!\!\!\!\!\perp}
+
+\tikzstyle{latent} = [ draw, circle, inner sep = 2pt, minimum size = 0.65cm ]
+\tikzstyle{observed} = [ draw, rectangle, inner sep = 2pt, minimum size = 0.65cm ]
+
+\newtheorem{proposition}{Proposition}
+
+\setbeamertemplate{section in toc}{\inserttocsectionnumber.~\inserttocsection}
+\usetheme{Boadilla}
+\makeatletter
+\setbeamertemplate{footline}{%
+    \leavevmode%
+    \hbox{%
+        \begin{beamercolorbox}[wd=.3\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+            \usebeamerfont{author in head/foot}\insertshortauthor\expandafter\beamer@ifempty\expandafter{\beamer@shortinstitute}{}{~~(\insertshortinstitute)}
+        \end{beamercolorbox}%
+        \begin{beamercolorbox}[wd=.55\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+            \usebeamerfont{title in head/foot}\insertshorttitle
+        \end{beamercolorbox}%
+        \begin{beamercolorbox}[wd=.15\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+            \usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}
+            \insertframenumber{} / \inserttotalframenumber\hspace*{2ex} 
+        \end{beamercolorbox}}%
+        \vskip0pt%
+    }
+\makeatother
+
+\begin{document}
+
+\title[]{Papers}
+\author [] {Ankur Ankan}
+\date{}
+\maketitle
+
+\begin{frame}
+	\frametitle{\titlecap{Conditional Independence (CI) Test for combination of discrete, ordinal, and continuous variables}}
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.4]{imgs/ankan_textor}
+		\caption*{}
+	\end{figure}
+	\vspace{-2em}
+	\begin{itemize}
+		\item Paper only considers ordinal and categorical variables
+			but already working on an extension to continuous
+			variables.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{\titlecap{CI Test: Main Idea}}
+	\begin{enumerate}
+		\item A residualization based approach. Main idea behind
+			residualization tests are to test whether the variables
+			are independent once the effect of the conditional
+			variable is removed.
+		\item Already there for continuous variables. E.g. Partial correlation test uses a regression equation for prediction.
+		\item Extended to categorical and ordinal variables but no easy way to define residuals. 
+		\item We use LS-Residuals which has theoretical properties which allows us to use it for this approach.
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}
+	\frametitle{\titlecap{CI Test: Algorithm}}
+	A residualization based approach. Given a dataset $ \mathbf{D} $ and a CI statement $ X \ci Y | \bm{Z} $:
+	\begin{enumerate}
+		\item If either $ X $ or $ Y $ are non-binary categorical variables,
+			dummy encode them.
+		\item Train two probability estimators $ p_x = \bm{x} \sim \bm{z} $ and
+			$ p_y = \bm{y} \sim \bm{z} $.
+			\begin{itemize}
+				\item Any estimator that gives valid residuals can be used.
+			\end{itemize}
+		\item Make probability predictions using these two estimators 
+			$ \hat{p}(\bm{x}) = p_x(\bm{z}) $ and $ \hat{p}(\bm{y}) = p_y(\bm{\bm{z}}) $.
+		\item Use $ \hat{p}(\bm{x}) $, $ \hat{p}(\bm{y}) $, and $ D $ to compute LS-Residuals $ R_{\bm{x}|\bm{z}} $ and $ R_{\bm{y}|\bm{z}} $.	
+			$$ R_{y_i | z_i} = \hat{p}(Y < y_i | Z=z_i) - \hat{p}(Y>y_i|Z=z_i) $$
+		\item Compute test statistic and df using $ R_{\bm{x}|\bm{z}} $ and $ R_{\bm{y}|\bm{z}} $. The test statistic is $ \chi^2 $ distributed under the null.
+			Define LS-Residual
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}
+	\frametitle{\titlecap{CI Test: Possible Applications}}
+	\begin{itemize}
+		\item Constraint-Based Structure Learning Algorithms: Runs CI tests on the dataset to construct the model structure.
+		\item Edge weights for model visualization
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{\titlecap{MAG and PAG}}
+\end{frame}
+
+\begin{frame}
+	\frametitle{\titlecap{Learning from interventional datasets}}
+\end{frame}
+\end{document}
