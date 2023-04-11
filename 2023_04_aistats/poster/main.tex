@@ -126,11 +126,17 @@
 					x_i &= \epsilon_i + \sum_{x_j \in Co(x_i)} \beta_{x_j \to x_i} x_j 
 				\end{split}
 			\end{equation*}
-		\textbf{Scaling Indicator:} Fixes the scale of each latent variable to an arbitrary value (e.g., 1).
+
+		\vspace{0.3em}
+		\justifying \textbf{Scaling Indicator:} Fixes the scale of each latent variable to an arbitrary value (e.g., 1).
 			$$ x_j = x_j^s - \epsilon_{x_j^s} $$
-		\textbf{\titlecap{Algebraic L2O transformation:}} Replaces all latent variables with their scaling indicators.
+
+		\vspace{0.3em}
+		\justifying \textbf{\titlecap{Algebraic L2O transformation:}} Replaces all latent variables with their scaling indicators.
  			$$ x_i = \epsilon_i + \sum_{x_j \in Co_l(x_i)} \beta_{x_j \rightarrow x_i} (x_j^s - \epsilon_{x_j^s}) + \sum_{x_k \in Co_o(x_i)} \beta_{x_k \rightarrow x_i} x_k $$
-		\textbf{\titlecap{Partial Algebraic L2O transformation:}} Replaces latents only for parameter(s) of interest.
+
+		\vspace{0.3em}
+		\justifying \textbf{\titlecap{Partial Algebraic L2O transformation:}} Replaces latents only for parameter(s) of interest.
 			\begin{equation*}
 			\begin{split}
 				x_i = \epsilon_i + & \sum_{x_j \in Co_l^i(x_i)} \beta_{x_j \rightarrow x_i} (x_j^s - \epsilon_{x_j^s}) +  \\
@@ -180,7 +186,7 @@
 										y_4 &= \beta y_1 + \beta_{y_3 \to y_4} y_3 + \beta_{y_2 \to y_4} y_2 + \zeta_1 + \epsilon_4 \\
 									\end{split}
 								\end{equation*}
-							\vspace{0.9em}	
+							\vspace{0.6em}	
 							\item \textbf{Latent-to-Latent arrow:}
 								\begin{figure}
 									\centering
@@ -210,7 +216,7 @@
 										transformed model for the equation $ y_3 = l_1 + l_2 $. Both the parameters $ \lambda_{13} $ and 
 										$ \lambda_{23} $ are identified using both MIIV and Instrumental Sets.}
 						\end{figure}
-						\vspace{0.9em}
+						\vspace{0.6em}
 						\begin{figure}
 							\begin{subfigure}{0.33 \linewidth}
 								\centering
@@ -230,7 +236,7 @@
 										transformed model for the partial equation, $ y_3 = l_2 $. $ \lambda_{23} $ is identified in this case.
 										}
 						\end{figure}
-						\vspace{0.9em}
+						\vspace{0.6em}
 						\begin{figure}
 							\begin{subfigure}{0.5 \linewidth}
 								\centering
