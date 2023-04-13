@@ -1,6 +1,13 @@
 \documentclass{beamer}
 \usepackage[orientation=portrait,width=84.1cm,height=59.4cm,scale=1.4,debug]{beamerposter}
 \mode<presentation>{\usetheme{ZH}}
+
+
+\usefonttheme{professionalfonts} % using non standard fonts for beamer
+\usefonttheme{serif} % default family is serif
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+
 \usepackage{chemformula}
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel} % required for rendering German special characters
@@ -160,7 +167,7 @@
 					\end{split}
 				\end{equation*}
 		\end{enumerate}
-		\vspace{-0.2em}
+		\vspace{-0.25em}
 	\end{myblock}\vfill
 		}\end{minipage}\end{beamercolorbox}
 	\end{column}
@@ -300,15 +307,15 @@
 					occur on any trek $\pi_j$; and (b) all intersections between
 					$\pi_i$ and $\pi_j$ are on the left side of $\pi_i$ and the
 					right side of $\pi_j$.
-		\vspace{0.5em}
 
+		\vspace{0.5em}
 		\textbf{Algebraic Instrumental Sets \citep{bollen2012instrumental}:}
 			\justifying Given a regression equation $y = B \cdot X + \epsilon$, where $X$ possibly
 			correlates with $\epsilon$, a set of variables
 			$I$ fulfills the \emph{algebraic instrumental set condition} if: (1) $I \ci \epsilon$,
 			(2) $\textrm{rk}(\bm{\Sigma}[I,X]) = |X|$, and (3) $\textrm{rk}(\bm{\Sigma}[I]) = |I|$
-		\vspace{0.5em}
 
+		\vspace{0.5em}
 		\textbf{Permutation-free Instrumental Sets (Our Result):}
 			\justifying Given an ADMG $\cal G$, a variable $y$ and a subset $X$ of the parents
 			of $y$, a set of variables $I$ fulfills the \emph{permutation-free
@@ -341,6 +348,7 @@
 		\footnotesize
 		\bibliographystyle{apalike}
 		\bibliography{./bib}
+	\vspace{-0.4em}
 	\end{myblock}\vfill
 		}\end{minipage}\end{beamercolorbox}
 	\end{column}
