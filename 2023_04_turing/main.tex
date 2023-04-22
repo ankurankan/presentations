@@ -181,8 +181,75 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{\titlecap{Faster inference}}
-	\url{https://dl.acm.org/doi/pdf/10.1145/3578360.3580258?casa_token=MZExipZJbbcAAAAA:iromDWY7csc02WMrwFfwUXfXzLIhrprPNw3FrE4guDhEU1wlGcjJLWEtmfAxPmZlgxBV0m3uSo5RoA}	
+	\frametitle{\titlecap{Probabilistic Programming Framework for exact inference}}
+	\begin{figure}
+		\begin{subfigure}{\textwidth}
+			\centering
+			\includegraphics[scale=0.4]{imgs/pan_shaikhha.png}
+		\end{subfigure}
+		\begin{subfigure}{\textwidth}
+			\centering
+			\includegraphics[scale=0.4]{imgs/pan_shaikhha_abstract.png}
+		\end{subfigure}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{\titlecap{Variable Elimination for discrete BNs}}
+	\begin{columns}
+		\begin{column}{0.3 \textwidth}
+			\begin{figure}
+				\centering
+				\begin{tikzpicture}[scale=0.8]
+					\tikzstyle{every node}=[inner sep=1pt, align=center]
+						\scriptsize
+						\tikzstyle{every node}=[draw, rectangle, inner sep=4pt, align=center]
+						\node (asia) at (0, 0) {asia};
+						\node (tub) at (0, -1) {tub};
+						\node (smoke) at (2, 0) {smoke};
+						\node (lung) at (1, -1) {lung};
+						\node (either) at (1, -2) {either};
+						\node (xray) at (1, -3) {xray};
+						\node (bronc) at (3, -2) {bronc};
+						\node (dysp) at (3, -3) {dysp};
+
+						\draw [->] (asia) -- (tub);
+						\draw [->] (tub) -- (either);
+						\draw [->] (either) -- (xray);
+						\draw [->] (either) -- (dysp);
+						\draw [->] (smoke) -- (lung);
+						\draw [->] (lung) -- (either);
+						\draw [->] (smoke) -- (bronc);
+						\draw [->] (bronc) -- (dysp);
+				\end{tikzpicture}
+			\end{figure}
+		\end{column}
+		\begin{column}{0.7 \textwidth}
+			\center \textbf{Inference:} $ P(either) = \sum_{\bm{X} - \{either\}} P(\bm{X}) $
+			\center \textcolor{red}{Computationally intractable!}
+		\end{column}
+	\end{columns}
+	\vspace{0.5em}
+	\begin{enumerate}
+		\item \textbf{Network Pruning}:
+			\begin{equation*}
+				\begin{split}
+					P(lung) & \implies \textit{Remove tub and asia as d-separated.} \\
+					P(lung \mid either, bronc) & \implies \textit{Remove xray and dysp as cond. d-sep.}
+				\end{split}
+			\end{equation*}
+		\item \textbf{Elimination order}: Push the summation inside. The order of summation decides computational cost.
+			``opt\_einsum'' provides some efficient algorithms.
+			$$ P(either, bronc) = \sum \cdots \sum_{xray} P(xray \mid either) \sum_{dysp} P(dysp \mid either, bro.) $$
+	\end{enumerate}
+
+\end{frame}
+\begin{frame}
+	\frametitle{\titlecap{Main Idea}}
+	\begin{enumerate}
+		\item Proposes a better way to do network pruning.
+		\item Takes in the network and gives out an einsum expression.
+	\end{enumerate}
 \end{frame}
 
 \begin{frame}
