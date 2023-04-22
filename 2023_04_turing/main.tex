@@ -242,14 +242,48 @@
 			``opt\_einsum'' provides some efficient algorithms.
 			$$ P(either, bronc) = \sum \cdots \sum_{xray} P(xray \mid either) \sum_{dysp} P(dysp \mid either, bro.) $$
 	\end{enumerate}
-
 \end{frame}
 \begin{frame}
 	\frametitle{\titlecap{Main Idea}}
-	\begin{enumerate}
-		\item Proposes a better way to do network pruning.
-		\item Takes in the network and gives out an einsum expression.
-	\end{enumerate}
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+			\begin{enumerate}
+				\item Proposes a better way to do ``network pruning''.
+				\item Compiles the model and the query to generate martices and an einsum expression.
+				\item These can then be passed to `opt\_einsum' to compute the final distribution.
+			\end{enumerate}
+		\end{column}
+		\begin{column}{0.5\textwidth}
+			\begin{figure}
+				\includegraphics[scale=0.65]{imgs/bayes_tensor.png}
+				\caption*{BayesTensor architecture}
+			\end{figure}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\frametitle{\titlecap{Model Example}}
+	\begin{figure}
+		\includegraphics[scale=0.35]{imgs/model_example.png}
+	\end{figure}
+	\begin{figure}
+		\includegraphics[scale=0.4]{imgs/code_example.png}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{\titlecap{Empirical Results}}
+	\begin{figure}
+		\begin{subfigure}{0.5\textwidth}
+			\centering
+			\includegraphics[scale=0.5]{imgs/table_infer.png}
+		\end{subfigure}
+		\begin{subfigure}{0.5\textwidth}
+			\centering
+			\includegraphics[scale=0.5]{imgs/runtime_comp.png}
+		\end{subfigure}
+	\end{figure}
 \end{frame}
 
 \begin{frame}
@@ -257,11 +291,7 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{\titlecap{Learning from combination of interventional and observational datasets}}
-\end{frame}
-
-\begin{frame}
-	\frametitle{\titlecap{Transportability}}
+	\frametitle{\titlecap{Learning from combination of interventional and observational datasets (Transportability)}}
 	\url{https://www.annualreviews.org/doi/pdf/10.1146/annurev-statistics-042522-103837}
 \end{frame}
 \end{document}
