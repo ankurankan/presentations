@@ -59,52 +59,66 @@
 	\end{figure}
 	\vspace{-2em}
 	\begin{itemize}
-		\item Paper only considers ordinal and categorical variables
-			but already working on an extension to continuous
-			variables.
+		\item Paper describes only combination of ordinal and categorical variables.	
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{\titlecap{CI Test: Possible Applications}}
+	\begin{itemize}
+		\item \textbf{Constraint-Based Structure Learning:} Systematically searches for CI in data to construct structure. E.g., PC, FCI.
+			$$ \textit{ If } X \ci Y \mid \bm{Z} \subseteq \textit{neig}(X, Y)  \implies \textit{No edge between X and Y} $$
+		\item \textbf{Model Testing:} If the model structure implies $ X \ci Y \mid Z $, then that should hold true in the data.
+		\item \textbf{Effect Size:} Can be used to show the edge weight between variables.
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{\titlecap{CI Test: Main Idea}}
 	\begin{enumerate}
-		\item A residualization based approach. Main idea behind
-			residualization tests are to test whether the variables
-			are independent once the effect of the conditional
-			variable is removed.
-		\item Already there for continuous variables. E.g. Partial correlation test uses a regression equation for prediction.
-		\item Extended to categorical and ordinal variables but no easy way to define residuals. 
-		\item We use LS-Residuals which has theoretical properties which allows us to use it for this approach.
+		\item Residualizaton approach.
+		\item Similar to partial correlation for continuous variables.
+		\item For testing whether $ X \ci Y \mid Z $ using partial correlation:
+			\begin{enumerate}
+				\item Train two estimators: $ E_X = X \sim Z $ and $ E_Y = Y \sim Z $.
+				\item Make predictions using these estimators: $ \hat{X} = E_X(Z) $ and $ \hat{Y} = E_Y(Z) $.
+				\item Compute residuals: $ R_X = X - \hat{X} $ and $ R_Y = Y - \hat{Y} $.
+				\item Do a correlation test between $ R_X $ and $ R_Y $.
+			\end{enumerate}
+		\item Proposed test:
+			\begin{itemize}
+				\item No simple residual definition for ordinal and categorical variables. We use LS-Residuals \footnote{Li, Chun, and Bryan E. Shepherd. "A new residual for ordinal outcomes." Biometrika 99.2 (2012): 473-480.}
+				\item The correlation test can give incorrect results \footnote{Shah, Rajen D., and Jonas Peters. "The hardness of conditional independence testing and the generalised covariance measure." (2020): 1514-1538.}. We give new test statistics.
+			\end{itemize}
 	\end{enumerate}
 \end{frame}
 
 \begin{frame}
-	\frametitle{\titlecap{CI Test: Algorithm}}
-	A residualization based approach. Given a dataset $ \mathbf{D} $ and a CI statement $ X \ci Y | \bm{Z} $:
+	\frametitle{\titlecap{CI Test: Proposed Algorithm}}
 	\begin{enumerate}
-		\item If either $ X $ or $ Y $ are non-binary categorical variables,
-			dummy encode them.
+		\item If either $ X $ or $ Y $ are non-binary categorical, dummy encode them.
 		\item Train two probability estimators $ p_x = \bm{x} \sim \bm{z} $ and
 			$ p_y = \bm{y} \sim \bm{z} $.
 			\begin{itemize}
 				\item Any estimator that gives valid residuals can be used.
 			\end{itemize}
-		\item Make probability predictions using these two estimators 
+		\item Make probability predictions:
 			$ \hat{p}(\bm{x}) = p_x(\bm{z}) $ and $ \hat{p}(\bm{y}) = p_y(\bm{\bm{z}}) $.
-		\item Use $ \hat{p}(\bm{x}) $, $ \hat{p}(\bm{y}) $, and $ D $ to compute LS-Residuals $ R_{\bm{x}|\bm{z}} $ and $ R_{\bm{y}|\bm{z}} $.	
+		\item Compute LS-Residuals:
 			$$ R_{y_i | z_i} = \hat{p}(Y < y_i | Z=z_i) - \hat{p}(Y>y_i|Z=z_i) $$
-		\item Compute test statistic and df using $ R_{\bm{x}|\bm{z}} $ and $ R_{\bm{y}|\bm{z}} $. The test statistic is $ \chi^2 $ distributed under the null.
-			Define LS-Residual
+		\item Use residuals to compute test statistics.
+			$$ Q = \frac{1}{n} (d \times \hat{\Sigma}_d^{-1} \times d^T) $$
+			$$ d = R_{x|z} R_{y|z} $$
+		\item Under null, $ Q $ is $ \chi^2 $ distributed.
+		\item Canonical correlation between residuals gives us the Cramer's V.
 	\end{enumerate}
 \end{frame}
 
 \begin{frame}
-	\frametitle{\titlecap{CI Test: Possible Applications}}
-	\begin{itemize}
-		\item Constraint-Based Structure Learning Algorithms: Runs CI tests on the dataset to construct the model structure.
-		\item Edge weights for model visualization
-	\end{itemize}
+	\frametitle{\titlecap{CI Test: Emprical Result}}
+
 \end{frame}
+
 
 \begin{frame}
 	\frametitle{\titlecap{MAG and PAG}}
