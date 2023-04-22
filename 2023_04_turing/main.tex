@@ -116,22 +116,81 @@
 
 \begin{frame}
 	\frametitle{\titlecap{CI Test: Emprical Result}}
+		\begin{figure}
+		\begin{subfigure}{.33\textwidth}
+			\centering
+			\begin{tikzpicture}[scale=1.2]
+				\tikzstyle{every node}=[align=center, inner sep=1pt]
+				\scriptsize
+				\node (hrpw) at (0:1.2cm) {HrPW};
+				\node (race) at (-33:1.2cm) {Race};
+				\node (ntvc) at (-61:1.2cm) {NtvC};
+				\node (edct) at (-98:1.2cm) {Edct};
+				\node (age) at (-131:1.2cm) {Age};
+				\node (mrts) at (-164:1.2cm) {MrtS};
+				\node (rltn) at (-196:1.2cm) {Rltn};
+				\node (sex) at (-225:1.2cm) {Sex};
+				\node (occp) at (-262:1.2cm) {Occp};
+				\node (incm) at (-300:1.2cm) {Incm};
+				\node (wrkc) at (-333:1.2cm) {Wrkc};
+				\draw [] (sex) -- (rltn);
+				\draw [] (mrts) -- (rltn);
+				\draw [] (hrpw) -- (age);
+			\end{tikzpicture}
+			\caption{}
+		\end{subfigure}%
+		\begin{subfigure}{.33 \textwidth}
+			\begin{tikzpicture}[scale=1.2]
+				\tikzstyle{every node}=[inner sep=1pt, align=center]
+				\scriptsize
+				\node (hrpw) at (0:1.2cm) {HrPW};
+				\node (race) at (-33:1.2cm) {Race};
+				\node (ntvc) at (-61:1.2cm) {NtvC};
+				\node (edct) at (-98:1.2cm) {Edct};
+				\node (age) at (-131:1.2cm) {Age};
+				\node (mrts) at (-164:1.2cm) {MrtS};
+				\node (rltn) at (-196:1.2cm) {Rltn};
+				\node (sex) at (-225:1.2cm) {Sex};
+				\node (occp) at (-262:1.2cm) {Occp};
+				\node (incm) at (-300:1.2cm) {Incm};
+				\node (wrkc) at (-333:1.2cm) {Wrkc};
 
+				\draw [] (hrpw) -- (race) -- (ntvc) -- (edct) -- (age) -- 
+					(mrts) -- (rltn) -- (sex) -- (occp) -- (incm) -- (wrkc) -- (hrpw);
+
+				\draw [] (hrpw) -- (incm) -- (age) -- (hrpw);
+
+				\draw [] (wrkc) -- (edct) -- (occp) -- (wrkc);
+
+				\draw [] (edct) -- (rltn) -- (age);
+
+				\draw [] (hrpw) -- (edct) -- (incm);
+			\end{tikzpicture}
+			\caption{}
+		\end{subfigure}%
+		\begin{subfigure}{0.33\textwidth}
+			\includegraphics[scale=0.7]{imgs/adult_F1.pdf}
+			\caption{}
+		\end{subfigure}
+			\caption{Structure learning on Adult Income dataset:
+			(a) Using chi-squared test (b) Using our test with
+			Random Forest estimator (c) F1 Score of whether
+			correlation variables in the data are d-connected in
+			the learned structure.}
+		\end{figure}
 \end{frame}
 
+\begin{frame}
+	\frametitle{\titlecap{Faster inference}}
+	\url{https://dl.acm.org/doi/pdf/10.1145/3578360.3580258?casa_token=MZExipZJbbcAAAAA:iromDWY7csc02WMrwFfwUXfXzLIhrprPNw3FrE4guDhEU1wlGcjJLWEtmfAxPmZlgxBV0m3uSo5RoA}	
+\end{frame}
 
 \begin{frame}
 	\frametitle{\titlecap{MAG and PAG}}
 \end{frame}
 
 \begin{frame}
-	\frametitle{\titlecap{Learning from interventional datasets}}
-\end{frame}
-
-\begin{frame}
-	\frametitle{\titlecap{Faster inference}}
-	\url{https://dl.acm.org/doi/pdf/10.1145/3578360.3580258?casa_token=MZExipZJbbcAAAAA:iromDWY7csc02WMrwFfwUXfXzLIhrprPNw3FrE4guDhEU1wlGcjJLWEtmfAxPmZlgxBV0m3uSo5RoA}
-	
+	\frametitle{\titlecap{Learning from combination of interventional and observational datasets}}
 \end{frame}
 
 \begin{frame}
