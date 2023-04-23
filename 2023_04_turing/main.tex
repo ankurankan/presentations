@@ -7,12 +7,14 @@
 \usepackage{mathtools}
 \usepackage{todonotes}
 \usepackage{amsmath}
+\usepackage{amssymb}
 \usepackage{bm}
 \usepackage{listings}
 \usepackage{ragged2e}
 \usepackage{fancyvrb}
 \usepackage{titlecaps}
 \usepackage{hyperref}
+\usepackage{todonotes}
 
 \Addlcwords{for a is but and with of in as the etc on to if}
 
@@ -266,18 +268,22 @@
 	\frametitle{\titlecap{Model Example}}
 	\begin{figure}
 		\begin{subfigure}{0.5 \textwidth}
+			\centering
 			\includegraphics[scale=0.4]{imgs/example_model.png}
 			\caption{Example Model}
 		\end{subfigure}%
 		\begin{subfigure}{0.5 \textwidth}
+			\centering
 			\includegraphics[scale=0.4]{imgs/example_code.png}
 			\caption{Model definition in Bayes Tensor}
 		\end{subfigure}
 		\begin{subfigure}{0.5 \textwidth}
+			\centering
 			\includegraphics[scale=0.4]{imgs/example_code2.png}
 			\caption{Alternate model definition}
 		\end{subfigure}%
 		\begin{subfigure}{0.5 \textwidth}
+			\centering
 			\includegraphics[scale=0.4]{imgs/code_example.png}
 			\caption{Output Python code}
 		\end{subfigure}
@@ -303,6 +309,64 @@
 
 \begin{frame}
 	\frametitle{\titlecap{Supervised Discretization}}
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.4]{imgs/supervised.png}
+	\end{figure}
+	\begin{itemize}
+		\item Learns the discretization while doing structure learning.
+		\item Supervised discretization performs better for prediction tasks:
+			\begin{itemize}
+				\item \scriptsize{Beuzen, Tomas, Lucy Marshall, and Kristen D. Splinter. "A comparison of methods for discretizing continuous variables in Bayesian Networks." Environmental modelling \& software 108 (2018): 61-66.}
+				\item \scriptsize{Dougherty, James, Ron Kohavi, and Mehran Sahami. "Supervised and unsupervised discretization of continuous features." Machine learning proceedings 1995. Morgan Kaufmann, 1995. 194-202.}
+			\end{itemize}
+		\item Other papers on similar idea.
+			\begin{itemize}
+				\item \scriptsize{Friedman, Nir, and Moises Goldszmidt. "Discretizing continuous attributes while learning Bayesian networks." ICML. 1996.}
+			\end{itemize}
+	\end{itemize}
+\end{frame}
+\begin{frame}
+	\frametitle{\titlecap{Supervised Discretizaton: Motivation}}
+	\begin{itemize}
+		\item Discretizing variables one at a time without considering its interaction with other variables can generate spurious dependencies.
+		\item Using a scoring metric that is dependent on the discretization scheme.
+		\item Optimizing this score using any score based structure learning algorithm automatically learn the optimal discretization scheme.
+		\item Main assumption is that the continuous variable is the result of noisy observarion of an underlying latent discrete variable.
+		\item Paper with the reverse assumption that the discrete variable comes from a continuous distribution: \newline
+			\scriptsize{Zhu, Wanchuang, Ngoc Lan Chi Nguyen, and Sally Cripps. "Structure learning for hybrid bayesian networks." arXiv preprint arXiv:2206.01356 (2022).}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{\titlecap{This specific paper}}
+	\begin{itemize}
+		\item Defines the likelihood of the data conditioned on the discretization as well as the structure.
+			\begin{equation}
+				\begin{split}
+					\mathcal{S}(\Lambda_i; D, S) =& \mathcal{S}(X_i, y(X_i), \Lambda_i; D) + \\
+							    & \mathcal{S}_d(y(X_i), y(\mathbf{Pa_i}), \Lambda_i; D) + \\
+							    & \sum_{X_j \in \mathbf{Ch_i}} \mathcal{S}_d(y(X_j), y(\mathbf{Pa_j}), \Lambda_j; D) \\
+				\end{split}
+			\end{equation}
+		\item Makes a few assumptions: 1) Dirichlet prior for CPDs. 2) Uniform conditional distribution for the discrete latent variables.
+	\end{itemize}
+	\todo[inline]{Add more details to this slide}
+\end{frame}
+
+\begin{frame}
+	\frametitle{\titlecap{Empirical Analaysis}}
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.4]{imgs/disc_empirical.png}
+		\caption*{\footnotesize{Average accuracy results from 24 discretization schemes. 6 unsupervised, 16 supervised, and 2 manual. manual=expert. Box plots using 10 repetitions of 10-CV validation}}
+	\end{figure}
+	\vspace{-1em}
+	\begin{itemize}
+		\item Results based on older work based on entropy minimization. Not designed for BN learning.
+		\item Used a very simple model for analysis.
+		\item Results slightly conflicting other paper.
+	\end{itemize}
 \end{frame}
 
 \begin{frame}
