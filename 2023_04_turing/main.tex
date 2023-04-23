@@ -48,7 +48,6 @@
 \title[]{Papers}
 \author [] {Ankur Ankan}
 \date{}
-\maketitle
 
 \begin{frame}
 	\frametitle{\titlecap{Conditional Independence (CI) Test for combination of discrete, ordinal, and continuous variables}}
@@ -182,6 +181,7 @@
 
 \begin{frame}
 	\frametitle{\titlecap{Probabilistic Programming Framework for exact inference}}
+	\vspace{-1em}
 	\begin{figure}
 		\begin{subfigure}{\textwidth}
 			\centering
@@ -229,7 +229,7 @@
 			\center \textcolor{red}{Computationally intractable!}
 		\end{column}
 	\end{columns}
-	\vspace{0.5em}
+	\vspace{1em}
 	\begin{enumerate}
 		\item \textbf{Network Pruning}:
 			\begin{equation*}
@@ -265,29 +265,44 @@
 \begin{frame}
 	\frametitle{\titlecap{Model Example}}
 	\begin{figure}
-		\includegraphics[scale=0.35]{imgs/model_example.png}
-	\end{figure}
-	\begin{figure}
-		\includegraphics[scale=0.4]{imgs/code_example.png}
+		\begin{subfigure}{0.5 \textwidth}
+			\includegraphics[scale=0.4]{imgs/example_model.png}
+			\caption{Example Model}
+		\end{subfigure}%
+		\begin{subfigure}{0.5 \textwidth}
+			\includegraphics[scale=0.4]{imgs/example_code.png}
+			\caption{Model definition in Bayes Tensor}
+		\end{subfigure}
+		\begin{subfigure}{0.5 \textwidth}
+			\includegraphics[scale=0.4]{imgs/example_code2.png}
+			\caption{Alternate model definition}
+		\end{subfigure}%
+		\begin{subfigure}{0.5 \textwidth}
+			\includegraphics[scale=0.4]{imgs/code_example.png}
+			\caption{Output Python code}
+		\end{subfigure}
 	\end{figure}
 \end{frame}
 
 \begin{frame}
 	\frametitle{\titlecap{Empirical Results}}
 	\begin{figure}
-		\begin{subfigure}{0.5\textwidth}
+		\begin{subfigure}{0.45\textwidth}
 			\centering
-			\includegraphics[scale=0.5]{imgs/table_infer.png}
-		\end{subfigure}
-		\begin{subfigure}{0.5\textwidth}
+			\includegraphics[scale=0.45]{imgs/table_infer.png}
+			\caption{}
+		\end{subfigure}%
+		\begin{subfigure}{0.55\textwidth}
 			\centering
 			\includegraphics[scale=0.5]{imgs/runtime_comp.png}
+			\caption{}
 		\end{subfigure}
+		\caption*{(a) Runtime of computing marginal distributions. (b) Runtime for cardinality estimation task on census and DMV datasets.}
 	\end{figure}
 \end{frame}
 
 \begin{frame}
-	\frametitle{\titlecap{MAG and PAG}}
+	\frametitle{\titlecap{Mixed Graph Bayesian Networks}}
 \end{frame}
 
 \begin{frame}
