@@ -374,10 +374,44 @@
 	\begin{figure}
 		\includegraphics[scale=0.5]{imgs/mag.png}
 	\end{figure}
+	\begin{itemize}
+		\item This is the original paper but lot of newer work has been done on this.
+	\end{itemize}
+\end{frame}
+\begin{frame}
+	\frametitle{\titlecap{Ancestral Graph Markov Models: Motivation}}
+	\begin{itemize}
+		\item Some variable relationships can not be represented using Directed Acyclic Graphs (DAGs) i.e. simple BN.
+		\item For example, cases when there is unobserved confounding.
+			$$ \textit{Shark Attack} \leftarrow \textit{Season} \rightarrow \textit{Drowning} $$
+			$$ \textit{Water} \leftarrow \textit{Viscosity} \rightarrow \textit{Thickning Agent} $$
+		\item If $ \textit{Season} $ was unobserved, there is no way to represent the relationship between $ \textit{Shark Attack} $ and $ \textit{Drowning} $.
+			$$ \textit{Shark Attack} \rightarrow \textit{Season} \textit{Shark Attack} \leftarrow \textit{Season} $$
+		\item Ancestral Graphs is a broader class of model compare to Bayesian Networks.
+		\item Introduces a bidirected edge for unobserved confounding.
+			$$ \textit{Shark Attack} \leftrightarrow \textit{Drowning} $$
+	\end{itemize}
 \end{frame}
 
 \begin{frame}
-	\frametitle{}
+	\frametitle{\titlecap{Ancestral Graph: Learning and Inference}}
+	\begin{itemize}
+		\item Structure Learning can be done using Fast Causal Inference (FCI) algorithm.
+			\begin{enumerate}
+				\item Very similar to PC algorithm and exploits the CIs in data to construct the skeleton.
+				\item Edge orientation rules are different.
+			\end{enumerate}
+		\item Parameter Learning can be done using Expectation Maximization (EM) algorithm.
+			\begin{enumerate}
+				\item Any bidirected edge is equivalent to a latent confounder.
+				\item EM algorithm can learn CPDs in presence of latent variales.
+				\item Will need to make an assumption on the cardinality of the latent variables.
+			\end{enumerate}
+		\item Inference can be done same as for normal BN.
+			\begin{enumerate}
+				\item The latent variables always needs to be summed out.
+			\end{enumerate}
+	\end{itemize}
 \end{frame}
 
 \begin{frame}
