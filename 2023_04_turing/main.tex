@@ -397,20 +397,20 @@
 	\frametitle{\titlecap{Ancestral Graph: Learning and Inference}}
 	\begin{itemize}
 		\item Structure Learning can be done using Fast Causal Inference (FCI) algorithm.
-			\begin{enumerate}
+			\begin{itemize}
 				\item Very similar to PC algorithm and exploits the CIs in data to construct the skeleton.
 				\item Edge orientation rules are different.
-			\end{enumerate}
+			\end{itemize}
 		\item Parameter Learning can be done using Expectation Maximization (EM) algorithm.
-			\begin{enumerate}
+			\begin{itemize}
 				\item Any bidirected edge is equivalent to a latent confounder.
 				\item EM algorithm can learn CPDs in presence of latent variales.
 				\item Will need to make an assumption on the cardinality of the latent variables.
-			\end{enumerate}
+			\end{itemize}
 		\item Inference can be done same as for normal BN.
-			\begin{enumerate}
+			\begin{itemize}
 				\item The latent variables always needs to be summed out.
-			\end{enumerate}
+			\end{itemize}
 	\end{itemize}
 \end{frame}
 
