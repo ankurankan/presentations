@@ -341,17 +341,15 @@
 \begin{frame}
 	\frametitle{\titlecap{This specific paper}}
 	\begin{itemize}
-		\item Defines the likelihood of the data conditioned on the discretization as well as the structure.
-			\begin{equation}
-				\begin{split}
-					\mathcal{S}(\Lambda_i; D, S) =& \mathcal{S}(X_i, y(X_i), \Lambda_i; D) + \\
-							    & \mathcal{S}_d(y(X_i), y(\mathbf{Pa_i}), \Lambda_i; D) + \\
-							    & \sum_{X_j \in \mathbf{Ch_i}} \mathcal{S}_d(y(X_j), y(\mathbf{Pa_j}), \Lambda_j; D) \\
-				\end{split}
-			\end{equation}
-		\item Makes a few assumptions: 1) Dirichlet prior for CPDs. 2) Uniform conditional distribution for the discrete latent variables.
+		\item Aims to maximize the likelihood of data.
+		\item Formulates the likelihood in terms of the model structure and the discretization scheme.
+		\begin{equation}
+			\mathcal{S}(\bm{\Lambda}; \mathcal{D}, S) = \underbrace{\sum_{i=1}^n \mathcal{S}_c(X_i, y(X_i), \Lambda_i; \mathcal{D})}_{\text{Continuous part}} + \underbrace{\sum_{i=1}^n \mathcal{S}_d(y(X_i), y(\mathbf{Pa_i}), \bm{\Lambda_i}; \mathcal{D})}_{\text{Discrete part}}
+		\end{equation}
+	\item Can think of this as replacing the actual variable $ X_i $ with $ y(X_i) $ in the network and adding an edge from $ y(X_i) \to X_i $.
+		\item Needs a few assumptions to make it work mathematically: 1) Dirichlet prior for CPDs. 2) Uniform conditional distribution for the discrete latent variables.
+		\item Computationally expensive as the discretization of variables depend on each other.
 	\end{itemize}
-	\todo[inline]{Add more details to this slide}
 \end{frame}
 
 \begin{frame}
