@@ -73,20 +73,25 @@
 
 \begin{frame}
 	\frametitle{\titlecap{Proposed Framework}}
-	\todo[inline]{Add the figure here}
+	\todo[inline]{Add the distribution figure here}
 	\begin{itemize}
 		% \item A deep generative framework to evaluate causal inference methods.
-
-		\item Allows users to specify the ground truth for the form and magnitute of causal effects and confounding bias as functions of covariates.
+		\item Given a dataset, tries to generate a dataset that is stochastically 
+			indistinguishiable from the observed dataset.
+		\item Add a line about the distributions.
+		\item Users specify the form and magnitude of the causal effects and confounding bias as functions of covariates.
+		% \item Allows users to specify the ground truth for the form and magnitute of causal effects and confounding bias as functions of covariates.
 		% \item A general framework (Credence) to validate and evaluate existing causal inference methods using synthetic data anchored at the empirical distribution of a given dataset.
-		\item Two important properties: 1) User-specified causal treatment effects, heterogeneity, and endogeneity. 2) simulated samples that are stochastically indistinguishable from the observed data sample of interest.
+		% \item Two important properties: 1) User-specified causal treatment effects, heterogeneity, and endogeneity. 2) simulated samples that are stochastically indistinguishable from the observed data sample of interest.
 		\item Trained on a rich universe of data sets that share certain key features.
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{\titlecap{Proposed Framework}}
+	\todo[inline]{Add the model figure}
 	\begin{itemize}
+		\item Trains two models.
 		\item Use the simulated dataset for computing the true causal estimate.
 	\end{itemize}
 \end{frame}
