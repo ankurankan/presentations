@@ -59,80 +59,74 @@
 		\includegraphics[scale=0.6]{imgs/comparison.png}
 	\end{figure}
 \end{frame}
+
 \begin{frame}
-	\frametitle{\titlecap{Existing approaches}}
+	\frametitle{\titlecap{Proposed Framework}}
+	\vspace{-2em}
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.65]{imgs/flow.png}
+	\end{figure}
+	\vspace{-1.5em}
 	\begin{itemize}
-% 		\item The performance of these methods is fairly well understood and if they can be estimated at sufficiently fast rates, they perform well.
-% 		\item But if any finite sample size, the performance of these methods vary significantly.
-% 		\item Details on the problems with each of these methods in section Causal effect estimation section.
-		\item \textbf{Face validity test}: Compares the estimated treatment effect against an expert's intuition.
-		\item \textbf{Placebo or negative control}: In-time placebo: restricts the analysis to a time period where the effect is known to be null. In-sample: control unit should have zero effect.
-		\item \textbf{Synthetic data sets}: A data generating mechanism that gives access to true causal effects.
+		\item A synthetic data generation approach.
+		\item Uses user specified form and magnitude of causal effects
+			and confounding bias.
+		\item Trains a generative model that can generate
+			stochastically indistinguishable dataset.
+		\item Evaluate the causal methods by comparing their estimates
+			with the simulated data estimates.
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{\titlecap{Proposed Framework}}
-	\todo[inline]{Add the distribution figure here}
-	\begin{itemize}
-		% \item A deep generative framework to evaluate causal inference methods.
-		\item Given a dataset, tries to generate a dataset that is stochastically 
-			indistinguishiable from the observed dataset.
-		\item Add a line about the distributions.
-		\item Users specify the form and magnitude of the causal effects and confounding bias as functions of covariates.
-		% \item Allows users to specify the ground truth for the form and magnitute of causal effects and confounding bias as functions of covariates.
-		% \item A general framework (Credence) to validate and evaluate existing causal inference methods using synthetic data anchored at the empirical distribution of a given dataset.
-		% \item Two important properties: 1) User-specified causal treatment effects, heterogeneity, and endogeneity. 2) simulated samples that are stochastically indistinguishable from the observed data sample of interest.
-		\item Trained on a rich universe of data sets that share certain key features.
-	\end{itemize}
+	\begin{columns}
+		\begin{column}{0.5 \textwidth}
+			\begin{itemize}
+				\item Generative model minimizes the metric: \todo[inline]{Insert the equation}
+				\item For this trains two separate conditional VAEs: 1) $P(X \mid Z) $, 2) $ P(Y \mid X, Z) $.
+				\item Use the simulated dataset for computing the true causal estimate.
+			\end{itemize}
+		\end{column}
+		\begin{column}{0.5 \textwidth}
+			\begin{figure}
+				\includegraphics[scale=0.45]{imgs/distributions.png}
+			\end{figure}
+		\end{column}
+	\end{columns}
 \end{frame}
 
 \begin{frame}
 	\frametitle{\titlecap{Proposed Framework}}
-	\todo[inline]{Add the model figure}
-	\begin{itemize}
-		\item Trains two models.
-		\item Use the simulated dataset for computing the true causal estimate.
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\frametitle{\titlecap{Framework}}
-	\begin{tikzpicture}	
-		\tikzstyle{every node}=[align=center, inner sep=1pt]
-		\node (x) at (0, 0) {$ X $};
-		\node (epsx) at (0, 1) {$ \epsilon_X $};
-		\node (z) at (1, 0) {$ Z $};
-		\node (epsz) at (1, 1) {$ \epsilon_Z $};
-		\node (u) at (2, 1) {$ U $};
-		\node (y) at (3, 0) {$ Y $};
-		\node (epsy) at (3, 1) {$ \epsilon_Y $};
-
-		\draw [->] (epsx) -- (x);
-		\draw [->] (x) -- (z);
-		\draw [->] (epsz) -- (z);
-		\draw [->] (u) -- (z);
-		\draw [->] (epsy) -- (y);
-		\draw [->] (z) -- (y);
-		\draw [->] (u) -- (y);
-	\end{tikzpicture}
-	$$ f(x) = \mathbb{E}[Y(1) - Y(0)| X=x] $$
-	$$ g(x, z) = \mathbb{E}[Y(z) | X=x, Z=z] - \mathbb{E}[Y(z) | X=x, Z=1-z ] $$
-	Minimizing:
-\begin{equation}
-	\begin{split}
-	\textit{min}_{\theta} & \mathbb{E}[d((X, Y, Z) - (X', Y', Z'))] + \\
-			& \alpha \mid\mid \mathbb{E}[Y'(1) - Y'(0) | X'=x'] - f(x') \mid\mid \\
-			& \beta \mid\mid \mid\mid
-\end{split}
-\end{equation}
+% 	\begin{tikzpicture}	
+% 		\tikzstyle{every node}=[align=center, inner sep=1pt]
+% 		\node (x) at (0, 0) {$ X $};
+% 		\node (epsx) at (0, 1) {$ \epsilon_X $};
+% 		\node (z) at (1, 0) {$ Z $};
+% 		\node (epsz) at (1, 1) {$ \epsilon_Z $};
+% 		\node (u) at (2, 1) {$ U $};
+% 		\node (y) at (3, 0) {$ Y $};
+% 		\node (epsy) at (3, 1) {$ \epsilon_Y $};
+% 
+% 		\draw [->] (epsx) -- (x);
+% 		\draw [->] (x) -- (z);
+% 		\draw [->] (epsz) -- (z);
+% 		\draw [->] (u) -- (z);
+% 		\draw [->] (epsy) -- (y);
+% 		\draw [->] (z) -- (y);
+% 		\draw [->] (u) -- (y);
+% 	\end{tikzpicture}
+	Evaluation:
+	Generating data from the trained model.
+	Comparing it to the estimated estimates.
 \end{frame}
 
 \begin{frame}
 	\frametitle{\titlecap{Discussion Points}}
 	\begin{itemize}
-		\item There can be multiple DAGs which would generate the same observational dataset. How realistic is the assumption that the causal estimate generated from this is the true one.
-		\item Why is assumption 2 needed? Shouldn't it be automated and the user shouldn't need to specify that?
+		\item Multiple causal models can generate the same observational dataset. How realistic is the assumption that the causal effect estimate from the generative model is same as the true DGP.
+		\item Why is specifying the treatment effect and confounding bias a desirable propoerty?
 		\item What is the data that the VAE is getting trained on? What did they mean by training it on a set of global datasets?
 	\end{itemize}
 \end{frame}
