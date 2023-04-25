@@ -51,31 +51,28 @@
 \begin{frame}
 	\frametitle{Motivation}
 	\begin{itemize}
-		\item Many statistical methods for causal inference under unconfoundedness conditions.
-		\item Examples are propensity score based methods, prognostic score-based methods, and doubly robust methods.
-		\item Most of these methods are evaluated on simulated datasets which are not the reality.
+		\item Many statistical methods for causal inference under unconfoundedness conditions. E.g. proposity score method, doubly robust, etc.
+		\item These methods have only been evaluated on simualted data which might not be representative of real at hand.
 		\item Crucial to understand how these methods perform on the data at hand.
 	\end{itemize}
 	\begin{figure}
-		\includegraphics{imgs/comparison.png}
+		\includegraphics[scale=0.6]{imgs/comparison.png}
 	\end{figure}
 \end{frame}
 \begin{frame}
+	\frametitle{Existing approaches}
 	\begin{itemize}
-		\item The performance of these methods is fairly well understood and if they can be estimated at sufficiently fast rates, they perform well.
-		\item But if any finite sample size, the performance of these methods vary significantly.
-		\item Details on the problems with each of these methods in section Causal effect estimation section.
-		\item Existing approaches: 
-			\begin{itemize}
-				\item Face validity test: Compares the estimated treatment effect against an expert's intuition.
-				\item Placebo or negative control: In-time placebo: restricts the analysis to a time period where the effect is known to be null. In-sample: control unit should have zero effect.
-				\item Synthetic data sets: A data generating mechanism that gives access to true causal effects.
-			\end{itemize}
+% 		\item The performance of these methods is fairly well understood and if they can be estimated at sufficiently fast rates, they perform well.
+% 		\item But if any finite sample size, the performance of these methods vary significantly.
+% 		\item Details on the problems with each of these methods in section Causal effect estimation section.
+		\item \textbf{Face validity test}: Compares the estimated treatment effect against an expert's intuition.
+		\item \textbf{Placebo or negative control}: In-time placebo: restricts the analysis to a time period where the effect is known to be null. In-sample: control unit should have zero effect.
+		\item \textbf{Synthetic data sets}: A data generating mechanism that gives access to true causal effects.
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
-	\frametitle{The proposed framework}
+	\frametitle{Proposed Framework}
 	\begin{itemize}
 		\item A deep generative framework to evaluate causal inference methods.
 		\item Allows users to specify the ground truth for the form and magnitute of causal effects and confounding bias as functions of covariates.
@@ -122,6 +119,7 @@
 	\begin{itemize}
 		\item There can be multiple DAGs which would generate the same observational dataset. How realistic is the assumption that the causal estimate generated from this is the true one.
 		\item Why is assumption 2 needed? Shouldn't it be automated and the user shouldn't need to specify that?
+		\item What is the data that the VAE is getting trained on? What did they mean by training it on a set of global datasets?
 	\end{itemize}
 \end{frame}
 \end{document}
