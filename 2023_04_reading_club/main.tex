@@ -81,20 +81,22 @@
 
 \begin{frame}
 	\frametitle{\titlecap{Proposed Framework}}
-	\begin{columns}
-		\begin{column}{0.5 \textwidth}
-			\begin{itemize}
-				\item Generative model minimizes the metric: \todo[inline]{Insert the equation}
-				\item For this trains two separate conditional VAEs: 1) $P(X \mid Z) $, 2) $ P(Y \mid X, Z) $.
-				\item Use the simulated dataset for computing the true causal estimate.
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.45]{imgs/distributions.png}
+	\end{figure}
+	\begin{itemize}
+		\item Find a model such that:		
+		\begin{equation*}
+			\begin{split}
+				min_{\theta} & \underbrace{\mathbb{E}[d((X, Y, Z), (X', Y', Z'))]}_{\text{Distribution dist.}} \\
+				+ & \alpha \underbrace{\mid\mid \mathbb{E}[Y'(1) - Y'(0) \mid X'=x'] - f(x') \mid \mid}_{\text{Treatment effect error}}  \\
+				+ & \beta \underbrace{\mid \mid \mathbb{E}[Y'(z') \mid X'=x', Z'=z'] - \mathbb{E}[Y'(z') \mid X'=x', Z'=1-z'] - g(x', z') \mid \mid}_{\text{confounding-bias error}} \\
+			\end{split}
+		\end{equation*}
+		\item For this trains two separate conditional VAEs: 1) $P(X \mid Z) $, 2) $ P(Y \mid X, Z) $.
+		\item Use the simulated dataset for computing the true causal estimate.
 			\end{itemize}
-		\end{column}
-		\begin{column}{0.5 \textwidth}
-			\begin{figure}
-				\includegraphics[scale=0.45]{imgs/distributions.png}
-			\end{figure}
-		\end{column}
-	\end{columns}
 \end{frame}
 
 \begin{frame}
@@ -117,9 +119,43 @@
 % 		\draw [->] (z) -- (y);
 % 		\draw [->] (u) -- (y);
 % 	\end{tikzpicture}
-	Evaluation:
-	Generating data from the trained model.
-	Comparing it to the estimated estimates.
+	\begin{columns}
+		\begin{column}{0.8 \textwidth}
+	\begin{itemize}
+		\item Trains two conditional VAEs for: 
+			\begin{enumerate}
+				\item $ P(X \mid Z) $: Loss function $ \sum_{i=1}^{N} \mid \mid X_i - X_i' \mid \mid_2 + D_{KL}(\mathcal{N}(\mu_i^X, \Sigma_i^X \mid \mid \mathcal{N}(0, 1)) $
+				\item $ P(Y \mid X, Z) $: Loss function
+					\begin{equation*}
+						\begin{split}
+							\frac{1}{N} & \sum_{i=1}^{N} \mid \mid Y_i - (Z_i Y_i'(1) + (1 - Z_i)Y_i'(0)) \mid \mid_2  \\
+							& + D_{KL}(\mathcal{N}(\mu_i^Y, \Sigma_i^Y) \mid \mid \mathcal{N}(0, 1)) \\
+							& + \alpha \mid \mid Y_i'(1) - Y_i'(0) - f(X_i) \mid \mid \\
+							& + \beta \mid \mid Y_i'(1-Z_i) - Y_i''(1-Z_i) - g(X_i, Z_i) \mid \mid
+						\end{split}
+					\end{equation*}
+			\end{enumerate}
+		\end{itemize}
+		\end{column}
+		\begin{column}{0.2\textwidth}
+			\begin{figure}[t]
+			\begin{tikzpicture}	
+			\tikzstyle{every node}=[align=center, inner sep=1pt]
+				\node (z) at (0, 0) {$Z$};
+				\node (x) at (1, 1) {$X$};
+				\node (y) at (2, 0) {$Y$};
+
+				\draw[->] (z) -- (x);
+				\draw[->] (x) -- (y);
+				\draw[->] (z) -- (y);
+			\end{tikzpicture}
+			\end{figure}
+		\end{column}
+	\end{columns}
+	\begin{itemize}
+		\item Use these VAEs to simulate data: $ (X', Z', Y'(1), Y'(0)) $ with known treatment effect.
+		\item Compare it with treatment effect estimated by causal inference methods.
+	\end{itemize}
 \end{frame}
 
 \begin{frame}
