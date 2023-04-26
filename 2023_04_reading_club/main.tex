@@ -86,7 +86,7 @@
 		\includegraphics[scale=0.45]{imgs/distributions.png}
 	\end{figure}
 	\begin{itemize}
-		\item Find a model such that:		
+		\item Find a generative model such that:		
 		\begin{equation*}
 			\begin{split}
 				min_{\theta} & \underbrace{\mathbb{E}[d((X, Y, Z), (X', Y', Z'))]}_{\text{Distribution dist.}} \\
@@ -94,9 +94,7 @@
 				+ & \beta \underbrace{\mid \mid \mathbb{E}[Y'(z') \mid X'=x', Z'=z'] - \mathbb{E}[Y'(z') \mid X'=x', Z'=1-z'] - g(x', z') \mid \mid}_{\text{confounding-bias error}} \\
 			\end{split}
 		\end{equation*}
-		\item For this trains two separate conditional VAEs: 1) $P(X \mid Z) $, 2) $ P(Y \mid X, Z) $.
-		\item Use the simulated dataset for computing the true causal estimate.
-			\end{itemize}
+	\end{itemize}
 \end{frame}
 
 \begin{frame}
