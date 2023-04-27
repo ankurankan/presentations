@@ -52,7 +52,7 @@
 \date{}
 
 \begin{frame}
-	\frametitle{\titlecap{Conditional Independence (CI) Test for combination of discrete, ordinal, and continuous variables}}
+	\frametitle{\titlecap{Conditional Independence (CI) Test for Mixed Data}}
 	\begin{figure}
 		\centering
 		\includegraphics[scale=0.4]{imgs/ankan_textor}
@@ -76,7 +76,7 @@
 
 \begin{frame}
 	\frametitle{\titlecap{CI Test: Main Idea}}
-	\begin{enumerate}
+	\begin{itemize}
 		\item Residualizaton approach.
 		\item Similar to partial correlation for continuous variables.
 		\item For testing whether $ X \ci Y \mid Z $ using partial correlation:
@@ -91,7 +91,7 @@
 				\item No simple residual definition for ordinal and categorical variables. We use LS-Residuals \footnote{Li, Chun, and Bryan E. Shepherd. "A new residual for ordinal outcomes." Biometrika 99.2 (2012): 473-480.}
 				\item The correlation test can give incorrect results \footnote{Shah, Rajen D., and Jonas Peters. "The hardness of conditional independence testing and the generalised covariance measure." (2020): 1514-1538.}. We give new test statistics.
 			\end{itemize}
-	\end{enumerate}
+	\end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -105,7 +105,7 @@
 			\end{itemize}
 		\item Make probability predictions:
 			$ \hat{p}(\bm{x}) = p_x(\bm{z}) $ and $ \hat{p}(\bm{y}) = p_y(\bm{\bm{z}}) $.
-		\item Compute LS-Residuals:
+		\item Compute LS-Residuals ($ \mathbb{E}[\textit{Residual}] = 0 $):
 			$$ R_{y_i | z_i} = \hat{p}(Y < y_i | Z=z_i) - \hat{p}(Y>y_i|Z=z_i) $$
 		\item Use residuals to compute test statistics.
 			$$ Q = \frac{1}{n} (d \times \hat{\Sigma}_d^{-1} \times d^T) $$
@@ -384,7 +384,7 @@
 			$$ \textit{Shark Attack} \leftarrow \textit{Season} \rightarrow \textit{Drowning} $$
 			$$ \textit{Water} \leftarrow \textit{Viscosity} \rightarrow \textit{Thickning Agent} $$
 		\item If $ \textit{Season} $ was unobserved, there is no way to represent the relationship between $ \textit{Shark Attack} $ and $ \textit{Drowning} $.
-			$$ \textit{Shark Attack} \rightarrow \textit{Season} \textit{Shark Attack} \leftarrow \textit{Season} $$
+			$$ \textit{Shark Attack} \rightarrow \textit{Season} \;\;\;\;\;\; \textit{Shark Attack} \leftarrow \textit{Season} $$
 		\item Ancestral Graphs is a broader class of model compare to Bayesian Networks.
 		\item Introduces a bidirected edge for unobserved confounding.
 			$$ \textit{Shark Attack} \leftrightarrow \textit{Drowning} $$
