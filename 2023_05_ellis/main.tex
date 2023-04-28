@@ -38,10 +38,13 @@
 \section{Motivation}
 \begin{frame}
 	\frametitle{\titlecap{Motivation: Applications of CI tests}}
+	\todo[inline]{Make a slide on broad application of CI}
 \end{frame}
 
 \begin{frame}
 	\frametitle{\titlecap{Directed Acyclic Graphs (DAGs)}}
+	Represents a causal model.
+	\todo[inline]{Show an example here}
 \end{frame}
 
 \begin{frame}
@@ -49,15 +52,23 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{\titlecap{d-separation property of DAGs}}
-\end{frame}
-
-\begin{frame}
-	\frametitle{\titlecap{Constraint-Based Structure Learning in DAGs}}
+	\frametitle{\titlecap{What does DAGs have to do with CI tests}}
+	\begin{block}{d-separation}
+		Given a DAG structue non-collider variables are d-separated.
+	\end{block}
 \end{frame}
 
 \begin{frame}
 	\frametitle{\titlecap{Model Testing in DAGs}}
+	Lot of these DAG models are made by hand by researches.
+	These implied CIs can be tested in data to check whether the DAG agrees with
+	the data.
+\end{frame}
+
+\begin{frame}
+	\frametitle{\titlecap{Constraint-Based Structure Learning in DAGs}}
+	The inverse is that we can also search for CIs in the data to construct the
+	model structure. Constaint-based structure learning is a class of algorithms.
 \end{frame}
 
 % \begin{frame}
@@ -119,6 +130,13 @@
 \section{Background}
 \begin{frame}
 	\frametitle{\titlecap{(Conditional) Independence}}
+	\begin{block}{Independence}
+	\end{block}
+	\todo[inline]{Show some example}
+
+	\begin{block}{Conditional Independence}
+	\end{block}
+	\todo[inline]{Show some example}
 \end{frame}
 
 \begin{frame}
@@ -127,10 +145,19 @@
 
 \begin{frame}
 	\frametitle{\titlecap{CI Testing is Difficult}}
+	Theorem from Shah and Peters
+	Especially difficult for the case of high number of conditional variables.
 \end{frame}
 
 \begin{frame}
 	\frametitle{\titlecap{Properties that we want in CI tests}}
+	\begin{itemize}
+		\item Should have reasonalble calibration and power in real-world data.
+		\item Should be symmetric.
+		\item Should be computationally efficient.
+		\item Should be simple in the sense that it is based on elementary
+			statistical concepts.
+	\end{itemize}
 \end{frame}
 
 \begin{frame}
