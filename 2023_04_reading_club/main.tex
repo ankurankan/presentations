@@ -45,8 +45,9 @@
 \begin{document}
 
 \title[]{Validating Causal Inference Methods}
-\author [] {}
+\author [] {Harsh Parikh, Carlos Varjao, Louise Xu, Eric Tchetgen Tchetgen}
 \date{}
+\maketitle
 
 \begin{frame}
 	\frametitle{Motivation}
@@ -85,16 +86,16 @@
 		\centering
 		\includegraphics[scale=0.45]{imgs/distributions.png}
 	\end{figure}
-	\begin{itemize}
-		\item Find a generative model such that:		
+	Find a generative model such that:
+		\begin{figure}
 		\begin{equation*}
 			\begin{split}
-				min_{\theta} & \underbrace{\mathbb{E}[d((X, Y, Z), (X', Y', Z'))]}_{\text{Distribution dist.}} \\
-				+ & \alpha \underbrace{\mid\mid \mathbb{E}[Y'(1) - Y'(0) \mid X'=x'] - f(x') \mid \mid}_{\text{Treatment effect error}}  \\
-				+ & \beta \underbrace{\mid \mid \mathbb{E}[Y'(z') \mid X'=x', Z'=z'] - \mathbb{E}[Y'(z') \mid X'=x', Z'=1-z'] - g(x', z') \mid \mid}_{\text{confounding-bias error}} \\
+				min_{\theta} & \underbrace{\mathbb{E}[d((X, Y, Z), (X', Y', Z'))]}_{\text{Distribution distance}} \\
+				+ & \alpha \underbrace{\mid\mid \mathbb{E}[Y'(1) - Y'(0) \mid X'=x'] - f(x') \mid \mid}_{\text{Treatment Effect Error}}  \\
+				+ & \beta \underbrace{\mid \mid \mathbb{E}[Y'(z') \mid X'=x', Z'=z'] - \mathbb{E}[Y'(z') \mid X'=x', Z'=1-z'] - g(x', z') \mid \mid}_{\text{Confounding-bias Error}} \\
 			\end{split}
 		\end{equation*}
-	\end{itemize}
+		\end{figure}
 \end{frame}
 
 \begin{frame}
@@ -120,10 +121,12 @@
 	\begin{columns}
 		\begin{column}{0.8 \textwidth}
 	\begin{itemize}
-		\item Trains two conditional VAEs for: 
+		\item Trains $ 3 $ generative models:
 			\begin{enumerate}
-				\item $ P(X \mid Z) $: Loss function $ \sum_{i=1}^{N} \mid \mid X_i - X_i' \mid \mid_2 + D_{KL}(\mathcal{N}(\mu_i^X, \Sigma_i^X \mid \mid \mathcal{N}(0, 1)) $
-				\item $ P(Y \mid X, Z) $: Loss function
+				\item $ P(Z) $: Assumed binary, Bernoulli distribution.
+				\item $ P(X \mid Z) $: VAE with ELBO loss function:
+					$$ \sum_{i=1}^{N} \mid \mid X_i - X_i' \mid \mid_2 + D_{KL}(\mathcal{N}(\mu_i^X, \Sigma_i^X \mid \mid \mathcal{N}(0, 1)) $$
+				\item $ P(Y \mid X, Z) $: VAE with ELBO loss function:
 					\begin{equation*}
 						\begin{split}
 							\frac{1}{N} & \sum_{i=1}^{N} \mid \mid Y_i - (Z_i Y_i'(1) + (1 - Z_i)Y_i'(0)) \mid \mid_2  \\
@@ -151,15 +154,15 @@
 		\end{column}
 	\end{columns}
 	\begin{itemize}
-		\item Use these VAEs to simulate data: $ (X', Z', Y'(1), Y'(0)) $ with known treatment effect.
-		\item Compare it with treatment effect estimated by causal inference methods.
+		\item Simulate data: $ (X', Z', Y'(1), Y'(0)) $ with known treatment effect.
+		\item Compare it with estimates from causal inference methods.
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{\titlecap{Discussion Points}}
 	\begin{enumerate}
-		\item How much data do we need to train the 
+		\item How much data do we need to train the VAEs?
 		\item Multiple causal models can generate the same
 			observational dataset. How realistic is the assumption
 			that the causal effect estimate from the generative
