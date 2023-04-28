@@ -86,8 +86,7 @@
 		\centering
 		\includegraphics[scale=0.45]{imgs/distributions.png}
 	\end{figure}
-	Find a generative model such that:
-		\begin{figure}
+	Find a distribution $ (X', Y', Z') $ such that:
 		\begin{equation*}
 			\begin{split}
 				min_{\theta} & \underbrace{\mathbb{E}[d((X, Y, Z), (X', Y', Z'))]}_{\text{Distribution distance}} \\
@@ -95,7 +94,6 @@
 				+ & \beta \underbrace{\mid \mid \mathbb{E}[Y'(z') \mid X'=x', Z'=z'] - \mathbb{E}[Y'(z') \mid X'=x', Z'=1-z'] - g(x', z') \mid \mid}_{\text{Confounding-bias Error}} \\
 			\end{split}
 		\end{equation*}
-		\end{figure}
 \end{frame}
 
 \begin{frame}
