@@ -51,6 +51,10 @@
 	\tableofcontents
 \end{frame}
 
+\begin{frame}
+	\centering \Huge{Motivation}
+\end{frame}
+
 \section{\titlecap{Motivation: Use of Conditional Independence(CI) tests}}
 \begin{frame}
 	\frametitle{\titlecap{Motivation: Example DAG / Causal Bayesian Network}}
@@ -66,7 +70,7 @@
 	\end{itemize}
 
 	\begin{block}{d-separation}
-	Each variable is CI of all non-descendants given its parents. E.g.
+	Each variable is CI of all non-descendants given its parents. E.g.,
 		\begin{equation*}
 			\begin{split}
 				\text{\emph{XRay}} \ci \text{\emph{Pollution}} \mid \text{\emph{Cancer}} \\
@@ -82,7 +86,7 @@
 		\setlength\itemsep{1em}
 		\item In applied research, most of the DAGs are made by hand
 			based on domain knowledge.
-		\item Important to test whether the model is consistent with the data.
+		\item Essential to test whether the model is consistent with the data.
 		\item CI tests can be used to verify model structure.
 	\end{itemize}
 	\begin{figure}
@@ -100,7 +104,6 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999 \textcolor{red}{CI}
 \begin{frame}
 	\frametitle{\titlecap{Motivation: Structure Learning}}
 	\begin{itemize}
-		\setlength\itemsep{1em}
 		\item CI implies that no direct causal link exists between the variables. \newline
 			$ \text{\emph{XRay}} \ci \text{\emph{Smoker}} | \text{\emph{Cancer}} \implies \text{No edge b/w \emph{XRay} and \emph{Smoker}} $
 		\item Constraint-Based structure learning algorithms like PC
@@ -118,6 +121,11 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999 \textcolor{red}{CI}
 \end{frame}
 
 \section{Background: Types of CI tests}
+
+\begin{frame}
+	\centering \Huge{Background}
+\end{frame}
+
 \begin{frame}
 	\frametitle{\titlecap{(Conditional) Independence}}
 	\begin{block}{Independence}
@@ -185,9 +193,9 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999 \textcolor{red}{CI}
 	\frametitle{\titlecap{Stratification Based Tests}}
 	\begin{itemize}
 		\setlength\itemsep{1em}
-		\item Most common type for discrete variables. E.g. chi-square, G-test,
+		\item Most common type for discrete variables. E.g., chi-square, G-test,
 			mutual information based test, etc. 
-		\item Converts CI test into simple independence test by splitting 
+		\item Converts CI test into simple independence tests by splitting 
 			the dataset.
 		$ D[X, Y, \bm{Z}] = \{ D[X, Y, \bm{Z}=\bm{z_1}], D[X, Y, \bm{Z}=\bm{z_2}], \cdots \} $	
 		\item Runs non-conditional test on each stratum and then combines the results.
@@ -196,8 +204,7 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999 \textcolor{red}{CI}
 
 \begin{frame}
 	\frametitle{\titlecap{Statification Based Test Example: Chi-squared}}
-	\todo[inline]{Improve this slide}
-	\begin{block}{}
+	\vspace{-1em}
 	\begin{columns}
 		\begin{column}{0.2 \textwidth}
 			\begin{block}{\centering D}
@@ -246,11 +253,8 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999 \textcolor{red}{CI}
 			\end{block}
 		\end{column}
 	\end{columns}
-	\end{block}
-	\begin{block}{}
-		\centering
-		$ (X \ci Y | Z)_{D} \to \sum_i \chi_{D_i} $ and $ df_{D} = \sum_i df_{D_i} $
-	\end{block}
+	\centering
+	$ (X \ci Y | Z)_{D} \to \sum_i \chi_{D_i} $ and $ df_{D} = \sum_i df_{D_i} $
 \end{frame}
 
 \begin{frame}
@@ -258,7 +262,7 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999 \textcolor{red}{CI}
 	\begin{itemize}
 		\item As the number of conditional variables is increased, exponentially
 			less data is available in each stratum.
-		\item Looses power when number conditonal variables is high.
+		\item Looses power when the number of conditonal variables is high.
 	\end{itemize}
 \end{frame}
 
@@ -267,9 +271,9 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999 \textcolor{red}{CI}
 	\begin{itemize}
 		\setlength\itemsep{1em}
 		\item Based on comparing the probability models: $\hat{p}(x |
-			y, z) $ and $ \hat{p}(x | z) $. E.g. Stochastic
+			y, z) $ and $ \hat{p}(x | z) $. E.g., Stochastic
 			Complexity-Based Conditional Independence Test (SCCI) \footnote{Marx, Alexander, and Jilles Vreeken. "Testing conditional independence on discrete data using stochastic complexity." PMLR, 2019}.
-		\item The two probability models are trained and some goodness of fit is compared.
+		\item Two probability models are trained, and some goodness of fit is compared.
 		\item If the simpler model doesn't fit significantly worse, implies $ X \ci Y | Z $.
 		\item The idea is that if adding the additional variable to the predictor doesn't improve the fit, the variable
 			doesn't have any extra information.
@@ -302,10 +306,10 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999 \textcolor{red}{CI}
 	\begin{itemize}
 		\setlength\itemsep{1em}
 		\item Commonly used for continuous variables.
-		\item Uses two estimators $ \mathbb{E}[X| Z] $ and $
-			\mathbb{E}[Y | Z] $ and checks for the multiplicative
-			association between the residuals. E.g.
-			Partial Correlation test, generalized covariance measure etc.
+		\item Uses two estimators, $ \mathbb{E}[X| Z] $ and $
+			\mathbb{E}[Y | Z] $, and checks for the multiplicative
+			association between the residuals. E.g.,
+			Partial Correlation test, generalized covariance measure, etc.
 		\item Relies on the theorem from Daudin [1980] \footnote{Daudin, J. J. "Partial association measures and an application to qualitative regression." Biometrika, 1980}
 			that under CI, if the estimators have ``valid'' residuals
 			such that $ \mathbb{E}[R_{X|Z}] = \mathbb{E}[R_{Y|Z}] = 0 $,
@@ -336,6 +340,11 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999 \textcolor{red}{CI}
 \end{frame}
 
 \section{Unified test for ordinal and categorical data: Our proposed approach}
+
+\begin{frame}
+	\centering \Huge{Proposed Test}
+\end{frame}
+
 \begin{frame}
 	\frametitle{\titlecap{Unified test for categorical and ordinal data}}
 	\begin{itemize}
@@ -369,41 +378,62 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999 \textcolor{red}{CI}
 \end{frame}
 
 \begin{frame}
-	\frametitle{\titlecap{Residual for ordinal variables: LS-Residuals Example}}
-	\todo[inline]{Change this example to the one I showed in the lecture}
-	\begin{block}{Ordinal Variable}
-		\vspace{1em}
-			$ \hat{p}(y) = \begin{array}{llll} Y_0 & Y_1 & Y_2 & Y_3 \\ 0.1 & 0.3 & 0.5 & 0.1 \end{array} $
-		\begin{itemize}
-			\item If $ y = Y_2 $, $ R_{y} = \hat{p}(Y < Y_2) - \hat{p}(Y > Y_2) = 0.3 $
-			\item If $ y = Y_3 $, $ R_{y} = \hat{p}(Y < Y_3) - \hat{p}(Y > Y_3) = 0.9 $
-		\end{itemize}
-	\end{block}
-	\begin{block}{Binary Variable}
-		$\hat{p}(Y) = \begin{array}{ll} Y_0 & Y_1 \\ 0.3 & 0.7 \end{array} $
-		\begin{itemize}	
-			\item If $ y = Y_0 $, $ R_{y} = Y_0 - \hat{p}(Y=1) = -0.7 $
-			\item If $ y = Y_1 $, $ R_{y} = Y_1 - \hat{p}(Y=1) = 0.3 $
-		\end{itemize}
-	\end{block}
-\end{frame}
+	\frametitle{LS-Residuals Example}
+	\begin{block}{Ordinal Variable Example}
+		\vspace{-1em}
+	\[
+		\begin{array}{ccc}
+			\bm{y} & \hat{p}(\bm{y}) & R_{\bm{y}} \\
 
-\begin{frame}
-	\frametitle{\titlecap{Residual for categorical variables: Using dummy encoding}}
-	\begin{block}{Dummy Encoding}
-		Given a random variable, $ Y $ with $ 4 $ possible states: $ \{Y_0, Y_1, Y_2, Y_3 \} $
+			\begin{bmatrix}
+				Y_2 \\
+				Y_3 \\
+				Y_1 \\
+				\vdots
+			\end{bmatrix} &
+			\begin{bmatrix}
+				0.1 & 0.3 & 0.5 & 0.1 \\
+				0.2 & 0.3 & 0.2 & 0.3 \\
+				0.4 & 0.2 & 0.2 & 0.2 \\
+				\vdots & \vdots & \vdots & \vdots
+			\end{bmatrix} &
+			\begin{bmatrix}
+				\hat{p}(Y < Y_2) - \hat{p}(Y>Y_2) = 0.3 \\
+				\hat{p}(Y < Y_3) - \hat{p}(Y>Y_3) = 0.7 \\
+				\hat{p}(Y < Y_1) - \hat{p}(Y>Y_1) = 0 \\
+				\vdots
+			\end{bmatrix} \\
+		\end{array}
+	\]
+	\end{block}
+
+	\begin{block}{Categorical Variable Example}
+		\vspace{-1em}
 		\begin{equation*}
-			\bm{y} = \left[ \begin{array}{c} Y_3 \\ Y_1 \\ Y_2 \\ \vdots \end{array} \right] = \left[ \begin{array}{cccc} 0 & 0 & 0 & 1 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ \vdots & \vdots & \vdots & \vdots \end{array} \right]
-		\end{equation*}
+		\begin{array}{ccc}
+			\bm{y} & \hat{p}(\bm{y}=1) & R_{\bm{y}} \\
+			\begin{bmatrix}
+				Y_3: & 0 & 0 & 0 & 1 \\
+				Y_1: & 0 & 1 & 0 & 0 \\
+				Y_2: & 0 & 0 & 1 & 0 \\
+				\vdots & \vdots & \vdots & \vdots \\
+			\end{bmatrix} & 
+			\begin{bmatrix}
+				0.1 & 0.3 & 0.5 & 0.1 \\
+				0.2 & 0.3 & 0.2 & 0.3 \\
+				0.4 & 0.2 & 0.2 & 0.2 \\
+				\vdots & \vdots & \vdots & \vdots \\
+			\end{bmatrix} & 
+			\setlength\arraycolsep{2.5pt}
+			\begin{bmatrix}
+				-0.1 & -0.3 & -0.5 & 0.9 \\
+				-0.2 & 0.7 & -0.2& -0.3 \\
+				-0.4 & -0.2 & 0.8 & -0.2 \\
+				\vdots & \vdots & \vdots & \vdots \\
+			\end{bmatrix} \\
+		\end{array}
+		\end{equation*}	
 	\end{block}
-
-	\begin{block}{Residual Example}
-	$\hat{p}(Y) = \begin{array}{cccc} Y_0 & Y_1 & Y_2 & Y_3 \\ 0.1 & 0.3 & 0.5 & 0.1 \end{array} $
-	\begin{itemize}
-		\item If $ y = Y_2 $, $ \begin{array}{cccc} 0 & 0 & 1 & 0 \\ -0.1 & -0.3 & 0.5 & -0.1 \end{array} $
-		\item If $ y = Y_1 $, $ \begin{array}{cccc} 0 & 1 & 0 & 0 \\ -0.1 & 0.7 & -0.5 & -0.1 \end{array} $
-	\end{itemize}
-	\end{block}	
 \end{frame}
 
 \begin{frame}
@@ -484,8 +514,11 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999 \textcolor{red}{CI}
 	\end{enumerate}
 \end{frame}
 
+\section{Test Performance: Empirical Analysis}
+\begin{frame}
+	\centering \Huge{Empirical Analysis}
+\end{frame}
 
-\section{Test Performance: Empirical Anaylysis}
 \begin{frame}
 	\frametitle{\titlecap{Empirical Analysis: Calibration}}
 	\begin{itemize}
@@ -682,6 +715,10 @@ Brth _||_ XRay | Cncr 1.9104270  2 0.38472999 \textcolor{red}{CI}
 		$1000$ samples per dataset.
 		}
 	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\centering \Huge{Asympotic Properties}
 \end{frame}
 
 \section{Test Asymptotic Properties: Theoretical Analysis}
