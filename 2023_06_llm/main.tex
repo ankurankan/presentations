@@ -79,11 +79,11 @@
 % \end{frame}
 
 \begin{frame}
-	\frametitle{Introduction}
+	\frametitle{Summary}
 	\begin{itemize}
 		\item Use LLMs as domain experts to solve causality tasks.
 		\item Uses only variable metadata and doesn't need any data.
-		\item LLMs applied to the following causality tasks:
+		\item LLMs are evaluated on the following tasks.
 		\begin{enumerate}
 			\item Causal Discovery
 				\begin{itemize}
@@ -99,6 +99,9 @@
 						of human factors.
 				\end{itemize}
 		\end{enumerate}
+		\item LLMs perform better or comparable on all these tasks. 
+		\item Discuss the implications of these results and possible
+			future research directions.
 	\end{itemize}
 \end{frame}
 
@@ -387,6 +390,8 @@
 	\end{figure}
 \end{frame}
 
+
+
 \begin{frame}
 	\frametitle{Implications for causality research}
 	\begin{enumerate}
@@ -398,6 +403,111 @@
 		\item Accuracy depends on the prompt used.
 		\item Further research is needed to understand when LLM outputs can be trusted and increase their robustness.
 	\end{enumerate}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Summary}
+	\begin{itemize}
+		\item LLMs provide access to domain knowledge that was only available
+			via human domain experts.
+		\item LLMs provide a flexible, natural language-based interaction 
+			mechanism for conducting causal analysis that can work
+			alongside existing tools.
+		\item LLMs offer a new capability to extract the key primitives of
+			an actual causality question.
+		\item For high-risk and high-value tasks, LLM based approaches would
+			need tight integration with more formal approaches to
+			causal reasoning.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Implications for Causality Practitioners}
+	\begin{itemize}
+		\item Augmenting human expertise with LLMs
+		\item LLM+Causal Tools: A new pipeline for causal analysis
+		\item LLMs as a fluid conversational interface, merging covariance-
+			and logic-based reasoning
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{New Research Questions: Knowledge-based Causal Discovery}
+	\begin{itemize}
+		\item Current methods only utilize the data but as shown in the
+			paper the variable metadata contains useful information
+			as well.
+		\item Developing methods that utilize both can be a fruitful direction.
+		\item LLMs can be used as a prior, as a critic during learning, and/or
+			as a post-processor.
+		\item Current benchmarks are built by collaboration with domain 
+			experts but possible that they miss some connections because
+			of the complexity of the graph.
+		\item LLMs can help in identifying potentially missing edge and 
+			correct mislabeled edge, or at least point our relations
+			that require additional checking.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{New Research Questions: LLM-guided effect inference}
+	\begin{itemize}
+		\item Identifying the correct adjustment set is an important problem
+			for causal effect estimation.
+		\item The validity of adjustment sets relies heavily on the true
+			graph structure.
+		\item Would be interesting to see if LLMs can be used to also
+			suggest potential instrumental variables for a causal task.
+		\item Utilizing LLM's domain knowledge to help build robustness
+			and validation checks for a given causal analysis.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{New Research Questions: Systematizing Actual Causality and Attribution}
+	\begin{itemize}
+		\item In domains ranging from law to intelligence analysis, analysts 
+			have to first summarize key elements of text data from 
+			multiple sources, then synthesize explanations about the 
+			degree to which events contributed to other events.
+		\item Using LLMs for actual causality also has potential impact
+			to root cause analysis and credit assignment.
+		\item Formal causal models for inferring actual causality questions have
+			struggled formalizing the many elements of common sense 
+			background knowledge that rely on when judging actual causality.
+		\item LLMs can work with these background concepts directly in natural
+			language.
+		\item \todo[inline]{Finish this}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{New Research Questions: Human-LLM Collaboration}
+	\begin{itemize}
+		\item An iterative interaction between humans and LLMs.
+		\item For example LLMs may suggest graph edges, take feedback from
+			a human, and also give feedback on a manually generated
+			graph.
+		\item As building a graph is a common impediment to
+			doing causal analyses.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{New Research Questions: Understanding and Improving Causal Reasoning in LLMs}
+	\begin{itemize}
+		\item Why LLMs demonstrate such causal capabilities as well as
+			the limits of these capabilities is not well
+			understood.
+		\item According to Pearl's causal hierarchy, LLMs trained on
+			observational data should not be able to answer
+			interventional or counterfactual queries.
+		\item Potential explanation is that LLMs are learning correlations
+			of causal facts from the training data, rather than learning
+			to reason causally.
+		\item Understanding the nature of causal reasoning in LLMs and how to
+			improve their robustness is a key future question.
+	\end{itemize}
 \end{frame}
 
 \end{document}
