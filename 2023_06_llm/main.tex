@@ -399,6 +399,132 @@
 	\end{itemize}
 \end{frame}
 
+\begin{frame}
+	\frametitle{Pairwise Causal Discovery: T\"{u}bingen cause-effect pairs dataset}
+	\begin{itemize}
+		\item Given a dataset on $ 2 $ variables, determine the direction of causality.
+			$$ (X, Y) \implies X \rightarrow Y \;\; \textit{or} \; \; X \leftarrow Y $$
+		\item Not possible to determine the direction without making some assumptions using statistical methods.
+		\item 108 cause-effect pairs selected from 37 datasets from
+			various domains.
+	\end{itemize}
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.5]{imgs/table1.png}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Pairwise Causal Discovery: T\"{u}bingen cause-effect pairs dataset}
+	\begin{itemize}
+		\item With the LLM, for any given pair $ (A, B) $ a query is asked: ``Does changing A cause a change in B?''
+		\item Ask the query in both the directions and take the mean accuracy.
+		\item Two other prompts are used:
+			\begin{enumerate}
+				\item Prepend the previous prompt with: ``You are a helpful assistant for causal reasoning''.
+				\item Asking the LLM to output the more likely causal direction between $ A \rightarrow B $ and $ B \rightarrow A $ while
+					explaining the reasoning in a ``step-by-step'' manner.
+			\end{enumerate}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Pairwise Causal Discovery: T\"{u}bingen cause-effect pairs dataset}
+	\begin{figure}
+		\centering
+		\begin{subfigure}{0.5 \textwidth}
+			\centering
+			\includegraphics[scale=0.4]{imgs/example1.png}
+		\end{subfigure}%
+		\begin{subfigure}{0.5 \textwidth}
+			\centering
+			\includegraphics[scale=0.4]{imgs/example2.png}
+		\end{subfigure}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Pairwise Causal Discovery: T\"{u}bingen cause-effect pairs dataset}
+	\begin{columns}
+		\begin{column}{0.5 \textwidth}
+			\begin{itemize}
+				\item Only 12 errors in 108 pairs with gpt-4.
+				\item In some cases, output doesn't match ground truth but reveals possible ambiguity in the variable names.
+				\item Providing context in such cases can result in getting the correct answer.
+			\end{itemize}
+		\end{column}
+		\begin{column}{0.5 \textwidth}
+			\begin{figure}
+				\includegraphics[scale=0.4]{imgs/table2.png}
+			\end{figure}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Pairwise Causal Discovery: Neuropathic Pain Dataset}
+	\begin{itemize}
+		\item The variable names are more domain specific.
+		\item Dataset contains relationship between different nerves and the associated symptoms that patients express.
+	\end{itemize}
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.5]{imgs/table3.png}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Pairwise Causal Discovery: Neuropathic Pain Dataset}
+	\begin{columns}
+		\begin{column}{0.5 \textwidth}
+			\begin{itemize}
+				\item Performance of text generation engines degrage but chat based models are able to perform better.
+				\item gpt-4 gets 457 correct responses out of 475.
+			\end{itemize}
+		\end{column}
+		\begin{column}{0.5 \textwidth}
+			\includegraphics[scale=0.4]{imgs/table4.png}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Full Graph Discovery}
+	\begin{itemize}
+		\item Given a dataset, find a DAG representing the causal relationship between the variables.
+		\item Three possible scenario between any two variables 1) $ X \rightarrow Y $ 2) $ X \leftarrow Y $ 3) No edge.
+		\item Need to also distinguish between direct and indirect effects.
+		\item If true relationship is $ A \rightarrow B \rightarrow C $, for pairwise task correct to output $ A \rightarrow B $
+			and $ A \rightarrow C $, but not for full graph discovery.
+		\item Unclear how to extend pairwise task to a full graph case.
+		\item For smaller graphs with 3-4 variables, can iterate over all possible pairs of variables.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Full Graph: Neuropathic Pain Dataset}
+	\begin{itemize}
+		\item The dataset has 221 variables, so considering all possible variable pairs is not possible.
+		\item Utilize a smaller 100 pair dataset. 50 pairs form edges in the graph and 50 pairs do not form an edge.
+		\item Many names are in Swedish, uses an LLM to translate to english as a preprocessing step.
+		\item For the prompt an additional option is added as: ``C: No causal relationship exists''.
+	\end{itemize}
+	\begin{figure}
+		\includegraphics[scale=0.4]{imgs/table6.png}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Full Graph: Arctic Sea Ice Dataset}
+	\begin{itemize}
+		\item Dataset on driver of arctic sea ice thickness/coverage.
+		\item Total of 12 variables and 48 edges with some double-sided edges.
+		\item Only ``single prompt'' used for LLMs.
+	\end{itemize}
+	\begin{figure}
+		\includegraphics[scale=0.4]{imgs/table7.png}
+	\end{figure}
+\end{frame}
 \end{document}
 
 
