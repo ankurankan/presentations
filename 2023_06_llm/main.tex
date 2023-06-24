@@ -393,8 +393,98 @@
 \begin{frame}
 	\frametitle{LLMs for Actual Causality and Causal Judgments}
 	\begin{itemize}
-		
+		\item Actual causality is motivated by problems of attribution and assigning responsibility in real world applications, such as legal reasoning,
+			machine failure debugging, and root-cause analysis for system regressions.
+		\item SCMs and other formal causal methods have been used to define actual causality in a way that is consistent with how humans 
+			naturally attribute cause and related concepts.
+		\item Things that are difficult to formalize with SCMs.
+		\begin{enumerate}
+			\item Causal Frame: The set of candidate causal events that are relevant to a particular outcome event.
+			\item Necessary Causality: Whether a candidate cause needed to happen for the outcome to occur.
+			\item Sufficient causality: Whether a candidate cause's occurance would have led to the outcome event if other causal events had 
+				occured differently.
+			\item Normality: The degree to which causal events align with statistical norms or prescriptive norms.
+			\item Other human factors: Other human factors include bias towards action, handling intention and epistemic state, and how
+				bad outcomes are interpreted.
+		\end{enumerate}
 	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Building block of actual causality: Counterfactual reasoning}
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.2]{imgs/table8.png}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Building block of actual causality: Counterfactual reasoning}
+	\begin{columns}
+		\begin{column}{0.5 \textwidth}
+			\begin{itemize}
+				\item CRASS (Counterfactual Reasoning Assessment) for evaluating the ability of LLMs to answer counterfactual conditonal questions.
+				\item For each instance LLM selects from multiple choice answers to a counterfactual conditional question.
+				\item Not always sure about the output. Adding context helps.
+			\end{itemize}
+		\end{column}
+		\begin{column}{0.5 \textwidth}
+			\begin{figure}
+				\centering
+				\begin{subfigure}{\textwidth}
+					\includegraphics[scale=0.2]{imgs/counter_promp.png}
+				\end{subfigure}
+				\begin{subfigure}{\textwidth}
+					\includegraphics[scale=0.2]{imgs/table9.png}
+				\end{subfigure}
+			\end{figure}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Inferring actual causality: Necessary and Sufficient causes}
+	\begin{columns}
+		\begin{column}{0.5 \textwidth}
+			\centering
+			\includegraphics[scale=0.4]{imgs/necessary_prompt.png}
+		\end{column}
+		\begin{column}{0.5 \textwidth}
+			\begin{itemize}
+				\item Necessary Causality: The property of an event, C, that if it had not occurred, then the outcome event, E, would not
+					have occurred.
+					\begin{figure}
+						\begin{subfigure}{0.5 \textwidth}
+							\centering
+							\includegraphics[scale=0.4]{imgs/necessary_prompt_1.png}
+						\end{subfigure}
+						\begin{subfigure}{0.5 \textwidth}
+							\centering
+							\includegraphics[scale=0.4]{imgs/necessary_prompt_llm.png}
+						\end{subfigure}
+					\end{figure}
+				\item Sufficient Causality: The propery of an event, C, that if it had occurred, then the outcome event, E, would have occurred.
+				\item Robust Sufficient Causality: Given that causal event C occurred, outcome event E would have occurred even if other events
+					that contributed to B's occurrence had not occurred.
+					\begin{figure}
+						\includegraphics[scale=0.4]{imgs/robust_prompt.png}
+					\end{figure}
+			\end{itemize}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Evaluation necessary and sufficient causes}
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.4]{imgs/table_11_12.png}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Evaluating LLMs ability to infer normality}
+
 \end{frame}
 
 \begin{frame}
