@@ -81,22 +81,17 @@
 \begin{frame}
 	\frametitle{Summary}
 	\begin{itemize}
-		\item Use LLMs as domain experts to solve causality tasks.
-		\item Uses only variable metadata and doesn't need any data.
-		\item LLMs are evaluated on the following tasks.
+		\item Applying LLMs to causality tasks.
 		\begin{enumerate}
 			\item Causal Discovery
 				\begin{itemize}
 					\item Pairwise causal discovery
 					\item Full graph discovery
 				\end{itemize}
-			\item Actual Causality: Considers individual events and aims to
-				find what caused them.
+			\item Actual Causality
 				\begin{itemize}
-					\item Involves simulation of different counterfactual scenarios.
-					\item Perfoms better for most benchmarks except
-						the ones that require an understanding
-						of human factors.
+					\item Necessary and sufficient causes.
+					\item Infering normality.
 				\end{itemize}
 		\end{enumerate}
 		\item LLMs perform better or comparable on all these tasks. 
@@ -243,7 +238,7 @@
 	\begin{itemize}
 		\item Given a dataset on $ 2 $ variables, determine the direction of causality.
 			$$ (X, Y) \implies X \rightarrow Y \;\; \textit{or} \; \; X \leftarrow Y $$
-		\item Not possible to determine the direction without making some assumptions using statistical methods.
+		\item Only possible to determine the direction with some assumptions using statistical methods.
 		\item 108 cause-effect pairs selected from 37 datasets from
 			various domains.
 	\end{itemize}
@@ -255,20 +250,12 @@
 
 \begin{frame}
 	\frametitle{Pairwise Causal Discovery: T\"{u}bingen cause-effect pairs dataset}
-	\begin{itemize}
-		\item With the LLM, for any given pair $ (A, B) $ a query is asked: ``Does changing A cause a change in B?''
-		\item Ask the query in both the directions and take the mean accuracy.
-		\item Two other prompts are used:
-			\begin{enumerate}
-				\item Prepend the previous prompt with: ``You are a helpful assistant for causal reasoning''.
-				\item Asking the LLM to output the more likely causal direction between $ A \rightarrow B $ and $ B \rightarrow A $ while
-					explaining the reasoning in a ``step-by-step'' manner.
-			\end{enumerate}
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Pairwise Causal Discovery: T\"{u}bingen cause-effect pairs dataset}
+	\begin{enumerate}
+		\item \textbf{Two prompts: } Asks the query in both directions: Does changing A cause a change in B? Does chaning B cause a change in A?
+		\item \textbf{Causal agent: } Prepends the prompt with "You are a helpful assistant for causal reasoning"
+		\item \textbf{Single Prompt: } Asking to output the more likely causal
+			direction while explaining the reasoning.
+	\end{enumerate}
 	\begin{figure}
 		\centering
 		\begin{subfigure}{0.5 \textwidth}
@@ -289,7 +276,7 @@
 			\begin{itemize}
 				\item Only 12 errors in 108 pairs with gpt-4.
 				\item In some cases, output doesn't match ground truth but reveals possible ambiguity in the variable names.
-				\item Providing context in such cases can result in getting the correct answer.
+				\item Providing context in such cases can result in getting the correct answer. \todo[inline]{Add the example here}
 			\end{itemize}
 		\end{column}
 		\begin{column}{0.5 \textwidth}
@@ -297,6 +284,7 @@
 				\includegraphics[scale=0.4]{imgs/table2.png}
 			\end{figure}
 		\end{column}
+	\todo[inline]{Change this figure to without the caption}
 	\end{columns}
 \end{frame}
 
@@ -330,8 +318,8 @@
 \begin{frame}
 	\frametitle{Full Graph Discovery}
 	\begin{itemize}
-		\item Given a dataset, find a DAG representing the causal relationship between the variables.
-		\item Three possible scenario between any two variables 1) $ X \rightarrow Y $ 2) $ X \leftarrow Y $ 3) No edge.
+		\item Given a dataset, find a DAG representing the causal relationships between the variables.
+		\item Three possible scenario between any two variables: $ X \rightarrow Y $, $ X \leftarrow Y, or $ No edge.
 		\item Need to also distinguish between direct and indirect effects.
 		\item If true relationship is $ A \rightarrow B \rightarrow C $, for pairwise task correct to output $ A \rightarrow B $
 			and $ A \rightarrow C $, but not for full graph discovery.
@@ -343,10 +331,10 @@
 \begin{frame}
 	\frametitle{Full Graph: Neuropathic Pain Dataset}
 	\begin{itemize}
-		\item The dataset has 221 variables, so considering all possible variable pairs is not possible.
+		\item The dataset has 221 variables, so not doing a full graph discovery.
 		\item Utilize a smaller 100 pair dataset. 50 pairs form edges in the graph and 50 pairs do not form an edge.
 		\item Many names are in Swedish, uses an LLM to translate to english as a preprocessing step.
-		\item For the prompt an additional option is added as: ``C: No causal relationship exists''.
+		\item In the single prompt an additional option is added as: ``C: No causal relationship exists''.
 	\end{itemize}
 	\begin{figure}
 		\includegraphics[scale=0.4]{imgs/table6.png}
