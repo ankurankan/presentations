@@ -90,6 +90,7 @@
 				\end{itemize}
 			\item Actual Causality
 				\begin{itemize}
+					\item Counterfactual reasoning
 					\item Necessary and sufficient causes.
 					\item Infering normality.
 				\end{itemize}
@@ -328,7 +329,7 @@
 \begin{frame}
 	\frametitle{Full Graph: Neuropathic Pain Dataset}
 	\begin{itemize}
-		\item The dataset has 221 variables, so not doing a full graph discovery.
+		\item The dataset has 221 variables; not possible to do a full graph discovery.
 		\item Utilize a smaller 100 pair dataset. 50 pairs form edges in the graph and 50 pairs do not form an edge.
 		\item Many names are in Swedish, uses an LLM to translate to english as a preprocessing step.
 		\item In the single prompt an additional option is added as: ``C: No causal relationship exists''.
@@ -356,9 +357,8 @@
 		\item To test whether the LLMs have memorized the benchmark datasets.
 		\item Provide the LLM with the first 3 columns of the dataset (row ID and two variables) and 
 			ask it to complete the remaining columns.
-		\item GPT-3.5 and GPT-4 are able to correctly recall 19\% and 25\% of the rows. And able to correctly
-			recall 58\% and 61\% of the cells correctly.
-		\item However the gap between the percentage memorized and the LLM's accuracy is still significant.
+		\item GPT-3.5 and GPT-4 are able to correctly recall 19\% and 25\% of the rows. 
+		\item The gap between the percentage memorized and the LLM's accuracy is still significant.
 		\item Expect LLMs to be partially dependent on memorization but partially able to process and transform
 			seen causal relationships in multiple context.
 	\end{itemize}
@@ -396,66 +396,76 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Building block of actual causality: Counterfactual reasoning}
+	\frametitle{Counterfactual Reasoning}
+	\begin{itemize}
+		\item Considering hypothethical situations or alternate realities by altering specific conditions of an actual event.
+		\item CRASS (Counterfactual Reasoning Assessment) for evaluating the ability of LLMs to answer counterfactual conditonal questions.
+	\end{itemize}
 	\begin{figure}
 		\centering
 		\includegraphics[scale=0.2]{imgs/table8.png}
 	\end{figure}
-	\todo[inline]{Keep only a few lines}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Building block of actual causality: Counterfactual reasoning}
+		\begin{figure}
+			\centering
+			\begin{subfigure}{0.5\textwidth}
+				\includegraphics[scale=0.2]{imgs/counter_promp.png}
+			\end{subfigure}%
+			\begin{subfigure}{0.5\textwidth}
+				\includegraphics[scale=0.2]{imgs/table9.png}
+			\end{subfigure}
+		\end{figure}
+		\begin{itemize}
+			\item For each instance LLM selects from multiple choice answers to a counterfactual conditional question.
+			\item Not always sure about the output. Adding context helps.
+		\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\todo[inline]{Add content from understanding LLM output here}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Necessary and Sufficient Causes}
 	\begin{columns}
 		\begin{column}{0.5 \textwidth}
+			\begin{figure}
+				\centering
+				\includegraphics[scale=0.2]{imgs/necessary_story.png}
+			\end{figure}
 			\begin{itemize}
-				\item CRASS (Counterfactual Reasoning Assessment) for evaluating the ability of LLMs to answer counterfactual conditonal questions.
-				\item For each instance LLM selects from multiple choice answers to a counterfactual conditional question.
-				\item Not always sure about the output. Adding context helps.
+				\item \footnotesize Necessary Causality: The
+					property of an event, C, that if it had
+					not occurred, then the outcome event,
+					E, would not have occurred.
+				\item \footnotesize Sufficient
+					Causality: Given that causal event C
+					occurred, outcome event E would have
+					occurred even if other events that
+					contributed to E's occurrence had not
+					occurred.
 			\end{itemize}
 		\end{column}
 		\begin{column}{0.5 \textwidth}
 			\begin{figure}
-				\centering
 				\begin{subfigure}{\textwidth}
-					\includegraphics[scale=0.2]{imgs/counter_promp.png}
+					\centering
+					\includegraphics[scale=0.2]{imgs/necessary_prompt_1.png}
 				\end{subfigure}
 				\begin{subfigure}{\textwidth}
-					\includegraphics[scale=0.2]{imgs/table9.png}
+					\centering
+					\includegraphics[scale=0.2]{imgs/necessary_prompt_llm.png}
 				\end{subfigure}
+				\caption*{\footnotesize Necessary Causality}
 			\end{figure}
-		\end{column}
-	\end{columns}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Inferring actual causality: Necessary and Sufficient causes}
-	\begin{columns}
-		\begin{column}{0.5 \textwidth}
-			\centering
-			\includegraphics[scale=0.4]{imgs/necessary_prompt.png}
-		\end{column}
-		\begin{column}{0.5 \textwidth}
-			\begin{itemize}
-				\item Necessary Causality: The property of an event, C, that if it had not occurred, then the outcome event, E, would not
-					have occurred.
-					\begin{figure}
-						\begin{subfigure}{0.5 \textwidth}
-							\centering
-							\includegraphics[scale=0.4]{imgs/necessary_prompt_1.png}
-						\end{subfigure}
-						\begin{subfigure}{0.5 \textwidth}
-							\centering
-							\includegraphics[scale=0.4]{imgs/necessary_prompt_llm.png}
-						\end{subfigure}
-					\end{figure}
-				\item Sufficient Causality: The propery of an event, C, that if it had occurred, then the outcome event, E, would have occurred.
-				\item Robust Sufficient Causality: Given that causal event C occurred, outcome event E would have occurred even if other events
-					that contributed to B's occurrence had not occurred.
-					\begin{figure}
-						\includegraphics[scale=0.4]{imgs/robust_prompt.png}
-					\end{figure}
-			\end{itemize}
+			\vspace{-1em}
+			\begin{figure}
+				\includegraphics[scale=0.2]{imgs/robust_prompt.png}
+				\caption*{\footnotesize Sufficient Causality}
+			\end{figure}
 		\end{column}
 	\end{columns}
 \end{frame}
@@ -464,8 +474,22 @@
 	\frametitle{Evaluation necessary and sufficient causes}
 	\begin{figure}
 		\centering
-		\includegraphics[scale=0.2]{imgs/table_11_12.png}
+		\includegraphics[scale=0.2]{imgs/vignette.png}
 	\end{figure}
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+			\begin{figure}
+				\centering
+				\includegraphics[scale=0.2]{imgs/neccessary_prompt.png}
+			\end{figure}
+		\end{column}
+		\begin{column}{0.5\textwidth}
+			\begin{figure}
+				\centering
+				\includegraphics[scale=0.15]{imgs/table_11_12.png}
+			\end{figure}
+		\end{column}
+	\end{columns}
 \end{frame}
 
 \begin{frame}
