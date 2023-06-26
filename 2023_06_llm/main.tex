@@ -250,7 +250,7 @@
 	\end{itemize}
 	\begin{figure}
 		\centering
-		\includegraphics[scale=0.5]{imgs/table1.png}
+		\includegraphics[scale=0.53]{imgs/table1.png}
 	\end{figure}
 \end{frame}
 
@@ -336,11 +336,10 @@
 	\begin{itemize}
 		\item The dataset has 221 variables; not possible to do a full graph discovery.
 		\item Utilize a smaller 100 pair dataset. 50 pairs form edges in the graph and 50 pairs do not form an edge.
-		\item Many names are in Swedish, uses an LLM to translate to english as a preprocessing step.
 		\item In the single prompt an additional option is added as: ``C: No causal relationship exists''.
 	\end{itemize}
 	\begin{figure}
-		\includegraphics[scale=0.4]{imgs/table6.png}
+		\includegraphics[scale=0.6]{imgs/table6.png}
 	\end{figure}
 \end{frame}
 
@@ -420,7 +419,7 @@
 				\includegraphics[scale=0.25]{imgs/counter_promp.png}
 			\end{subfigure}%
 			\begin{subfigure}{0.5\textwidth}
-				\includegraphics[scale=0.2]{imgs/table9.png}
+				\includegraphics[scale=0.5]{imgs/table9.png}
 			\end{subfigure}
 		\end{figure}
 		\begin{itemize}
@@ -461,6 +460,7 @@
 
 \begin{frame}
 	\frametitle{Necessary and Sufficient Causes}
+		\todo[inline]{Fix the definitions}
 		\begin{columns}
 			\begin{column}{0.5 \textwidth}
 				\begin{figure}
@@ -559,7 +559,7 @@
 		\item LLMs offer a new capability to extract the key primitives of
 			an actual causality question.
 		\item For high-risk and high-value tasks, LLM based approaches would
-			need tight integration with more formal approaches to
+			need integration with more formal approaches to
 			causal reasoning.
 	\end{itemize}
 \end{frame}
@@ -569,14 +569,16 @@
 	\begin{itemize}
 		\item Augmenting human expertise with LLMs
 			\begin{itemize}
-				\item LLMs can act as assistants for causal discovery and
+				\item Can act as assistants for causal discovery and
 					doing robustness checks.
-				\item Can use LLMs to generate an initial version of
-					the causal graph.
+				\item Can generate an initial version of
+					causal graphs.
 			\end{itemize}
 		\item LLM + Causal Tools: Pipeline for causal analysis
 			\begin{itemize}
-				\item LLMs are not capable of replacing tools that do statistical analyssi for estimating causal quantities.
+				\item LLMs are not capable of replacing tools
+					that do statistical analysis for
+					estimating causal quantities.
 				\item Can construct pipelines where graph creation is
 					done by LLMs and final output graph is passed to
 					an inference tool.
@@ -611,6 +613,7 @@
 
 \begin{frame}
 	\frametitle{Research Questions: Systematizing Actual Causality and Attribution}
+	\todo[inline]{Reduce text}
 	\begin{itemize}
 		\item In domains like law, intelligence analysis, etc., analysts 
 			have to summarize key elements of text data from 
@@ -629,17 +632,14 @@
 \begin{frame}
 	\frametitle{Research Questions: Understanding and Improving Causal Reasoning in LLMs}
 	\begin{itemize}
-		\item Why LLMs demonstrate such causal capabilities as well as
-			the limits of these capabilities is not well
-			understood.
+		\item Understanding why LLMs demonstrate such causal capabilities
+			as well as the limits of these capabilities. 
 		\item According to Pearl's causal hierarchy, LLMs trained on
 			observational data should not be able to answer
 			interventional or counterfactual queries.
-		\item Potential explanation is that LLMs are learning correlations
+		\item LLMs are potentially learning correlations
 			of causal facts from the training data, rather than learning
 			to reason causally.
-		\item Understanding the nature of causal reasoning in LLMs and how to
-			improve their robustness is a key future question.
 	\end{itemize}
 \end{frame}
 
