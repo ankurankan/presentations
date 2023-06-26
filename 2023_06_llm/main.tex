@@ -281,7 +281,7 @@
 			\begin{itemize}
 				\item Results are dependent on the prompt used.
 				\item LLMs can give wrong results because of ambiguity in the variable names. E.g., (Ozone concentration, radiation).
-				\item Providing context in such cases can result in getting the correct answer.
+				\item Providing context can result in getting the correct answer.
 			\end{itemize}
 		\end{column}
 		\begin{column}{0.5 \textwidth}
@@ -403,7 +403,7 @@
 \begin{frame}
 	\frametitle{Counterfactual Reasoning}
 	\begin{itemize}
-		\item Considering hypothethical situations or alternate realities by altering specific conditions of an actual event.
+		\item Considering hypothethical situations or alternate realities by altering specific conditions of an actual event. What-if questions.
 		\item CRASS (Counterfactual Reasoning Assessment) dataset for evaluating the ability of LLMs to answer counterfactual conditonal questions.
 	\end{itemize}
 	\begin{figure}
@@ -461,44 +461,34 @@
 
 \begin{frame}
 	\frametitle{Necessary and Sufficient Causes}
-	\begin{columns}
-		\begin{column}{0.5 \textwidth}
-			\begin{figure}
+		\begin{figure}
+			\begin{subfigure}{0.5\textwidth}
 				\centering
-				\includegraphics[scale=0.2]{imgs/necessary_story.png}
-			\end{figure}
-			\begin{itemize}
-				\item \textbf{\footnotesize Necessary Causality:} The
+				\includegraphics[scale=0.2]{imgs/necessary_prompt_1.png}
+			\end{subfigure}%
+			\begin{subfigure}{0.5\textwidth}
+				\centering
+				\includegraphics[scale=0.2]{imgs/necessary_prompt_llm.png}
+			\end{subfigure}
+			\caption*{\footnotesize Necessary Causality}
+		\end{figure}
+		\vspace{-2em}
+		\begin{figure}
+			\includegraphics[scale=0.2]{imgs/robust_prompt.png}
+			\caption*{\footnotesize Sufficient Causality}
+		\end{figure}
+		\begin{itemize}
+			\item \footnotesize \textbf{Necessary Causality:} The
 					property of an event, C, that if it had
 					not occurred, then the outcome event,
 					E, would not have occurred.
-				\item \textbf{\footnotesize Sufficient
+			\item \footnotesize \textbf{Sufficient
 					Causality:} Given that causal event C
 					occurred, outcome event E would have
 					occurred even if other events that
 					contributed to E's occurrence had not
 					occurred.
-			\end{itemize}
-		\end{column}
-		\begin{column}{0.5 \textwidth}
-			\begin{figure}
-				\begin{subfigure}{\textwidth}
-					\centering
-					\includegraphics[scale=0.2]{imgs/necessary_prompt_1.png}
-				\end{subfigure}
-				\begin{subfigure}{\textwidth}
-					\centering
-					\includegraphics[scale=0.2]{imgs/necessary_prompt_llm.png}
-				\end{subfigure}
-				\caption*{\footnotesize Necessary Causality}
-			\end{figure}
-			\vspace{-1em}
-			\begin{figure}
-				\includegraphics[scale=0.2]{imgs/robust_prompt.png}
-				\caption*{\footnotesize Sufficient Causality}
-			\end{figure}
-		\end{column}
-	\end{columns}
+		\end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -511,7 +501,7 @@
 		\begin{column}{0.5\textwidth}
 			\begin{figure}
 				\centering
-				\includegraphics[scale=0.2]{imgs/neccessary_prompt.png}
+				\includegraphics[scale=0.25]{imgs/neccessary_prompt.png}
 			\end{figure}
 		\end{column}
 		\begin{column}{0.5\textwidth}
