@@ -406,8 +406,12 @@
 \begin{frame}
 	\frametitle{Counterfactual Reasoning}
 	\begin{itemize}
-		\item Considering hypothethical situations or alternate realities by altering specific conditions of an actual event. What-if questions.
-		\item CRASS (Counterfactual Reasoning Assessment) dataset for evaluating the ability of LLMs to answer counterfactual conditonal questions.
+		\item Considering hypothethical situations or alternate
+			realities by altering specific conditions of an actual
+			event. What-if questions.
+		\item CRASS (Counterfactual Reasoning Assessment) dataset for
+			evaluating the ability of LLMs to answer counterfactual
+			conditonal questions.
 	\end{itemize}
 	\begin{figure}
 		\centering
@@ -419,15 +423,16 @@
 	\frametitle{Counterfactual Reasoning}
 		\begin{figure}
 			\centering
-			\begin{subfigure}{0.5\textwidth}
+			\begin{subfigure}{\textwidth}
+				\centering
 				\includegraphics[scale=0.25]{imgs/counter_promp.png}
-			\end{subfigure}%
-			\begin{subfigure}{0.5\textwidth}
-				\includegraphics[scale=0.5]{imgs/table9.png}
+			\end{subfigure}\vspace{1em}
+			\begin{subfigure}{\textwidth}
+				\centering
+				\includegraphics[scale=0.7]{imgs/table9.png}
 			\end{subfigure}
 		\end{figure}
 		\begin{itemize}
-			\item For each instance LLM selects from multiple choice answers to a counterfactual conditional question.
 			\item Not always sure about the output. Adding context helps.
 		\end{itemize}
 \end{frame}
@@ -439,11 +444,11 @@
 			\begin{figure}
 				\begin{subfigure}{\textwidth}
 					\centering
-					\includegraphics[scale=0.5]{imgs/counterfactual_prompt1.png}
+					\includegraphics[scale=0.55]{imgs/counterfactual_prompt1.png}
 				\end{subfigure}
 				\begin{subfigure}{\textwidth}
 					\centering
-					\includegraphics[scale=0.5]{imgs/counterfactual_prompt2.png}	
+					\includegraphics[scale=0.55]{imgs/counterfactual_prompt2.png}	
 				\end{subfigure}
 			\end{figure}
 		\end{column}
@@ -451,11 +456,11 @@
 			\begin{figure}
 				\begin{subfigure}{\textwidth}
 					\centering
-					\includegraphics[scale=0.5]{imgs/counterfactual_prompt3.png}
+					\includegraphics[scale=0.55]{imgs/counterfactual_prompt3.png}
 				\end{subfigure}
 				\begin{subfigure}{\textwidth}
 					\centering
-					\includegraphics[scale=0.5]{imgs/counterfactual_prompt4.png}	
+					\includegraphics[scale=0.55]{imgs/counterfactual_prompt4.png}	
 				\end{subfigure}
 			\end{figure}
 		\end{column}
@@ -470,18 +475,18 @@
 					\centering
 					\begin{subfigure}{\textwidth}
 						\centering
-						\includegraphics[scale=0.2]{imgs/necessary_prompt_1.png}
+						\includegraphics[scale=0.22]{imgs/necessary_prompt_1.png}
 					\end{subfigure}
 					\begin{subfigure}{\textwidth}
 						\centering
-						\includegraphics[scale=0.2]{imgs/necessary_prompt_llm.png}
+						\includegraphics[scale=0.22]{imgs/necessary_prompt_llm.png}
 					\end{subfigure}
 					\caption*{\footnotesize Necessary Causality}
 				\end{figure}
 			\end{column}
 			\begin{column}{0.5 \textwidth}
 				\begin{figure}
-					\includegraphics[scale=0.2]{imgs/robust_prompt.png}
+					\includegraphics[scale=0.22]{imgs/robust_prompt.png}
 					\caption*{\footnotesize Sufficient Causality}
 				\end{figure}
 			\end{column}
