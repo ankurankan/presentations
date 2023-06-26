@@ -95,8 +95,8 @@
 				\end{itemize}
 		\end{enumerate}
 		\item LLMs perform better or comparable on all these tasks. 
-		\item Discuss the implications of these results and possible
-			future research directions.
+		\item Discusses the implications and possible future research
+			directions.
 	\end{itemize}
 \end{frame}
 
@@ -251,10 +251,9 @@
 \begin{frame}
 	\frametitle{Pairwise Causal Discovery: T\"{u}bingen cause-effect pairs dataset}
 	\begin{enumerate}
-		\item \textbf{Two prompts: } Asks the query in both directions: Does changing A cause a change in B? Does chaning B cause a change in A?
-		\item \textbf{Causal agent: } Prepends the prompt with "You are a helpful assistant for causal reasoning"
-		\item \textbf{Single Prompt: } Asking to output the more likely causal
-			direction while explaining the reasoning.
+		\item \textbf{Two prompts: } Query in both directions: Does changing A cause a change in B? Does chaning B cause a change in A?
+		\item \textbf{Causal agent: } Prepend the prompt with "You are a helpful assistant for causal reasoning"
+		\item \textbf{Single Prompt: } Ask to output the more likely causal direction while explaining the reasoning.
 	\end{enumerate}
 	\begin{figure}
 		\centering
@@ -274,17 +273,16 @@
 	\begin{columns}
 		\begin{column}{0.5 \textwidth}
 			\begin{itemize}
-				\item Only 12 errors in 108 pairs with gpt-4.
-				\item In some cases, output doesn't match ground truth but reveals possible ambiguity in the variable names.
-				\item Providing context in such cases can result in getting the correct answer. \todo[inline]{Add the example here}
+				\item Results are dependent on the prompt used.
+				\item LLMs can give wrong results because of ambiguity in the variable names. E.g., (Ozone concentration, radiation).
+				\item Providing context in such cases can result in getting the correct answer.
 			\end{itemize}
 		\end{column}
 		\begin{column}{0.5 \textwidth}
 			\begin{figure}
-				\includegraphics[scale=0.4]{imgs/table2.png}
+				\includegraphics[scale=0.2]{imgs/table2.png}
 			\end{figure}
 		\end{column}
-	\todo[inline]{Change this figure to without the caption}
 	\end{columns}
 \end{frame}
 
@@ -305,12 +303,11 @@
 	\begin{columns}
 		\begin{column}{0.5 \textwidth}
 			\begin{itemize}
-				\item Performance of text generation engines degrage but chat based models are able to perform better.
-				\item gpt-4 gets 457 correct responses out of 475.
+				\item Performance of text generation engines degrade but chat-based models perform well.
 			\end{itemize}
 		\end{column}
 		\begin{column}{0.5 \textwidth}
-			\includegraphics[scale=0.4]{imgs/table4.png}
+			\includegraphics[scale=0.2]{imgs/table4.png}
 		\end{column}
 	\end{columns}
 \end{frame}
@@ -319,7 +316,7 @@
 	\frametitle{Full Graph Discovery}
 	\begin{itemize}
 		\item Given a dataset, find a DAG representing the causal relationships between the variables.
-		\item Three possible scenario between any two variables: $ X \rightarrow Y $, $ X \leftarrow Y, or $ No edge.
+		\item Three possible scenario between any two variables: $ X \rightarrow Y $, $ X \leftarrow Y $, or no edge.
 		\item Need to also distinguish between direct and indirect effects.
 		\item If true relationship is $ A \rightarrow B \rightarrow C $, for pairwise task correct to output $ A \rightarrow B $
 			and $ A \rightarrow C $, but not for full graph discovery.
