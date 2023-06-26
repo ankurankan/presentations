@@ -580,70 +580,47 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{New Research Questions: Knowledge-based Causal Discovery}
-	\todo[inline]{Cut down few of the later slides}
+	\frametitle{Research Questions: Knowledge-based Causal Discovery}
 	\begin{itemize}
-		\item Current methods only utilize the data but as shown in the
-			paper the variable metadata contains useful information
-			as well.
-		\item Developing methods that utilize both can be a fruitful direction.
+		\item Current methods only utilize data but as shown variable
+			metadata contains useful information as well.
+		\item Developing methods that utilize both.
 		\item LLMs can be used as a prior, as a critic during learning, and/or
 			as a post-processor.
-		\item Current benchmarks are built by collaboration with domain 
-			experts but possible that they miss some connections because
-			of the complexity of the graph.
-		\item LLMs can help in identifying potentially missing edge and 
-			correct mislabeled edge, or at least point our relations
-			that require additional checking.
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
-	\frametitle{New Research Questions: LLM-guided effect inference}
+	\frametitle{Research Questions: LLM-guided effect inference}
 	\begin{itemize}
-		\item Identifying the correct adjustment set is an important problem
-			for causal effect estimation.
-		\item The validity of adjustment sets relies heavily on the true
-			graph structure.
-		\item Would be interesting to see if LLMs can be used to also
-			suggest potential instrumental variables for a causal task.
+		\item Having a correct graphical structure is important for identifying
+			correct adjustment set.
+		\item Interesting to see if LLMs can be used to suggest
+			potential instrumental variables.
 		\item Utilizing LLM's domain knowledge to help build robustness
 			and validation checks for a given causal analysis.
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
-	\frametitle{New Research Questions: Systematizing Actual Causality and Attribution}
+	\frametitle{Research Questions: Systematizing Actual Causality and Attribution}
 	\begin{itemize}
-		\item In domains ranging from law to intelligence analysis, analysts 
-			have to first summarize key elements of text data from 
+		\item In domains like law, intelligence analysis, etc., analysts 
+			have to summarize key elements of text data from 
 			multiple sources, then synthesize explanations about the 
 			degree to which events contributed to other events.
-		\item Using LLMs for actual causality also has potential impact
-			to root cause analysis and credit assignment.
-		\item Formal causal models for inferring actual causality questions have
-			struggled formalizing the many elements of common sense 
-			background knowledge that rely on when judging actual causality.
-		\item LLMs can work with these background concepts directly in natural
+		\item LLMs can be used in such cases for doing root cause analysis and
+			credit assignment.
+		\item Formal causal models for inferring actual causality
+			questions have struggled in formalizing the many
+			elements of common sense background knowledge, LLMs can
+			work with these background concepts directly in natural
 			language.
-		\item \todo[inline]{Finish this}
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
-	\frametitle{New Research Questions: Human-LLM Collaboration}
-	\begin{itemize}
-		\item An iterative interaction between humans and LLMs.
-		\item For example LLMs may suggest graph edges, take feedback from
-			a human, and also give feedback on a manually generated
-			graph.
-		\item As building a graph is a common impediment to
-			doing causal analyses.
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\frametitle{New Research Questions: Understanding and Improving Causal Reasoning in LLMs}
+	\frametitle{Research Questions: Understanding and Improving Causal Reasoning in LLMs}
 	\begin{itemize}
 		\item Why LLMs demonstrate such causal capabilities as well as
 			the limits of these capabilities is not well
