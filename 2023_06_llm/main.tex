@@ -241,7 +241,7 @@
 % \end{frame}
 
 \begin{frame}
-	\frametitle{Pairwise Causal Discovery: T\"{u}bingen cause-effect pairs dataset}
+	\frametitle{Pairwise Causal Discovery: T\"{u}bingen Cause-effect Pairs Dataset}
 	\begin{itemize}
 		\item Given a dataset on $ 2 $ variables, determine the direction of causality.
 			$$ (X, Y) \implies X \rightarrow Y \;\; \textit{or} \; \; X \leftarrow Y $$
@@ -255,7 +255,7 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Pairwise Causal Discovery: T\"{u}bingen cause-effect pairs dataset}
+	\frametitle{Pairwise Causal Discovery: T\"{u}bingen Cause-effect Pairs Dataset}
 	\begin{enumerate}
 		\item \textbf{Two prompts: } Query in both directions: Does changing A cause a change in B? Does chaning B cause a change in A?
 		\item \textbf{Causal agent: } Prepend the prompt with "You are a helpful assistant for causal reasoning"
@@ -275,7 +275,7 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Pairwise Causal Discovery: T\"{u}bingen cause-effect pairs dataset}
+	\frametitle{Pairwise Causal Discovery: T\"{u}bingen Cause-effect Pairs Dataset}
 	\begin{columns}
 		\begin{column}{0.5 \textwidth}
 			\begin{itemize}
@@ -408,7 +408,7 @@
 	\end{itemize}
 	\begin{figure}
 		\centering
-		\includegraphics[scale=0.2]{imgs/table8.png}
+		\includegraphics[scale=0.22]{imgs/table8.png}
 	\end{figure}
 \end{frame}
 
@@ -430,7 +430,7 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Understanding LLM output}
+	\frametitle{Counterfactual Reasoning: Understanding LLM output}
 	\begin{columns}
 		\begin{column}{0.5\textwidth}
 			\begin{figure}
@@ -461,22 +461,28 @@
 
 \begin{frame}
 	\frametitle{Necessary and Sufficient Causes}
-		\begin{figure}
-			\begin{subfigure}{0.5\textwidth}
-				\centering
-				\includegraphics[scale=0.2]{imgs/necessary_prompt_1.png}
-			\end{subfigure}%
-			\begin{subfigure}{0.5\textwidth}
-				\centering
-				\includegraphics[scale=0.2]{imgs/necessary_prompt_llm.png}
-			\end{subfigure}
-			\caption*{\footnotesize Necessary Causality}
-		\end{figure}
-		\vspace{-2em}
-		\begin{figure}
-			\includegraphics[scale=0.2]{imgs/robust_prompt.png}
-			\caption*{\footnotesize Sufficient Causality}
-		\end{figure}
+		\begin{columns}
+			\begin{column}{0.5 \textwidth}
+				\begin{figure}
+					\centering
+					\begin{subfigure}{\textwidth}
+						\centering
+						\includegraphics[scale=0.2]{imgs/necessary_prompt_1.png}
+					\end{subfigure}
+					\begin{subfigure}{\textwidth}
+						\centering
+						\includegraphics[scale=0.2]{imgs/necessary_prompt_llm.png}
+					\end{subfigure}
+					\caption*{\footnotesize Necessary Causality}
+				\end{figure}
+			\end{column}
+			\begin{column}{0.5 \textwidth}
+				\begin{figure}
+					\includegraphics[scale=0.2]{imgs/robust_prompt.png}
+					\caption*{\footnotesize Sufficient Causality}
+				\end{figure}
+			\end{column}
+		\end{columns}
 		\begin{itemize}
 			\item \footnotesize \textbf{Necessary Causality:} The
 					property of an event, C, that if it had
@@ -492,7 +498,7 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Evaluation necessary and sufficient causes}
+	\frametitle{Evaluation Necessary and Sufficient Causes}
 	\begin{figure}
 		\centering
 		\includegraphics[scale=0.2]{imgs/vignette.png}
@@ -514,8 +520,19 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Infering Normality}
-
+	\frametitle{Inferring Normality}
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.68]{imgs/normality.png}
+	\end{figure}
+	\begin{itemize}
+		\item Event is ``abnormal'' if its occurence was unexpected,
+			unlikely, etc. Or event was an agent's action or lack
+			of action that knowingly violated social, legal, or
+			ethical norms.
+		\item First prompt the LLM to extract the causal event in question.
+		\item Then ask LLM to evaluate the normality of the causal event in question.
+	\end{itemize}
 \end{frame}
 
 % \begin{frame}
@@ -581,7 +598,7 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Research Questions: LLM-guided effect inference}
+	\frametitle{Research Questions: LLM-guided Effect Inference}
 	\begin{itemize}
 		\item Having a correct graphical structure is important for identifying
 			correct adjustment set.
