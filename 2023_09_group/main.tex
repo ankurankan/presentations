@@ -41,13 +41,35 @@
 
 \begin{document}
 
-\title[]{Causal Reasoning and Large Language Models: Opening a New Frontier for Causality}
+\title[]{Conditional Independence Testing via Latent Reprsentation Learning}
 \author {}
 \date{}
 
 \maketitle
-\begin{frame}
-
+\begin{frame}{Conditional Indpendence}
+	\begin{block}{Independence}
+		$$ X \ci Y \implies P(X, Y) = P(X) * P(Y) $$	
+	\end{block}
+	\begin{block}{Conditional Independence}
+		$$ X \ci Y | Z  \implies P(X, Y | Z) = P(X | Z ) *  P(Y | Z) $$
+	\end{block}
+\end{frame}
+\begin{frame}{Residualization method for CI}
+	\begin{itemize}
+		\item Intuition: If we somehow take out all the effect of $ Z $
+			from both $ X $ and $ Y $, and if the remaining $ X $
+			and $ Y $ are independent, it implies that they are
+			conditionally independent.
+		\item This is one class of CI test.
+		\item Simplest example is the partial correlation test. Trains
+			two linear regression models $ E_X = X \sim Z $ and $
+			E_Y = Y \sim Z $ and takes the residuals from these two models 
+			$ R_X = X - \hat{X} $ and $ R_Y = Y - \hat{Y} $ and does a
+			correlation test on $ R_X $ and $ R_Y $.
+		\item Make different variations to this approach:
+			1) Generalized Covariance Measure (GCM) by Shah and Peters
+			2) Based on Hotelling's T^2 test by us.
+	\end{itemize}
 \end{frame}
 
 \end{document}
