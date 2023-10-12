@@ -1,0 +1,143 @@
+\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}
+\usecolortheme{beaver}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{mathtools}
+\usepackage{todonotes}
+\usepackage{amsmath}
+\usepackage{bm}
+\usepackage{listings}
+\usepackage{ragged2e}
+\usepackage{titlecaps}
+\usepackage{fancyvrb}
+
+\def\ci{\perp\!\!\!\!\!\perp}
+
+\newtheorem{proposition}{Proposition}
+\Addlcwords{for a is but and with of in as the etc on to if}
+
+\setbeamertemplate{section in toc}{\inserttocsectionnumber.~\inserttocsection}
+\usetheme{Boadilla}
+\makeatletter
+\setbeamertemplate{footline}{%
+    \leavevmode%
+    \hbox{%
+        \begin{beamercolorbox}[wd=.3\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+            \usebeamerfont{author in head/foot}\insertshortauthor\expandafter\beamer@ifempty\expandafter{\beamer@shortinstitute}{}{~~(\insertshortinstitute)}
+        \end{beamercolorbox}%
+        \begin{beamercolorbox}[wd=.55\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+            \usebeamerfont{title in head/foot}\insertshorttitle
+        \end{beamercolorbox}%
+        \begin{beamercolorbox}[wd=.15\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+            \usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}
+            \insertframenumber{} / \inserttotalframenumber\hspace*{2ex} 
+        \end{beamercolorbox}}%
+        \vskip0pt%
+    }
+\makeatother
+
+\begin{document}
+
+\title[]{Residualization Based Conditional Independence Test for Mixed Data}
+\author {}
+\date{}
+
+\maketitle
+
+\begin{frame}{Talk Outline}
+	Two parts to the talk. First the CI test that we published.
+	Problems with it, extensions and future directions.
+\end{frame}
+
+\begin{frame}{Applications of CI testing in Causal Inference}
+	Why do we care about CI testing: Model testing and structure learning.
+\end{frame}
+
+\begin{frame}{Residualization based CI testing: Idea}
+	Give the example of partial correlation test.
+\end{frame}
+
+\begin{frame}{Things needed for a Residualization based test}
+	1. Two estimators
+	2. Method to residualize: Residuals need to be valid.
+	3. A statistical test to test association between the residuals.
+\end{frame}
+
+\begin{frame}{1. Estimations for mixed data}
+	1. Can use something along the lines of linear regressions.
+	2. Or use more machine learning thing like Random Forest. but doesn't have 
+		well understood theoretical properties.
+\end{frame}
+
+\begin{frame}{Residualization: Continuous variables}
+	Easy. Simply take the difference between estimated and true values.
+\end{frame}
+
+\begin{frame}{Residualization: Ordinal variables}
+	No simple definition. Use LS-residuals
+
+	Gives valid residuals.
+\end{frame}
+
+\begin{frame}{Residualization: Categorical Variables}
+	Use dummy encoding.
+\end{frame}
+
+\begin{frame}{Residaulization: Summary}
+	Results in a matrix of continuous values for each case.
+\end{frame}
+
+\begin{frame}{Test Statistics}
+	Hotelling's $T^2$ test between the residuals.
+\end{frame}
+
+\begin{frame}{Empirical Calibration and data}
+\end{frame}
+
+\begin{frame}{Problems: High dimension and low sample size case}
+	Looses calibration.
+\end{frame}
+
+\begin{frame}{Problems: No effect size measure}
+	Mahalanobis distance is used but not interpretable.
+\end{frame}
+
+\begin{frame}{High dimension and low sample size problem}
+	Why?
+	Because estimating covariance matrices in high dimensions is difficult.
+	Show examples and possible solutions.
+\end{frame}
+
+\begin{frame}{Canoncial Correlations}
+	Problem getting coverted into testing association between two 
+	sets of random variables.
+
+	Canonical correlations are the most generalized measure.
+\end{frame}
+
+\begin{frame}{Pillai's Trace}
+	Give the pillai's trace and show plots.
+\end{frame}
+
+\begin{frame}{Effect Size}
+	Give the effect size for pillai's trace.
+\end{frame}
+
+\begin{frame}{Path analysis}
+\end{frame}
+
+\begin{frame}{Generalizing path analysis to mixed data}
+\end{frame}
+
+\begin{frame}{Doing path analysis using cnaonical correlations}
+\end{frame}
+
+\begin{frame}{Simulating mixed data from canoncial correlation parameters}
+\end{frame}
+
+\begin{frame}{Conclusions and problems}
+\end{frame}
+
+\end{document}
