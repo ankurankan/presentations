@@ -41,14 +41,18 @@
 \begin{document}
 
 \title[]{Residualization Based Conditional Independence Test for Mixed Data}
-\author {}
+\author {Ankur Ankan}
 \date{}
 
 \maketitle
 
 \begin{frame}{Talk Outline}
-	Two parts to the talk. First the CI test that we published.
-	Problems with it, extensions and future directions.
+	Two parts:
+	\begin{itemize}
+		\item A Conditional Independence (CI) test for mixed data.
+		\item 
+	\end{itemize}
+	\footnotetext[1]{Reference}
 \end{frame}
 
 \begin{frame}{Applications of CI testing in Causal Inference}
@@ -56,26 +60,32 @@
 \end{frame}
 
 \begin{frame}{Residualization based CI testing: Idea}
-	Give the example of partial correlation test.
+	\center Partial correlation test
 \end{frame}
 
-\begin{frame}{Things needed for a Residualization based test}
-	1. Two estimators
-	2. Method to residualize: Residuals need to be valid.
-	3. A statistical test to test association between the residuals.
+\begin{frame}{Residualization-based test}
+	Has $ 3 $ parts:
+	\begin{itemize}
+		\item Two estimators: $ \mathbb{E}[X | Z] $ and $ \mathbb{E}[Y | Z] $.
+		\item Method to compute residuals.
+		\item A test statistic to test for associaton between the residuals.
+	\end{itemize}
 \end{frame}
 
-\begin{frame}{1. Estimations for mixed data}
-	1. Can use something along the lines of linear regressions.
-	2. Or use more machine learning thing like Random Forest. but doesn't have 
-		well understood theoretical properties.
+\begin{frame}{Part 1: Estimators for mixed data}
+	\begin{itemize}
+		\item Plenty of options for mixed data.
+		\item Linear regression based for using theoretical propoerties.
+		\item Non-parameteric models like Random Forest to deal with noise.
+	\end{itemize}
 \end{frame}
 
-\begin{frame}{Residualization: Continuous variables}
-	Easy. Simply take the difference between estimated and true values.
+\begin{frame}{Part 2: Residualization Method: Continuous variables}
+	Difference between the true and the predicted values.
 \end{frame}
 
 \begin{frame}{Residualization: Ordinal variables}
+
 	No simple definition. Use LS-residuals
 
 	Gives valid residuals.
@@ -86,11 +96,13 @@
 \end{frame}
 
 \begin{frame}{Residaulization: Summary}
-	Results in a matrix of continuous values for each case.
+	Results in two residual matrices of continuous variables.
 \end{frame}
 
 \begin{frame}{Test Statistics}
-	Hotelling's $T^2$ test between the residuals.
+	\begin{enumerate}
+		Hotelling's $T^2$ test between the residuals.
+	\end{enumerate}
 \end{frame}
 
 \begin{frame}{Empirical Calibration and data}
