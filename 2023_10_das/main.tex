@@ -48,22 +48,37 @@
 
 \begin{frame}{Causal Inference and Structural Equation Models}
 	Give an example of a SEM along with examples.
+	\begin{itemize}
+		\item A SEM/DAG represents causal relationships between variables.
+	\end{itemize}
 \end{frame}
 
 \begin{frame}{Parameterization of a Linear SEM}
-	Give an example of another SEM.
-	Give some meaning on iterpreting these parameters.
-	Give example of path analysis.
+	<TODO: Add figure>
+	\begin{itemize}
+		\item In Linear SEM with continuous variables, each edge is parameterized
+			using a \emph{path coefficient}.
+		\item It represents the strenght of relationship between the variables
+			due to that edge.
+		\item Allows for application of \emph{path analysis}, and can easily
+			compute things like indirect effect, total effects etc.
+			<TODO: Add example>
+	\end{itemize}
 \end{frame}
 
 \begin{frame}{Estimating these parameters}
-	Can use linear regression.
-	Conditioning on the covariates.
+
+	\begin{itemize}
+		\item In Linear SEM, these path coefficients can be estimated by regressing
+			variables on their parents. <TODO: Example>
+		\item But for categorical the coefficients are more difficult.
+	\end{itemize}
 \end{frame}
 
 \begin{frame}{Estimating these through residauls}
-	Introduce the FWL theorem.
-	What applying this to estimation of looks like.
+	The estimation problem can also be reformulated in terms of residuals using FWL.
+	% Introduce the FWL theorem.
+	% What applying this to estimation of looks like.
 \end{frame}
 
 \begin{frame}{What happens in the case of mixed data}
