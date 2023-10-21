@@ -46,8 +46,8 @@
 
 \maketitle
 
-\begin{frame}{Structural Equation Models}
-	Give an example of a SEM.
+\begin{frame}{Causal Inference and Structural Equation Models}
+	Give an example of a SEM along with examples.
 \end{frame}
 
 \begin{frame}{Parameterization of a Linear SEM}
@@ -77,11 +77,31 @@
 \end{frame}
 
 \begin{frame}{Residuals: Ordinal Variables}
-	LS residuals. With example
+	Given an ordinal variable $ Y $ and an estimate $ \hat{p}(y) $ of $
+	p(y) $, LS-Residual for sample $ y_i $ is defined as:
+	$$ R_{y_i} = \hat{p}(Y < y_i) - \hat{p}(Y > y_i) $$
+	\vspace{1em}
+
+	For the binary case with $ Y \in \{0, 1\} $:
+	$$ R_{y_i} = y_i - \hat{p}(Y = 1) $$
+	\vspace{1em}
+
+	For the conditional case for sample $ (y|z)_i $,
+	$$ R_{y_i | z_i} = \hat{p}(Y < y_i | Z=z_i) - \hat{p}(Y>y_i|Z=z_i) $$
+
+	$ \hat{p}(y) = \begin{array}{llll} Y_0 & Y_1 & Y_2 & Y_3 \\ 0.1 & 0.3 & 0.5 & 0.1 \end{array} $
+	\begin{itemize}
+		\item If $ y = Y_2 $, $ R_{y} = \hat{p}(Y < Y_2) - \hat{p}(Y > Y_2) = 0.3 $
+		\item If $ y = Y_3 $, $ R_{y} = \hat{p}(Y < Y_3) - \hat{p}(Y > Y_3) = 0.9 $
+	\end{itemize}
 \end{frame}
 
 \begin{frame}{Residuals: Categorical variables}
-	Categorical variables with examples.
+	$\hat{p}(Y) = \begin{array}{ll} Y_0 & Y_1 \\ 0.3 & 0.7 \end{array} $
+	\begin{itemize}	
+		\item If $ y = Y_0 $, $ R_{y} = Y_0 - \hat{p}(Y=1) = -0.7 $
+		\item If $ y = Y_1 $, $ R_{y} = Y_1 - \hat{p}(Y=1) = 0.3 $
+	\end{itemize}
 \end{frame}
 
 \begin{frame}{Residuals Summary}
