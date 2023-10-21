@@ -41,115 +41,80 @@
 \begin{document}
 
 \title[]{Residualization Based Conditional Independence Test for Mixed Data}
-\author {Ankur Ankan}
+\author{Ankur Ankan}
 \date{}
 
 \maketitle
 
-\begin{frame}{Talk Outline}
-	Two parts:
-	\begin{itemize}
-		\item A Conditional Independence (CI) test for mixed data.
-		\item 
-	\end{itemize}
-	\footnotetext[1]{Reference}
+\begin{frame}{Structural Equation Models}
+	Give an example of a SEM.
 \end{frame}
 
-\begin{frame}{Applications of CI testing in Causal Inference}
-	Why do we care about CI testing: Model testing and structure learning.
+\begin{frame}{Parameterization of a Linear SEM}
+	Give an example of another SEM.
+	Give some meaning on iterpreting these parameters.
+	Give example of path analysis.
 \end{frame}
 
-\begin{frame}{Residualization based CI testing: Idea}
-	\center Partial correlation test
+\begin{frame}{Estimating these parameters}
+	Can use linear regression.
+	Conditioning on the covariates.
 \end{frame}
 
-\begin{frame}{Residualization-based test}
-	Has $ 3 $ parts:
-	\begin{itemize}
-		\item Two estimators: $ \mathbb{E}[X | Z] $ and $ \mathbb{E}[Y | Z] $.
-		\item Method to compute residuals.
-		\item A test statistic to test for associaton between the residuals.
-	\end{itemize}
+\begin{frame}{Estimating these through residauls}
+	Introduce the FWL theorem.
+	What applying this to estimation of looks like.
 \end{frame}
 
-\begin{frame}{Part 1: Estimators for mixed data}
-	\begin{itemize}
-		\item Plenty of options for mixed data.
-		\item Linear regression based for using theoretical propoerties.
-		\item Non-parameteric models like Random Forest to deal with noise.
-	\end{itemize}
+\begin{frame}{What happens in the case of mixed data}
+	What we require to extend this estimation to mixed data.
+	1. Some way to have residuals for mixed data.
+	2. Some kind of effect size measure for this mixed residuals.
 \end{frame}
 
-\begin{frame}{Part 2: Residualization Method: Continuous variables}
-	Difference between the true and the predicted values.
+\begin{frame}{Residuals: Continuous Variablese}
+	Simple difference between true and predicted values.
 \end{frame}
 
-\begin{frame}{Residualization: Ordinal variables}
-
-	No simple definition. Use LS-residuals
-
-	Gives valid residuals.
+\begin{frame}{Residuals: Ordinal Variables}
+	LS residuals. With example
 \end{frame}
 
-\begin{frame}{Residualization: Categorical Variables}
-	Use dummy encoding.
+\begin{frame}{Residuals: Categorical variables}
+	Categorical variables with examples.
 \end{frame}
 
-\begin{frame}{Residaulization: Summary}
-	Results in two residual matrices of continuous variables.
+\begin{frame}{Residuals Summary}
+	We get a matrix of continuous valued residuals for each case.
 \end{frame}
 
-\begin{frame}{Test Statistics}
-	\begin{enumerate}
-		Hotelling's $T^2$ test between the residuals.
-	\end{enumerate}
+\begin{frame}{Effect Size: Canonical Correlation}
+	Can't directly use correlation coefficient as we have matrix of
+	residuals but canonical correlation based things can be used.
+
+	What is canonical correlation?
 \end{frame}
 
-\begin{frame}{Empirical Calibration and data}
+\begin{frame}
+	How does these parameters look like. Show on the adult income dataset
+	or something.
+
+	This also has the multiplicative property of path analysis. Show an
+	example.
 \end{frame}
 
-\begin{frame}{Problems: High dimension and low sample size case}
-	Looses calibration.
+\begin{frame}{CI Testing based on canonical correlation}
+	Can use something like Pillai's trace.
 \end{frame}
 
-\begin{frame}{Problems: No effect size measure}
-	Mahalanobis distance is used but not interpretable.
+\begin{frame}{Results of CI testing}
+	Canonical correlation results in better calibration and power in high
+	dimensional settings.
 \end{frame}
 
-\begin{frame}{High dimension and low sample size problem}
-	Why?
-	Because estimating covariance matrices in high dimensions is difficult.
-	Show examples and possible solutions.
-\end{frame}
-
-\begin{frame}{Canoncial Correlations}
-	Problem getting coverted into testing association between two 
-	sets of random variables.
-
-	Canonical correlations are the most generalized measure.
-\end{frame}
-
-\begin{frame}{Pillai's Trace}
-	Give the pillai's trace and show plots.
-\end{frame}
-
-\begin{frame}{Effect Size}
-	Give the effect size for pillai's trace.
-\end{frame}
-
-\begin{frame}{Path analysis}
-\end{frame}
-
-\begin{frame}{Generalizing path analysis to mixed data}
-\end{frame}
-
-\begin{frame}{Doing path analysis using cnaonical correlations}
-\end{frame}
-
-\begin{frame}{Simulating mixed data from canoncial correlation parameters}
-\end{frame}
-
-\begin{frame}{Conclusions and problems}
+\begin{frame}{Conclusion/Remaining problems}
+	Not sure how addition rule of path coefficients would work.
+	For CI tests, asymptotic theory isn't clear.
 \end{frame}
 
 \end{document}
