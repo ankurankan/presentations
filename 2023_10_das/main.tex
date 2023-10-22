@@ -40,16 +40,37 @@
 
 \begin{document}
 
-\title[]{Residualization Based Conditional Independence Test for Mixed Data}
+\title[]{Parameterizing Mixed Data Linear Structural Equation Models}
 \author{Ankur Ankan}
 \date{}
 
 \maketitle
 
-\begin{frame}{Causal Inference and Structural Equation Models}
-	Give an example of a SEM along with examples.
+\begin{frame}{Structural Equation Models}
+	\begin{figure}
+		\centering
+		\begin{subfigure}{0.6 \textwidth}
+			\centering
+			\includegraphics[page=1]{figures.pdf}
+		\end{subfigure}%
+		\begin{subfigure}{0.4 \textwidth}
+			\centering
+			\begin{equation*}
+				\begin{split}
+					\l_2 &= \beta_{11} \l_1 + \zeta_1 \\
+					y_6 &= \lambda_{26} \l_2 + \epsilon_6 \\
+				\end{split}
+			\end{equation*}
+		\end{subfigure}	
+		\caption{Example of a linear SEM }
+	\end{figure}
+
 	\begin{itemize}
-		\item A SEM/DAG represents causal relationships between variables.
+		\item A Structural Equation Model (SEM) represents causal relationships between variables.
+		\item The parameters on the edge (called the \emph{path
+			coefficients}) represent the strength of the
+			relationship.
+		\item If the model is standardized (i.e. error variances are $ 1 $, the parameters ar
 	\end{itemize}
 \end{frame}
 
