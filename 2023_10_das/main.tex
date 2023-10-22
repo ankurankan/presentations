@@ -70,45 +70,84 @@
 		\item The parameters on the edge (called the \emph{path
 			coefficients}) represent the strength of the
 			relationship.
-		\item If the model is standardized (i.e. error variances are $ 1 $, the parameters ar
+		\item If the model is standardized (i.e. error variances are $
+			1 $), the parameters are the correlation coefficient
+			between the variables.
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Parameterization of a Linear SEM}
-	<TODO: Add figure>
+\begin{frame}{Parameterization of a Linear SEM with continuous variables}
+	\begin{figure}
+		\centering
+		\includegraphics[page=1]{figures.pdf}
+	\end{figure}
 	\begin{itemize}
 		\item In Linear SEM with continuous variables, each edge is parameterized
 			using a \emph{path coefficient}.
-		\item It represents the strenght of relationship between the variables
-			due to that edge.
-		\item Allows for application of \emph{path analysis}, and can easily
-			compute things like indirect effect, total effects etc.
-			<TODO: Add example>
+		\item It represents the strenght of relationship between the
+			variables due to that edge giving an easy
+			interpretation.
+		\item In linaer SEMs \emph{path analysis}, allows to easily
+			compute things like total effect, indirect effect etc.
+			quickly.
+		\item For example, effect of $ y_1 $ on $ y_4 $ is $
+			\lambda_{11} \beta_{11} \lambda{24} $.
 	\end{itemize}
+\end{frame}
+
+\begin{frame}{Parameterization of Linear SEM with mixed data}
+	\begin{itemize}
+		\item Such interpretable parameterization isn't available when we have mixed variable types.
+		\item If the variables are categorical, we can rely on multinomial regression but that results
+			in a matrix of parameters.
+		\item For ordinal regression, also results in a vector of parameters.
+		\item These are a bit difficult to interpret.
+	\end{itemize}
+
+	Question: Is there a better way to parameterize such models? Yes, canonical correlations based effect size.
 \end{frame}
 
 \begin{frame}{Estimating these parameters}
+	\begin{figure}
+		\centering
+		\includegraphics[page=2]{figures.pdf}
+	\end{figure}
 	\begin{itemize}
-		\item In Linear SEM, these path coefficients can be estimated by regressing
-			variables on their parents. <TODO: Example>
-		\item But for categorical the coefficients are more difficult.
+		\item In continuous variable SEMs, path coefficients can be estimated by linear regression.
+			$$ \beta_{12}: X_2 \sim X_1 $$
+			$$ \beta_{23}: X_3 \sim X_2 + X_4 $$
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Estimating these through residuals}
-	The estimation problem can also be reformulated in terms of residuals using FWL.
-	% Introduce the FWL theorem.
-	% What applying this to estimation of looks like.
+\begin{frame}{Estimation using residuals}
+	The Frisch-Waugh-Lowell theorem allows us to write the estimation in
+	terms of residuals. 
+
+	The regression equation: $ X_3 \sim X_2 + X_4 $ can
+	be written as:
+
+	\begin{equation*}
+		\begin{split}
+			R_{X_2}&: X_2 - \mathbb{E}[X_2 | X_4] \\
+			R_{X_3}&: X_3 - \mathbb{E}[X_3 | X_4] \\
+			\beta_{23}&: R_{X_3} \sim R_{X_2} \\
+		\end{split}
+	\end{equation*}
 \end{frame}
 
 \begin{frame}{What happens in the case of mixed data}
-	What we require to extend this estimation to mixed data.
-	1. Some way to have residuals for mixed data.
-	2. Some kind of effect size measure for this mixed residuals.
+	We can extend this approach to mixed data:
+	\begin{itemize}
+		\item We have a way to compute residuals in mixed data.
+		\item We need some effect size for these residuals.
+	\end{itemize}
 \end{frame}
 
 \begin{frame}{Residuals: Continuous Variablese}
-	Simple difference between true and predicted values.
+	Simplest case. Just the difference between the true and predicted values.
+
+	$$ R_X = X - \mathbb{E}[X | Z] $$
+
 \end{frame}
 
 \begin{frame}{Residuals: Ordinal Variables}
@@ -140,14 +179,18 @@
 \end{frame}
 
 \begin{frame}{Residuals Summary}
-	We get a matrix of continuous valued residuals for each case.
+	\begin{itemize}
+		\item We get a matrix of residuals for each variable type.
+		\item All the values in the matrix are continuous.
+		\item The size of the matrix is determined by the type of the variable.
+			Continuous: $ (n \times 1) $, Ordinal: $ (n \times 1 ) $, Categorical: $ (n \times (k-1)) $.
+	\end{itemize}
 \end{frame}
 
 \begin{frame}{Effect Size: Canonical Correlation}
-	Can't directly use correlation coefficient as we have matrix of
-	residuals but canonical correlation based things can be used.
-
-	What is canonical correlation?
+	\begin{itemize}
+		\item The problem has been transformed to 
+	\end{itemize}
 \end{frame}
 
 \begin{frame}

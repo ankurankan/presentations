@@ -61,4 +61,17 @@
 
 \end{tikzpicture}
 
+
+\begin{tikzpicture}[scale=1]
+	\node[measure] (x1) at ( 0, 0 ) { $ X_1 $ };
+	\node[measure] (x2) at ( 2, 0 ) { $ X_2 $ };
+	\node[measure] (x3) at ( 4, 0 ) { $ X_3 $ };
+	\node[measure] (x4) at ( 3, 1.5 ) { $ X_4 $ };
+
+	\draw[edge](x1) -- (x2) node[midway, below, yshift=0.1cm]{\small $\beta_{12}$};
+	\draw[edge](x2) -- (x3) node[midway, below, yshift=0.1cm]{\small $\beta_{23}$};
+	\draw[edge](x4) -- (x2) node[midway, above, sloped, yshift=-0.1cm]{\small $\beta_{24}$};
+	\draw[edge](x4) -- (x3) node[midway, above, sloped, yshift=-0.1cm]{\small $\beta_{34}$};
+
+\end{tikzpicture}
 \end{document}
