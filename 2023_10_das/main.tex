@@ -189,11 +189,24 @@
 
 \begin{frame}{Effect Size: Canonical Correlation}
 	\begin{itemize}
-		\item The problem has been transformed to 
+		\item The problem has been transformed to estimating the effect between these two matrices.
+		\item Can be treated as set of random variables. 
+		\item Can use canonical correlation based effect size.
+		\item Canoncial correlation finds orthogonal projects such that
+			it maximized the correlation between the each
+			component.
+	\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Why Canoncial Correlation}
+	\begin{itemize}
+		\item Natural genralization of correlation coefficient. In the case of continuous varibles, reduces to path coefficients.
+		\item Linearly invarient. Categroical varibles can be one-hot encoded in many way, that would have no effect on the output.
 	\end{itemize}
 \end{frame}
 
-\begin{frame}
+\begin{frame}{Canonical Correlation Example}
 	How does these parameters look like. Show on the adult income dataset
 	or something.
 
@@ -202,17 +215,29 @@
 \end{frame}
 
 \begin{frame}{CI Testing based on canonical correlation}
-	Can use something like Pillai's trace.
+	\begin{itemize}
+		\item Canonical correlation can be use for CI testing as well with residuals.
+
+	\end{itemize}	
 \end{frame}
 
 \begin{frame}{Results of CI testing}
-	Canonical correlation results in better calibration and power in high
-	dimensional settings.
+	\begin{figure}
+		\centering
+		\includegraphics{conclusion.pdf}
+		\caption{Calibration (left) and accuracy (right) comparison between the
+		standard Hotelling's $ T^2 $ test, Adaptable Regularized Hotelling's $
+		T^2 $ test (ARHT), and Pillai-Bartlett Trace for CI testing.}
+		\label{fig:conc_compare}
+	\end{figure}
+
 \end{frame}
 
 \begin{frame}{Conclusion/Remaining problems}
-	Not sure how addition rule of path coefficients would work.
-	For CI tests, asymptotic theory isn't clear.
+	\begin{itemize}
+		\item Not sure how addition rule of path coefficients would work.
+		\item For CI tests, asymptotic theory isn't clear.
+	\end{itemize}
 \end{frame}
 
 \end{document}
