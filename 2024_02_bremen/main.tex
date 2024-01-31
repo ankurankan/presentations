@@ -95,6 +95,18 @@
 	\end{itemize}
 \end{frame}
 
+\begin{frame}{Estimating these parameters}
+	\begin{figure}
+		\centering
+		\includegraphics[page=2]{figures.pdf}
+	\end{figure}
+	\begin{itemize}
+		\item In continuous variable SEMs, path coefficients can be estimated by linear regression.
+			$$ \beta_{12}: X_2 \sim X_1 $$
+			$$ \beta_{23}: X_3 \sim X_2 + X_4 $$
+	\end{itemize}
+\end{frame}
+
 \begin{frame}{Parameterization of Linear SEM with mixed data}
 	\begin{itemize}
 		\item Such interpretable parameterization isn't available when we have mixed variable types.
@@ -107,17 +119,9 @@
 	Question: Is there a better way to parameterize such models? Yes, canonical correlations based effect size.
 \end{frame}
 
-\begin{frame}{Estimating these parameters}
-	\begin{figure}
-		\centering
-		\includegraphics[page=2]{figures.pdf}
-	\end{figure}
-	\begin{itemize}
-		\item In continuous variable SEMs, path coefficients can be estimated by linear regression.
-			$$ \beta_{12}: X_2 \sim X_1 $$
-			$$ \beta_{23}: X_3 \sim X_2 + X_4 $$
-	\end{itemize}
+\begin{frame}{Research Question}
 \end{frame}
+
 
 \begin{frame}{Estimation using residuals}
 	The Frisch-Waugh-Lowell theorem allows us to write the estimation in
@@ -141,6 +145,11 @@
 		\item We have a way to compute residuals in mixed data.
 		\item We need some effect size for these residuals.
 	\end{itemize}
+\end{frame}
+
+\begin{frame}{What is needed to extend this to mixed variables}
+	1. A residualization method
+	2. An effect size measure
 \end{frame}
 
 \begin{frame}{Residuals: Continuous Variablese}
