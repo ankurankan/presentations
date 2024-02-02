@@ -40,90 +40,124 @@
 
 \begin{document}
 
-\title[]{Parameterizing Mixed Data Linear Structural Equation Models}
-\author{Ankur Ankan}
+\title[]{Path Coefficients for Mixed Data}
+\author{}
 \date{}
 
 \maketitle
 
-\begin{frame}{Structural Equation Models}
-	\begin{figure}
-		\centering
-		\begin{subfigure}{0.6 \textwidth}
-			\centering
-			\includegraphics[page=1]{figures.pdf}
-		\end{subfigure}%
-		\begin{subfigure}{0.4 \textwidth}
-			\centering
-			\begin{equation*}
-				\begin{split}
-					\l_2 &= \beta_{11} \l_1 + \zeta_1 \\
-					y_6 &= \lambda_{26} \l_2 + \epsilon_6 \\
-				\end{split}
-			\end{equation*}
-		\end{subfigure}	
-		\caption{Example of a linear SEM }
-	\end{figure}
-
+\begin{frame}{Path Coefficients for Continuous Variables}
+	% Insert the adult income dataset here.
 	\begin{itemize}
-		\item A Structural Equation Model (SEM) represents causal relationships between variables.
-		\item The parameters on the edge (called the \emph{path
-			coefficients}) represent the strength of the
-			relationship.
-		\item If the model is standardized (i.e. error variances are $
-			1 $), the parameters are the correlation coefficient
-			between the variables.
+		\item Dataset contains mixed variables.
+		\item We are interested in the strength between the variables.
+		\item For continuous variables, the standard way is to estimate the path coefficients for the edge if it is identified.
+		\item As shown in the example between node1 and node2, the edge 
+			is shown.
+		\item It gives us an idea of the strength between the variables. A one
+			unit increase the cause variable while keeping other variables 
+			fixed implies edge coefficient increase in the outcome variable.
+		\item Path analysis can be applied to easily compute total effect, 
+			indirect effects etc.
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Parameterization of a Linear SEM with continuous variables}
-	\begin{figure}
-		\centering
-		\includegraphics[page=1]{figures.pdf}
-	\end{figure}
+\begin{frame}{Path Coefficients for Mixed Variables}
 	\begin{itemize}
-		\item In Linear SEM with continuous variables, each edge is parameterized
-			using a \emph{path coefficient}.
-		\item It represents the strenght of relationship between the
-			variables due to that edge giving an easy
-			interpretation.
-		\item In linaer SEMs \emph{path analysis}, allows to easily
-			compute things like total effect, indirect effect etc.
-			quickly.
-		\item For example, effect of $ y_1 $ on $ y_4 $ is $
-			\lambda_{11} \beta_{11} \lambda{24} $.
+		\item Estimation of these path coefficients are done using linear 
+			regression.
+		% Show an example.
+		\item However, when mixed variables are present, applying this 
+			method results in a matrix of parameters.
+		\item And with this we loose all the interpretability of path
+			coefficients that we had for continuous variables.
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Estimating these parameters}
-	\begin{figure}
-		\centering
-		\includegraphics[page=2]{figures.pdf}
-	\end{figure}
-	\begin{itemize}
-		\item In continuous variable SEMs, path coefficients can be estimated by linear regression.
-			$$ \beta_{12}: X_2 \sim X_1 $$
-			$$ \beta_{23}: X_3 \sim X_2 + X_4 $$
-	\end{itemize}
-\end{frame}
-
-\begin{frame}{Parameterization of Linear SEM with mixed data}
-	\begin{itemize}
-		\item Such interpretable parameterization isn't available when we have mixed variable types.
-		\item If the variables are categorical, we can rely on multinomial regression but that results
-			in a matrix of parameters.
-		\item For ordinal regression, also results in a vector of parameters.
-		\item These are a bit difficult to interpret.
-	\end{itemize}
-
-	Question: Is there a better way to parameterize such models? Yes, canonical correlations based effect size.
-\end{frame}
+% \begin{frame}{Structural Equation Models}
+% 	\begin{figure}
+% 		\centering
+% 		\begin{subfigure}{0.6 \textwidth}
+% 			\centering
+% 			\includegraphics[page=1]{figures.pdf}
+% 		\end{subfigure}%
+% 		\begin{subfigure}{0.4 \textwidth}
+% 			\centering
+% 			\begin{equation*}
+% 				\begin{split}
+% 					\l_2 &= \beta_{11} \l_1 + \zeta_1 \\
+% 					y_6 &= \lambda_{26} \l_2 + \epsilon_6 \\
+% 				\end{split}
+% 			\end{equation*}
+% 		\end{subfigure}	
+% 		\caption{Example of a linear SEM }
+% 	\end{figure}
+% 
+% 	\begin{itemize}
+% 		\item A Structural Equation Model (SEM) represents causal relationships between variables.
+% 		\item The parameters on the edge (called the \emph{path
+% 			coefficients}) represent the strength of the
+% 			relationship.
+% 		\item If the model is standardized (i.e. error variances are $
+% 			1 $), the parameters are the correlation coefficient
+% 			between the variables.
+% 	\end{itemize}
+% \end{frame}
+% 
+% \begin{frame}{Parameterization of a Linear SEM with continuous variables}
+% 	\begin{figure}
+% 		\centering
+% 		\includegraphics[page=1]{figures.pdf}
+% 	\end{figure}
+% 	\begin{itemize}
+% 		\item In Linear SEM with continuous variables, each edge is parameterized
+% 			using a \emph{path coefficient}.
+% 		\item It represents the strenght of relationship between the
+% 			variables due to that edge giving an easy
+% 			interpretation.
+% 		\item In linaer SEMs \emph{path analysis}, allows to easily
+% 			compute things like total effect, indirect effect etc.
+% 			quickly.
+% 		\item For example, effect of $ y_1 $ on $ y_4 $ is $
+% 			\lambda_{11} \beta_{11} \lambda{24} $.
+% 	\end{itemize}
+% \end{frame}
+% 
+% \begin{frame}{Estimating these parameters}
+% 	\begin{figure}
+% 		\centering
+% 		\includegraphics[page=2]{figures.pdf}
+% 	\end{figure}
+% 	\begin{itemize}
+% 		\item In continuous variable SEMs, path coefficients can be estimated by linear regression.
+% 			$$ \beta_{12}: X_2 \sim X_1 $$
+% 			$$ \beta_{23}: X_3 \sim X_2 + X_4 $$
+% 	\end{itemize}
+% \end{frame}
+% 
+% \begin{frame}{Parameterization of Linear SEM with mixed data}
+% 	\begin{itemize}
+% 		\item Such interpretable parameterization isn't available when we have mixed variable types.
+% 		\item If the variables are categorical, we can rely on multinomial regression but that results
+% 			in a matrix of parameters.
+% 		\item For ordinal regression, also results in a vector of parameters.
+% 		\item These are a bit difficult to interpret.
+% 	\end{itemize}
+% 
+% 	Question: Is there a better way to parameterize such models? Yes, canonical correlations based effect size.
+% \end{frame}
 
 \begin{frame}{Research Question}
+	Is there a parameterization for mixed variable models such that:
+	\begin{itemize}
+		\item Is a single value and analogous to path coefficients.
+		\item Preserves the interpretability of path coefficients.
+		\item Able to apply path analysis to it.
+		\item Able to simulate data using the parameterization.
+	\end{itemize}
 \end{frame}
 
-
-\begin{frame}{Estimation using residuals}
+\begin{frame}{Reformulating Path Coefficient Estimation}
 	The Frisch-Waugh-Lowell theorem allows us to write the estimation in
 	terms of residuals. 
 
@@ -139,17 +173,12 @@
 	\end{equation*}
 \end{frame}
 
-\begin{frame}{What happens in the case of mixed data}
+\begin{frame}{Extending this to mixed data}
 	We can extend this approach to mixed data:
 	\begin{itemize}
-		\item We have a way to compute residuals in mixed data.
-		\item We need some effect size for these residuals.
+		\item We have a way to compute residuals in mixed data. % Add citation
+		\item We need some effect size for these residuals. % Add citation
 	\end{itemize}
-\end{frame}
-
-\begin{frame}{What is needed to extend this to mixed variables}
-	1. A residualization method
-	2. An effect size measure
 \end{frame}
 
 \begin{frame}{Residuals: Continuous Variablese}
@@ -239,7 +268,6 @@
 		T^2 $ test (ARHT), and Pillai-Bartlett Trace for CI testing.}
 		\label{fig:conc_compare}
 	\end{figure}
-
 \end{frame}
 
 \begin{frame}{Conclusion/Remaining problems}
