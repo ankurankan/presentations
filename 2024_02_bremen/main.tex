@@ -40,34 +40,74 @@
 
 \begin{document}
 
-\title[]{Canonical Correlation based Conditional Independence Testing: Emprirical Analysis}
+\title[]{Canonical Correlation Based Mixed Data Conditional Independence Testing: Emprirical Analysis}
 \author{}
 \date{}
 
 \maketitle
 
-\begin{frame}{Comparing to}
+\begin{frame}{Mixed Data CI Tests}
+	\begin{enumerate}
+		\item Mutual Information based test (MI-CG): Used as baseline; implemented in R package `bnlearn'
+		\item Likelihood Ratio Test (MXM)
+		\item Hotelling's $T^2$ test on mixed data residualization.
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}{Likelihood Ratio Test (MXM)}
+\end{frame}
+
+\begin{frame}{Hotelling's $ T^2 $ test}
+Given two mixed data residual matrices, $ R_\mathbf{x} $ and $ R_\mathbf{y} $
+
+$$ Q(\mathbf{x}, \mathbf{y}) = \frac{1}{n} \left( d \times \hat{\Sigma}_d \times d^T \right) $$
+
+
+$$
+d = (R_{\mathbb{I}(\mathbf{x}=1)} \cdot R_{(\mathbf{y}=1)}, \, \ldots \ ,
+R_{\mathbb{I}(\mathbf{x}=C_x)} \cdot R_{(\mathbf{y}=C_y)} )
+$$
+
+$$ \hat{\Sigma}_d = cov(d) $$
+
+Under null, asymptotically chi-squared distributed with $ \mid R_\mathbf{x} \mid * \mid R_\mathbf{y} \mid $ degrees of freedom.
+
+\end{frame}
+
+\begin{frame}{Pillai's Trace}
+\end{frame}
+
+\begin{frame}{Simulating Mixed Data}
+	Given a DAG, $ D $ we simulate the data as.
 \end{frame}
 
 \begin{frame}{Calibration: Data Generation}
+	We use the DAG:
 \end{frame}
 
 \begin{frame}{Calibration}
+	Insert figure here.
 \end{frame}
 
 \begin{frame}{Accuracy: Data Generation}
+	We use the DAG:
 \end{frame}
 
 \begin{frame}{Accuracy}
+	Insert figure here.
 \end{frame}
 
 \begin{frame}{Structure Learning: Data Generation}
+	DAG generation mechanism.
 \end{frame}
 
 \begin{frame}{Structure Learning}
 \end{frame}
 
 \begin{frame}{Conclusion}
+	\begin{itemize}
+		\item Pillai's Trace is better calibrated especially in high-dimensional scenarios.
+	\end{itemize}
 \end{frame}
 
 \end{document}
