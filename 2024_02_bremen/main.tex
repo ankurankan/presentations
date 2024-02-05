@@ -40,213 +40,34 @@
 
 \begin{document}
 
-\title[]{Parameterizing Mixed Data Linear Structural Equation Models}
-\author{Ankur Ankan}
+\title[]{Canonical Correlation based Conditional Independence Testing: Emprirical Analysis}
+\author{}
 \date{}
 
 \maketitle
 
-\begin{frame}{Structural Equation Models}
-	\begin{figure}
-		\centering
-		\begin{subfigure}{0.6 \textwidth}
-			\centering
-			\includegraphics[page=1]{figures.pdf}
-		\end{subfigure}%
-		\begin{subfigure}{0.4 \textwidth}
-			\centering
-			\begin{equation*}
-				\begin{split}
-					\l_2 &= \beta_{11} \l_1 + \zeta_1 \\
-					y_6 &= \lambda_{26} \l_2 + \epsilon_6 \\
-				\end{split}
-			\end{equation*}
-		\end{subfigure}	
-		\caption{Example of a linear SEM }
-	\end{figure}
-
-	\begin{itemize}
-		\item A Structural Equation Model (SEM) represents causal relationships between variables.
-		\item The parameters on the edge (called the \emph{path
-			coefficients}) represent the strength of the
-			relationship.
-		\item If the model is standardized (i.e. error variances are $
-			1 $), the parameters are the correlation coefficient
-			between the variables.
-	\end{itemize}
+\begin{frame}{Comparing to}
 \end{frame}
 
-\begin{frame}{Parameterization of a Linear SEM with continuous variables}
-	\begin{figure}
-		\centering
-		\includegraphics[page=1]{figures.pdf}
-	\end{figure}
-	\begin{itemize}
-		\item In Linear SEM with continuous variables, each edge is parameterized
-			using a \emph{path coefficient}.
-		\item It represents the strenght of relationship between the
-			variables due to that edge giving an easy
-			interpretation.
-		\item In linaer SEMs \emph{path analysis}, allows to easily
-			compute things like total effect, indirect effect etc.
-			quickly.
-		\item For example, effect of $ y_1 $ on $ y_4 $ is $
-			\lambda_{11} \beta_{11} \lambda{24} $.
-	\end{itemize}
+\begin{frame}{Calibration: Data Generation}
 \end{frame}
 
-\begin{frame}{Estimating these parameters}
-	\begin{figure}
-		\centering
-		\includegraphics[page=2]{figures.pdf}
-	\end{figure}
-	\begin{itemize}
-		\item In continuous variable SEMs, path coefficients can be estimated by linear regression.
-			$$ \beta_{12}: X_2 \sim X_1 $$
-			$$ \beta_{23}: X_3 \sim X_2 + X_4 $$
-	\end{itemize}
+\begin{frame}{Calibration}
 \end{frame}
 
-\begin{frame}{Parameterization of Linear SEM with mixed data}
-	\begin{itemize}
-		\item Such interpretable parameterization isn't available when we have mixed variable types.
-		\item If the variables are categorical, we can rely on multinomial regression but that results
-			in a matrix of parameters.
-		\item For ordinal regression, also results in a vector of parameters.
-		\item These are a bit difficult to interpret.
-	\end{itemize}
-
-	Question: Is there a better way to parameterize such models? Yes, canonical correlations based effect size.
+\begin{frame}{Accuracy: Data Generation}
 \end{frame}
 
-\begin{frame}{Research Question}
+\begin{frame}{Accuracy}
 \end{frame}
 
-
-\begin{frame}{Estimation using residuals}
-	The Frisch-Waugh-Lowell theorem allows us to write the estimation in
-	terms of residuals. 
-
-	The regression equation: $ X_3 \sim X_2 + X_4 $ can
-	be written as:
-
-	\begin{equation*}
-		\begin{split}
-			R_{X_2}&: X_2 - \mathbb{E}[X_2 | X_4] \\
-			R_{X_3}&: X_3 - \mathbb{E}[X_3 | X_4] \\
-			\beta_{23}&: R_{X_3} \sim R_{X_2} \\
-		\end{split}
-	\end{equation*}
+\begin{frame}{Structure Learning: Data Generation}
 \end{frame}
 
-\begin{frame}{What happens in the case of mixed data}
-	We can extend this approach to mixed data:
-	\begin{itemize}
-		\item We have a way to compute residuals in mixed data.
-		\item We need some effect size for these residuals.
-	\end{itemize}
+\begin{frame}{Structure Learning}
 \end{frame}
 
-\begin{frame}{What is needed to extend this to mixed variables}
-	1. A residualization method
-	2. An effect size measure
-\end{frame}
-
-\begin{frame}{Residuals: Continuous Variablese}
-	Simplest case. Just the difference between the true and predicted values.
-
-	$$ R_X = X - \mathbb{E}[X | Z] $$
-
-\end{frame}
-
-\begin{frame}{Residuals: Ordinal Variables}
-	Given an ordinal variable $ Y $ and an estimate $ \hat{p}(y) $ of $
-	p(y) $, LS-Residual for sample $ y_i $ is defined as:
-	$$ R_{y_i} = \hat{p}(Y < y_i) - \hat{p}(Y > y_i) $$
-	\vspace{1em}
-
-	For the binary case with $ Y \in \{0, 1\} $:
-	$$ R_{y_i} = y_i - \hat{p}(Y = 1) $$
-	\vspace{1em}
-
-	For the conditional case for sample $ (y|z)_i $,
-	$$ R_{y_i | z_i} = \hat{p}(Y < y_i | Z=z_i) - \hat{p}(Y>y_i|Z=z_i) $$
-
-	$ \hat{p}(y) = \begin{array}{llll} Y_0 & Y_1 & Y_2 & Y_3 \\ 0.1 & 0.3 & 0.5 & 0.1 \end{array} $
-	\begin{itemize}
-		\item If $ y = Y_2 $, $ R_{y} = \hat{p}(Y < Y_2) - \hat{p}(Y > Y_2) = 0.3 $
-		\item If $ y = Y_3 $, $ R_{y} = \hat{p}(Y < Y_3) - \hat{p}(Y > Y_3) = 0.9 $
-	\end{itemize}
-\end{frame}
-
-\begin{frame}{Residuals: Categorical variables}
-	$\hat{p}(Y) = \begin{array}{ll} Y_0 & Y_1 \\ 0.3 & 0.7 \end{array} $
-	\begin{itemize}	
-		\item If $ y = Y_0 $, $ R_{y} = Y_0 - \hat{p}(Y=1) = -0.7 $
-		\item If $ y = Y_1 $, $ R_{y} = Y_1 - \hat{p}(Y=1) = 0.3 $
-	\end{itemize}
-\end{frame}
-
-\begin{frame}{Residuals Summary}
-	\begin{itemize}
-		\item We get a matrix of residuals for each variable type.
-		\item All the values in the matrix are continuous.
-		\item The size of the matrix is determined by the type of the variable.
-			Continuous: $ (n \times 1) $, Ordinal: $ (n \times 1 ) $, Categorical: $ (n \times (k-1)) $.
-	\end{itemize}
-\end{frame}
-
-\begin{frame}{Effect Size: Canonical Correlation}
-	\begin{itemize}
-		\item The problem has been transformed to estimating the effect between these two matrices.
-		\item Can be treated as set of random variables. 
-		\item Can use canonical correlation based effect size.
-		\item Canoncial correlation finds orthogonal projects such that
-			it maximized the correlation between the each
-			component.
-	\end{itemize}
-
-\end{frame}
-
-\begin{frame}{Why Canoncial Correlation}
-	\begin{itemize}
-		\item Natural genralization of correlation coefficient. In the case of continuous varibles, reduces to path coefficients.
-		\item Linearly invarient. Categroical varibles can be one-hot encoded in many way, that would have no effect on the output.
-	\end{itemize}
-\end{frame}
-
-\begin{frame}{Canonical Correlation Example}
-	How does these parameters look like. Show on the adult income dataset
-	or something.
-
-	This also has the multiplicative property of path analysis. Show an
-	example.
-\end{frame}
-
-\begin{frame}{CI Testing based on canonical correlation}
-	\begin{itemize}
-		\item Canonical correlation can be use for CI testing as well with residuals.
-
-	\end{itemize}	
-\end{frame}
-
-\begin{frame}{Results of CI testing}
-	\begin{figure}
-		\centering
-		\includegraphics{conclusion.pdf}
-		\caption{Calibration (left) and accuracy (right) comparison between the
-		standard Hotelling's $ T^2 $ test, Adaptable Regularized Hotelling's $
-		T^2 $ test (ARHT), and Pillai-Bartlett Trace for CI testing.}
-		\label{fig:conc_compare}
-	\end{figure}
-
-\end{frame}
-
-\begin{frame}{Conclusion/Remaining problems}
-	\begin{itemize}
-		\item Not sure how addition rule of path coefficients would work.
-		\item For CI tests, asymptotic theory isn't clear.
-	\end{itemize}
+\begin{frame}{Conclusion}
 \end{frame}
 
 \end{document}
