@@ -70,11 +70,16 @@ $$
 
 $$ \hat{\Sigma}_d = cov(d) $$
 
-Under null, asymptotically chi-squared distributed with $ \mid R_\mathbf{x} \mid * \mid R_\mathbf{y} \mid $ degrees of freedom.
+Under null, $ Q $ is asymptotically $ \chi^2 (\mid R_\mathbf{x} \mid \times \mid R_\mathbf{y} \mid) $ distributed.
 
 \end{frame}
 
 \begin{frame}{Pillai's Trace}
+
+$$ \textit{V}(R_\mathbf{x}, R_\mathbf{y}) = \sum_{\rho \in \bm{\rho}(R_\mathbf{x}, R_\mathbf{y})} \rho^2 $$
+
+No exact asymptotic distribution, F-approximation is used.
+
 \end{frame}
 
 \begin{frame}{Simulating Mixed Data}
