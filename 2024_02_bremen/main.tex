@@ -51,34 +51,45 @@
 		\item Mutual Information based test (MI-CG): Used as baseline; implemented in R package `bnlearn'
 		\item Likelihood Ratio Test (MXM)
 		\item Hotelling's $T^2$ test on mixed data residualization.
+		\item Pillai's Trace
 	\end{enumerate}
 \end{frame}
 
 \begin{frame}{Likelihood Ratio Test (MXM)}
 \end{frame}
 
-\begin{frame}{Hotelling's $ T^2 $ test}
-Given two mixed data residual matrices, $ R_\mathbf{x} $ and $ R_\mathbf{y} $
+\begin{frame}{Hotelling's $ T^2 $ on Residuals}
+	\todo[inline]{Fix notation of capital and small x}
 
-$$ Q(\mathbf{x}, \mathbf{y}) = \frac{1}{n} \left( d \times \hat{\Sigma}_d \times d^T \right) $$
+Given two residual matrices, $ R_{\bm{x}}: X \sim \bm{Z} $ and $ R_{\bm{y}}: Y \sim \bm{Z} $, the $ T^2 $ test statistic is given as:
 
+\begin{equation}
+	Q(\mathbf{x}, \mathbf{y}) = \frac{1}{n} \left( d \times \hat{\Sigma}_d \times d^T \right)
+\end{equation}
+where,
+\begin{equation}
+	\begin{split}
+		d &= (R_{\mathbb{I}(\mathbf{x}=1)} \cdot R_{(\mathbf{y}=1)}, \, \ldots \ , R_{\mathbb{I}(\mathbf{x}=C_x)} \cdot R_{(\mathbf{y}=C_y)} ) \\
+		\hat{\Sigma}_d &= \textrm{cov}(d)
+	\end{split}
+\end{equation}
 
-$$
-d = (R_{\mathbb{I}(\mathbf{x}=1)} \cdot R_{(\mathbf{y}=1)}, \, \ldots \ ,
-R_{\mathbb{I}(\mathbf{x}=C_x)} \cdot R_{(\mathbf{y}=C_y)} )
-$$
-
-$$ \hat{\Sigma}_d = cov(d) $$
 
 Under null, $ Q $ is asymptotically $ \chi^2 (\mid R_\mathbf{x} \mid \times \mid R_\mathbf{y} \mid) $ distributed.
 
 \end{frame}
 
-\begin{frame}{Pillai's Trace}
+\begin{frame}{Pillai's Trace on Residuals}
+Given two residual matrices, $ R_{\bm{x}}: X \sim \bm{Z} $ and $ R_{\bm{y}}: Y \sim \bm{Z} $, Pillai's Trace is given as:
 
-$$ \textit{V}(R_\mathbf{x}, R_\mathbf{y}) = \sum_{\rho \in \bm{\rho}(R_\mathbf{x}, R_\mathbf{y})} \rho^2 $$
+\begin{equation}
+	\textit{V}(R_\mathbf{x}, R_\mathbf{y}) = \sum_{\rho \in \bm{\rho}(R_\mathbf{x}, R_\mathbf{y})} \rho^2
+\end{equation}
+where, $ \bm{\rho}({R_\mathbf{x}, R_\mathbf{y}}) $  is the canonical correlation between $ R_\mathbf{x} $ and $ R_\mathbf{y} $.
 
-No exact asymptotic distribution, F-approximation is used.
+\vspace{1em}
+
+No exact asymptotic distribution, F-approximation can be used for computing p-values.
 
 \end{frame}
 
