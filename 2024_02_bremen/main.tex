@@ -83,11 +83,33 @@ No exact asymptotic distribution, F-approximation is used.
 \end{frame}
 
 \begin{frame}{Simulating Mixed Data}
-	Given a DAG, $ D $ we simulate the data as.
+	Given a DAG, $ D $ we simulate the data as:
+	\begin{enumerate}
+		\item If $ Y $ is continuous, $ Y = B Pa_Y + \epsilon $
+		\item If $ Y $ is categorical use multinomial regression, $ Y \sim \lambda(B Pa_Y + \epsilon) $, where $ \lambda(x) = \frac{e^x}{1+e^x} $.
+		\item If $ Y $ is ordinal, using proportional odds model. $ Y \sim \lambda(A + B Pa_Y + \epsilon) $.
+	\end{enumerate}
 \end{frame}
 
 \begin{frame}{Calibration: Data Generation}
-	We use the DAG:
+	We use the following DAG:
+\begin{center}
+\begin{tikzpicture}[yscale=.75]
+	\node (x) at (-1,1) {$X$};
+	\node (y) at (3,1) {$Y$};
+	\node (z) at (1,2) {$Z_1$};
+	\node (z2) at (1, 2.5) {$Z_2$};
+	\node (dots) at (1, 3) {$ \vdots $};
+	\node (zk) at (1, 3.5) {$ Z_k $};
+	\draw [->] (z) -- (y);
+	\draw [->] (z) -- (x);
+	\draw [->] (z2) -- (x);
+	\draw [->] (z2) -- (y);
+	\draw [->] (zk) -- (x);
+	\draw [->] (zk) -- (y);
+\end{tikzpicture}
+\end{center}
+
 \end{frame}
 
 \begin{frame}{Calibration}
@@ -96,6 +118,24 @@ No exact asymptotic distribution, F-approximation is used.
 
 \begin{frame}{Accuracy: Data Generation}
 	We use the DAG:
+
+\begin{center}
+\begin{tikzpicture}[yscale=.75]
+	\node (x) at (-1,0) {$X$};
+	\node (y) at (3,0) {$Y$};
+	\node (z) at (1,1) {$Z_1$};
+	\node (z2) at (1, 1.5) {$Z_2$};
+	\node  at (1, 2) {$ \vdots $};
+	\node (zk) at (1, 2.5) {$Z_k$};
+	\draw [->] (x) edge node [midway, below] {$\beta$} (y);
+	\draw [->] (z) -- (y);
+	\draw [->] (z) -- (x);
+	\draw [->] (z2) -- (y);
+	\draw [->] (z2) -- (x);
+	\draw [->] (zk) -- (y);
+	\draw [->] (zk) -- (x);
+\end{tikzpicture}
+\end{center}
 \end{frame}
 
 \begin{frame}{Accuracy}
