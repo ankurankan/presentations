@@ -113,7 +113,20 @@ No exact asymptotic distribution, F-approximation is used.
 \end{frame}
 
 \begin{frame}{Calibration}
-	Insert figure here.
+	\begin{figure}[t]
+		\centering
+		\includegraphics{conclusion.pdf}
+		\caption{Calibration (left) and accuracy (right) comparison between the
+		standard Hotelling's $ T^2 $ test, Adaptable Regularized Hotelling's $
+		T^2 $ test (ARHT), Pillai-Bartlett Trace, and chi-squared test for CI
+		testing in a low sample size and high cardinality scenario. Data has
+		been simulated using the method outlined in
+		Section~\ref{sec:emp_analysis} with both variables having $ 8 $
+		categories each and $ 1 $ conditional variable. Sample size is $ 980 $
+		which gives a ratio of $ 20:1 $ for number of samples to dimensionality
+		for the $T^2$ tests.}
+		\label{fig:conc_compare}
+	\end{figure}
 \end{frame}
 
 \begin{frame}{Accuracy: Data Generation}
@@ -141,6 +154,7 @@ No exact asymptotic distribution, F-approximation is used.
 \begin{frame}{Accuracy}
 	Insert figure here.
 \end{frame}
+
 
 \begin{frame}{Structure Learning: Data Generation}
 	DAG generation mechanism.
