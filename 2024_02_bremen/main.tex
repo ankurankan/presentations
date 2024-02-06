@@ -114,11 +114,17 @@ No exact asymptotic distribution of $ V $ is known, but p-values can be computed
 \end{frame}
 
 \begin{frame}{Simulating Mixed Data}
-	Given a DAG, $ D $ and some node $ Y $ with parents $ Pa_Y $:
+	Given a node $ Y $ with parents $ Pa_Y $, $ Y $ is simulated as follows:
 	\begin{enumerate}
-		\item If $ Y $ is continuous, $ Y = \mathbf{B} Pa_Y + \epsilon $
-		\item If $ Y $ is categorical, $ Y \sim \lambda(\mathbf{B} Pa_Y + \epsilon) $, where $ \lambda(x) = \frac{e^x}{1+e^x} $.
-		\item If $ Y $ is ordinal, using proportional odds logistic regression. $ Y \sim \lambda(A + \mathbf{B} Pa_Y + \epsilon) $.
+		\item Categorical variables in $ Pa_Y $ are dummy encoded. Ordinal variables are treated as continuous.
+		\item \begin{itemize}
+			\item If $ Y $ is continuous, simple linear regression.
+			% \item If $ Y $ is continuous, $ Y = \mathbf{B} Pa_Y + \epsilon $
+			\item If $ Y $ is categorical, multinomial logistic regression.
+			% \item If $ Y $ is categorical, $ Y \sim \lambda(\mathbf{B} Pa_Y + \epsilon) $, where $ \lambda(x) = \frac{e^x}{1+e^x} $.
+			\item If $ Y $ is ordinal, proportional odds logistic regression.
+			% \item If $ Y $ is ordinal, using proportional odds logistic regression. $ Y \sim \lambda(A + \mathbf{B} Pa_Y + \epsilon) $.
+		\end{itemize}
 	\end{enumerate}
 \todo[inline]{Add more details here}
 \end{frame}
