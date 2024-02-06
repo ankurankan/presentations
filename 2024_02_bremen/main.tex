@@ -109,8 +109,9 @@ where, $ \bm{\rho}({R_\mathbf{x}, R_\mathbf{y}}) $  is the canonical correlation
 
 \vspace{1em}
 
-No exact asymptotic distribution of $ V $ is known, but p-values can be computed using F-approximation.
-\todo[inline]{Add the "Practical methods" citation here}
+No exact asymptotic distribution of $ V $ is known, but p-values can be computed using F-approximation. \footnotemark
+
+\footnotetext[4]{Muller, Keith E., and Bercedis L. Peterson. "Practical methods for computing power in testing the multivariate general linear hypothesis."}
 \end{frame}
 
 \begin{frame}{Simulating Mixed Data}
@@ -153,20 +154,16 @@ No exact asymptotic distribution of $ V $ is known, but p-values can be computed
 \begin{frame}{Calibration: Mixed Data}
 	\begin{figure}[t]
 		\centering
-		\includegraphics{conclusion.pdf}
-		\caption{Calibration (left) and accuracy (right) comparison between the
-		standard Hotelling's $ T^2 $ test, Adaptable Regularized Hotelling's $
-		T^2 $ test (ARHT), Pillai-Bartlett Trace, and chi-squared test for CI
-		testing in a low sample size and high cardinality scenario. Data has
-		been simulated using the method outlined in
-		Section~\ref{sec:emp_analysis} with both variables having $ 8 $
-		categories each and $ 1 $ conditional variable. Sample size is $ 980 $
-		which gives a ratio of $ 20:1 $ for number of samples to dimensionality
-		for the $T^2$ tests.}
-		\label{fig:conc_compare}
+		\includegraphics{../../2023-canonical-cor/code/plots/calibration_mixed.pdf}
 	\end{figure}
 \end{frame}
 
+\begin{frame}{Calibration: Discrete Data}
+	\begin{figure}[t]
+		\centering
+		\includegraphics{../../2023-canonical-cor/code/plots/calibration.pdf}
+	\end{figure}
+\end{frame}
 
 \begin{frame}{Accuracy: Data Generation}
 	We use the DAG:
@@ -191,10 +188,17 @@ No exact asymptotic distribution of $ V $ is known, but p-values can be computed
 \end{frame}
 
 \begin{frame}{Accuracy: Mixed Data}
+	\begin{figure}[t]
+		\centering
+		\includegraphics{../../2023-canonical-cor/code/plots/accuracy_mixed.pdf}
+	\end{figure}
 \end{frame}
 
 \begin{frame}{Accuracy: Categorical Data}
-	Insert figure here.
+	\begin{figure}[t]
+		\centering
+		\includegraphics{../../2023-canonical-cor/code/plots/accuracy_cat.pdf}
+	\end{figure}
 \end{frame}
 
 
