@@ -40,22 +40,32 @@
 
 \begin{document}
 
-\title[]{Canonical Correlation Based Mixed Data Conditional Independence Testing: Emprirical Analysis}
+\title[]{Canonical Correlation Based Mixed Data Conditional Independence Testing: Empirical Analysis}
 \author{}
 \date{}
 
 \maketitle
 
-\begin{frame}{Mixed Data CI Tests}
+\begin{frame}{CI Tests}
 	\begin{enumerate}
-		\item Mutual Information based test (MI-CG): Used as baseline; implemented in R package `bnlearn'
-		\item Likelihood Ratio Test (MXM)
-		\item Hotelling's $T^2$ test on mixed data residualization.
-		\item Pillai's Trace
+		\item Mutual Information based test (MI-CG) \footnotemark
+			\begin{itemize}
+				\item Used as baseline.
+				\item Equivalent to chi-squared test for discrete variables.
+			\end{itemize}
+		\item Likelihood Ratio Test (MXM) \footnotemark
+			\begin{itemize}
+				\item Compares the likelihood of $ X \sim \bm{Z} $ and $ X \sim \bm{Z} + Y $.
+				\item Regression method chosen based on data type.
+			\end{itemize}
+		\item Hotelling's $T^2$ test on residuals. \footnotemark
+		\item Pillai's Trace: A canonical correlation based test.
 	\end{enumerate}
-\end{frame}
 
-\begin{frame}{Likelihood Ratio Test (MXM)}
+\footnotetext[1]{Scutari, Marco, Maintainer Marco Scutari, and Hiton-PC MMPC. "Package ‘bnlearn’." Bayesian network structure learning, parameter learning and inference}
+\footnotetext[2]{Michail Tsagris, Giorgos Borboudakis, Vincenzo Lagani, and Ioannis Tsamardinos. Constraint-based causal discovery with mixed data.}
+\footnotetext[3]{Ankan, Ankur, and Johannes Textor. A simple unified approach to testing high-dimensional conditional independences for categorical and ordinal data}
+
 \end{frame}
 
 \begin{frame}{Hotelling's $ T^2 $ on Residuals}
@@ -123,7 +133,7 @@ No exact asymptotic distribution, F-approximation can be used for computing p-va
 
 \end{frame}
 
-\begin{frame}{Calibration}
+\begin{frame}{Calibration: Mixed Data}
 	\begin{figure}[t]
 		\centering
 		\includegraphics{conclusion.pdf}
@@ -139,6 +149,7 @@ No exact asymptotic distribution, F-approximation can be used for computing p-va
 		\label{fig:conc_compare}
 	\end{figure}
 \end{frame}
+
 
 \begin{frame}{Accuracy: Data Generation}
 	We use the DAG:
@@ -162,7 +173,10 @@ No exact asymptotic distribution, F-approximation can be used for computing p-va
 \end{center}
 \end{frame}
 
-\begin{frame}{Accuracy}
+\begin{frame}{Accuracy: Mixed Data}
+\end{frame}
+
+\begin{frame}{Accuracy: Categorical Data}
 	Insert figure here.
 \end{frame}
 
@@ -171,7 +185,10 @@ No exact asymptotic distribution, F-approximation can be used for computing p-va
 	DAG generation mechanism.
 \end{frame}
 
-\begin{frame}{Structure Learning}
+\begin{frame}{Structure Learning: Mixed Data}
+\end{frame}
+
+\begin{frame}{Structure Learning: Categorical Data}
 \end{frame}
 
 \begin{frame}{Conclusion}
