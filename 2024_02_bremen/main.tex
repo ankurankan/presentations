@@ -48,7 +48,7 @@
 
 \begin{frame}{CI Tests}
 	\begin{enumerate}
-		\item Mutual Information based test (MI-CG) \footnotemark
+		\item Mutual Information based test (MI) \footnotemark
 			\begin{itemize}
 				\item Used as baseline.
 				\item Equivalent to chi-squared test for discrete variables.
@@ -110,6 +110,10 @@ where, $ \bm{\rho}({R_\mathbf{x}, R_\mathbf{y}}) $  is the canonical correlation
 \vspace{1em}
 
 No exact asymptotic distribution of $ V $ is known, but p-values can be computed using F-approximation. \footnotemark
+
+\begin{itemize}
+	\item Test dimensionality is linear in the number of variable categories.
+\end{itemize}
 
 \footnotetext[4]{Muller, Keith E., and Bercedis L. Peterson. "Practical methods for computing power in testing the multivariate general linear hypothesis."}
 \end{frame}
