@@ -69,28 +69,38 @@
 \end{frame}
 
 \begin{frame}{Hotelling's $ T^2 $ on Residuals}
-	\todo[inline]{Fix notation of capital and small x}
 
-Given two residual matrices, $ R_{\bm{x}}: X \sim \bm{Z} $ and $ R_{\bm{y}}: Y \sim \bm{Z} $, the $ T^2 $ test statistic is given as:
+Given two residual matrices, $ R_{\mathbf{x}}: \mathbf{x} \sim \mathbf{z} $ and $ R_{\mathbf{y}}: \mathbf{y} \sim \mathbf{z} $, the $ T^2 $ test statistic is given as:
 
 \begin{equation}
 	Q(\mathbf{x}, \mathbf{y}) = \frac{1}{n} \left( d \times \hat{\Sigma}_d \times d^T \right)
 \end{equation}
 where,
-\begin{equation}
-	\begin{split}
-		d &= (R_{\mathbb{I}(\mathbf{x}=1)} \cdot R_{(\mathbf{y}=1)}, \, \ldots \ , R_{\mathbb{I}(\mathbf{x}=C_x)} \cdot R_{(\mathbf{y}=C_y)} ) \\
-		\hat{\Sigma}_d &= \textrm{cov}(d)
-	\end{split}
-\end{equation}
+
+\begin{eqnarray*}
+d &  =  & (R_{\mathbb{I}(\mathbf{x}=1)} \cdot R_{\mathbb{I}(\mathbf{y}=1)}, \, \ldots \ ,
+R_{\mathbb{I}(\mathbf{x}=k-1)} R_{\mathbb{I}(\mathbf{y}=1)}, \, \ldots \, ,
+\\
+ &  & R_{\mathbb{I}(\mathbf{x}=1)} \cdot R_{\mathbb{I}(\mathbf{y}=r-1)}, \, \ldots \ ,
+R_{\mathbb{I}(\mathbf{x}=k-1)} R_{\mathbb{I}(\mathbf{y}=r-1)}
+) \\
+\hat{\Sigma}_d & = &\textrm{cov}(d)
+\end{eqnarray*}
+
+% \begin{equation}
+% 	\begin{split}
+% 		d &= (R_{\mathbb{I}(\mathbf{x}=1)} \cdot R_{(\mathbf{y}=1)}, \, \ldots \ , R_{\mathbb{I}(\mathbf{x}=C_x)} \cdot R_{(\mathbf{y}=C_y)} ) \\
+% 		\hat{\Sigma}_d &= \textrm{cov}(d)
+% 	\end{split}
+% \end{equation}
 
 
-Under null, $ Q $ is asymptotically $ \chi^2 (\mid R_\mathbf{x} \mid \times \mid R_\mathbf{y} \mid) $ distributed.
+Under null, $ Q $ is asymptotically $ \chi^2 (\mid d \mid) $ distributed.
 
 \end{frame}
 
 \begin{frame}{Pillai's Trace on Residuals}
-Given two residual matrices, $ R_{\bm{x}}: X \sim \bm{Z} $ and $ R_{\bm{y}}: Y \sim \bm{Z} $, Pillai's Trace is given as:
+Given two residual matrices, $ R_{\mathbf{x}}: \mathbf{x} \sim \mathbf{z} $ and $ R_{\mathbf{y}}: \mathbf{y} \sim \mathbf{z} $, Pillai's Trace is given as:
 
 \begin{equation}
 	\textit{V}(R_\mathbf{x}, R_\mathbf{y}) = \sum_{\rho \in \bm{\rho}(R_\mathbf{x}, R_\mathbf{y})} \rho^2
@@ -99,16 +109,16 @@ where, $ \bm{\rho}({R_\mathbf{x}, R_\mathbf{y}}) $  is the canonical correlation
 
 \vspace{1em}
 
-No exact asymptotic distribution, F-approximation can be used for computing p-values.
-
+No exact asymptotic distribution of $ V $ is known, but p-values can be computed using F-approximation.
+\todo[inline]{Add the "Practical methods" citation here}
 \end{frame}
 
 \begin{frame}{Simulating Mixed Data}
-	Given a DAG, $ D $ we simulate the data as:
+	Given a DAG, $ D $ and some node $ Y $ with parents $ Pa_Y $:
 	\begin{enumerate}
-		\item If $ Y $ is continuous, $ Y = B Pa_Y + \epsilon $
-		\item If $ Y $ is categorical use multinomial regression, $ Y \sim \lambda(B Pa_Y + \epsilon) $, where $ \lambda(x) = \frac{e^x}{1+e^x} $.
-		\item If $ Y $ is ordinal, using proportional odds model. $ Y \sim \lambda(A + B Pa_Y + \epsilon) $.
+		\item If $ Y $ is continuous, $ Y = \mathbf{B} Pa_Y + \epsilon $
+		\item If $ Y $ is categorical, $ Y \sim \lambda(\mathbf{B} Pa_Y + \epsilon) $, where $ \lambda(x) = \frac{e^x}{1+e^x} $.
+		\item If $ Y $ is ordinal, using proportional odds model. $ Y \sim \lambda(A + \mathbf{B} Pa_Y + \epsilon) $.
 	\end{enumerate}
 \end{frame}
 
