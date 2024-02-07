@@ -52,6 +52,7 @@
 			\begin{itemize}
 				\item Used as baseline.
 				\item Equivalent to chi-squared test for discrete variables.
+				\item Ordinal variables are treated as categorical.
 			\end{itemize}
 		\item Likelihood Ratio Test (MXM) \footnotemark
 			\begin{itemize}
@@ -94,11 +95,11 @@ R_{\mathbb{I}(\mathbf{x}=k-1)} R_{\mathbb{I}(\mathbf{y}=r-1)}
 % \end{equation}
 
 
-Under null, $ Q $ is asymptotically $ \chi^2 (\mid d \mid) $ distributed.
 
 \vspace{1em}
 
 \begin{itemize}
+	\item Under null, $ Q $ is asymptotically $ \chi^2 (\mid d \mid) $ distributed.
 	\item Hotelling's $ T^2 $ is a multi-dimensional location test.
 	\item Test dimensionality is quadratic in the cardinality of categorical variables.
 \end{itemize}
@@ -115,11 +116,8 @@ where, $ \bm{\rho}({R_\mathbf{x}, R_\mathbf{y}}) $  is the canonical correlation
 
 \vspace{1em}
 
-No exact asymptotic distribution of $ V $ is known, but p-values can be computed using F-approximations. \footnotemark
-
-\vspace{1em}
-
 \begin{itemize}
+	\item No exact asymptotic distribution of $ V $ is known, but p-values can be computed using F-approximations. \footnotemark
 	\item Test dimensionality is linear in the cardinality of categorical variables.
 \end{itemize}
 
@@ -162,8 +160,9 @@ No exact asymptotic distribution of $ V $ is known, but p-values can be computed
 \end{center}
 
 \begin{itemize}
-	\item Conditionally independent datasets are generated, and p-values are plotted.
-	\item Under null, the p-values should have a uniform distribution.
+	\item Conditionally independent datasets are simulated.
+	\item Under null (i.e. conditional independence), the p-values should
+		have a uniform distribution.
 	\item All effects are fixed to $ 0.2 $.
 \end{itemize}
 
