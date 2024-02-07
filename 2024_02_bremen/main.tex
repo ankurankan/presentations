@@ -59,8 +59,14 @@
 				\item Compares the likelihood of $ X \sim \bm{Z} $ and $ X \sim \bm{Z} + Y $.
 				\item Regression method chosen based on data type.
 			\end{itemize}
-		\item Hotelling's $T^2$ test on the residuals from $ X \sim \mathbf{Z} $ and $ Y \sim \mathbf{Z} $. \footnotemark
+		\item Hotelling's $T^2$ test on the residuals from $ X \sim \mathbf{Z} $ and $ Y \sim \mathbf{Z} $. \footnotemark 
+			\begin{itemize}
+				\item Random Forest is used as the estimator for the analysis.
+			\end{itemize}
 		\item Pillai's Trace on the residuals from $ X \sim \mathbf{Z} $ and $ Y \sim \mathbf{Z} $.
+			\begin{itemize}
+				\item Random Forest is used as the estimator for the analysis.
+			\end{itemize}
 	\end{enumerate}
 
 \footnotetext[1]{Scutari, Marco, and Robert Ness. bnlearn: Bayesian network structure learning, parameter learning and inference.}
@@ -245,6 +251,9 @@ where, $ \bm{\rho}({R_\mathbf{x}, R_\mathbf{y}}) $  is the canonical correlation
 			calibrated than other tests especially in
 			high-dimensional scenarios.
 		\item The power of all the tests is comparable (except MI).
+		\item Would be interesting to compare in non-linear settings as
+			residualization approaches can use estimators that can
+			deal with non-linearity.
 	\end{itemize}
 \end{frame}
 
