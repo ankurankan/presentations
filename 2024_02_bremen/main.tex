@@ -58,11 +58,11 @@
 				\item Compares the likelihood of $ X \sim \bm{Z} $ and $ X \sim \bm{Z} + Y $.
 				\item Regression method chosen based on data type.
 			\end{itemize}
-		\item Hotelling's $T^2$ test on residuals. \footnotemark
-		\item Pillai's Trace: A canonical correlation based test.
+		\item Hotelling's $T^2$ test on the residuals from $ X \sim \mathbf{Z} $ and $ Y \sim \mathbf{Z} $. \footnotemark
+		\item Pillai's Trace on the residuals from $ X \sim \mathbf{Z} $ and $ Y \sim \mathbf{Z} $.
 	\end{enumerate}
 
-\footnotetext[1]{Scutari, Marco, Maintainer Marco Scutari, and Hiton-PC MMPC. "Package ‘bnlearn’." Bayesian network structure learning, parameter learning and inference}
+\footnotetext[1]{Scutari, Marco, and Robert Ness. bnlearn: Bayesian network structure learning, parameter learning and inference.}
 \footnotetext[2]{Michail Tsagris, Giorgos Borboudakis, Vincenzo Lagani, and Ioannis Tsamardinos. Constraint-based causal discovery with mixed data.}
 \footnotetext[3]{Ankan, Ankur, and Johannes Textor. A simple unified approach to testing high-dimensional conditional independences for categorical and ordinal data}
 
@@ -70,13 +70,12 @@
 
 \begin{frame}{Hotelling's $ T^2 $ on Residuals}
 
-Given two residual matrices, $ R_{\mathbf{x}}: \mathbf{x} \sim \mathbf{z} $ and $ R_{\mathbf{y}}: \mathbf{y} \sim \mathbf{z} $, the $ T^2 $ test statistic is given as:
+Given two residual matrices, $ R_{\mathbf{x}}: \mathbf{x} \sim \mathbf{z} $ and $ R_{\mathbf{y}}: \mathbf{y} \sim \mathbf{z} $, the test statistic is given as:
 
 \begin{equation}
 	Q(\mathbf{x}, \mathbf{y}) = \frac{1}{n} \left( d \times \hat{\Sigma}_d \times d^T \right)
 \end{equation}
 where,
-
 \begin{eqnarray*}
 d &  =  & (R_{\mathbb{I}(\mathbf{x}=1)} \cdot R_{\mathbb{I}(\mathbf{y}=1)}, \, \ldots \ ,
 R_{\mathbb{I}(\mathbf{x}=k-1)} R_{\mathbb{I}(\mathbf{y}=1)}, \, \ldots \, ,
@@ -100,22 +99,23 @@ Under null, $ Q $ is asymptotically $ \chi^2 (\mid d \mid) $ distributed.
 \vspace{1em}
 
 \begin{itemize}
+	\item Hotelling's $ T^2 $ is a multi-dimensional location test.
 	\item Test dimensionality is quadratic in the cardinality of categorical variables.
 \end{itemize}
 
 \end{frame}
 
 \begin{frame}{Pillai's Trace on Residuals}
-Given two residual matrices, $ R_{\mathbf{x}}: \mathbf{x} \sim \mathbf{z} $ and $ R_{\mathbf{y}}: \mathbf{y} \sim \mathbf{z} $, Pillai's Trace is given as:
+Given two residual matrices, $ R_{\mathbf{x}}: \mathbf{x} \sim \mathbf{z} $ and $ R_{\mathbf{y}}: \mathbf{y} \sim \mathbf{z} $, the test statistic is given as:
 
 \begin{equation}
-	\textit{V}(R_\mathbf{x}, R_\mathbf{y}) = \sum_{\rho \in \bm{\rho}(R_\mathbf{x}, R_\mathbf{y})} \rho^2
+	\textit{V}(\mathbf{x}, \mathbf{y}) = \sum_{\rho \in \bm{\rho}(R_\mathbf{x}, R_\mathbf{y})} \rho^2
 \end{equation}
 where, $ \bm{\rho}({R_\mathbf{x}, R_\mathbf{y}}) $  is the canonical correlations between $ R_\mathbf{x} $ and $ R_\mathbf{y} $.
 
 \vspace{1em}
 
-No exact asymptotic distribution of $ V $ is known, but p-values can be computed using F-approximation. \footnotemark
+No exact asymptotic distribution of $ V $ is known, but p-values can be computed using F-approximations. \footnotemark
 
 \vspace{1em}
 
@@ -129,21 +129,20 @@ No exact asymptotic distribution of $ V $ is known, but p-values can be computed
 \begin{frame}{Simulating Mixed Data}
 	Given a node $ Y $ with parents $ Pa_Y $, $ Y $ is simulated as follows:
 	\begin{enumerate}
-		\item Categorical variables in $ Pa_Y $ are dummy encoded. Ordinal variables are treated as continuous.
+		\item Categorical variables in $ Pa_Y $ are dummy encoded.
+		\item Ordinal variables in $Pa_Y$ are treated as continuous.
 		\item \begin{itemize}
-			\item If $ Y $ is continuous, simple linear regression.
+			\item If $ Y $ is continuous, a simple linear regression is used.
 			% \item If $ Y $ is continuous, $ Y = \mathbf{B} Pa_Y + \epsilon $
-			\item If $ Y $ is categorical, multinomial logistic regression.
+			\item If $ Y $ is categorical, a multinomial logistic regression is used.
 			% \item If $ Y $ is categorical, $ Y \sim \lambda(\mathbf{B} Pa_Y + \epsilon) $, where $ \lambda(x) = \frac{e^x}{1+e^x} $.
-			\item If $ Y $ is ordinal, proportional odds logistic regression.
+			\item If $ Y $ is ordinal, a proportional odds logistic regression is used.
 			% \item If $ Y $ is ordinal, using proportional odds logistic regression. $ Y \sim \lambda(A + \mathbf{B} Pa_Y + \epsilon) $.
 		\end{itemize}
 	\end{enumerate}
-\todo[inline]{Add more details here}
 \end{frame}
 
 \begin{frame}{Calibration Analysis}
-To generate conditionally independent ($ X \ci Y \mid \mathbf{Z} $) datasets, the following DAG is used:
 
 \begin{center}
 \begin{tikzpicture}[yscale=.75]
@@ -165,6 +164,7 @@ To generate conditionally independent ($ X \ci Y \mid \mathbf{Z} $) datasets, th
 \begin{itemize}
 	\item Conditionally independent datasets are generated, and p-values are plotted.
 	\item Under null, the p-values should have a uniform distribution.
+	\item All effects are fixed to $ 0.2 $.
 \end{itemize}
 
 \end{frame}
@@ -185,8 +185,7 @@ To generate conditionally independent ($ X \ci Y \mid \mathbf{Z} $) datasets, th
 	\end{figure}
 \end{frame}
 
-\begin{frame}{Accuracy Analysis}
-	To generate datasets with varying effect between $ X $ and $ Y $, the following DAG is used:
+\begin{frame}{Discrimination Analysis}
 
 \begin{center}
 \begin{tikzpicture}[yscale=.75]
@@ -207,20 +206,22 @@ To generate conditionally independent ($ X \ci Y \mid \mathbf{Z} $) datasets, th
 \end{center}
 
 \begin{itemize}
-	\item Conditionally independent data is generated by setting $ \beta = 0 $
-	\item Equal number of conditionally dependent and independent datasets are generated, and then the accuracy of tests to correctly classify them is measured.
+	\item Equal number of conditionally dependent and independent datasets are generated, and the accuracy of tests to correctly classify them is measured.
+	\item Conditionally dependent datasets are generated with varying effect $ \beta $.
+	\item Conditionally independent datasets are generated by setting $ \beta = 0 $.
+	\item All other parameters are fixed to $ 0.2 $.
 \end{itemize}
 
 \end{frame}
 
-\begin{frame}{Accuracy: Mixed Data}
+\begin{frame}{Discrimination: Mixed Data}
 	\begin{figure}[t]
 		\centering
 		\includegraphics{../../2023-canonical-cor/code/plots/accuracy_mixed.pdf}
 	\end{figure}
 \end{frame}
 
-\begin{frame}{Accuracy: Categorical Data}
+\begin{frame}{Discrimination: Categorical Data}
 	\begin{figure}[t]
 		\centering
 		\includegraphics{../../2023-canonical-cor/code/plots/accuracy_cat.pdf}
@@ -240,9 +241,8 @@ To generate conditionally independent ($ X \ci Y \mid \mathbf{Z} $) datasets, th
 
 \begin{frame}{Conclusion}
 	\begin{itemize}
-		\item The chi-squared or mutual information based test fails in any high dimensional scenario.
-		\item 
-		\item Pillai's Trace is better calibrated especially in high-dimensional scenarios.
+		\item The chi-squared or mutual information based test fails in most high dimensional scenarios.
+		\item Canonical correlation based Pillai's Trace is better calibrated especially in high-dimensional scenarios.
 		\item Pillai's Trace has slightly more power.
 	\end{itemize}
 \end{frame}
