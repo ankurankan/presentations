@@ -1,0 +1,109 @@
+\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}
+\usecolortheme{beaver}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{mathtools}
+\usepackage{todonotes}
+\usepackage{amsmath}
+\usepackage{bm}
+\usepackage{listings}
+\usepackage{ragged2e}
+\usepackage{titlecaps}
+\usepackage{fancyvrb}
+
+\def\ci{\perp\!\!\!\!\!\perp}
+
+\newtheorem{proposition}{Proposition}
+\Addlcwords{for a is but and with of in as the etc on to if}
+
+\setbeamertemplate{section in toc}{\inserttocsectionnumber.~\inserttocsection}
+\usetheme{Boadilla}
+\makeatletter
+\setbeamertemplate{footline}{%
+    \leavevmode%
+    \hbox{%
+        \begin{beamercolorbox}[wd=.3\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+            \usebeamerfont{author in head/foot}\insertshortauthor\expandafter\beamer@ifempty\expandafter{\beamer@shortinstitute}{}{~~(\insertshortinstitute)}
+        \end{beamercolorbox}%
+        \begin{beamercolorbox}[wd=.55\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+            \usebeamerfont{title in head/foot}\insertshorttitle
+        \end{beamercolorbox}%
+        \begin{beamercolorbox}[wd=.15\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+            \usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}
+            \insertframenumber{} / \inserttotalframenumber\hspace*{2ex} 
+        \end{beamercolorbox}}%
+        \vskip0pt%
+    }
+\makeatother
+
+\begin{document}
+
+\title[]{Statistical and Causal Robustness for Causal Null Hypothesis Tests}
+\date{}
+
+\maketitle
+
+\begin{frame}{Background}
+	Given a specified model (i.e., DAG), lots of methods to check for identification.
+
+	Pearl's do-calculus gives a complete solution to both checking for identification and getting an estimator.
+
+	But hard to apply in practice.
+	
+	% TODO: An example of an identified and non-identified model.
+
+	Backdoor Criterion, Front-door criterion, IV, AIPW. Given the model, estimators for each of them are statistical robust i.e. unbiased, fast convergence rates, etc.
+	All of them make different assumptions.
+	These assumptions are hard to test in observational data.
+\end{frame}
+
+\begin{frame}{Background: Examples}
+	\begin{columns}
+		\begin{column}{0.33 \textwidth}
+			\center
+			\begin{figure}
+				$ A \rightarrow Y; A \leftarrow C \rightarrow Y $
+				\caption{Backdoor criterion: No unobserved confounding.}
+			\end{figure}
+		\end{column}
+		\begin{column}{0.33 \textwidth}
+			\center
+			\begin{figure}
+				$ A \rightarrow M \rightarrow Y; A \leftarrow U \rightarrow Y  $
+				\caption{Front-door: All effect mediated through $ A \rightarrow M $ edge.}
+			\end{figure}
+		\end{column}
+		\begin{column}{0.33 \textwidth}
+			\center
+			\begin{figure}
+				$ Z \rightarrow A; A \rightarrow Y; U \leftarrow A \rightarrow Y $
+				\caption{Instrumental Variables; No correlation between $ Z $ and $ Y $ except going through $ A $.}
+			\end{figure}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}{Problem Statement}
+	\begin{itemize}
+		\item It is challenging to come up with a single correct specification of the model.
+		\item Instead, use a bunch of different model. And the paper proposes a robustness test on this set of models.
+		\item The test check if the causal assumption is true in atleast one of the specified model.
+		\item They use something called Evidence Factors to combine the results from testing on the models.
+		\item Limited to semi-parameteric estimation methods. For convergence properties of the test??
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Example}
+	% TODO: Talk about the example they show in the paper.
+\end{frame}
+
+\begin{frame}{Evidence Factors}
+
+\end{frame}
+
+\begin{frame}{Proposed Solution}
+\end{frame}
+
+\end{document}
