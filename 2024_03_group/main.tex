@@ -135,13 +135,20 @@
 		\center
 		\includegraphics[scale=0.2]{m1.png}
 	\end{figure}
+	\vspace{1em}
 	\begin{itemize}
-		\item Backdoor model. Adjusting on $ C $ would give us the estimate for $ A \rightarrow Y $.
-		\item But no unobserved confounding can be present $ U $, otherwise the effect is not identified.
-		\item But possible that we missed to collect data on some of our covariates. For example, health consciousness is an unmeasured covariate. %TODO: Add what could be covariate.
+		\item Backdoor criterion can identify $ A \rightarrow Y $.
+		\item Identificaiton assumption: No unobserved confounding.
+		\item A potential unobserved confounder could be health consciousness.
+		\item If identificaiton assumptions are satisfied, estimator:
+			\begin{equation*}
+				\begin{split}
+					\Psi_{1, P} &= \mathbb{E}[\mu(1, C) - \mu(0, C)] \\
+					\mu(a, c) &= \mathbb{E}(Y | A=a, C=c)
+				\end{split}
+			\end{equation*}
+
 	\end{itemize}
-	$$ \Psi_{1, P} = \mathbb{E}[\mu(1, C) - \mu(0, C)] $$
-	$$ \mu(a, c) = \mathbb{E}(Y | A=a, C=c) $$
 \end{frame}
 
 \begin{frame}{Example}
@@ -150,12 +157,22 @@
 		\includegraphics[scale=0.2]{m2.png}
 	\end{figure}
 	\begin{itemize}
-		\item Front-door model. $ M $ is the mediator here.
-		\item Model allows for unobserved confounding between the treatment and outcome.
-		\item But there can't be an effect between the unobserved variable and the mediator or direct effect between the treatment and outcome.
+		\item Front-door model can identify $ A \rightarrow Y $.
+		\item Identification criterion:
+			\begin{itemize}
+				\item Allows unobserved confounding between the treatment and outcome.
+				\item Treatment effect should only go through mediator.
+				\item No effect of unobserved confounding on the mediator.
+			\end{itemize}
+		\item If identification assumptions are satisfied, estimator:
+			\begin{equation*}
+				\begin{split}
+					\Psi_{2, P} &= \mathbb{E}[\mathbb{E}[\gamma(M, C) | A = 1, C] - \mathbb{E}[\gamma(M, C) | A =0, C]] \\
+					\gamma(m, c) &= \mathbb{E}[\mu(m, A, c) | C=c] \\
+					\mu(m, a, c) &= \mathbb{E}(Y | M=m, A=a, C=c)
+				\end{split}
+			\end{equation*}
 	\end{itemize}
-	$$ \Psi_{2, P} = \mathbb{E}[\mathbb{E}[\gamma(M, C) | A = 1, C] - \mathbb{E}[\gamma(M, C) | A =0, C]] $$
-	$$ \gamma(m, c) = \mathbb{E}[\mu(m, A, c) | C=c]; \mu(m, a, c) = \mathbb{E}(Y | M=m, A=a, C=c) $$
 \end{frame}
 
 \begin{frame}{Example}
@@ -163,11 +180,13 @@
 		\center
 		\includegraphics[scale=0.2]{m3.png}
 	\end{figure}
+	\vspace{1em}
 	\begin{itemize}
-		\item Instrumental Variable model. $ Z $ is the IV.
-		\item $ Z $ should not be correlated with $ Y $ unless all information goes through $ A $.
+		\item Instrumental Variable can be used for identification. $ Z $ is the IV.
+		\item Identificaiton assumption: $ Z $ should be correlated with $ Y $ only through $ A $.
+		\item If identification condition is satisfied, estimator:
+			$$ \Psi_{3, P} = \frac{\mathbb{E}(Y | Z = 1) - \mathbb{E}(Y | Z = 0)}{\mathbb{E}(A | Z = 1) - \mathbb{E}(A | Z=0)} $$
 	\end{itemize}
-	$$ \Psi_{3, P} = \frac{\mathbb{E}(Y | Z = 1) - \mathbb{E}(Y | Z = 0)}{\mathbb{E}(A | Z = 1) - \mathbb{E}(A | Z=0)} $$
 \end{frame}
 
 \begin{frame}{Example}
