@@ -195,22 +195,22 @@
 		\item $H_{0}: \beta = 0 $
 		\item IID data $ O_1, \cdots, O_n $ from unknown distribution $ P $.
 		\item Considering $ K > 1 $ causal models $ M_1, \cdots, M_k $.
-		\item $ \Psi_{k, P} $ is the identifying function for $ \beta $ under $ M_k $.
+		\item $ \psi_{k, P} $ is the identifying function for $ \beta $ under $ M_k $.
 	\end{itemize}
 
 	\vspace{2em}
 
-	Under null, if at least one of the models is correct, at least one of $ \Psi_{k, P} = 0 $.
-	$$ H_0: \prod_{k=1}^{K} \Psi_{k, P} = 0 $$
+	Under null, if at least one of the models is correct, at least one of $ \psi_{k, P} = 0 $.
+	$$ H_0: \prod_{k=1}^{K} \psi_{k, P} = 0 $$
 \end{frame}
 
 \begin{frame}{Test Development: Assumptions}
 	\begin{itemize}
-		\item Linear estimators $ \Psi_{k, n} $ for $ \Psi_{k, P} $.
+		\item Linear estimators $ \psi_{k, n} $ for $ \psi_{k, P} $.
 		\item Estimators have influence functions $ \Phi_{k, P} $ under statistical conditions $ C_k $.
 		\item \begin{equation*} 
 				\begin{split}
-					\Psi_{k, n} - \Psi_{k, P} &= \mathbb{P}_n \Phi_{k, P} + O_{P}(n^{-1/2}) \\
+					\psi_{k, n} - \psi_{k, P} &= \mathbb{P}_n \Phi_{k, P} + O_{P}(n^{-1/2}) \\
 					\mathbb{P}_n f &= \frac{1}{n} \sum_{i=1}^{n} f(O_i) \\
 				\end{split}
 		      \end{equation*}
@@ -218,7 +218,37 @@
 	\end{itemize}
 \end{frame}
 
+\begin{frame}{Test Development: Asymptotic Distribution}
+\end{frame}
+
+\begin{frame}{Test Development: Calibration}
+\end{frame}
+
+\begin{frame}{Test Development: Power}
+\end{frame}
+
 \begin{frame}{Empirical Analysis: Setup}
+	\begin{figure}
+		\begin{subfigure}{0.33 \textwidth}
+			\center
+			\includegraphics[scale=0.15]{m1.png}
+		\end{subfigure}%
+		\begin{subfigure}{0.33 \textwidth}
+			\center
+			\includegraphics[scale=0.15]{m2.png}
+		\end{subfigure}%
+		\begin{subfigure}{0.33 \textwidth}
+			\center
+			\includegraphics[scale=0.15]{m3.png}
+		\end{subfigure}
+	\end{figure}
+
+	\begin{itemize}
+		\item Use the model with blue edges for the test.
+		\item Generate data under model violations (red edges).
+		\item Test with either $1$, $2$, or $3$ model violations.
+		\item To generate violations from both $M_1$ and $M_2$ introduce a direct effect from $ Z $ to $ Y $.
+	\end{itemize}
 \end{frame}
 
 \begin{frame}{Empirical Analysis: Calibration}
@@ -236,6 +266,15 @@
 \end{frame}
 
 \begin{frame}{Empirical Analysis: Setup}
+	\begin{figure}
+		\center
+		\includegraphics[scale=0.3]{empirical_dag.png}
+	\end{figure}
+	\begin{itemize}
+		\item All three models considered are backdoor models.
+		\item The adjustment sets considered are different. 1) $ \{ C_1, C_2, C_3, C_4 \} $, 2) $ \{ C_1, C_3 \} $, and 3) $ \{ C_1, C_4 \} $.
+		\item First model is correct, the other two are incorrect.
+	\end{itemize}
 \end{frame}
 
 \begin{frame}{Empirical Analysis: Multi Backdoor}
@@ -246,9 +285,20 @@
 \end{frame}
 
 \begin{frame}{Real Data Example}
+	\begin{figure}
+		\center
+		\includegraphics[scale=0.2]{table.png}
+		\caption*{Estimated effect using the models.}
+	\end{figure}
+
+	The proposed method returns a p-value of 0.68 failing to reject the null hypothesis.
 \end{frame}
 
 \begin{frame}{Conclusion}
+	\begin{itemize}
+		\item A valid test if at least one of hte proposed causal models is correct, without knowing which one is correct.
+		\item 
+	\end{itemize}
 \end{frame}
 
 \end{document}
