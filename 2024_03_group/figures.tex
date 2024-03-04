@@ -1,0 +1,70 @@
+\documentclass[tikz,margin=2mm]{standalone}
+\pagestyle{empty}
+
+\usepackage{amsmath}
+\usepackage{bm}
+\usetikzlibrary{positioning,calc, arrows}
+
+% variable styles
+\tikzstyle{measure} = [ draw, rectangle ]
+\tikzstyle{latent} = [ draw, circle ]
+
+
+\tikzstyle{edge} = [->]
+
+\begin{document}
+\begin{tikzpicture}
+	\node[measure] (data) at (0, 0) {Data};
+	\node[measure, red] (dag) at (2, 0) {DAG};
+	\node[measure] (iden) at (4.5, 0) {Identification};
+	\node[measure] (est) at (7.5, 0) {Estimation};
+
+	\draw[edge](data) -- (dag);
+	\draw[edge](dag) -- (iden);
+	\draw[edge](iden) -- (est);
+\end{tikzpicture}
+
+
+\begin{tikzpicture}
+	\node[measure] (data) at (0, 0) {Data};
+	\node[measure] (dag) at (2, 0) {DAG};
+	\node[measure, red] (iden) at (4.5, 0) {Identification};
+	\node[measure] (est) at (7.5, 0) {Estimation};
+
+	\draw[edge](data) -- (dag);
+	\draw[edge](dag) -- (iden);
+	\draw[edge](iden) -- (est);
+\end{tikzpicture}
+
+\begin{tikzpicture}
+	\node[measure] (data) at (0, 0) {Data};
+	\node[measure] (dag) at (2, 0) {DAG};
+	\node[measure] (iden) at (4.5, 0) {Identification};
+	\node[measure, red] (est) at (7.5, 0) {Estimation};
+
+	\draw[edge](data) -- (dag);
+	\draw[edge](dag) -- (iden);
+	\draw[edge](iden) -- (est);
+\end{tikzpicture}
+
+\begin{tikzpicture}
+	\node[measure] (x) at (0, 0) {$X$};
+	\node[measure] (y) at (2, 0) {$Y$};
+	\node[latent] (u) at (1, 1) {$U$};
+
+	\draw[edge](x) -- (y) node[midway, above]{\scriptsize $\beta$};
+	\draw[edge](u) -- (x);
+	\draw[edge](u) -- (y);
+\end{tikzpicture}
+
+\begin{tikzpicture}
+	\node[measure] (x) at (0, 0) {$X$};
+	\node[measure] (y) at (2, 0) {$Y$};
+	\node[measure] (u) at (1, 1) {$U$};
+
+	\draw[edge](x) -- (y) node[midway, above]{\scriptsize $\beta$};
+	\draw[edge](u) -- (x);
+	\draw[edge](u) -- (y);
+\end{tikzpicture}
+
+\end{document}

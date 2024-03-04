@@ -100,20 +100,6 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Problem Statement}
-	\begin{itemize}
-		\item Develop a statistical test to test whether a causal effect is present. 
-			$$ H_0: \beta = 0 $$
-		\item As specifing a single correct model is difficult, the test works on a set of models.
-		\item The statistical test works if even one of the models is correct.
-		% \item It is challenging to come up with a single correct specification of the model.
-		% \item Instead, use a bunch of different model. And the paper proposes a robustness test on this set of models.
-		% \item The test check if the causal assumption is true if atleast one of the specified model is correct.
-		% \item They use something called Evidence Factors to combine the results from testing on the models.
-		% \item Limited to semi-parameteric estimation methods. For convergence properties of the test??
-	\end{itemize}
-\end{frame}
-
 \begin{frame}{Example}
 	\begin{itemize}
 		\item Test whether there is an effect of \textbf{smoking} on \textbf{glucose levels}.
@@ -141,9 +127,9 @@
 		\item Identificaiton assumption: No unobserved confounding.
 		\item A potential unobserved confounder could be health consciousness.
 		\item If identificaiton assumptions are satisfied, estimator:
-			\begin{equation*}
+		\begin{equation*}
 				\begin{split}
-					\Psi_{1, P} &= \mathbb{E}[\mu(1, C) - \mu(0, C)] \\
+					\beta &= \mathbb{E}[\mu(1, C) - \mu(0, C)] \\
 					\mu(a, c) &= \mathbb{E}(Y | A=a, C=c)
 				\end{split}
 			\end{equation*}
@@ -167,7 +153,7 @@
 		\item If identification assumptions are satisfied, estimator:
 			\begin{equation*}
 				\begin{split}
-					\Psi_{2, P} &= \mathbb{E}[\mathbb{E}[\gamma(M, C) | A = 1, C] - \mathbb{E}[\gamma(M, C) | A =0, C]] \\
+					\beta &= \mathbb{E}[\mathbb{E}[\gamma(M, C) | A = 1, C] - \mathbb{E}[\gamma(M, C) | A =0, C]] \\
 					\gamma(m, c) &= \mathbb{E}[\mu(m, A, c) | C=c] \\
 					\mu(m, a, c) &= \mathbb{E}(Y | M=m, A=a, C=c)
 				\end{split}
@@ -185,31 +171,72 @@
 		\item Instrumental Variable can be used for identification. $ Z $ is the IV.
 		\item Identificaiton assumption: $ Z $ should be correlated with $ Y $ only through $ A $.
 		\item If identification condition is satisfied, estimator:
-			$$ \Psi_{3, P} = \frac{\mathbb{E}(Y | Z = 1) - \mathbb{E}(Y | Z = 0)}{\mathbb{E}(A | Z = 1) - \mathbb{E}(A | Z=0)} $$
+			$$ \beta = \frac{\mathbb{E}(Y | Z = 1) - \mathbb{E}(Y | Z = 0)}{\mathbb{E}(A | Z = 1) - \mathbb{E}(A | Z=0)} $$
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Example}
+\begin{frame}{Proposed Solution: Overview}
 	\begin{itemize}
-		\item If a semi-parameteric estimator of the corresponding parameter exist, it can be used to construct a statistically robust hypothesis test of the causal null hypothesis $ \beta = 0 $.
-		\item 
+		\item Focus only on whether causal effect is present (not estimation).
+		\item Develop a statistical test to test whether causal effect is present. 
+			$$ H_0: \beta = 0 $$
+		\item As specifing a single correct model is difficult, test a set of models.
+		\item The statistical test works if even one of the models is correct.
+		% \item It is challenging to come up with a single correct specification of the model.
+		% \item Instead, use a bunch of different model. And the paper proposes a robustness test on this set of models.
+		% \item The test check if the causal assumption is true if atleast one of the specified model is correct.
+		% \item They use something called Evidence Factors to combine the results from testing on the models.
+		% \item Limited to semi-parameteric estimation methods. For convergence properties of the test??
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Evidence Factors}
+\begin{frame}{Test Development}
+	\begin{itemize}
+		\item $H_{0}: \beta = 0 $
+		\item IID data $ O_1, \cdots, O_n $ from unknown distribution $ P $.
+		\item Considering $ K > 1 $ causal models $ M_1, \cdots, M_k $.
+		\item $ \Psi_{k, P} $ is the identifying function for $ \beta $ under $ M_k $.
+	\end{itemize}
+
+	\vspace{2em}
+
+	Under null, if at least one of the models is correct, at least one of $ \Psi_{k, P} = 0 $.
+	$$ H_0: \prod_{k=1}^{K} \Psi_{k, P} = 0 $$
 \end{frame}
 
-\begin{frame}{Proposed Solution Overview}
-	$$ H_{0}: \beta = 0 $$
-	IID data $ O_1, \cdots, O_n $ from unknown distribution $ P $.
-	Considering $ K > 1 $ causal models $ M_1, \cdots, M_k $.
-	$ \Psi_{k, P} $ is the identifying functional for $ \beta $ under $ M_k $.
+\begin{frame}{Test Development: Assumptions}
+	\begin{itemize}
+		\item Linear estimators $ \Psi_{k, n} $ for $ \Psi_{k, P} $.
+		\item Estimators have influence functions $ \Phi_{k, P} $ under statistical conditions $ C_k $.
+		\item \begin{equation*} 
+				\begin{split}
+					\Psi_{k, n} - \Psi_{k, P} &= \mathbb{P}_n \Phi_{k, P} + O_{P}(n^{-1/2}) \\
+					\mathbb{P}_n f &= \frac{1}{n} \sum_{i=1}^{n} f(O_i) \\
+				\end{split}
+		      \end{equation*}
+		\item Statistical conditions $ C_k$ include convergence and complexity constraints for nuisance estimators.
+	\end{itemize}
 \end{frame}
 
-\begin{frame}{Proposed Solution}
+\begin{frame}{Empirical Analysis: Calibration}
+	\begin{figure}
+		\center
+		\includegraphics[scale=0.3]{calibration.png}
+	\end{figure}
 \end{frame}
 
-\begin{frame}{Applied to Practical Example}
+\begin{frame}{Empirical Analysis: Power}
+	\begin{figure}
+		\center
+		\includegraphics[scale=0.3]{power.png}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Empirical Analysis: Multi Backdoor}
+	\begin{figure}
+		\center
+		\includegraphics[scale=0.4]{multi_back.png}
+	\end{figure}
 \end{frame}
 
 \begin{frame}{Real Data Example}
