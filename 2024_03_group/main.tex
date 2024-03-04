@@ -114,7 +114,7 @@
 		\item The paper limits to checking whether a causal effect is present or not.
 		\item It is challenging to come up with a single correct specification of the model.
 		\item Instead, use a bunch of different model. And the paper proposes a robustness test on this set of models.
-		\item The test check if the causal assumption is true in atleast one of the specified model.
+		\item The test check if the causal assumption is true if atleast one of the specified model is correct.
 		\item They use something called Evidence Factors to combine the results from testing on the models.
 		\item Limited to semi-parameteric estimation methods. For convergence properties of the test??
 	\end{itemize}
@@ -122,13 +122,63 @@
 
 \begin{frame}{Example}
 	% TODO: Talk about the example they show in the paper.
+	\begin{itemize}
+		\item Interested in testing whether there is an effect of smoking on glucose levels.
+		\item $ D = \{ C, Z, A, M, Y \} $. $ C $ is baseline covariates containing age, sex, BMI, past history of heart disease, and past glucose level.
+		\item $ A $ is binary indicating current smoking status. Treatment of interest.
+		\item $ Y $ is glucose level. Continuous outcome of interest.
+		\item $ M $ is hypertension which is our candidate mediator.
+		\item $ Z $ is past hypertension which can be our IV.
+		\item Aim is to estimate the average causal effect (ACE) of smoking on glucose
+	\end{itemize}
+			$$ \beta = \mathbb{E}[Y(A=1)] - \mathbb{E}[Y(A=0)] $$
+\end{frame}
+
+\begin{frame}{Example}
+	% TODO: Show Fig 1 here.
+	\begin{itemize}
+		\item Plausible models for the data.
+		\item Backdoor model. Adjusting on $ C $ would give us the estimate for $ A \rightarrow Y $.
+		\item But no unobserved confounding can be present $ U $, otherwise the effect is not identified.
+		\item But possible that we missed to collect data on some of our covariates. For example, health consciousness is an unmeasured covariate. %TODO: Add what could be covariate.
+	\end{itemize}
+	$$ \Psi_{1, P} = \mathbb{E}[\mu(1, C) - \mu(0, C)] $$
+	$$ \mu(a, c) = \mathbb{E}(Y | A=a, C=c) $$
+\end{frame}
+
+\begin{frame}{Example}
+	\begin{itemize}
+		\item Front-door model. $ M $ is the mediator here.
+		\item Model allows for unobserved confounding between the treatment and outcome.
+		\item But there can't be an effect between the unobserved variable and the mediator or direct effect between the treatment and outcome.
+	\end{itemize}
+	$$ \Psi_{2, P} = \mathbb{E}[\mathbb{E}[\gamma(M, C) | A = 1, C] - \mathbb{E}[\gamma(M, C) | A =0, C]] $$
+	$$ \gamma(m, c) = \mathbb{E}[\mu(m, A, c) | C=c]; \mu(m, a, c) = \mathbb{E}(Y | M=m, A=a, C=c) $$
+\end{frame}
+
+\begin{frame}{Example}
+	\begin{itemize}
+		\item Instrumental Variable model. $ Z $ is the IV.
+		\item $ Z $ should not be correlated with $ Y $ unless all information goes through $ A $.
+	\end{itemize}
+	$$ \Psi_{3, P} = \frac{\mathbb{E}(Y | Z = 1) - \mathbb{E}(Y | Z = 0)}{\mathbb{E}(A | Z = 1) - \mathbb{E}(A | Z=0)} $$
+\end{frame}
+
+\begin{frame}{Example}
+	\begin{itemize}
+		\item If a semi-parameteric estimator of the corresponding parameter exist, it can be used to construct a statistically robust hypothesis test of the causal null hypothesis $ \beta = 0 $.
+		\item 
+	\end{itemize}
 \end{frame}
 
 \begin{frame}{Evidence Factors}
-
 \end{frame}
 
 \begin{frame}{Proposed Solution Overview}
+	$$ H_{0}: \beta = 0 $$
+	IID data $ O_1, \cdots, O_n $ from unknown distribution $ P $.
+	Considering $ K > 1 $ causal models $ M_1, \cdots, M_k $.
+	$ \Psi_{k, P} $ is the identifying functional for $ \beta $ under $ M_k $.
 \end{frame}
 
 \begin{frame}{Proposed Solution}
