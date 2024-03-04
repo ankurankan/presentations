@@ -46,98 +46,96 @@
 \maketitle
 
 \begin{frame}{Background}
-	Observational Data -> DAG -> Identification -> Estimation
+	\begin{figure}
+		\center
+		\includegraphics[page=1]{figures.pdf}
+		\caption*{Workflow for estimating causal effect from observational data}
+	\end{figure}
 
-	% TODO: Insert a figure here showing the steps.
-
-	Workflow for estimating causal effect in observational data.
-
+	\vspace{1em}
 	\begin{itemize}
-		\item Constructing DAG is difficult form data.
-		\item Typically rely on either structure learning, or just domain knowledge to construct the model.
-		\item No clear way to verify if the constructed model is correct.
+		\item Difficult to construct DAG from data.
+		\item Typically done by hand based on domain knowledge.
+		\item Different structure learning algorithms are available.
+		\item No easy way to test whether the DAG is correct.
 	\end{itemize}	
 \end{frame}
 
 \begin{frame}{Background}
-	Observational Data -> DAG -> Identification -> Estimation
-	
-	% TODO: An example of an identified and non-identified model.
+	\begin{figure}
+		\center
+		\includegraphics[page=2]{figures.pdf}
+	\end{figure}
+	\vspace{1em}
 	\begin{itemize}
-		\item Given the model, need to check whether the parameter is estimable.
-		\item Pearl's do-calculus gives a complete solution.
-		\item But has limited practical applicability.
-		\item Lots of special case solutions: Backdoor, Front-door, Instrumental Variables (IV).
-		\item Iterate through these and see if can be estimated.
-		\item Each of them make different assumptions about the model.
-		\item These observations are hard to test in observational data.
-		\item Given a correctly specified model, statistically robust estimators are available, i.e. unbiased, fast convergence, etc.
+		\item Given a DAG, check whether parameter is estimable.
+			\begin{figure}
+				\center
+				\begin{subfigure}{0.25 \textwidth}
+					\center
+					\includegraphics[page=4, scale=0.8]{figures.pdf}
+				\end{subfigure}%
+				\begin{subfigure}{0.25 \textwidth}
+					\center
+					\includegraphics[page=5, scale=0.8]{figures.pdf}
+				\end{subfigure}
+			\end{figure}
+		\item do-calculus gives a complete solution but difficult to apply in practice.
+		\item Special case solutions: Backdoor, Front-door, Instrumental Variables (IV).
+		\item Each criterion makes different assumptions about the specified model.
+		\item Assumptions are difficult to test in data.
 	\end{itemize}
 \end{frame}
 
 \begin{frame}{Background}
+	\begin{figure}
+		\center
+		\includegraphics[page=3]{figures.pdf}
+	\end{figure}
+	\vspace{1em}
 	\begin{itemize}
-		\item Lastly if the model is correctly specified, and all the identification assumptions are met, the parameters can be estimated.
-		\item The identification method gives us the estimator.
-		\item The estimator makes further assumptions about the data which again cannot always be verified.
+		\item If the model is correctly specified, and identification criterion assumptions are satisfied, an estimator can be used.
+		\item The estimator makes further assumptions about the data such as linearity, distribution, etc.
+		\item Statistically robust estimators are available, i.e. unbiased, fast convergence, etc.
 	\end{itemize}
-\end{frame}
-
-\begin{frame}{Background: Examples}
-	\begin{columns}
-		\begin{column}{0.33 \textwidth}
-			\center
-			\begin{figure}
-				$ A \rightarrow Y; A \leftarrow C \rightarrow Y $
-				\caption{Backdoor criterion: No unobserved confounding.}
-			\end{figure}
-		\end{column}
-		\begin{column}{0.33 \textwidth}
-			\center
-			\begin{figure}
-				$ A \rightarrow M \rightarrow Y; A \leftarrow U \rightarrow Y  $
-				\caption{Front-door: All effect mediated through $ A \rightarrow M $ edge.}
-			\end{figure}
-		\end{column}
-		\begin{column}{0.33 \textwidth}
-			\center
-			\begin{figure}
-				$ Z \rightarrow A; A \rightarrow Y; U \leftarrow A \rightarrow Y $
-				\caption{Instrumental Variables; No correlation between $ Z $ and $ Y $ except going through $ A $.}
-			\end{figure}
-		\end{column}
-	\end{columns}
 \end{frame}
 
 \begin{frame}{Problem Statement}
 	\begin{itemize}
-		\item The paper limits to checking whether a causal effect is present or not.
-		\item It is challenging to come up with a single correct specification of the model.
-		\item Instead, use a bunch of different model. And the paper proposes a robustness test on this set of models.
-		\item The test check if the causal assumption is true if atleast one of the specified model is correct.
-		\item They use something called Evidence Factors to combine the results from testing on the models.
-		\item Limited to semi-parameteric estimation methods. For convergence properties of the test??
+		\item Develop a statistical test to test whether a causal effect is present. 
+			$$ H_0: \beta = 0 $$
+		\item As specifing a single correct model is difficult, the test works on a set of models.
+		\item The statistical test works if even one of the models is correct.
+		% \item It is challenging to come up with a single correct specification of the model.
+		% \item Instead, use a bunch of different model. And the paper proposes a robustness test on this set of models.
+		% \item The test check if the causal assumption is true if atleast one of the specified model is correct.
+		% \item They use something called Evidence Factors to combine the results from testing on the models.
+		% \item Limited to semi-parameteric estimation methods. For convergence properties of the test??
 	\end{itemize}
 \end{frame}
 
 \begin{frame}{Example}
-	% TODO: Talk about the example they show in the paper.
 	\begin{itemize}
-		\item Interested in testing whether there is an effect of smoking on glucose levels.
-		\item $ D = \{ C, Z, A, M, Y \} $. $ C $ is baseline covariates containing age, sex, BMI, past history of heart disease, and past glucose level.
-		\item $ A $ is binary indicating current smoking status. Treatment of interest.
-		\item $ Y $ is glucose level. Continuous outcome of interest.
-		\item $ M $ is hypertension which is our candidate mediator.
-		\item $ Z $ is past hypertension which can be our IV.
-		\item Aim is to estimate the average causal effect (ACE) of smoking on glucose
+		\item Test whether there is an effect of \textbf{smoking} on \textbf{glucose levels}.
+		\item Given a dataset $ D = \{ C, Z, A, M, Y \} $.
+			\begin{itemize}
+				\item Treatment ($ A $): Smoking status.
+				\item Outcome ($ Y $): Glucose level.
+				\item Baseline covariates ($ C $): Age, sex, BMI, past history of heart disease, and past glucose level.
+				\item Mediator ($ M $): Hypertension.
+				\item IV ($ Z $): Past hypertension.
+			\end{itemize}
+		\item Estimate the average causal effect (ACE) of smoking on glucose.
 	\end{itemize}
 			$$ \beta = \mathbb{E}[Y(A=1)] - \mathbb{E}[Y(A=0)] $$
 \end{frame}
 
 \begin{frame}{Example}
-	% TODO: Show Fig 1 here.
+	\begin{figure}
+		\center
+		\includegraphics[scale=0.2]{m1.png}
+	\end{figure}
 	\begin{itemize}
-		\item Plausible models for the data.
 		\item Backdoor model. Adjusting on $ C $ would give us the estimate for $ A \rightarrow Y $.
 		\item But no unobserved confounding can be present $ U $, otherwise the effect is not identified.
 		\item But possible that we missed to collect data on some of our covariates. For example, health consciousness is an unmeasured covariate. %TODO: Add what could be covariate.
@@ -147,6 +145,10 @@
 \end{frame}
 
 \begin{frame}{Example}
+	\begin{figure}
+		\center
+		\includegraphics[scale=0.2]{m2.png}
+	\end{figure}
 	\begin{itemize}
 		\item Front-door model. $ M $ is the mediator here.
 		\item Model allows for unobserved confounding between the treatment and outcome.
@@ -157,6 +159,10 @@
 \end{frame}
 
 \begin{frame}{Example}
+	\begin{figure}
+		\center
+		\includegraphics[scale=0.2]{m3.png}
+	\end{figure}
 	\begin{itemize}
 		\item Instrumental Variable model. $ Z $ is the IV.
 		\item $ Z $ should not be correlated with $ Y $ unless all information goes through $ A $.
