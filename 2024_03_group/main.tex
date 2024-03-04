@@ -46,17 +46,41 @@
 \maketitle
 
 \begin{frame}{Background}
-	Given a specified model (i.e., DAG), lots of methods to check for identification.
+	Observational Data -> DAG -> Identification -> Estimation
 
-	Pearl's do-calculus gives a complete solution to both checking for identification and getting an estimator.
+	% TODO: Insert a figure here showing the steps.
 
-	But hard to apply in practice.
+	Workflow for estimating causal effect in observational data.
+
+	\begin{itemize}
+		\item Constructing DAG is difficult form data.
+		\item Typically rely on either structure learning, or just domain knowledge to construct the model.
+		\item No clear way to verify if the constructed model is correct.
+	\end{itemize}	
+\end{frame}
+
+\begin{frame}{Background}
+	Observational Data -> DAG -> Identification -> Estimation
 	
 	% TODO: An example of an identified and non-identified model.
+	\begin{itemize}
+		\item Given the model, need to check whether the parameter is estimable.
+		\item Pearl's do-calculus gives a complete solution.
+		\item But has limited practical applicability.
+		\item Lots of special case solutions: Backdoor, Front-door, Instrumental Variables (IV).
+		\item Iterate through these and see if can be estimated.
+		\item Each of them make different assumptions about the model.
+		\item These observations are hard to test in observational data.
+		\item Given a correctly specified model, statistically robust estimators are available, i.e. unbiased, fast convergence, etc.
+	\end{itemize}
+\end{frame}
 
-	Backdoor Criterion, Front-door criterion, IV, AIPW. Given the model, estimators for each of them are statistical robust i.e. unbiased, fast convergence rates, etc.
-	All of them make different assumptions.
-	These assumptions are hard to test in observational data.
+\begin{frame}{Background}
+	\begin{itemize}
+		\item Lastly if the model is correctly specified, and all the identification assumptions are met, the parameters can be estimated.
+		\item The identification method gives us the estimator.
+		\item The estimator makes further assumptions about the data which again cannot always be verified.
+	\end{itemize}
 \end{frame}
 
 \begin{frame}{Background: Examples}
@@ -87,6 +111,7 @@
 
 \begin{frame}{Problem Statement}
 	\begin{itemize}
+		\item The paper limits to checking whether a causal effect is present or not.
 		\item It is challenging to come up with a single correct specification of the model.
 		\item Instead, use a bunch of different model. And the paper proposes a robustness test on this set of models.
 		\item The test check if the causal assumption is true in atleast one of the specified model.
@@ -103,7 +128,19 @@
 
 \end{frame}
 
+\begin{frame}{Proposed Solution Overview}
+\end{frame}
+
 \begin{frame}{Proposed Solution}
+\end{frame}
+
+\begin{frame}{Applied to Practical Example}
+\end{frame}
+
+\begin{frame}{Real Data Example}
+\end{frame}
+
+\begin{frame}{Conclusion}
 \end{frame}
 
 \end{document}
