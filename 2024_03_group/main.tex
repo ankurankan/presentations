@@ -295,6 +295,7 @@
 		\center
 		\includegraphics[scale=0.3]{empirical_dag.png}
 	\end{figure}
+	\vspace{1em}
 	\begin{itemize}
 		\item All three models considered are backdoor models.
 		\item The adjustment sets considered are different:
@@ -314,23 +315,24 @@
 	\end{figure}
 \end{frame}
 
-\begin{frame}{Real Data Example}
+\begin{frame}{Analysis on the real dataset}
 	\begin{figure}
 		\center
 		\includegraphics[scale=0.2]{table.png}
 		\caption*{Estimated effect using the models.}
 	\end{figure}
 
-	The proposed method returns a p-value of 0.68 failing to reject the null hypothesis.
+	\vspace{2em}
+	\center
+	The proposed test gives a p-value of $ 0.68 $ failing to reject the null.
 \end{frame}
 
 \begin{frame}{Conclusion}
 	\begin{itemize}
 		\item A method to test for causal null hypothesis in presence of several candidate causal models.
 		\item Both statistically and causally robust.
-		\item The test is valid if at least one fo the proposed causal models is correct, without knowing which one iscorrect.
+		\item The test is valid if at least one of the proposed causal models is correct, without knowing which one incorrect.
 		\item The test works in the case when the number of correct models is $1$.
-		\item Conservative when number of correct models is more than $1$.
 	\end{itemize}
 \end{frame}
 
