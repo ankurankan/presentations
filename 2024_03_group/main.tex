@@ -124,9 +124,9 @@
 	\vspace{1em}
 	\begin{itemize}
 		\item Backdoor criterion can identify $ A \rightarrow Y $.
-		\item Identificaiton assumption: No unobserved confounding.
+		\item Identification assumption: No unobserved confounding.
 		\item A potential unobserved confounder could be health consciousness.
-		\item If identificaiton assumptions are satisfied, estimator:
+		\item If identification assumptions are satisfied:
 		\begin{equation*}
 				\begin{split}
 					\beta &= \mathbb{E}[\mu(1, C) - \mu(0, C)] \\
@@ -144,13 +144,13 @@
 	\end{figure}
 	\begin{itemize}
 		\item Front-door model can identify $ A \rightarrow Y $.
-		\item Identification criterion:
+		\item Identification assumption:
 			\begin{itemize}
 				\item Allows unobserved confounding between the treatment and outcome.
 				\item Treatment effect should only go through mediator.
 				\item No effect of unobserved confounding on the mediator.
 			\end{itemize}
-		\item If identification assumptions are satisfied, estimator:
+		\item If identification assumptions are satisfied:
 			\begin{equation*}
 				\begin{split}
 					\beta &= \mathbb{E}[\mathbb{E}[\gamma(M, C) | A = 1, C] - \mathbb{E}[\gamma(M, C) | A =0, C]] \\
@@ -169,8 +169,8 @@
 	\vspace{1em}
 	\begin{itemize}
 		\item Instrumental Variable can be used for identification. $ Z $ is the IV.
-		\item Identificaiton assumption: $ Z $ should be correlated with $ Y $ only through $ A $.
-		\item If identification condition is satisfied, estimator:
+		\item Identification assumption: $ Z $ should be correlated with $ Y $ only through $ A $.
+		\item If identification condition is satisfied,
 			$$ \beta = \frac{\mathbb{E}(Y | Z = 1) - \mathbb{E}(Y | Z = 0)}{\mathbb{E}(A | Z = 1) - \mathbb{E}(A | Z=0)} $$
 	\end{itemize}
 \end{frame}
@@ -280,7 +280,12 @@
 	\end{figure}
 	\begin{itemize}
 		\item All three models considered are backdoor models.
-		\item The adjustment sets considered are different. 1) $ \{ C_1, C_2, C_3, C_4 \} $, 2) $ \{ C_1, C_3 \} $, and 3) $ \{ C_1, C_4 \} $.
+		\item The adjustment sets considered are different:
+			\begin{enumerate}
+				\item $ \{ C_1, C_2, C_3, C_4 \} $
+				\item $ \{ C_1, C_3 \} $
+				\item $ \{ C_1, C_4 \} $
+			\end{enumerate}
 		\item First model is correct, the other two are incorrect.
 	\end{itemize}
 \end{frame}
