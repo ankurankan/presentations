@@ -235,8 +235,10 @@
 	\end{figure}
 	\vspace{1em}
 	\begin{itemize}
-		\item If more than one model is correct, $ \gamma_P = 0 \implies \gamma_P' \Sigma_P \gamma_P = 0 $.
-		\item The test statistic is calibrated only when one of the models is correct.
+		\item Precise type I error control is acheived when exactly one of $ \psi_{1, P}, \cdots, \psi_{k, P} $ equals $ 0 $.
+		\item If multiple models are correct, $ \gamma_P = 0  \implies \gamma_P' \Sigma_P \gamma_P = 0 $.
+		\item This can lead to faster than $ n^{-1/2} $ convergence, making the test asymptotically conservative.
+		\item $ \gamma_P' \Sigma_P \gamma_P $ can also be $ 0 $ if $ P \phi^2_{k, P} = 0 $. Hence, need positive variance for $ P \phi^2_{k, P} $ when $ \psi_{k, P} = 0 $.
 	\end{itemize}
 \end{frame}
 
@@ -245,6 +247,9 @@
 		\center
 		\includegraphics[scale=0.3]{theorem2.png}
 	\end{figure}
+	\begin{itemize}
+		\item Possible that if $ M_k $ is invalid when $ \psi_{k, P} = 0 $ even when $ \beta \ne 0 $.
+	\end{itemize}
 \end{frame}
 
 \begin{frame}{Empirical Analysis: Setup}
