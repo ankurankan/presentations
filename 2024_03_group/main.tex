@@ -221,6 +221,8 @@
 	\begin{itemize}
 		\item Applying the delta method:
 			$$ n^{1/2}(\prod_{k=1}^{K} \psi_{k,n} - \prod_{k=1}^{K} \psi_{k,P}) \rightarrow_d N(0, \gamma_P' \Sigma_P \gamma_P) $$
+			$$ \gamma_P := (\gamma_{1, P}, \cdots, \gamma_{K,P})' \; \; \textrm{for} \; \; \gamma_{k, P} := \prod_{j \ne k} \psi_{j, P} $$
+			
 		\item As under null, $ \prod_{k=1}^{K} \psi_{k, P} = 0 $,
 			$$ T_n := n^{1/2}(\gamma_n' \Sigma_n \gamma_n)^{-1/2} \prod_{k=1}^{K} \psi_{k, n} \rightarrow_d N(0, 1) $$
 	\end{itemize}
@@ -231,6 +233,7 @@
 		\center
 		\includegraphics[scale=0.3]{theorem1.png}
 	\end{figure}
+	\vspace{1em}
 	\begin{itemize}
 		\item If more than one model is correct, $ \gamma_P = 0 \implies \gamma_P' \Sigma_P \gamma_P = 0 $.
 		\item The test statistic is calibrated only when one of the models is correct.
