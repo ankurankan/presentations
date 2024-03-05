@@ -204,21 +204,26 @@
 	$$ H_0: \prod_{k=1}^{K} \psi_{k, P} = 0 $$
 \end{frame}
 
-\begin{frame}{Test Development: Assumptions}
+\begin{frame}{Test Development: Asymptotic Distribution}
 	\begin{itemize}
-		\item Linear estimators $ \psi_{k, n} $ for $ \psi_{k, P} $.
-		\item Estimators have influence functions $ \Phi_{k, P} $ under statistical conditions $ C_k $.
-		\item \begin{equation*} 
-				\begin{split}
-					\psi_{k, n} - \psi_{k, P} &= \mathbb{P}_n \Phi_{k, P} + O_{P}(n^{-1/2}) \\
-					\mathbb{P}_n f &= \frac{1}{n} \sum_{i=1}^{n} f(O_i) \\
-				\end{split}
-		      \end{equation*}
-		\item Statistical conditions $ C_k$ include convergence and complexity constraints for nuisance estimators.
+		\item Asymptotic linearity implies marginal convergence:
+			$$ n^{1/2}(\psi_{k,n} - \psi_{k, P}) \rightarrow_d N(0, \sigma^2_{k, P}) \;\; \textrm{where} \;\; \sigma^2_{k, P} = P \phi^2_{k, P} $$
+		\item $ \phi_{k,P} $ are influence functions and can be estimated.
+		\item From multivariate central limit theorem, asymptotic linearity of any finite collection of estimators implies joint convergence in the distribution of the estimators.
+% 			$$ \psi_n - \psi_P = \mathbb{P}_n \phi_P + O_P(n^{-1/2}) $$
 	\end{itemize}
+	\begin{figure}
+		\includegraphics[scale=0.3]{matrix.png}
+	\end{figure}
 \end{frame}
 
 \begin{frame}{Test Development: Asymptotic Distribution}
+	\begin{itemize}
+		\item Applying the delta method:
+			$$ n^{1/2}(\prod_{k=1}^{K} \psi_{k,n} - \prod_{k=1}^{K} \psi_{k,P}) \rightarrow_d N(0, \gamma_P' \Sigma_P \gamma_P) $$
+		\item As under null, $ \prod_{k=1}^{K} \psi_{k, P} = 0 $,
+			$$ T_n := n^{1/2}(\gamma_n' \Sigma_n \gamma_n)^{-1/2} \prod_{k=1}^{K} \psi_{k, n} \rightarrow_d N(0, 1) $$
+	\end{itemize}
 \end{frame}
 
 \begin{frame}{Test Development: Calibration}
@@ -226,6 +231,10 @@
 		\center
 		\includegraphics[scale=0.3]{theorem1.png}
 	\end{figure}
+	\begin{itemize}
+		\item If more than one model is correct, $ \gamma_P = 0 \implies \gamma_P' \Sigma_P \gamma_P = 0 $.
+		\item The test statistic is calibrated only when one of the models is correct.
+	\end{itemize}
 \end{frame}
 
 \begin{frame}{Test Development: Power}
@@ -309,8 +318,11 @@
 
 \begin{frame}{Conclusion}
 	\begin{itemize}
-		\item A valid test if at least one of hte proposed causal models is correct, without knowing which one is correct.
-		\item 
+		\item A method to test for causal null hypothesis in presence of several candidate causal models.
+		\item Both statistically and causally robust.
+		\item The test is valid if at least one fo the proposed causal models is correct, without knowing which one iscorrect.
+		\item The test works in the case when the number of correct models is $1$.
+		\item Conservative when number of correct models is more than $1$.
 	\end{itemize}
 \end{frame}
 
