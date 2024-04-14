@@ -35,23 +35,44 @@
 		\begin{figure}
 			\includegraphics[page=1, scale=4]{figures.pdf}
 			\label{fig:example_sem}
-			\caption{Example of a SEM on continuous variables with it's path coefficients}
+			\caption{Example of an SEM. The variables $ \{ X_1, X_2, X_3, X_4 \} $ are continuous with path coefficients $ \beta_{ij} $.}
 		\end{figure}
+
+		\vspace{1em}
 		
-		Continuous variable Structural Equation Models (SEMs) are
-		parameterized using \textbf{path coefficients}. Path coefficients
-		are defined as the regression coefficients of standardized
-		variables. Path Coefficients are \textbf{easy to interpret}. One unit
-		change in $ X_2 $ while keeping $ X_4 $ fixed implies $
-		\beta_{23} $ change in $ X_3 $. Indirect and total effects can
-		be computed easily.
+		Continuous variable linear Structural Equation Models (SEMs)
+		are parameterized using \textbf{path coefficients}, defined as
+		the coefficients of a multiple regression model of each
+		variable on its parents after scaling all variables to unit
+		variance. Path coefficients are \textbf{interpretable}:
+		\begin{itemize}
+			\item One unit change in $ X_2 $ while keeping $ X_4 $ fixed implies $ \beta_{23} $ change in $ X_3 $. 
+			\item Wright's path tracing rules \citep{Wright1934}
+				can be applied. For example, the indirect
+				effect from $ X_2 $ to $ X_4 $ is $ \beta_{24}
+				\beta_{34} $. The total effect from $ X_2 $ to
+				$ X_4 $ is $ \beta_{24} \beta_{34} + \beta_{23}
+				$.
+		\end{itemize}
+		\vspace{1em}
+
+		\begin{figure}
+			\includegraphics[page=4, scale=4]{figures.pdf}
+			\label{fig:example_adult}
+			\caption{Example of a hypothesized mixed variable SEM
+				based on the adult income dataset
+				\citep{kohavi1996}. The variables Age and Hours
+				Per Week are considered continuous, Edu- cation
+				and Income are considered ordinal, and Sex and
+				Occupation are considered categorical.}
+		\end{figure}
 
 		\vspace{1em}
 
-		However, such parameterization is \textbf{not available} for mixed data
-		models. If regression based methods are used on mixed
-		variables, we get a matrix of regression coefficients, which is
-		not interpretable. The 
+		However, such parameterization is \textbf{not available} for
+		mixed data models (Fig.~\ref{fig:example_adult}). If regression
+		based methods are used on mixed variables, we get a matrix of
+		regression coefficients, which is not easily interpretable.
 
 		\vspace{1em}
 
@@ -65,32 +86,27 @@
 			X_3 \sim X_2 + X_4
 		\end{equation*}
 	
-		The Frisch-Waugh-Lovell theorem \citep{Frisch1933} allows us to
-		reformulate this estimation equation for $ \beta_{23} $ in
-		terms of residuals of $ X_2 $ and $ X_3 $.
+		The Frisch-Waugh-Lovell theorem \citep{Frisch1933} provides an alternative way to 
+		estimate $ \beta_{23} $ in terms of the residuals of $ X_2 $ and $ X_3 $.
 
 		\begin{equation*}
 			\begin{split}
 				R_{X_2} &= X_2 - \mathbb{E}[X_2 | X_4] \\
 				R_{X_3} &= X_3 - \mathbb{E}[X_3 | X_4] \\
+				\hat{\beta}_{23} &: R_{X_3} \sim R_{X_2} \\
 			\end{split}
 		\end{equation*}
 
-		Then $ \beta_{23} $ can be estimated as:
-
-		\begin{equation*}
-			R_{X_3} \sim R_{X_2}
-		\end{equation*}
-
-		This can further be written in terms of the correlation
-		coefficient, an effect size measure, between the residuals as:
+		This can be further reformulated in terms of correlation coefficient between $ R_{X_2} $ and $ R_{X_3} $ (i.e. an effect size measure) as:
 
 		\begin{equation*}
 			\hat{\beta}_{23} = cor(R_{X_3}, R_{X_2}) \sqrt{\frac{var(R_{X_3})}{var(R_{X_2})}}
 		\end{equation*}
+
+		\vspace{1em}
 		
-		The FWL theorem allowed us to transform the estimation of path coefficient in terms of
-		effect size estimation between the residuals.
+		Hence, the application of FWL theorem allowed us to transform the estimation of path coefficient in terms of
+		\textbf{effect size estimation} between the residuals of variables of interest.
 		
 	\end{myblock}\vfill
 		}\end{minipage}\end{beamercolorbox}
@@ -105,9 +121,10 @@
 	\begin{myblock}{Effect Size Measure for Mixed Data}
 		To extend the partial correlation approach to mixed data, we need two components: 1) A residualization method for mixed data 2) An effect size
 		measure.
+		\begin{enumerate}
 
-		\textbf{Residualization}
-		We use the mixed data residualization approach proposed in \citet{Ankan2023}. To compute the residuals of $ X $ using $ \bm{Z} $ as the predictors, it is done in two steps:
+			\item \textbf{Residualization}
+				We use the mixed data residualization approach proposed in \citet{Ankan2023}. To compute the residuals of $ X $ using $ \bm{Z} $ as the predictors, it is done in two steps:
 		\begin{enumerate}
 			\item Probability Model: We first need to first train a probability model $ P(X | \bm{Z}) $.
 			\item Compute residuals: 
@@ -119,27 +136,20 @@
 		or ordinal. When variables are categorical we get a matrix of
 		residuals.
 		
-		\textbf{Effect Size Measure}
-		Multiple effect sizes are available in the multivariate statistics for two set of random variables. Canonical 
-		correlations provide the most generalized way for this. Canonical correlation between $ R_X $ and $ R_Y $ is given
-		as:
+		\item \textbf{Effect Size Measure}
+			Multiple effect sizes are available in the multivariate statistics for two set of random variables. Canonical 
+			correlations provide the most generalized way for this. Canonical correlation between $ R_X $ and $ R_Y $ is given
+			as:
 
-		$$ \rho $$
+			$$ \rho $$
 
-		An effect size measure that can be used is the product of the canoncial correlations. It will be bounded between $ 0 $ and $ 1 $.
+			An effect size measure that can be used is the product of the canoncial correlations. It will be bounded between $ 0 $ and $ 1 $.
+		\end{enumerate}
 	\end{myblock}\vfill
 	\begin{myblock}{Example}
 		\begin{figure}
 			\includegraphics[page=3, scale=4]{figures.pdf}
-			\caption{An example of mixed data model parameteriza-
-				tion using a canonical correlation based effect
-				size on a hypothesized DAG on a subset of
-				variables from the adult income dataset \citep{kohavi1996}.
-				Here, the variables Age and
-				Hours Per Week are considered continuous,
-				Education and Income are considered ordinal,
-				and Sex and Occupation are considered categorical.
-			}
+			\caption{The example from Fig. 2 parameterized using the proposed canonical correlation based effect size.}
 		\end{figure}
 	\end{myblock}
 		}\end{minipage}\end{beamercolorbox}
@@ -154,7 +164,14 @@
 	\begin{myblock}{Conditional Independence Testing}
 		\textbf{Research Question 2:} \textcolor{red}{Can the effect size be used for Conditional Independence(CI) testing?}
 
-		Association test for Pillai's trace are available that can be used.
+		As canonical correlation method gives gives us a way to compute the association between the residuals, we can use it for testing whether 
+		an effect is present or not. It is essentially equivalent to testing whether the parameter between the variables is $ 0 $ or not. Various
+		such tests are available, including Wilks' Lambda, Hotelling-Lawley tracle, and Pillai-Bartlett trace \citep{}. Given two residual 
+		matrices $ R_x $ and $ R_y $, the PB test statistic is defined as:
+
+		\begin{equation*}
+			V(R_x, R_y) = \sum_{\rho \in \bm{\rho}(R_x, R_y)} \rho^2
+		\end{equation*}
 
 		\begin{figure}
 			\begin{subfigure}{\textwidth}
