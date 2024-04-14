@@ -9,6 +9,7 @@
 \usepackage[font=small, justification=justified]{caption}
 \usepackage{array,booktabs,tabularx}
 \usepackage{bm}
+\usepackage{natbib}
 \usepackage{subcaption}
 
 \def\ci{\perp\!\!\!\!\!\perp}
@@ -54,10 +55,42 @@
 
 		\vspace{1em}
 
-		Research Question: \textcolor{red}{Can we generalize path coefficients to mixed variable SEMs?}
+		\textbf{Research Question 1:} \textcolor{red}{Can we generalize path coefficients to mixed variable SEMs?}
 	\end{myblock}\vfill
 	\begin{myblock}{Path Coefficients and Effect Sizes}
-		Taking the example of estimating of $ \beta_{23} $ in Figure 1.
+		The parameter $ \beta_{23} $ in Fig.~\ref{fig:example_sem} can be estimated using the linear
+		regression equation:
+		
+		\begin{equation*}
+			X_3 \sim X_2 + X_4
+		\end{equation*}
+	
+		The Frisch-Waugh-Lovell theorem \citep{Frisch1933} allows us to
+		reformulate this estimation equation for $ \beta_{23} $ in
+		terms of residuals of $ X_2 $ and $ X_3 $.
+
+		\begin{equation*}
+			\begin{split}
+				R_{X_2} &= X_2 - \mathbb{E}[X_2 | X_4] \\
+				R_{X_3} &= X_3 - \mathbb{E}[X_3 | X_4] \\
+			\end{split}
+		\end{equation*}
+
+		Then $ \beta_{23} $ can be estimated as:
+
+		\begin{equation*}
+			R_{X_3} \sim R_{X_2}
+		\end{equation*}
+
+		This can further be written in terms of the correlation
+		coefficient, an effect size measure, between the residuals as:
+
+		\begin{equation*}
+			\hat{\beta}_{23} = cor(R_{X_3}, R_{X_2}) \sqrt{\frac{var(R_{X_3})}{var(R_{X_2})}}
+		\end{equation*}
+		
+		The FWL theorem allowed us to transform the estimation of path coefficient in terms of
+		effect size estimation between the residuals.
 		
 	\end{myblock}\vfill
 		}\end{minipage}\end{beamercolorbox}
@@ -69,10 +102,34 @@
 		\begin{beamercolorbox}[center]{postercolumn}
 			\begin{minipage}{.98\textwidth} % tweaks the width, makes a new \textwidth
 				\parbox[t][\columnheight]{\textwidth}{ % must be some better way to set the the height, width and textwidth simultaneously
-	\begin{myblock}{Effect size for mixed data}
+	\begin{myblock}{Effect Size Measure for Mixed Data}
+		To extend the partial correlation approach to mixed data, we need two components: 1) A residualization method for mixed data 2) An effect size
+		measure.
+
+		\textbf{Residualization}
+
+		This approach gives us a residual vector when variables are
+		either continuous, binary, or ordinal. When variable is
+		categorical we get a matrix of residuals.
+	
+		\textbf{Effect Size Measure}
+		Multivariate statistics, canonical correlation based.
+		Pillai's Trace
 
 	\end{myblock}\vfill
 	\begin{myblock}{Example}
+		\begin{figure}
+			\includegraphics[page=3, scale=4]{figures.pdf}
+			\caption{An example of mixed data model parameteriza-
+				tion using a canonical correlation based effect
+				size on a hypothesized DAG on a subset of
+				variables from the adult income dataset \citep{kohavi1996}.
+				Here, the variables Age and
+				Hours Per Week are considered continuous,
+				Education and Income are considered ordinal,
+				and Sex and Occupation are considered categorical.
+			}
+		\end{figure}
 	\end{myblock}
 		}\end{minipage}\end{beamercolorbox}
 	\end{column}
@@ -83,10 +140,21 @@
 		\begin{beamercolorbox}[center]{postercolumn}
 			\begin{minipage}{.98\textwidth} % tweaks the width, makes a new \textwidth
 				\parbox[t][\columnheight]{\textwidth}{ % must be some better way to set the the height, width and textwidth simultaneously
-	\begin{myblock}{Research Question}
-		Can there be a independence test based on this effect size?
-	\end{myblock}\vfill
-	\begin{myblock}{Pillai's Trace}
+	\begin{myblock}{Conditional Independence Testing}
+		\textbf{Research Question 2:} \textcolor{red}{Can the effect size be used for Conditional Independence(CI) testing?}
+
+		Association test for Pillai's trace are available that can be used.
+
+		\begin{figure}
+			\begin{subfigure}{\textwidth}
+				\includegraphics[scale=4]{calibration.pdf}
+				\caption{}
+			\end{subfigure}
+			\begin{subfigure}{\textwidth}
+				\includegraphics[scale=4]{accuracy.pdf}
+				\caption{}
+			\end{subfigure}
+		\end{figure}
 	\end{myblock}\vfill
 	\begin{myblock}{Conclusion and Future Work}
 		\begin{itemize}
