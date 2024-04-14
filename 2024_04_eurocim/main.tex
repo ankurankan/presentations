@@ -31,25 +31,34 @@
 			\begin{minipage}{.98\textwidth}  % tweaks the width, makes a new \textwidth
 				\parbox[t][\columnheight]{\textwidth}{ % must be some better way to set the the height, width and textwidth simultaneously
 	\begin{myblock}{Introduction}
-	
-		\begin{itemize}
-			\item Continuous variable Structural Equation Models (SEMs) are parameterized using \emph{path coefficients}.
-			\item Path coefficients are defined as the regression coefficients of standardized variables.
-			\item Path Coefficients are easy to interpret.
-			\item One unit change in $ X_2 $ while keeping $ X_4 $ fixed implies $ \beta_{23} $ change in $ X_3 $.
-			\item Indirect and total effects can be computed easily.
-		\end{itemize}
+		\begin{figure}
+			\includegraphics[page=1, scale=4]{figures.pdf}
+			\label{fig:example_sem}
+			\caption{Example of a SEM on continuous variables with it's path coefficients}
+		\end{figure}
+		
+		Continuous variable Structural Equation Models (SEMs) are
+		parameterized using \textbf{path coefficients}. Path coefficients
+		are defined as the regression coefficients of standardized
+		variables. Path Coefficients are \textbf{easy to interpret}. One unit
+		change in $ X_2 $ while keeping $ X_4 $ fixed implies $
+		\beta_{23} $ change in $ X_3 $. Indirect and total effects can
+		be computed easily.
 
 		\vspace{1em}
 
-		However, such parameterization is not available for mixed data models. If regression based methods are used on mixed 
-		variables, we get a matrix of regression coefficients, which is not interpretable.
+		However, such parameterization is \textbf{not available} for mixed data
+		models. If regression based methods are used on mixed
+		variables, we get a matrix of regression coefficients, which is
+		not interpretable. The 
 
 		\vspace{1em}
 
-		\textcolor{red}{Can we generalize path coefficients to mixed variable SEMs?}
+		Research Question: \textcolor{red}{Can we generalize path coefficients to mixed variable SEMs?}
 	\end{myblock}\vfill
 	\begin{myblock}{Path Coefficients and Effect Sizes}
+		Taking the example of estimating of $ \beta_{23} $ in Figure 1.
+		
 	\end{myblock}\vfill
 		}\end{minipage}\end{beamercolorbox}
 	\end{column}
