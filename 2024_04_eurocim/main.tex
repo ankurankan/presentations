@@ -107,15 +107,26 @@
 		measure.
 
 		\textbf{Residualization}
+		We use the mixed data residualization approach proposed in \citet{Ankan2023}. To compute the residuals of $ X $ using $ \bm{Z} $ as the predictors, it is done in two steps:
+		\begin{enumerate}
+			\item Probability Model: We first need to first train a probability model $ P(X | \bm{Z}) $.
+			\item Compute residuals: 
+				If $ X $ is continuous 
+		\end{enumerate}
 
-		This approach gives us a residual vector when variables are
-		either continuous, binary, or ordinal. When variable is
-		categorical we get a matrix of residuals.
-	
+		When applied for both $ X $ and $ Y $, this approach gives us a
+		residual vector when variables are either continuous, binary,
+		or ordinal. When variables are categorical we get a matrix of
+		residuals.
+		
 		\textbf{Effect Size Measure}
-		Multivariate statistics, canonical correlation based.
-		Pillai's Trace
+		Multiple effect sizes are available in the multivariate statistics for two set of random variables. Canonical 
+		correlations provide the most generalized way for this. Canonical correlation between $ R_X $ and $ R_Y $ is given
+		as:
 
+		$$ \rho $$
+
+		An effect size measure that can be used is the product of the canoncial correlations. It will be bounded between $ 0 $ and $ 1 $.
 	\end{myblock}\vfill
 	\begin{myblock}{Example}
 		\begin{figure}
