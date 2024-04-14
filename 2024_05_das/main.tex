@@ -1,0 +1,83 @@
+\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}
+\usecolortheme{beaver}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{mathtools}
+\usepackage{todonotes}
+\usepackage{amsmath}
+\usepackage{bm}
+\usepackage{listings}
+\usepackage{ragged2e}
+\usepackage{titlecaps}
+\usepackage{fancyvrb}
+
+\def\ci{\perp\!\!\!\!\!\perp}
+
+\newtheorem{proposition}{Proposition}
+\Addlcwords{for a is but and with of in as the etc on to if}
+
+\setbeamertemplate{section in toc}{\inserttocsectionnumber.~\inserttocsection}
+\usetheme{Boadilla}
+\makeatletter
+\setbeamertemplate{footline}{%
+    \leavevmode%
+    \hbox{%
+        \begin{beamercolorbox}[wd=.3\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+            \usebeamerfont{author in head/foot}\insertshortauthor\expandafter\beamer@ifempty\expandafter{\beamer@shortinstitute}{}{~~(\insertshortinstitute)}
+        \end{beamercolorbox}%
+        \begin{beamercolorbox}[wd=.55\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+            \usebeamerfont{title in head/foot}\insertshorttitle
+        \end{beamercolorbox}%
+        \begin{beamercolorbox}[wd=.15\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+            \usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}
+            \insertframenumber{} / \inserttotalframenumber\hspace*{2ex} 
+        \end{beamercolorbox}}%
+        \vskip0pt%
+    }
+\makeatother
+
+\begin{document}
+
+\title[]{Human in the loop Structure Learning}
+\date{}
+
+\maketitle
+
+\begin{frame}{Background}
+	Learning DAGs from data.
+\end{frame}
+
+\begin{frame}{In practice}
+	Plenty of algorithms to automatically learn the model.
+
+	List some.
+\end{frame}
+
+\begin{frame}{In practice}
+	However in practice, researchers do not use them and manually draw the DAGs.
+	Even when we use them, the output is not perfect and requires some modification 
+		before can be used.
+\end{frame}
+
+\begin{frame}{Model testing}
+	Model testing can be helpful for doing the modifications.
+	The usual approach here is that users draw by hand and then test their model. <Find references from citations of the testing paper>
+\end{frame}
+
+\begin{frame}{Human-in-the-loop Structure Learning}
+	As most of the models are being built by hand, a way to suggest them how to do it.
+\end{frame}
+
+\begin{frame}{Human-in-the-loop SL}
+	Describe the method for continuous variables.
+\end{frame}
+
+\begin{frame}{An effect size for mixed data}
+\end{frame}
+
+\begin{frame}{Demo}
+\end{frame}
+
+\end{document}
