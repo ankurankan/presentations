@@ -34,8 +34,8 @@
 	\begin{myblock}{Introduction}
 		\begin{figure}
 			\includegraphics[page=1, scale=4]{figures.pdf}
+			\caption{Example of an SEM. The variables $ \{ X_1, X_2, X_3, X_4 \} $ are continuous with path coefficients denoted by $ \beta_{ij} $.}
 			\label{fig:example_sem}
-			\caption{Example of an SEM. The variables $ \{ X_1, X_2, X_3, X_4 \} $ are continuous with path coefficients $ \beta_{ij} $.}
 		\end{figure}
 
 		\vspace{1em}
@@ -49,22 +49,21 @@
 			\item One unit change in $ X_2 $ while keeping $ X_4 $ fixed implies $ \beta_{23} $ change in $ X_3 $. 
 			\item Wright's path tracing rules \citep{Wright1934}
 				can be applied. For example, the indirect
-				effect from $ X_2 $ to $ X_4 $ is $ \beta_{24}
-				\beta_{34} $. The total effect from $ X_2 $ to
-				$ X_4 $ is $ \beta_{24} \beta_{34} + \beta_{23}
+				effect of $ X_2 $ on $ X_3 $ is $ \beta_{24}
+				\beta_{34} $, and the total effect of $ X_2 $ on
+				$ X_3 $ is $ \beta_{24} \beta_{34} + \beta_{23}
 				$.
 		\end{itemize}
-		\vspace{1em}
 
 		\begin{figure}
 			\includegraphics[page=4, scale=4]{figures.pdf}
-			\label{fig:example_adult}
 			\caption{Example of a hypothesized mixed variable SEM
 				based on the adult income dataset
 				\citep{kohavi1996}. The variables Age and Hours
-				Per Week are considered continuous, Edu- cation
+				Per Week are considered continuous, Education
 				and Income are considered ordinal, and Sex and
 				Occupation are considered categorical.}
+			\label{fig:example_adult}
 		\end{figure}
 
 		\vspace{1em}
@@ -79,15 +78,14 @@
 		\textbf{Research Question 1:} \textcolor{red}{Can we generalize path coefficients to mixed variable SEMs?}
 	\end{myblock}\vfill
 	\begin{myblock}{Path Coefficients and Effect Sizes}
-		The parameter $ \beta_{23} $ in Fig.~\ref{fig:example_sem} can be estimated using the linear
-		regression equation:
+		The parameter $ \beta_{23} $ in Fig.~\ref{fig:example_sem} can be estimated using the regression equation:
 		
 		\begin{equation*}
 			X_3 \sim X_2 + X_4
 		\end{equation*}
 	
 		The Frisch-Waugh-Lovell theorem \citep{Frisch1933} provides an alternative way to 
-		estimate $ \beta_{23} $ in terms of the residuals of $ X_2 $ and $ X_3 $.
+		estimate $ \beta_{23} $ in terms of the residuals of $ X_2 $ and $ X_3 $ while using the remaining covariates as the predictors.
 
 		\begin{equation*}
 			\begin{split}
@@ -97,7 +95,7 @@
 			\end{split}
 		\end{equation*}
 
-		This can be further reformulated in terms of correlation coefficient between $ R_{X_2} $ and $ R_{X_3} $ (i.e. an effect size measure) as:
+		This can be further reformulated in terms of the correlation coefficient, an effect size measure, between $ R_{X_2} $ and $ R_{X_3} $ as:
 
 		\begin{equation*}
 			\hat{\beta}_{23} = cor(R_{X_3}, R_{X_2}) \sqrt{\frac{var(R_{X_3})}{var(R_{X_2})}}
@@ -105,8 +103,10 @@
 
 		\vspace{1em}
 		
-		Hence, the application of FWL theorem allowed us to transform the estimation of path coefficient in terms of
-		\textbf{effect size estimation} between the residuals of variables of interest.
+		Hence, the application of FWL theorem allowed us to transform
+		the estimation of path coefficient in terms of estimation of
+		\textbf{effect size} between the residuals of variables of
+		interest.
 		
 	\end{myblock}\vfill
 		}\end{minipage}\end{beamercolorbox}
@@ -119,39 +119,44 @@
 			\begin{minipage}{.98\textwidth} % tweaks the width, makes a new \textwidth
 				\parbox[t][\columnheight]{\textwidth}{ % must be some better way to set the the height, width and textwidth simultaneously
 	\begin{myblock}{Effect Size Measure for Mixed Data}
-		To extend the partial correlation approach to mixed data, we need two components: 1) A residualization method for mixed data 2) An effect size
-		measure.
-		\begin{enumerate}
+		To extend this parameterization to mixed data, we need two components:
 
-			\item \textbf{Residualization}
-				We use the mixed data residualization approach proposed in \citet{Ankan2023}. To compute the residuals of $ X $ using $ \bm{Z} $ as the predictors, it is done in two steps:
 		\begin{enumerate}
-			\item Probability Model: We first need to first train a probability model $ P(X | \bm{Z}) $.
-			\item Compute residuals: 
-				If $ X $ is continuous 
+			\item \textbf{Residuals for mixed data:} We use the mixed data residualization approach proposed in Ankan et al. (2023).
+			\item \textbf{Effect size measure:} The residualization approach gives a matrix of residuals 
 		\end{enumerate}
 
-		When applied for both $ X $ and $ Y $, this approach gives us a
-		residual vector when variables are either continuous, binary,
-		or ordinal. When variables are categorical we get a matrix of
-		residuals.
-		
-		\item \textbf{Effect Size Measure}
-			Multiple effect sizes are available in the multivariate statistics for two set of random variables. Canonical 
-			correlations provide the most generalized way for this. Canonical correlation between $ R_X $ and $ R_Y $ is given
-			as:
+		% To extend the partial correlation approach to mixed data, we need two components: 1) A residualization method for mixed data 2) An effect size
+		% measure.
+		% \begin{enumerate}
 
-			$$ \rho $$
+		% 	\item \textbf{Residualization}
+		% 		We use the mixed data residualization approach proposed in \citet{Ankan2023}. To compute the residuals of $ X $ using $ \bm{Z} $ as the predictors, it is done in two steps:
+		% \begin{enumerate}
+		% 	\item Probability Model: We first need to first train a probability model $ P(X | \bm{Z}) $.
+		% 	\item Compute residuals: 
+		% 		If $ X $ is continuous 
+		% \end{enumerate}
 
-			An effect size measure that can be used is the product of the canoncial correlations. It will be bounded between $ 0 $ and $ 1 $.
-		\end{enumerate}
-	\end{myblock}\vfill
-	\begin{myblock}{Example}
+		% When applied for both $ X $ and $ Y $, this approach gives us a
+		% residual vector when variables are either continuous, binary,
+		% or ordinal. When variables are categorical we get a matrix of
+		% residuals.
+		% 
+		% \item \textbf{Effect Size Measure}
+		% 	Multiple effect sizes are available in the multivariate statistics for two set of random variables. Canonical 
+		% 	correlations provide the most generalized way for this. Canonical correlation between $ R_X $ and $ R_Y $ is given
+		% 	as:
+
+		% 	$$ \rho $$
+
+		% 	An effect size measure that can be used is the product of the canoncial correlations. It will be bounded between $ 0 $ and $ 1 $.
+		% \end{enumerate}
 		\begin{figure}
 			\includegraphics[page=3, scale=4]{figures.pdf}
-			\caption{The example from Fig. 2 parameterized using the proposed canonical correlation based effect size.}
+			\caption{The example from Fig.~\ref{fig:example_adult} parameterized using the proposed canonical correlation based effect size.}
 		\end{figure}
-	\end{myblock}
+	\end{myblock}\vfill
 		}\end{minipage}\end{beamercolorbox}
 	\end{column}
 
