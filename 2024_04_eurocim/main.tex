@@ -154,18 +154,22 @@
 			V(R_x, R_y) = \sum_{\rho \in \bm{\rho}(R_x, R_y)} \rho^2
 		\end{equation*}
 
-		% \begin{figure}
-		% 	\begin{subfigure}{\textwidth}
-		% 		\includegraphics[scale=4]{calibration.pdf}
-		% 		\caption{}
-		% 	\end{subfigure}
-		% 	\begin{subfigure}{\textwidth}
-		% 		\includegraphics[scale=4]{accuracy.pdf}
-		% 		\caption{}
-		% 	\end{subfigure}
-		% \end{figure}
 		\begin{figure}
-			\includegraphics[scale=3]{conclusion.pdf}
+			\begin{subfigure}{\textwidth}
+				\centering
+				\includegraphics[scale=3]{calibration.pdf}
+				\caption{}
+			\end{subfigure}
+			\begin{subfigure}{\textwidth}
+				\centering
+				\includegraphics[scale=3]{accuracy.pdf}
+				\caption{}
+			\end{subfigure}
+			\caption{(a) Calibration and (b) Accuracy comparison between the standard
+				Hotelling’s T2 test \citep{Ankan2023}, Adaptable Regularized Hotelling’s T2 test (ARHT), Pillai-Bartlett (PB)
+				Trace, and chi-squared test for CI testing in a low sample size and high cardinality
+				scenario. Data has been simulated using a common cause model.
+			\label{fig:ci_test}
 		\end{figure}
 
 	\end{myblock}\vfill
