@@ -10,6 +10,7 @@
 \usepackage{array,booktabs,tabularx}
 \usepackage{bm}
 \usepackage{natbib}
+\bibliographystyle{abbrvnat}
 \usepackage{subcaption}
 
 \def\ci{\perp\!\!\!\!\!\perp}
@@ -122,7 +123,7 @@
 		To extend this parameterization to mixed data, we need two components:
 
 		\begin{enumerate}
-			\item \textbf{Residuals for mixed data:} We use the mixed data residualization approach proposed in Ankan et al. (2023).
+			\item \textbf{Residuals for mixed data:} We use the mixed data residualization approach from \citet{Ankan2023}.
 			\item \textbf{Effect size measure:} The residualization approach gives a matrix of residuals 
 		\end{enumerate}
 
@@ -204,7 +205,6 @@
 	\end{myblock}\vfill
 	\begin{myblock}{References}
 		\footnotesize
-		\bibliographystyle{abbrv}
 		\bibliography{./bib}
 	\end{myblock}\vfill
 		}\end{minipage}\end{beamercolorbox}
