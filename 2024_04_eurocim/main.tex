@@ -67,7 +67,7 @@
 			\label{fig:example_adult}
 		\end{figure}
 
-		\vspace{1em}
+		\vspace{0.5em}
 
 		However, such parameterization is \textbf{not available} for
 		mixed data models (Fig.~\ref{fig:example_adult}). If regression
@@ -102,7 +102,6 @@
 			\hat{\beta}_{23} = cor(R_{X_3}, R_{X_2}) \sqrt{\frac{var(R_{X_3})}{var(R_{X_2})}}
 		\end{equation*}
 
-		\vspace{1em}
 		
 		Hence, the application of FWL theorem allowed us to transform
 		the estimation of path coefficient in terms of estimation of
@@ -124,35 +123,10 @@
 
 		\begin{enumerate}
 			\item \textbf{Residuals for mixed data:} We use the mixed data residualization approach from \citet{Ankan2023}.
-			\item \textbf{Effect size measure:} The residualization approach gives a matrix of residuals 
+			\item \textbf{Effect size measure:} The residualization approach gives matrix of residuals. In multivariate statistics, canonical 
+				correlations give a generalized measure of association between two sets of variables.
 		\end{enumerate}
 
-		% To extend the partial correlation approach to mixed data, we need two components: 1) A residualization method for mixed data 2) An effect size
-		% measure.
-		% \begin{enumerate}
-
-		% 	\item \textbf{Residualization}
-		% 		We use the mixed data residualization approach proposed in \citet{Ankan2023}. To compute the residuals of $ X $ using $ \bm{Z} $ as the predictors, it is done in two steps:
-		% \begin{enumerate}
-		% 	\item Probability Model: We first need to first train a probability model $ P(X | \bm{Z}) $.
-		% 	\item Compute residuals: 
-		% 		If $ X $ is continuous 
-		% \end{enumerate}
-
-		% When applied for both $ X $ and $ Y $, this approach gives us a
-		% residual vector when variables are either continuous, binary,
-		% or ordinal. When variables are categorical we get a matrix of
-		% residuals.
-		% 
-		% \item \textbf{Effect Size Measure}
-		% 	Multiple effect sizes are available in the multivariate statistics for two set of random variables. Canonical 
-		% 	correlations provide the most generalized way for this. Canonical correlation between $ R_X $ and $ R_Y $ is given
-		% 	as:
-
-		% 	$$ \rho $$
-
-		% 	An effect size measure that can be used is the product of the canoncial correlations. It will be bounded between $ 0 $ and $ 1 $.
-		% \end{enumerate}
 		\begin{figure}
 			\includegraphics[page=3, scale=4]{figures.pdf}
 			\caption{The example from Fig.~\ref{fig:example_adult} parameterized using the proposed canonical correlation based effect size.}
@@ -168,11 +142,12 @@
 			\begin{minipage}{.98\textwidth} % tweaks the width, makes a new \textwidth
 				\parbox[t][\columnheight]{\textwidth}{ % must be some better way to set the the height, width and textwidth simultaneously
 	\begin{myblock}{Conditional Independence Testing}
-		\textbf{Research Question 2:} \textcolor{red}{Can the effect size be used for Conditional Independence(CI) testing?}
+		\textbf{Research Question 2:} \textcolor{red}{Can canonical correlation be used for Conditional Independence(CI) testing?}
+		\vspace{1em}
 
-		As canonical correlation method gives gives us a way to compute the association between the residuals, we can use it for testing whether 
-		an effect is present or not. It is essentially equivalent to testing whether the parameter between the variables is $ 0 $ or not. Various
-		such tests are available, including Wilks' Lambda, Hotelling-Lawley tracle, and Pillai-Bartlett trace \citep{}. Given two residual 
+		Residualization based CI tests are based on association between the residuals of the variables of interest. As canonical correlation provides 
+		a generalized way to assess that, we can utilize it for CI testing. Various tests of association 
+		such tests are available, including Wilks' Lambda, Hotelling-Lawley tracle, and Pillai-Bartlett trace \citep{Pillai1955}. Given two residual 
 		matrices $ R_x $ and $ R_y $, the PB test statistic is defined as:
 
 		\begin{equation*}
@@ -196,11 +171,13 @@
 	\end{myblock}\vfill
 	\begin{myblock}{Conclusion and Future Work}
 		\begin{itemize}
-			\item Shows the connection between path coefficients and effect sizes.
-			\item Gives an effect size based on Canonical correlations for mixed data.
-			\item Future work: How to interpret these coefficients.
-			\item Future work: More analysis on the CI test based on this.
-			\item Theoretical guarantees for the test needs to be derived.
+			\item Using the connection between path coefficients and effect size between residuals, we propose an mixed variable SEM parameterization based
+				on canonical correlations.
+			\item We also show that canonical correlation based tests can be used for CI testing, and it performs especially well in high-dimensional scenarios.
+			\item The interpretation of these coefficients is still unclear, and needs further investigation.
+			\item 
+
+				More thorough analysis needs to be done on the properties of the CI test and theoretical guarantees need to be given.
 		\end{itemize}
 	\end{myblock}\vfill
 	\begin{myblock}{References}
