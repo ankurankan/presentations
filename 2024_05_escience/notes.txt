@@ -1,0 +1,34 @@
+Slide 1
+=======
+What are DAGs, BNs, and variations?
+
+1. Two user groups: 1) Interested in approximate inference 2) Interested in causal inference.
+Applications: 1) Do inference 2) Testing methods: a) Causal discovery b) estimation methods c) Teaching
+
+Slide 2
+=======
+No other Python package offers these functionality, R is an option with some packages like simcausal.
+
+Researchers have to rely on writing simulations themselves.
+
+pgmpy offers simulation under a variety of scenarios.
+
+Slide 3
+=======
+Main Limitation: Only discrete variables
+
+Extending it to continuous variables would be impactful.
+
+Slide 4
+=======
+Phase 1: Develop the functional
+
+Slide 5
+=======
+Phase 2: Sort of communication step using tutorials.
+
+Slide 6
+=======
+Why me: 1) Primarily work on causal discovery. Work with industry towards using for approximate inference as well. So have an understanding of the requirements? Describe the requirements.
+
+2) I started the pgmpy project and have maintained it for last 10 years; familiar with the internals.
