@@ -1,0 +1,101 @@
+\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}
+\usecolortheme{beaver}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{mathtools}
+\usepackage{todonotes}
+\usepackage{amsmath}
+\usepackage{bm}
+\usepackage{listings}
+\usepackage{ragged2e}
+\usepackage{titlecaps}
+\usepackage{fancyvrb}
+
+\def\ci{\perp\!\!\!\!\!\perp}
+
+\newtheorem{proposition}{Proposition}
+\Addlcwords{for a is but and with of in as the etc on to if}
+
+\setbeamertemplate{section in toc}{\inserttocsectionnumber.~\inserttocsection}
+\usetheme{Boadilla}
+\makeatletter
+\setbeamertemplate{footline}{%
+    \leavevmode%
+    \hbox{%
+        \begin{beamercolorbox}[wd=.3\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+            \usebeamerfont{author in head/foot}\insertshortauthor\expandafter\beamer@ifempty\expandafter{\beamer@shortinstitute}{}{~~(\insertshortinstitute)}
+        \end{beamercolorbox}%
+        \begin{beamercolorbox}[wd=.55\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+            \usebeamerfont{title in head/foot}\insertshorttitle
+        \end{beamercolorbox}%
+        \begin{beamercolorbox}[wd=.15\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+            \usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}
+            \insertframenumber{} / \inserttotalframenumber\hspace*{2ex} 
+        \end{beamercolorbox}}%
+        \vskip0pt%
+    }
+\makeatother
+
+\begin{document}
+
+\title[]{Enhancing and Promoting Data Simulation Capabilities of pgmpy}
+\date{}
+
+\maketitle
+
+\begin{frame}{Directed Acyclic Graphs}
+
+%TODO: Insert a figure of a real DAG.
+
+Bayesian Networks (BNs) or Directed Acyclic Graphs (DAGs) represent relationship between variables using a graphical structure. Used widely in a lot of fields ranging from %TODO: Finish this
+
+Userbase can be very broadly categorized into: 
+\begin{enumerate}
+	\item Predictive Modelling: Used as a way to efficiently represent
+		joint distributions and perform operations on it. The graphical
+		structure adds interpretability.
+	\item Causal Inference: With some added assumptions, used to answer
+		causal questions such as: what would be the effect of changing etc.
+		%TODO: add causal questions based on the example.
+\end{enumerate}
+
+\end{frame}
+
+\begin{frame}{Use of simulations in these graphical models}
+%TODO: Make a table here with Predictive modelling and causal inference columns. And put each use case in either or middle for both.
+
+Common between both: Structure Learning/Causal Discovery, Education.
+Predictive modelling: Approximate inference.
+Causal Inference: People are interested in testing how well different estimation methods perform.
+\end{frame}
+
+\begin{frame}{Simulation features in pgmpy}
+	Allows simulation from these BNs under various conditions such as (uncertain) evidence, (uncertain) intervention, time-series data, partial simulations for incorporating other simulations.
+
+	Wide range of features but is limited to discrete variable.
+
+	Extending this to continuous variables would have a huge impact as it would allow for 
+	a lot of different simulations. No other Python package that offers so much functionality.
+\end{frame}
+
+\begin{frame}{Fellowship Plan: Phase 1}
+	Extend the simulation capabilties to continuous variables.
+
+	%TODO: Show a figure to show the following message:
+
+	The parameterization is represented in tabular CPDs which is essentially a function of the variable given it's parents. => Extend pgmpy such that it can accept arbitrary functions.
+\end{frame}
+
+\begin{frame}{Fellowship Plan: Phase 2}
+	Promote these data simulation capabilities.
+
+	1) Tutorial for 
+\begin{frame}
+
+\begin{frame}{Why am I suitable to perform this}
+	
+\end{frame}
+
+\end{document}
