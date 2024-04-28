@@ -41,6 +41,7 @@
 \begin{document}
 
 \title[]{Expert-in-the-Loop Structure Learning}
+\author{Ankur Ankan}
 \date{}
 
 \maketitle
@@ -89,33 +90,73 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Model testing}
+\begin{frame}{Model Testing}
+	\todo[inline]{Add an example of model testing here}
 
 	\begin{itemize}
 		\item Test for missing edges in the model.
 		\item If the test fails, it implies that the correlation between the variables is not explained by the model.
+		\item The model is then modified to make it more agreeable with the data.
 	\end{itemize}
-
-	Some researchers do use model testing appraoches to the built model.
-
-	How does model testing work?
-
-	Model testing can be helpful for doing the modifications.
-	The usual approach here is that users draw by hand and then test their model. <Find references from citations of the testing paper>
 \end{frame}
 
 \begin{frame}{Human-in-the-loop Structure Learning}
-	As most of the models are being built by hand, a way to suggest them how to do it.
+	\begin{itemize}
+		\item As most models are built by hand, a tool that can help with building these models with the help of testing.
+	\end{itemize}
 \end{frame}
 
-\begin{frame}{Human-in-the-loop SL}
-	Describe the method for continuous variables.
+\begin{frame}{Show an example of how this works}
 \end{frame}
 
 \begin{frame}{An effect size for mixed data}
 \end{frame}
 
-\begin{frame}{Demo}
+
+\begin{frame}{Empirical Analysis}
+	\begin{itemize}
+		\item Random DAGs on $ 10 $ nodes are generated.
+		\item Data is simulated from these DAGs using linear models with random parameters.
+		\item We use the simulated data to learn back the original model.
+		\item We then compare the Structural Hamming Distance and Structural Intervention distance between the true and the learned graph.
+		\item Because the structure learning algorithms can only learn the CPDAG, we show the best case and worst case DAGs.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Empirical Analysis}
+	Need to simulate how an expert would use this to build DAGs.
+	\begin{itemize}
+		\item Take a greedy approach and choose the edge with the highest effect.
+		\item After each edge addition the effects are updated.
+		\item A pruning step is done to check if adding an edge removes some of the effects.
+		\item An oracle is used to determine the direction of the edge. With some given confidence, the oracle either gives
+			a correct answer or randomly.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Empirical Analysis: Structural Hamming Distance}
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.9]{../../2024-human-sl/code/plots/shd_ribbon.pdf}
+		\caption{SHD vs edge probability}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Empirical Analysis: Structural Hamming Distance}
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.9]{../../2024-human-sl/code/plots/sid_ribbon.pdf}
+		\caption{SID vs edge probability}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Conclusion}
+	\begin{itemize}
+		\item We propose a tool to interactively draw DAGs combining it with testing.
+		\item We propose an effect size measure for mixed data.
+		\item For oracles with decent accuracy the method works well.
+		\item Oracles can be replaced with LLMs.
+	\end{itemize}
 \end{frame}
 
 \end{document}
