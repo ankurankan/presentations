@@ -40,41 +40,68 @@
 
 \begin{document}
 
-\title[]{Human in the loop Structure Learning}
+\title[]{Expert-in-the-Loop Structure Learning}
 \date{}
 
 \maketitle
 
 \begin{frame}{Background}
-	A very basic example on the DAGs.
-	What the nodes and edges mean.
+	\todo[inline]{Add an example of a DAG here}
+	
+	\begin{itemize}
+		\item Nodes represent random variables.
+		\item Directed edges represent causal relationships between them.
+	\end{itemize}
 \end{frame}
 
-\begin{frame}{Learning DAGs from data}
-	Learning DAGs from data. The general process and the main approaches.
+\begin{frame}{Structure Learning: Learning DAGs from data}
+	\begin{figure}
+		\centering
+		\begin{tikzpicture}
+			\node[draw, rectangle] (x) at ( 0, 0 ) { Observational Data };
+			\node[draw, rectangle] (y) at ( 6, 0 ) { CPDAG };
+			\node[draw, rectangle] (z) at ( 10, 0) { DAG };
+		
+			\draw[->](x) -- (y) node[midway, below, yshift=0.1cm]{ Structure Learning };
+			\draw[->](y) -- (z) node[midway, below, yshift=0.1cm]{ Edge orientation };
+		\end{tikzpicture}
+	\end{figure}
+	\todo[inline]{Improve the figure. Show an example right below the steps }
 
-	Plenty of algorithms to automatically learn the model.
-
-	List some. And plenty of variations.
+	\begin{itemize}
+		\item With structure learning, we want to recover the true data generating DAG.
+		\item Many algorithms have been proposed such as constraint-based PC, FCI, etc. score-based Hill-Climb, GES.
+		\item Algorithms can only recover CPDAGs.
+		\item Further analysis can be done either on CPDAGs or can need to orient the edges based on expert knowledge.
+	\end{itemize}
 \end{frame}
 
-\begin{frame}{In practice}
-	However in practice, researchers do not use them and manually draw the DAGs.
-	Even when we use them, the output is not perfect and requires some modification 
-		before can be used.
+\begin{frame}{Structure Learning in Practice}
+	\begin{itemize}
+		\item Adaption of these structure learning algorithms have been very limited.
+		\item Researchers still prefer to draw their models by hand based on their domain knowledge.
+		\item Potential reasons could be:
+			\begin{itemize}
+				\item Algorithms can make obvious mistakes sometimes, making it harder to trust.
+				\item A lot of different algorithms with different assumptions making it hard to make a choice.
+			\end{itemize}
+		\item Some of them test their model after drawing.
+	\end{itemize}
 \end{frame}
 
 \begin{frame}{Model testing}
+
+	\begin{itemize}
+		\item Test for missing edges in the model.
+		\item If the test fails, it implies that the correlation between the variables is not explained by the model.
+	\end{itemize}
+
 	Some researchers do use model testing appraoches to the built model.
 
 	How does model testing work?
 
 	Model testing can be helpful for doing the modifications.
 	The usual approach here is that users draw by hand and then test their model. <Find references from citations of the testing paper>
-\end{frame}
-
-\begin{frame}{Another way to test models}
-	Match the implied correlation structure with the observed correlation in the data.
 \end{frame}
 
 \begin{frame}{Human-in-the-loop Structure Learning}
