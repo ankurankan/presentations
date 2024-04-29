@@ -46,16 +46,18 @@
 
 \maketitle
 
-\begin{frame}{Background}
+\begin{frame}{Directed Acyclic Graphs (DAGs)}
 	\todo[inline]{Add an example of a DAG here}
 	
 	\begin{itemize}
 		\item Nodes represent random variables.
-		\item Directed edges represent causal relationships between them.
+		\item Directed edges represent causal relationships.
+		\item For eg., node1 has a direct effect on node2, node1 has an undirect effect on node3.
+		\item Used for causal effect estimation.
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Structure Learning: Learning DAGs from data}
+\begin{frame}{Learning DAGs From Data}
 	\begin{figure}
 		\centering
 		\begin{tikzpicture}
@@ -70,27 +72,28 @@
 	\todo[inline]{Improve the figure. Show an example right below the steps }
 
 	\begin{itemize}
-		\item With structure learning, we want to recover the true data generating DAG.
-		\item Many algorithms have been proposed such as constraint-based PC, FCI, etc. score-based Hill-Climb, GES.
-		\item Algorithms can only recover CPDAGs.
-		\item Further analysis can be done either on CPDAGs or can need to orient the edges based on expert knowledge.
+		\item Causal Discovery/Structure Learning: Recover the true underlying DAG from observational data.
+		\item Many class of algorithms such as constraint-based (PC, FCI), score based (Hill-Climb, GES), optimization-based (No Tears).
+		\item However, algorithms can only recover the Markov Equivalence Class known as CPDAGs.
+		\item To orient the edges of the CPDAG, we need to either use expert knowledge or make some assumptions.
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Structure Learning in Practice}
+\begin{frame}{Causal Discovery in Practice}
 	\begin{itemize}
-		\item Adaption of these structure learning algorithms have been very limited.
-		\item Researchers still prefer to draw their models by hand based on their domain knowledge.
+		\item Adaption of causal discovery is very limited.
+		\item Researchers prefer to draw models by hand based on domain knowledge.
 		\item Potential reasons could be:
 			\begin{itemize}
-				\item Algorithms can make obvious mistakes sometimes, making it harder to trust.
-				\item A lot of different algorithms with different assumptions making it hard to make a choice.
+				\item Algorithms can make obvious mistakes, making it harder to trust.
+				\item Hard to choose an algorithm for a given dataset because of the different assumptions.
+				\item No way to evaluate/compare algorithm performance on the given dataset.
 			\end{itemize}
-		\item Some of them test their model after drawing.
+		\item However, some researchers do test their model after drawing.
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Model Testing}
+\begin{frame}{Model Testing using Independence Tests}
 	\todo[inline]{Add an example of model testing here}
 
 	\begin{itemize}
