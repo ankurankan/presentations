@@ -97,15 +97,16 @@
 	\todo[inline]{Add an example of model testing here}
 
 	\begin{itemize}
-		\item Test for missing edges in the model.
+		\item Each missing edge in the model imply a conditional independence (CI) statement. \todo[inline]{Double check this statement}
+		\item We can test these in the given data to verify if the model agrees with the data.
 		\item If the test fails, it implies that the correlation between the variables is not explained by the model.
-		\item The model is then modified to make it more agreeable with the data.
+		\item These tests can be used to iteratively modify the network.
 	\end{itemize}
 \end{frame}
 
 \begin{frame}{Human-in-the-loop Structure Learning}
 	\begin{itemize}
-		\item As most models are built by hand, a tool that can help with building these models with the help of testing.
+		\item Because most models are built by hand, we built a tool that helps in building these models using independence tests.
 	\end{itemize}
 \end{frame}
 
@@ -115,27 +116,26 @@
 \begin{frame}{An effect size for mixed data}
 \end{frame}
 
-
 \begin{frame}{Empirical Analysis}
+	Simulate an expert:
 	\begin{itemize}
-		\item Random DAGs on $ 10 $ nodes are generated.
-		\item Data is simulated from these DAGs using linear models with random parameters.
-		\item We use the simulated data to learn back the original model.
-		\item We then compare the Structural Hamming Distance and Structural Intervention distance between the true and the learned graph.
-		\item Because the structure learning algorithms can only learn the CPDAG, we show the best case and worst case DAGs.
-	\end{itemize}
-\end{frame}
-
-\begin{frame}{Empirical Analysis}
-	Need to simulate how an expert would use this to build DAGs.
-	\begin{itemize}
-		\item Take a greedy approach and choose the edge with the highest effect.
-		\item After each edge addition the effects are updated.
+		\item Take a greedy approach and choose the variables with the highest effect between them such that it does not create a cycle.
+		\item Use an oracle with a given accuracy to determine the direction of the edge.
+		\item After each edge addition the effects are recomputed.
 		\item A pruning step is done to check if adding an edge removes some of the effects.
-		\item An oracle is used to determine the direction of the edge. With some given confidence, the oracle either gives
-			a correct answer or randomly.
 	\end{itemize}
 \end{frame}
+
+\begin{frame}{Empirical Analysis}
+	\begin{itemize}
+		\item Generate random DAGs on $10$ nodes.
+		\item Linear Mixed data is simulated from these DAGs.
+		\item We use the PC, Hill-Climb, and expert simulator to learn the original DAG.
+		\item Compare the Structural Hamming Distance (SHD) and Structural Intervention Distance (SID) between the true and the learned graph.
+		\item Because PC and Hill-Climb can only learn CPDAGs, we show the results using best and worst performing DAG orientations.
+	\end{itemize}
+\end{frame}
+
 
 \begin{frame}{Empirical Analysis: Structural Hamming Distance}
 	\begin{figure}
@@ -153,11 +153,15 @@
 	\end{figure}
 \end{frame}
 
+\begin{frame}{LLMs as oracles}
+\end{frame}
+
 \begin{frame}{Conclusion}
 	\begin{itemize}
-		\item We propose a tool to interactively draw DAGs combining it with testing.
+		\item We built a tool to interactively draw DAGs combining it with model testing.
 		\item We propose an effect size measure for mixed data.
-		\item For oracles with decent accuracy the method works well.
+		\item For oracles with reasonable accuracy we are able more accurate DAGs.
+		\item The human simulator can get stuck in local minimas. Actual humans should perform better.
 		\item Oracles can be replaced with LLMs.
 	\end{itemize}
 \end{frame}
