@@ -88,30 +88,82 @@
 	\end{columns}	
 \end{frame}
 
-\begin{frame}{Causal Discovery: Learning DAGs From Observational Data}
+\begin{frame}{Causal Discovery: Learning DAGs From Data}
 	\begin{figure}
 		\centering
-		\begin{tikzpicture}
-			\node[draw, rectangle] (x) at ( 0, 0 ) { Observational Data };
-			\node[draw, rectangle] (y) at ( 6, 0 ) { CPDAG };
-			\node[draw, rectangle] (z) at ( 10, 0) { DAG };
-		
-			\draw[->](x) -- (y) node[midway, below, yshift=0.1cm]{ Structure Learning };
-			\draw[->](y) -- (z) node[midway, below, yshift=0.1cm]{ Edge Orientation };
-		\end{tikzpicture}
+		\begin{subfigure}{0.1 \textwidth}
+			\centering
+			\begin{tikzpicture}
+				\node[draw, rectangle] (data) at (0, 0) {Data};
+			\end{tikzpicture}
+		\end{subfigure}
+		\begin{subfigure}{0.1 \textwidth}
+			\tikz[baseline=-\baselineskip]\draw[ultra thick,->] (0,0) -- ++ (0.5,0);
+		\end{subfigure}
+		\begin{subfigure}{0.3 \textwidth}
+			\centering
+			\begin{tikzpicture}[scale=0.8]
+			\tikzstyle{every node}=[align=center, inner sep=1pt]
+				\node (sex) at (-0.7, -0.8) {Sex};
+				\node (age) at (-0.3, 0) {Age};
+				\node (ed) at (-1.8, -1.6) {Education};
+				\node (occ) at (1.8, 0) {Occupation};
+				\node (hrpw) at (1.3, -1.6) {Hours Per \\ Week};
+				\node (income) at (-0.7, -2.8) {Income};
+			
+				\draw[->]  (age) to[bend right=20] (ed);
+				\draw[->]  (sex) to (ed);
+				\draw[->]  (age) to (hrpw);
+				\draw[-, red]  (ed) to (hrpw);
+				\draw[->]  (sex) to (hrpw);
+				\draw[->]  (ed) to (income);
+				\draw[->]  (hrpw) to (income);
+				\draw[->]  (occ) to[out=300, in=0, looseness=1.4] (income.east);
+				\draw[->]  (sex) to (income);
+				\draw[->]  (ed) to[out=90, in=150, looseness=1.3] (occ);
+				\draw[->]  (sex) to (occ);	
+			\end{tikzpicture}	
+		\end{subfigure}
+		\begin{subfigure}{0.1 \textwidth}
+			\tikz[baseline=-\baselineskip]\draw[ultra thick,->] (0,0) -- ++ (0.5,0);
+		\end{subfigure}
+		\begin{subfigure}{0.3 \textwidth}
+			\centering
+			\begin{tikzpicture}[scale=0.8]
+			\tikzstyle{every node}=[align=center, inner sep=1pt]
+				\node (sex) at (-0.7, -0.8) {Sex};
+				\node (age) at (-0.3, 0) {Age};
+				\node (ed) at (-1.8, -1.6) {Education};
+				\node (occ) at (1.8, 0) {Occupation};
+				\node (hrpw) at (1.3, -1.6) {Hours Per \\ Week};
+				\node (income) at (-0.7, -2.8) {Income};
+			
+				\draw[->]  (age) to[bend right=20] (ed);
+				\draw[->]  (sex) to (ed);
+				\draw[->]  (age) to (hrpw);
+				\draw[->]  (ed) to (hrpw);
+				\draw[->]  (sex) to (hrpw);
+				\draw[->]  (ed) to (income);
+				\draw[->]  (hrpw) to (income);
+				\draw[->]  (occ) to[out=300, in=0, looseness=1.4] (income.east);
+				\draw[->]  (sex) to (income);
+				\draw[->]  (ed) to[out=90, in=150, looseness=1.3] (occ);
+				\draw[->]  (sex) to (occ);	
+			\end{tikzpicture}	
+		\end{subfigure}
 	\end{figure}
-	\todo[inline]{Improve the figure. Show an example right below the steps }
 
 	\begin{itemize}
-		\item Goal of Causal Discovery is to recover the DAG from data.
+		\item Causal Discovery: Recover DAG from data.
 		\item Many algorithms are available:
 			\begin{itemize}
-				\item Constraint Based (PC, FCI)
-				\item Score Based (Hill-Climb Search, GES)
-				\item Optimization Based (No Tears)
+				\item Constraint Based: PC, FCI
+				\item Score Based: Hill-Climb Search, GES
+				\item Optimization Based: No Tears
 			\end{itemize}
-		\item Algorithms can only recover Markov Equivalence Class.
-		\item To orient edges of CPDAG, either use expert knowledge or make some assumptions.
+		\item Algorithms can only recover Markov Equivalence Class i.e. CPDAG.
+		\item Either expert knowledge or some further assumptions can
+			be make to orient the edges.
 	\end{itemize}
 \end{frame}
 
@@ -130,7 +182,22 @@
 \end{frame}
 
 \begin{frame}{Model Testing Using Conditional Independence (CI) Tests}
-	\todo[inline]{Add an example of model testing here}
+	\begin{figure}
+		\begin{subfigure}{0.5 \textwidth}
+			\centering
+			\begin{tikzpicture}
+				\node[draw, rectangle] (data) at (0, 0) {Data};
+			\end{tikzpicture}
+		\end{subfigure}
+		\begin{subfigure}{0.5 \textwidth}
+			\centering
+			$$ Age _||_ Incm | Edct, Hrpw, Sex $$
+			$$ Age _||_ Occp | Edct, Sex $$
+			$$ Age _||_ Sex $$
+			$$ Hrpw _||_ Occp | Edct, Sex $$
+		\end{subfigure}
+
+	\end{figure}
 
 	\begin{itemize}
 		\item Each missing edge in the model imply a conditional independence (CI) statement. \todo[inline]{Double check this statement}
@@ -148,9 +215,6 @@
 
 \begin{frame}{Human-in-the-loop Structure Learning}
 	A browser based tool to assist with drawing DAGs.
-	\begin{itemize}
-		
-	\end{itemize}
 \end{frame}
 
 \begin{frame}{Show an example of how this works}
