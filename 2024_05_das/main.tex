@@ -241,28 +241,36 @@
 \begin{frame}{Show an example of how this works}
 \end{frame}
 
-\begin{frame}{Effect Size For Continuous Variables}
-	For continuous variable partial correlations is typically used.
+\begin{frame}{Effect Sizes}
+	Marginal: Just the correlation between the variables.
+	Conditional: Partial correlation
+	Given $ X \ci Y | Z $
+	\begin{itemize}
+		\item Train estimators $ f_X: X \sim Z $ and $ f_Y: Y \sim Z $.
+		\item Take residuals from the estimators: $ R_X = X - f_X(Z) $ and $ R_Y = Y - f_Y(Z) $.
+		\item $ \rho = cor(R_X, R_Y) $.
+	\end{itemize}
 
 	For discrete variables Cramer's V can be used.
-
-	We propose an effect size based on canonical correlations that can work on any mixture of variables.
 \end{frame}
 
-\begin{frame}{Effect Size: Marginal Case}
-	We have two cases, first marginal when we have no conditional variables.
+\begin{frame}{Effect Sizes}
+	However, there are no effect sizes for mixed data. We propose one based on
+	canonical correlations.
+
+	1. Marginal Case: Take the canonical correlation between normal or dummy encoded variables.
+
+	2. Conditional Case: Use a similar approach as partial correlation, build two 
+		estimators, use a residualization approach from previous paper, take
+		the canonical correlation based effect size between them.
+
+
+\end{frame}
+
+\begin{frame}
 
 	Canonical Correlations have some nice properties: 1) Reduces down to know effect size measures in standard cases. 2) Bounded between $ 0 $ and $ 1 $.
 
-	For discrete variables, we dummy encode them and take the canonical correlation based effect size.
-
-	For continuous variable, we take the canoncial correlations simply.
-\end{frame}
-
-\begin{frame}{Effect Size: Conditional Case}
-	If the continuous case partial correlation is used typically. Partial correlaton is computed using two regression methods and taking the correlation between the residuals.
-
-	We extend this to mixed data case as well by using regression to comput the residuals, and then taking the canonical correlation based effect size.
 \end{frame}
 
 \begin{frame}{Empirical Analysis}
@@ -309,8 +317,8 @@
 
 \begin{frame}{Conclusion}
 	\begin{itemize}
-		\item We built a tool to interactively draw DAGs combining it with model testing.
 		\item We propose an effect size measure for mixed data.
+		\item Using this effect size we built a web-based interactive tool to help researchers in creating DAGs from data.
 		\item For oracles with reasonable accuracy we are able more accurate DAGs.
 		\item The human simulator can get stuck in local minimas. Actual humans should perform better.
 		\item Oracles can be replaced with LLMs.
