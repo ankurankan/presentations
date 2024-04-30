@@ -94,7 +94,7 @@
 		\begin{subfigure}{0.1 \textwidth}
 			\centering
 			\begin{tikzpicture}
-				\node[draw, rectangle] (data) at (0, 0) {Data};
+				\node[draw, rectangle] (data) at (0, 0) {DAG};
 			\end{tikzpicture}
 		\end{subfigure}
 		\begin{subfigure}{0.1 \textwidth}
@@ -208,16 +208,34 @@
 \end{frame}
 
 \begin{frame}{CI Tests and Effect Sizes}
+	We can also use CI tests to estimate effect sizes of edges.
+	\begin{figure}
+		\begin{tikzpicture}[scale=1]
+			\tikzstyle{every node}=[align=center, inner sep=1pt]
+				\node (X) at (0, 0) {$ X $};
+				\node (M) at (1.5, 0.5) {$ M $};
+				\node (Y) at (3, 0) {$ Y $};
+				\draw[->]  (X) to (M);
+				\draw[->]  (M) to (Y);
+		\end{tikzpicture}
+	\end{figure}
 \end{frame}
 
 \begin{frame}{Deciding edges between variables based on effect sizes}
 	The CI tests gives an effect size that can be used to decide whether an edge exists or not.
+	
+	The direction of these edges are still unknown, the expert needs to specify the
+	direction.
 
 	\todo[inline]{Show an example of the mediator model here to explain how can we decide}
 \end{frame}
 
 \begin{frame}{Human-in-the-loop Structure Learning}
-	A browser based tool to assist with drawing DAGs.
+	\begin{itemize}
+		\item Based on this CI testing, we built a web-based tool to assist in constructing DAGs.
+		\item Given a dataset, the tool shows all unexplained correlations between variables.
+		\item It also shows when certain edges do not add any extra explanation between variables.
+	\end{itemize}
 \end{frame}
 
 \begin{frame}{Show an example of how this works}
