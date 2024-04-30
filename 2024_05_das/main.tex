@@ -40,7 +40,7 @@
 
 \begin{document}
 
-\title[]{Expert-in-the-Loop Structure Learning}
+\title[]{Expert-in-the-Loop Causal Discovery}
 \author{Ankur Ankan}
 \date{}
 
@@ -129,7 +129,7 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Model Testing Using Conditional Independence Tests}
+\begin{frame}{Model Testing Using Conditional Independence (CI) Tests}
 	\todo[inline]{Add an example of model testing here}
 
 	\begin{itemize}
@@ -140,19 +140,42 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Conditional Independence Tests and Effect Sizes}
+\begin{frame}{Deciding edges between variables based on effect sizes}
+	The CI tests gives an effect size that can be used to decide whether an edge exists or not.
+
+	\todo[inline]{Show an example of the mediator model here to explain how can we decide}
 \end{frame}
 
 \begin{frame}{Human-in-the-loop Structure Learning}
+	A browser based tool to assist with drawing DAGs.
 	\begin{itemize}
-		\item Because most models are built by hand, we built a tool that helps in building these models using independence tests.
+		
 	\end{itemize}
 \end{frame}
 
 \begin{frame}{Show an example of how this works}
 \end{frame}
 
-\begin{frame}{Effect Size For Mixed Data}
+\begin{frame}{Effect Size For Continuous Variables}
+	For continuous variable partial correlations is typically used.
+
+	For discrete variables Cramer's V can be used.
+
+	We propose an effect size based on canonical correlations that can work on any mixture of variables.
+\end{frame}
+
+\begin{frame}{Effect Size: Marginal Case}
+	We have two cases, first marginal when we have no conditional variables.
+
+	For discrete variables, we dummy encode them and take the canonical correlation based effect size.
+
+	For continuous variable, we take the canoncial correlations simply.
+\end{frame}
+
+\begin{frame}{Effect Size: Conditional Case}
+	If the continuous case partial correlation is used typically. Partial correlaton is computed using two regression methods and taking the correlation between the residuals.
+
+	We extend this to mixed data case as well by using regression to comput the residuals, and then taking the canonical correlation based effect size.
 \end{frame}
 
 \begin{frame}{Empirical Analysis}
