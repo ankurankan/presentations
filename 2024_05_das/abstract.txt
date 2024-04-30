@@ -1,0 +1,6 @@
+Title: Expert-in-the-Loop Causal Discovery
+
+Abstract: 
+Causal discovery is a fundamental problem in causal inference, and many algorithms have been developed for it. However, their adoption in applied disciplines has been limited. We hypothesize that this reluctance might stems from a lack of trust in these algorithms, as they can make overt errors, and the challenges involved in selecting the appropriate algorithm and its hyperparameters. Consequently, in many applied fields, Directed Acyclic Graphs (DAGs) are predominantly constructed manually based on domain expertise, although some researchers validate these DAGs against empirical data.
+
+To assist researchers in constructing these DAGs, we have developed a web-based tool that aids researchers in drawing and testing DAGs. This tool utilizes effect sizes derived from conditional independence testing to offer recommendations for modifying edges, thereby addressing unexplained correlations within the data. Furthermore, we introduce a novel effect size measure suitable for mixed data types, enhancing the tool’s applicability across diverse datasets. Empirical evaluations using an oracle demonstrate that a greedy algorithmic approach, facilitated by our web tool, achieves reasonable performance.
