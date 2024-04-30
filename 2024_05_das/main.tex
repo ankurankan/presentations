@@ -216,42 +216,156 @@
 	\begin{itemize}
 		\item Each missing edge implies a Conditional Independence (CI).
 		\item Statistical tests can be used to check whether they hold in data.
+		\item Models can be modified based on these tests.
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{CI Tests and Effect Sizes}
-	We can also use CI tests to estimate effect sizes of edges.
+\begin{frame}{Using Effect Sizes to Modify DAGs}
 	\begin{figure}
 		\begin{tikzpicture}[scale=1]
-			\tikzstyle{every node}=[align=center, inner sep=1pt]
+			\begin{scope}
+				\tikzstyle{every node}=[align=center, inner sep=1pt]
+					\node at (-2, 0) {True DAG:};
+					\node (X) at (0, 0) {$ X $};
+					\node (M) at (1.5, 0.5) {$ M $};
+					\node (Y) at (3, 0) {$ Y $};
+					\draw[->]  (X) to (M);
+					\draw[->]  (M) to (Y);
+			\end{scope}
+		\end{tikzpicture}
+	\end{figure}
+	\vspace{2em}
+	Hypothesized DAGs:
+	\vspace{-2em}
+	\begin{figure}
+		\centering
+		\begin{tikzpicture}
+			\begin{scope}[xshift=-2cm]
+				\tikzstyle{every node}=[align=center, inner sep=1pt]
 				\node (X) at (0, 0) {$ X $};
-				\node (M) at (1.5, 0.5) {$ M $};
-				\node (Y) at (3, 0) {$ Y $};
+				\node (M) at (1, 0.5) {$ M $};
+				\node (Y) at (2, 0) {$ Y $};
 				\draw[->]  (X) to (M);
-				\draw[->]  (M) to (Y);
+			\end{scope}
+
+				\draw[ultra thick, ->] (0.5, 0) -- (1, 0);
+
+				\begin{scope}[xshift=3cm, yshift=0.5cm]
+					\node at (0, 0) {
+							\begin{minipage}{\textwidth}
+								\begin{equation*}
+									\begin{split}
+											& \textnormal{estimate} \\
+										M \ci Y \;\;\; & \;\;\;\; 0.518 \\
+										X \ci Y \;\;\; & -0.069 \\
+									\end{split}
+								\end{equation*}
+							\end{minipage}
+						};
+				\end{scope}
+				\draw[ultra thick, ->] (5, 0) -- node[above] {Add $ M \rightarrow Y $} (6.5, 0);	
+				\begin{scope}[xshift=9cm, yshift=0.5cm]
+					\node at (0, 0) {
+							\begin{minipage}{\textwidth}
+								\begin{equation*}
+									\begin{split}
+											& \textnormal{estimate} \\
+										X \ci Y | M \;\;\; & -0.0009 \\
+									\end{split}
+								\end{equation*}
+							\end{minipage}
+						};
+				\end{scope}
+		\end{tikzpicture}
+	\end{figure}
+
+	\vspace{-2em}
+	\begin{figure}
+		\centering
+		\begin{tikzpicture}
+			\begin{scope}[xshift=-2cm]
+				\tikzstyle{every node}=[align=center, inner sep=1pt]
+				\node (X) at (0, 0) {$ X $};
+				\node (M) at (1, 0.5) {$ M $};
+				\node (Y) at (2, 0) {$ Y $};
+				\draw[->]  (X) to (M);
+				\draw[->]  (X) to (Y);
+			\end{scope}
+
+				\draw[ultra thick, ->] (0.5, 0) -- (1, 0);
+
+				\begin{scope}[xshift=3cm, yshift=0.5cm]
+					\node at (0, 0) {
+							\begin{minipage}{\textwidth}
+								\begin{equation*}
+									\begin{split}
+											& \textnormal{estimate} \\
+										M \ci Y \rvert X \;\;\; & \;\;\;\; 0.515 \\
+									\end{split}
+								\end{equation*}
+							\end{minipage}
+						};
+				\end{scope}
+				\draw[ultra thick, ->] (5, 0) -- node[above] {Add $ M \rightarrow Y $} (6.5, 0);	
+				\begin{scope}[xshift=9cm, yshift=0.5cm]
+					\node at (0, 0) { No implied CI };
+				\end{scope}
 		\end{tikzpicture}
 	\end{figure}
 \end{frame}
 
-\begin{frame}{Deciding edges between variables based on effect sizes}
-	The CI tests gives an effect size that can be used to decide whether an edge exists or not.
-	
-	The direction of these edges are still unknown, the expert needs to specify the
-	direction.
+\begin{frame}{Using Effect Sizes to Modify DAGs}
+	\begin{figure}
+		\centering
+		\begin{tikzpicture}
+			\begin{scope}
+				\tikzstyle{every node}=[align=center, inner sep=1pt]
+				\node (X) at (0, 0) {$ X $};
+				\node (M) at (1, 0.5) {$ M $};
+				\node (Y) at (2, 0) {$ Y $};
+				\draw[->] (X) to (M);
+				\draw[->] (X) to (Y);
+				\draw[->] (M) to (Y);
+			\end{scope}
 
-	\todo[inline]{Show an example of the mediator model here to explain how can we decide}
-\end{frame}
+			\draw[ultra thick, ->] (0.5, 0) -- (1, 0);
 
-\begin{frame}{Human-in-the-loop Structure Learning}
-	\begin{itemize}
-		\item Based on this CI testing, we built a web-based tool to assist in constructing DAGs.
-		\item Given a dataset, the tool shows all unexplained correlations between variables.
-		\item It also shows when certain edges do not add any extra explanation between variables.
-	\end{itemize}
-\end{frame}
+			\begin{scope}[xshift=3cm, yshift=2cm]
+				\tikzstyle{every node}=[align=center, inner sep=1pt]
+				\node (X) at (0, 0) {$ X $};
+				\node (M) at (1, 0.5) {$ M $};
+				\node (Y) at (2, 0) {$ Y $};
+				\draw[->] (X) to (M);
+				\draw[->] (M) to (Y);
 
-\begin{frame}
-	\center \huge DEMO
+				\node at (5, 0) {$ X \ci Y \rvert M \;\;\; & \;\;\;\; -0.0009 $};
+			\end{scope}
+			\begin{scope}[xshift=3cm, yshift=0cm]
+				\tikzstyle{every node}=[align=center, inner sep=1pt]
+				\node (X) at (0, 0) {$ X $};
+				\node (M) at (1, 0.5) {$ M $};
+				\node (Y) at (2, 0) {$ Y $};
+				\draw[->] (X) to (M);
+				\draw[->] (X) to (Y);
+
+				\node at (5, 0) { $M \ci Y \rvert X \;\;\; & \;\;\;\; 0.515 $ };
+			\end{scope}
+			\begin{scope}[xshift=3cm, yshift=-2cm]
+				\tikzstyle{every node}=[align=center, inner sep=1pt]
+				\node (X) at (0, 0) {$ X $};
+				\node (M) at (1, 0.5) {$ M $};
+				\node (Y) at (2, 0) {$ Y $};
+				\draw[->] (X) to (Y);
+				\draw[->] (M) to (Y);
+
+				\node at (5, 0) { $M \ci X \;\;\; & \;\;\;\; -0.117 $ };
+			\end{scope}
+		\end{tikzpicture}
+	\end{figure}
+
+\begin{itemize}
+	\item This approach is essentially equivalent to estimating the edge coefficients.
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Effect Sizes}
@@ -284,6 +398,18 @@
 
 	Canonical Correlations have some nice properties: 1) Reduces down to know effect size measures in standard cases. 2) Bounded between $ 0 $ and $ 1 $.
 
+\end{frame}
+
+\begin{frame}{Human-in-the-loop Structure Learning}
+	\begin{itemize}
+		\item Based on this CI testing, we built a web-based tool to assist in constructing DAGs.
+		\item Given a dataset, the tool shows all unexplained correlations between variables.
+		\item It also shows when certain edges do not add any extra explanation between variables.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\center \huge DEMO
 \end{frame}
 
 \begin{frame}{Empirical Analysis: Simulate Expert}
