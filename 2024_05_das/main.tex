@@ -220,7 +220,7 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Model Testing}
+\begin{frame}{Model Testing: Adding Edges}
 	\begin{figure}
 		\begin{tikzpicture}[scale=1]
 			\begin{scope}
@@ -234,56 +234,53 @@
 			\end{scope}
 		\end{tikzpicture}
 	\end{figure}
-	\vspace{2em}
+	\vspace{1em}
 	Hypothesized DAGs:
-	\vspace{-2em}
+	\vspace{-1em}
 	\begin{figure}
-		\centering
 		\begin{tikzpicture}
-			\begin{scope}[xshift=-2cm]
+			\begin{scope}
 				\tikzstyle{every node}=[align=center, inner sep=1pt]
 				\node (X) at (0, 0) {$ X $};
 				\node (M) at (1, 0.5) {$ M $};
 				\node (Y) at (2, 0) {$ Y $};
 				\draw[->]  (X) to (M);
 			\end{scope}
-
+			\begin{scope}[xshift=2cm]
 				\draw[ultra thick, ->] (0.5, 0) -- (1, 0);
-
-				\begin{scope}[xshift=3cm, yshift=0.5cm]
+			\end{scope}
+			\begin{scope}[xshift=4.5cm, yshift=0.5cm]
 					\node at (0, 0) {
-							\begin{minipage}{\textwidth}
+							\begin{minipage}{0.2\textwidth}
 								\begin{equation*}
 									\begin{split}
 											& \textnormal{estimate} \\
-										M \ci Y \;\;\; & \;\;\;\; 0.518 \\
-										X \ci Y \;\;\; & -0.069 \\
+										M \ci Y \; & \;\;\;\; 0.518 \\
+										X \ci Y \; & -0.069 \\
 									\end{split}
 								\end{equation*}
 							\end{minipage}
 						};
-				\end{scope}
-				\draw[ultra thick, ->] (5, 0) -- node[above] {Add $ M \rightarrow Y $} (6.5, 0);	
-				\begin{scope}[xshift=9cm, yshift=0.5cm]
+			\end{scope}
+			\draw[ultra thick, ->] (6.5, 0) -- node[above] {Add $ M \rightarrow Y $} (8.2, 0);
+			\begin{scope}[xshift=9.8cm, yshift=0.5cm]
 					\node at (0, 0) {
-							\begin{minipage}{\textwidth}
+							\begin{minipage}{0.2\textwidth}
 								\begin{equation*}
 									\begin{split}
 											& \textnormal{estimate} \\
-										X \ci Y | M \;\;\; & -0.0009 \\
+										X \ci Y | M \; & -0.0009 \\
 									\end{split}
 								\end{equation*}
 							\end{minipage}
 						};
-				\end{scope}
+			\end{scope}
 		\end{tikzpicture}
 	\end{figure}
 
-	\vspace{-2em}
 	\begin{figure}
-		\centering
 		\begin{tikzpicture}
-			\begin{scope}[xshift=-2cm]
+			\begin{scope}
 				\tikzstyle{every node}=[align=center, inner sep=1pt]
 				\node (X) at (0, 0) {$ X $};
 				\node (M) at (1, 0.5) {$ M $};
@@ -291,30 +288,31 @@
 				\draw[->]  (X) to (M);
 				\draw[->]  (X) to (Y);
 			\end{scope}
-
+			\begin{scope}[xshift=2cm]
 				\draw[ultra thick, ->] (0.5, 0) -- (1, 0);
+			\end{scope}
 
-				\begin{scope}[xshift=3cm, yshift=0.5cm]
+			\begin{scope}[xshift=4.5cm, yshift=0.5cm]
 					\node at (0, 0) {
-							\begin{minipage}{\textwidth}
+							\begin{minipage}{0.2\textwidth}
 								\begin{equation*}
 									\begin{split}
 											& \textnormal{estimate} \\
-										M \ci Y \rvert X \;\;\; & \;\;\;\; 0.515 \\
+				 						M \ci Y \rvert X \; & \;\;\;\; 0.515 \\
 									\end{split}
 								\end{equation*}
 							\end{minipage}
 						};
-				\end{scope}
-				\draw[ultra thick, ->] (5, 0) -- node[above] {Add $ M \rightarrow Y $} (6.5, 0);	
-				\begin{scope}[xshift=9cm, yshift=0.5cm]
-					\node at (0, 0) { No implied CI };
-				\end{scope}
+			\end{scope}
+			\draw[ultra thick, ->] (7, 0) -- node[above] {Add $ M \rightarrow Y $} (8.7, 0);
+			\begin{scope}[xshift=10.5cm]
+				\node at (0, 0) { No implied CI };
+			\end{scope}
 		\end{tikzpicture}
 	\end{figure}
 \end{frame}
 
-\begin{frame}{Model Testing}
+\begin{frame}{Model Testing: Removing Edges}
 	\begin{figure}
 		\centering
 		\begin{tikzpicture}
@@ -328,9 +326,9 @@
 				\draw[->] (M) to (Y);
 			\end{scope}
 
-			\draw[ultra thick, ->] (0.5, 0) -- (1, 0);
+			\draw[ultra thick, ->] (2.5, 0) -- (3.5, 0);
 
-			\begin{scope}[xshift=3cm, yshift=2cm]
+			\begin{scope}[xshift=4cm, yshift=2cm]
 				\tikzstyle{every node}=[align=center, inner sep=1pt]
 				\node (X) at (0, 0) {$ X $};
 				\node (M) at (1, 0.5) {$ M $};
@@ -338,9 +336,10 @@
 				\draw[->] (X) to (M);
 				\draw[->] (M) to (Y);
 
-				\node at (5, 0) {$ X \ci Y \rvert M \;\;\; & \;\;\;\; -0.0009 $};
+				\node at (5, 0) {$ X \ci Y \rvert M \;\;\; & -0.0009 $};
 			\end{scope}
-			\begin{scope}[xshift=3cm, yshift=0cm]
+			\draw[ultra thick, ->] (2.5, 1) -- (3.5, 1.8);
+			\begin{scope}[xshift=4cm, yshift=0cm]
 				\tikzstyle{every node}=[align=center, inner sep=1pt]
 				\node (X) at (0, 0) {$ X $};
 				\node (M) at (1, 0.5) {$ M $};
@@ -350,7 +349,8 @@
 
 				\node at (5, 0) { $M \ci Y \rvert X \;\;\; & \;\;\;\; 0.515 $ };
 			\end{scope}
-			\begin{scope}[xshift=3cm, yshift=-2cm]
+			\draw[ultra thick, ->] (2.5, -1) -- (3.5, -1.8);
+			\begin{scope}[xshift=4cm, yshift=-2cm]
 				\tikzstyle{every node}=[align=center, inner sep=1pt]
 				\node (X) at (0, 0) {$ X $};
 				\node (M) at (1, 0.5) {$ M $};
@@ -358,13 +358,13 @@
 				\draw[->] (X) to (Y);
 				\draw[->] (M) to (Y);
 
-				\node at (5, 0) { $M \ci X \;\;\; & \;\;\;\; -0.117 $ };
+				\node at (5, 0) { $M \ci X \;\;\; & -0.117 $ };
 			\end{scope}
 		\end{tikzpicture}
 	\end{figure}
 
 \begin{itemize}
-	\item This approach is similar to estimating the edge coefficients.
+	\item Similar to estimating edge coefficients.
 	\item These tests can be used to check whether the correlation present in the data is explained by the model.
 \end{itemize}
 \end{frame}
