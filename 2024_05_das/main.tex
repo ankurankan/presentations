@@ -18,6 +18,8 @@
 \newtheorem{proposition}{Proposition}
 \Addlcwords{for a is but and with of in as the etc on to if}
 
+\DeclareMathOperator*{\argmax}{argmax}
+
 \setbeamertemplate{section in toc}{\inserttocsectionnumber.~\inserttocsection}
 \usetheme{Boadilla}
 \makeatletter
@@ -48,12 +50,12 @@
 
 \begin{frame}{Directed Acyclic Graphs (DAGs)}
 	\begin{columns}
-		\begin{column}{0.6 \textwidth}
+		\begin{column}{0.55\textwidth}
 		\begin{itemize}
 			\item Nodes represent random variables.
 			\item Edges represent causal relationships.
 			\item E.g., \textbf{Education} has a direct effect on \textbf{Income}. 
-			\item \textbf{Age} has indirect effect on \textbf{Income} through \textbf{Education} and \textbf{Hours Per Week}.
+			\item E.g., \textbf{Age} has indirect effect on \textbf{Income} through \textbf{Education} and \textbf{Hours Per Week}.
 			\item Used for causal effect estimation.
 		\end{itemize}
 		\end{column}
@@ -336,7 +338,7 @@
 				\draw[->] (X) to (M);
 				\draw[->] (M) to (Y);
 
-				\node at (5, 0) {$ X \ci Y \rvert M \;\;\; & -0.0009 $};
+				\node at (5, 0) {$ X \ci Y \rvert M \;\;\; -0.0009 $};
 			\end{scope}
 			\draw[ultra thick, ->] (2.5, 1) -- (3.5, 1.8);
 			\begin{scope}[xshift=4cm, yshift=0cm]
@@ -347,7 +349,7 @@
 				\draw[->] (X) to (M);
 				\draw[->] (X) to (Y);
 
-				\node at (5, 0) { $M \ci Y \rvert X \;\;\; & \;\;\;\; 0.515 $ };
+				\node at (5, 0) { $M \ci Y \rvert X \;\;\; \;\;\;\; 0.515 $ };
 			\end{scope}
 			\draw[ultra thick, ->] (2.5, -1) -- (3.5, -1.8);
 			\begin{scope}[xshift=4cm, yshift=-2cm]
@@ -358,7 +360,7 @@
 				\draw[->] (X) to (Y);
 				\draw[->] (M) to (Y);
 
-				\node at (5, 0) { $M \ci X \;\;\; & -0.117 $ };
+				\node at (5, 0) { $M \ci X \;\;\;\;\;\; -0.117 $ };
 			\end{scope}
 		\end{tikzpicture}
 	\end{figure}
@@ -369,99 +371,131 @@
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Effect Sizes: Marginal Independence Tests}
-	\centerline{Marginal Case: $ X \ci Y $}
+% \begin{frame}{Effect Sizes: Marginal Independence Tests}
+% 	\centerline{Marginal Case: $ X \ci Y $}
+% 
+% 	\vspace{2em}
+% 	
+% 	\textbf{Discrete Data:} Cram\'er's V
+% 		
+% 	$$ V(X, Y) = \sqrt{\frac{\chi^2(X, Y) / n }{\min(k-1, r-1)}} \;\;\;\;\;\; \textnormal{where } k = \rvert X \rvert, \;\; r = \rvert Y \rvert $$
+% 	\todo[inline] {Check this formula}
+% 	
+% 	\vspace{2em}
+% 
+% 	\textbf{Continuous Data:} Pearson Correlation Coefficient
+% 
+% 		$$ \rho(X,Y) = \frac{\textnormal{cov}(X, Y)}{\sigma_X \sigma_Y} $$
+% 		
+% \end{frame}
+% 
+% \begin{frame}{Effect Sizes: Conditional Independence Tests}
+% 	\centerline{Conditional Case: $ X \ci Y \rvert \bm{Z} $}
+% 
+% 	\vspace{2em}
+% 
+% 	\textbf{Discrete Data:} Cram\'er's V
+% 		\begin{itemize}
+% 			\item Given a dataset $ \mathcal{D} = (X, Y, \bm{Z}) $, first stratify by conditional variable.
+% 				$$ \mathcal{D} = \{ (X_{Z_1}, Y_{Z_1}, \bm{Z}_1), (X_{Z_2}, Y_{Z_2}, \bm{Z}_2), \cdots, (X_{Z_k}, Y_{Z_k}, \bm{Z}_k) \} $$
+% 			\item Compute for each strata and combine them.
+% 			\todo[inline]{What will it be here}
+% 		\end{itemize}
+% 	
+% 	\vspace{2em}
+% 				
+% 	\textbf{Continuous Data:} Partial Correlation
+% 		\begin{itemize}
+% 			\item Train two estimators. $ f_x: X \sim \bm{Z} $ and $ f_y: Y \sim \bm{Z} $.
+% 			\item Compute residuals: $ R_x = X - f_x(\bm{Z}) $ and $ R_y = Y - f_y(\bm{Z}) $.
+% 			\item Correlation coefficient of the residuals: $ \rho_{R_x, R_y} $
+% 		\end{itemize}
+% 
+% \end{frame}
+
+\begin{frame}{Effect Sizes}
+	We have a bunch of effect sizes for different variable types.
 
 	\vspace{2em}
-	
-	\textbf{Discrete Data:} Cram\'er's V
-		
-		$$ V_{X, Y} = \sqrt{\frac{\chi^2 / n }{\min(k-1, r-1)}} $$
-	
-	\vspace{2em}
-
-	\textbf{Continuous Data:} Pearson Correlation Coefficient
-
-		$$ \rho_{X,Y} = \frac{\textnormal{cov}(X, Y)}{\sigma_X \sigma_Y} $$
-		
-\end{frame}
-
-\begin{frame}{Effect Sizes: Conditional Independence Tests}
-	\centerline{Conditional Case: $ X \ci Y \rvert \bm{Z} $}
-
-	\vspace{2em}
-
-	\textbf{Discrete Data:} Cram\'er's V
-		\begin{itemize}
-			\item Stratify data by conditional variable $ \mathcal{D} = \{ (X, Y, \bm{Z}_1), (X, Y, \bm{Z}_2), \cdots, (X, Y, \bm{Z}_k) \} $.
-			\item Compute for each strata and combine them.
-			\todo[inline]{What will it be here}
-		\end{itemize}
-	
-	\vspace{2em}
-				
-	\textbf{Continuous Data:} Partial Correlation
-		\begin{itemize}
-			\item Train two estimators. $ f_x: X \sim \bm{Z} $ and $ f_y: Y \sim \bm{Z} $.
-			\item Compute residuals: $ R_x = X - f_x(\bm{Z}) $ and $ R_y = Y - f_y(\bm{Z}) $.
-			\item Correlation coefficient of the residuals: $ \rho_{R_x, R_y} $
-		\end{itemize}
-
-\end{frame}
-
-\begin{frame}{Effect Sizes: Mixed Data}
 	\begin{itemize}
-		\item No effect sizes available for mixed data.
-		\item We propose one based on canonical correlations.
-		% \item We propose an effect size measure for mixed data based on canonical correlations.
-		% \item In the special cases, reduces to pearson correlation or cramer's V.
-		% \item Bounded by $ 0 $ and $ 1 $.
+		\item \textbf{Continuous Variables:} Correlation coefficient, partial correlation for conditional case.
+		\item \textbf{Discrete Variables:} Cram\'er's V.
+		\item \textbf{Ordinal Variables: } Polychoric correlation.
+		\item \textbf{Ordinal and Continuous Variables:} Polyserial correlation.
 	\end{itemize}
 
-	\todo[inline]{Define canonical correlations}
-	\textbf{Canonical Correlations:} 
-	\begin{itemize}
-		\item Generalization of correlation coefficients to set of variables.
-		\item Finds linear combination of variables, such that the correlation between them is maximized.
-		\item There are multiple effect sizes based on canonical correlations. We use:
+	\vspace{2em}
 
-	\end{itemize}
+	\center{But there is nothing that works for a combination of discrete, ordinal, and continuous variables.}
 \end{frame}
 
-% \begin{frame}{Effect Sizes: Canonical Correlations}
+% \begin{frame}{Effect Sizes: Mixed Data}
 % 	\begin{itemize}
-% 		\item Generalization of Pearson correlation to multi
-% 		\item Finds linear combinations of 
-% 		\item Because of finding linear combinations, in
-% 		\item In single dimensional case (i.e., continuous variables) equivalent to correlation coefficients.
+% 		\item We considered cases where all variables are either discrete or continuous.
+% 		\item However, no effect size is available for mixed data i.e., combination of discrete, ordinal, and continuous.
+% 		\item We propose one based on canonical correlations.
+% 		% \item We propose an effect size measure for mixed data based on canonical correlations.
+% 		% \item In the special cases, reduces to pearson correlation or cramer's V.
+% 		% \item Bounded by $ 0 $ and $ 1 $.
 % 	\end{itemize}
 % \end{frame}
 
-\begin{frame}{Effect Sizes: Mixed Data}
-	\centerline{Marginal Case: $ X \ci Y $}
-
+\begin{frame}{Canonical Correlations}
+	Given two sets of random variables $ \bm{U} = (u_1, u_2, \cdots, u_k) $ and $ \bm{V} = (v_1, v_2, \cdots, v_r) $, canonical correlation is 
+	defined as:
+	\begin{equation*}
+		\begin{split}
+			\phi(\bm{U}, \bm{V}) &= \textnormal{cor}(a^T \bm{U}, b^T \bm{V}) \;\;\;\;\;\;\; \textnormal{where } a, b = \argmax_{(a, b)} \textnormal{cor}(a^T \bm{U}, b^T \bm{V}) \\
+		\end{split}
+	\end{equation*}
 	\begin{itemize}
-		\item If either $ X $ or $ Y $ are discrete, dummy encode them.
-			\todo[inline]{Show an example of dummy encoding}
-		\item Compute $ Q $.
-		\item If both $ X $ and $ Y $ are discrete, this is equivalent to Cram\'er's V.
-		\item If both $ X $ and $ Y $ are continuous, this is equivalent to correlation coefficient.
+		\item Generalizes correlation coefficient to multi-dimensional variables.
+		\item Finds linear combinations such that correlation is maximized.
+		\item $ \rvert \phi(\bm{U}, \bm{V}) \rvert = min(k, r) $
+		\item Multiple effect sizes:
+			\begin{itemize}
+				\item Wilks' Lambda: $ \Lambda = \prod (1 - \phi_i^2) $
+				\item Roy's Largest Root: $ \theta = \phi_{\max}^2 $
+				\item Pillai's Trace: $ \tau = \sum \phi_i^2 $
+			\end{itemize}
+		\item We use Pillai's trace.
 	\end{itemize}
 \end{frame}
 
 \begin{frame}{Effect Sizes: Mixed Data}
-	\centerline{Conditional Case: $ X \ci Y \rvert \bm{Z} $}
+	We want to compute the effect size for $ X \ci Y \rvert \bm{Z} $.
+	
+	\vspace{1em}
 
 	\begin{itemize}
-		\item If either $ X $ or $ Y $ is discrete dummy encode them.
-		\item Train two estimators $ f_x: X \sim \bm{Z} $ and $ f_y: Y \sim \bm{Z} $.
+		\item If either $ X $ or $ Y $ are discrete, dummy encode them.
+			$$ \textnorma{Country: } \begin{bmatrix} DE \\
+					   NL \\
+				           UK \\
+				           NL \\
+					   \cdots
+					   \end{bmatrix} \implies \begin{bmatrix} 1 & 0 & 0 \\
+				   						  0 & 1 & 0 \\
+									          0 & 0 & 0 \\
+									          0 & 1 & 0 \\
+										    & \cdots &
+									  \end{bmatrix}$$
+		\item If $ \bm{Z} = \emptyset $, compute $ \tau(X, Y) $.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Effect Sizes: Mixed Data}
+	Computing residuals:
+	\begin{itemize}
+		\item If $ \bm{Z} \ne \emptyset $, train two estimators $ f_x: X \sim \bm{Z} $ and $ f_y: Y \sim \bm{Z} $.
+		\item Compute the residuals, $ R_x = f_x(\bm{Z}) $, and $ R_y = f_y(\bm{Z}) $.
 		\item Computing residuals is not straightforward in this case.
 			\begin{itemize}
 				\item If continuous, difference between true and predicted.
 				\item If ordinal, Li-Sheperd residuals.
 				\item If categorical, treat each column as binary.
 			\end{itemize}
-		\item Compute $ Q $ on these.
+		\item Compute $ \tau(R_x, R_y) $.
 	\end{itemize}
 
 	\footnotetext[1]{ Ankan, Ankur, and Johannes Textor. "A simple unified approach to testing high-dimensional conditional independences for categorical and ordinal data." }
@@ -513,7 +547,7 @@
 				\begin{scope}[xshift=6cm, yshift=3cm]
 					\node[rectangle, draw, align=center, inner sep=1pt] at (0, 0) {
 							\begin{minipage}{0.7\textwidth}
-								\center{\underline{\textbf{Oracle}}}
+								\center{\underline{\textbf{Expert}}}
 								\begin{equation*}
 								\begin{split}
 									x &= \textnormal{rand}([0, 1]) \\
@@ -598,6 +632,7 @@
 			\draw[dashed]  (X) -- (M2);
 			\draw[dashed]  (M1) -- (Y);
 			\draw[dashed]  (M2) -- (Y);
+			\draw[dashed]  (M1) -- (M2);
 			\draw[dashed]  (X) -- (Y);
 		\end{scope}
 		\begin{scope}[xshift=3cm]
@@ -614,6 +649,7 @@
 			\draw[dashed]  (X) -- (M2);
 			\draw[dashed]  (M1) -- (Y);
 			\draw[dashed]  (M2) -- (Y);
+			\draw[dashed] (M1) -- (M2);
 			\draw[->]  (X) -- (Y);
 		\end{scope}
 		\begin{scope}[xshift=7.5cm]
@@ -661,7 +697,7 @@
 	\end{figure}
 \end{frame}
 
-\begin{frame}{Empirical Analysis}
+\begin{frame}{Empirical Analysis: Setup}
 	\begin{figure}
 		\centering
 		\begin{tikzpicture}
