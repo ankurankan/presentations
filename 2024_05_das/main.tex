@@ -82,7 +82,7 @@
 				\draw[->]  (ed) to[out=90, in=150, looseness=1.3] (occ);
 				\draw[->]  (sex) to (occ);	
 			\end{tikzpicture}
-			\caption{Example of a DAG}
+			\caption*{\footnotesize {Example of a DAG}}
 		\end{figure}
 		\end{column}
 	\end{columns}	
@@ -167,7 +167,7 @@
 				\item Hard to choose an algorithm for a given dataset because of the different assumptions.
 				\item No way to evaluate algorithm performance on a given dataset.
 			\end{itemize}
-		\item However, some researchers do test their model against data.
+		\item However, some researchers do test/validate their model against data using Conditional Independence (CI) tests.
 	\end{itemize}
 \end{frame}
 
@@ -220,7 +220,7 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Using Effect Sizes to Modify DAGs}
+\begin{frame}{Model Testing}
 	\begin{figure}
 		\begin{tikzpicture}[scale=1]
 			\begin{scope}
@@ -314,7 +314,7 @@
 	\end{figure}
 \end{frame}
 
-\begin{frame}{Using Effect Sizes to Modify DAGs}
+\begin{frame}{Model Testing}
 	\begin{figure}
 		\centering
 		\begin{tikzpicture}
@@ -364,45 +364,97 @@
 	\end{figure}
 
 \begin{itemize}
-	\item This approach is essentially equivalent to estimating the edge coefficients.
+	\item This approach is similar to estimating the edge coefficients.
+	\item These tests can be used to check whether the correlation present in the data is explained by the model.
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Effect Sizes}
-	Marginal: Just the correlation between the variables.
-	Conditional: Partial correlation
-	Given $ X \ci Y | Z $
+\begin{frame}{Effect Sizes: Marginal Independence Tests}
+	\centerline{Marginal Case: $ X \ci Y $}
+
+	\vspace{2em}
+	
+	\textbf{Discrete Data:} Cram\'er's V
+		
+		$$ V(X, Y) = \sqrt{\frac{\chi^2 / n }{\min(k-1, r-1)}} $$
+	
+	\vspace{2em}
+
+	\textbf{Continuous Data:} Pearson Correlation Coefficient
+
+		$$ \rho_{X,Y} = \frac{\textnormal{cov}(X, Y)}{\sigma_X \sigma_Y} $$
+	
+
+		
+\end{frame}
+
+\begin{frame}{Effect Sizes: Conditional Independence Tests}
+	\centerline{Conditional Case: $ X \ci Y \rvert \bm{Z} $}
+
+	\vspace{2em}
+
+	\textbf{Discrete Data:} Cram\'er's V
+		\begin{itemize}
+			\item Stratify data by conditional variable.
+			\item Compute for each strata and combine them.
+		\end{itemize}
+	
+	\vspace{2em}
+				
+	\textbf{Continuous Data:} Partial Correlation
+		\begin{itemize}
+			\item Train two estimators $ f_x: X \sim \bm{Z} $ and $ f_y: Y \sim \bm{Z} $.
+			\item Compute residuals: $ R_x = X - f_x(\bm{Z}) $ and $ R_y = Y - f_y(\bm{Z}) $.
+			\item $ \rho_{R_x, R_y} $
+		\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Effect Sizes: Mixed Data}
 	\begin{itemize}
-		\item Train estimators $ f_X: X \sim Z $ and $ f_Y: Y \sim Z $.
-		\item Take residuals from the estimators: $ R_X = X - f_X(Z) $ and $ R_Y = Y - f_Y(Z) $.
-		\item $ \rho = cor(R_X, R_Y) $.
+		\item No effect sizes available for mixed data.
+		\item We propose an effect size measure for mixed data based on canonical correlations.
+		\item In the special cases, reduces to pearson correlation or cramer's V.
+		\item Bounded by $ 0 $ and $ 1 $.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Effect Sizes: Canonical Correlations}
+	\begin{itemize}
+		\item Generalization of Pearson correlation to multi
+		\item Finds linear combinations of 
+		\item Because of finding linear combinations, in
+		\item In single dimensional case (i.e., continuous variables) equivalent to correlation coefficients.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Effect Sizes: Mixed Data}
+	Marginal Case: Take the canonical correlation between normal or dummy encoded variables.
+	\begin{itemize}
+		\item If variable is discrete, dummy encode them.
+		\item Compute $ Q $.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Effect Sizes: Mixed Data}
+	Conditional Case: Use a similar approach as partial correlation.
+	\begin{itemize}
+		\item Dummy encode the discrete variables.
+		\item Train two estimators $ f_x: X \sim \bm{Z} $ and $ f_y: Y \sim \bm{Z} $.
+		\item Computing residuals is not straightforward in this case. We use residualization approach presented in a previous paper.
+		\item This gives us valid residuals: For continuous variables, same as current residualization; For ordinal, gives a vector; For discrete gives us a matrix of residual.
+		\item Take the canonical correlations on these residuals.
 	\end{itemize}
 
-	For discrete variables Cramer's V can be used.
-\end{frame}
-
-\begin{frame}{Effect Sizes}
-	However, there are no effect sizes for mixed data. We propose one based on
-	canonical correlations.
-
-	1. Marginal Case: Take the canonical correlation between normal or dummy encoded variables.
-
-	2. Conditional Case: Use a similar approach as partial correlation, build two 
+	, build two 
 		estimators, use a residualization approach from previous paper, take
 		the canonical correlation based effect size between them.
-
-
-\end{frame}
-
-\begin{frame}
-
-	Canonical Correlations have some nice properties: 1) Reduces down to know effect size measures in standard cases. 2) Bounded between $ 0 $ and $ 1 $.
-
 \end{frame}
 
 \begin{frame}{Human-in-the-loop Structure Learning}
 	\begin{itemize}
-		\item Based on this CI testing, we built a web-based tool to assist in constructing DAGs.
+		\item We have an effect size for mixed data.
+		\item Using this effect size we built a web-based tool to assist in constructing/modifying DAGs.
 		\item Given a dataset, the tool shows all unexplained correlations between variables.
 		\item It also shows when certain edges do not add any extra explanation between variables.
 	\end{itemize}
@@ -630,32 +682,38 @@
 \end{frame}
 
 
-\begin{frame}{Empirical Analysis: Structural Hamming Distance}
+\begin{frame}
 	\begin{figure}
 		\centering
-		\includegraphics[scale=0.9]{../../2024-human-sl/code/plots/shd_ribbon.pdf}
-		\caption{SHD vs edge probability}
+		\includegraphics[scale=1]{../../2024-human-sl/code/plots/shd_ribbon.pdf}
 	\end{figure}
 \end{frame}
 
-\begin{frame}{Empirical Analysis: Structural Intervention Distance}
+\begin{frame}
 	\begin{figure}
 		\centering
-		\includegraphics[scale=0.9]{../../2024-human-sl/code/plots/sid_ribbon.pdf}
-		\caption{SID vs edge probability}
+		\includegraphics[scale=1]{../../2024-human-sl/code/plots/sid_ribbon.pdf}
 	\end{figure}
 \end{frame}
 
-\begin{frame}{LLMs as Oracles}
+\begin{frame}{LLMs as Experts}
+	\begin{itemize}
+		\item Bunch of recent work in using LLMs for causal discovery.
+			\begin{itemize}
+				\item For determining pairwise relationships.
+				\item Prompts along with data.
+			\end{itemize}
+		\item Can we use an LLMs as experts by providing it context around variables?
+	\end{itemize}
 \end{frame}
 
 \begin{frame}{Conclusion}
 	\begin{itemize}
-		\item We propose an effect size measure for mixed data.
-		\item Using this effect size we built a web-based interactive tool to help researchers in creating DAGs from data.
-		\item For oracles with reasonable accuracy we are able more accurate DAGs.
-		\item The human simulator can get stuck in local minimas. Actual humans should perform better.
-		\item Oracles can be replaced with LLMs.
+		\item We propose a generalized effect size measure for mixed data.
+		\item As DAGs are predominantly drawn manually, we built a web-based tool to aid in the process.
+		\item Greedy approach has a comparable performance when the expert gets $ 1 $ in $ 3 $ edge directions correctly.
+		\item Implementing some back-tracking logic in expert simulation might perform better.
+		\item Future work: Can LLMs be used as experts?
 	\end{itemize}
 \end{frame}
 
