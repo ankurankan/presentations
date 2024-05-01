@@ -376,15 +376,13 @@
 	
 	\textbf{Discrete Data:} Cram\'er's V
 		
-		$$ V(X, Y) = \sqrt{\frac{\chi^2 / n }{\min(k-1, r-1)}} $$
+		$$ V_{X, Y} = \sqrt{\frac{\chi^2 / n }{\min(k-1, r-1)}} $$
 	
 	\vspace{2em}
 
 	\textbf{Continuous Data:} Pearson Correlation Coefficient
 
 		$$ \rho_{X,Y} = \frac{\textnormal{cov}(X, Y)}{\sigma_X \sigma_Y} $$
-	
-
 		
 \end{frame}
 
@@ -395,17 +393,18 @@
 
 	\textbf{Discrete Data:} Cram\'er's V
 		\begin{itemize}
-			\item Stratify data by conditional variable.
+			\item Stratify data by conditional variable $ \mathcal{D} = \{ (X, Y, \bm{Z}_1), (X, Y, \bm{Z}_2), \cdots, (X, Y, \bm{Z}_k) \} $.
 			\item Compute for each strata and combine them.
+			\todo[inline]{What will it be here}
 		\end{itemize}
 	
 	\vspace{2em}
 				
 	\textbf{Continuous Data:} Partial Correlation
 		\begin{itemize}
-			\item Train two estimators $ f_x: X \sim \bm{Z} $ and $ f_y: Y \sim \bm{Z} $.
+			\item Train two estimators. $ f_x: X \sim \bm{Z} $ and $ f_y: Y \sim \bm{Z} $.
 			\item Compute residuals: $ R_x = X - f_x(\bm{Z}) $ and $ R_y = Y - f_y(\bm{Z}) $.
-			\item $ \rho_{R_x, R_y} $
+			\item Correlation coefficient of the residuals: $ \rho_{R_x, R_y} $
 		\end{itemize}
 
 \end{frame}
@@ -413,42 +412,59 @@
 \begin{frame}{Effect Sizes: Mixed Data}
 	\begin{itemize}
 		\item No effect sizes available for mixed data.
-		\item We propose an effect size measure for mixed data based on canonical correlations.
-		\item In the special cases, reduces to pearson correlation or cramer's V.
-		\item Bounded by $ 0 $ and $ 1 $.
+		\item We propose one based on canonical correlations.
+		% \item We propose an effect size measure for mixed data based on canonical correlations.
+		% \item In the special cases, reduces to pearson correlation or cramer's V.
+		% \item Bounded by $ 0 $ and $ 1 $.
+	\end{itemize}
+
+	\todo[inline]{Define canonical correlations}
+	\textbf{Canonical Correlations:} 
+	\begin{itemize}
+		\item Generalization of correlation coefficients to set of variables.
+		\item Finds linear combination of variables, such that the correlation between them is maximized.
+		\item There are multiple effect sizes based on canonical correlations. We use:
+
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Effect Sizes: Canonical Correlations}
-	\begin{itemize}
-		\item Generalization of Pearson correlation to multi
-		\item Finds linear combinations of 
-		\item Because of finding linear combinations, in
-		\item In single dimensional case (i.e., continuous variables) equivalent to correlation coefficients.
-	\end{itemize}
-\end{frame}
+% \begin{frame}{Effect Sizes: Canonical Correlations}
+% 	\begin{itemize}
+% 		\item Generalization of Pearson correlation to multi
+% 		\item Finds linear combinations of 
+% 		\item Because of finding linear combinations, in
+% 		\item In single dimensional case (i.e., continuous variables) equivalent to correlation coefficients.
+% 	\end{itemize}
+% \end{frame}
 
 \begin{frame}{Effect Sizes: Mixed Data}
-	Marginal Case: Take the canonical correlation between normal or dummy encoded variables.
+	\centerline{Marginal Case: $ X \ci Y $}
+
 	\begin{itemize}
-		\item If variable is discrete, dummy encode them.
+		\item If either $ X $ or $ Y $ are discrete, dummy encode them.
+			\todo[inline]{Show an example of dummy encoding}
 		\item Compute $ Q $.
+		\item If both $ X $ and $ Y $ are discrete, this is equivalent to Cram\'er's V.
+		\item If both $ X $ and $ Y $ are continuous, this is equivalent to correlation coefficient.
 	\end{itemize}
 \end{frame}
 
 \begin{frame}{Effect Sizes: Mixed Data}
-	Conditional Case: Use a similar approach as partial correlation.
+	\centerline{Conditional Case: $ X \ci Y \rvert \bm{Z} $}
+
 	\begin{itemize}
-		\item Dummy encode the discrete variables.
+		\item If either $ X $ or $ Y $ is discrete dummy encode them.
 		\item Train two estimators $ f_x: X \sim \bm{Z} $ and $ f_y: Y \sim \bm{Z} $.
-		\item Computing residuals is not straightforward in this case. We use residualization approach presented in a previous paper.
-		\item This gives us valid residuals: For continuous variables, same as current residualization; For ordinal, gives a vector; For discrete gives us a matrix of residual.
-		\item Take the canonical correlations on these residuals.
+		\item Computing residuals is not straightforward in this case.
+			\begin{itemize}
+				\item If continuous, difference between true and predicted.
+				\item If ordinal, Li-Sheperd residuals.
+				\item If categorical, treat each column as binary.
+			\end{itemize}
+		\item Compute $ Q $ on these.
 	\end{itemize}
 
-	, build two 
-		estimators, use a residualization approach from previous paper, take
-		the canonical correlation based effect size between them.
+	\footnotetext[1]{ Ankan, Ankur, and Johannes Textor. "A simple unified approach to testing high-dimensional conditional independences for categorical and ordinal data." }
 \end{frame}
 
 \begin{frame}{Human-in-the-loop Structure Learning}
