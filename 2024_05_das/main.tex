@@ -96,7 +96,7 @@
 		\centering
 		\begin{tikzpicture}
 			\node[draw, rectangle] (data) at (0, 0) {Data};
-			\draw[ultra thick,->] (1,0) -- (1.5,0);
+			\draw[ultra thick,->, cyan] (1,0) -- (1.5,0);
 			\begin{scope}[xshift=4cm, yshift=1cm, scale=0.9]
 			 	\tikzstyle{every node}=[align=center, inner sep=1pt]
 				\node (sex) at (-0.7, -0.8) {Sex};
@@ -119,7 +119,7 @@
 				\draw[->]  (sex) to (occ);	
 			\end{scope}
 			\begin{scope}[xshift=6.5cm]
-				\draw[ultra thick,->] (0,0) -- (0.5,0);
+				\draw[ultra thick,->,cyan] (0,0) -- (0.5,0);
 			\end{scope}	
 			\begin{scope}[xshift=9.2cm, yshift=1cm, scale=0.9]
 				\tikzstyle{every node}=[align=center, inner sep=1pt]
@@ -198,7 +198,7 @@
 				\draw[->]  (ed) to[out=90, in=150, looseness=1.3] (occ);
 				\draw[->]  (sex) to (occ);	
 			\end{scope}
-			\draw[thick, ->, double] (2.5,0) -- (3,0);
+			\draw[thick, ->, double, cyan] (2.5,0) -- (3,0);
 			\node[rectangle, align=center, inner sep=1pt] at (6, 0) {
 				\begin{minipage}{\textwidth}
 					\begin{equation*}
@@ -249,7 +249,7 @@
 				\draw[->]  (X) to (M);
 			\end{scope}
 			\begin{scope}[xshift=2cm]
-				\draw[ultra thick, ->] (0.5, 0) -- (1, 0);
+				\draw[ultra thick, ->, cyan] (0.5, 0) -- (1, 0);
 			\end{scope}
 			\begin{scope}[xshift=4.5cm, yshift=0.5cm]
 					\node at (0, 0) {
@@ -264,7 +264,7 @@
 							\end{minipage}
 						};
 			\end{scope}
-			\draw[ultra thick, ->] (6.5, 0) -- node[above] {Add $ M \rightarrow Y $} (8.2, 0);
+			\draw[ultra thick, ->, cyan] (6.5, 0) -- node[above, black] {Add $ M \rightarrow Y $} (8.2, 0);
 			\begin{scope}[xshift=9.8cm, yshift=0.5cm]
 					\node at (0, 0) {
 							\begin{minipage}{0.2\textwidth}
@@ -291,7 +291,7 @@
 				\draw[->]  (X) to (Y);
 			\end{scope}
 			\begin{scope}[xshift=2cm]
-				\draw[ultra thick, ->] (0.5, 0) -- (1, 0);
+				\draw[ultra thick, ->, cyan] (0.5, 0) -- (1, 0);
 			\end{scope}
 
 			\begin{scope}[xshift=4.5cm, yshift=0.5cm]
@@ -306,7 +306,7 @@
 							\end{minipage}
 						};
 			\end{scope}
-			\draw[ultra thick, ->] (7, 0) -- node[above] {Add $ M \rightarrow Y $} (8.7, 0);
+			\draw[ultra thick, ->, cyan] (7, 0) -- node[above, black] {Add $ M \rightarrow Y $} (8.7, 0);
 			\begin{scope}[xshift=10.5cm]
 				\node at (0, 0) { No implied CI };
 			\end{scope}
@@ -328,7 +328,7 @@
 				\draw[->] (M) to (Y);
 			\end{scope}
 
-			\draw[ultra thick, ->] (2.5, 0) -- (3.5, 0);
+			\draw[ultra thick, ->, cyan] (2.5, 0) -- (3.5, 0);
 
 			\begin{scope}[xshift=4cm, yshift=2cm]
 				\tikzstyle{every node}=[align=center, inner sep=1pt]
@@ -340,7 +340,7 @@
 
 				\node at (5, 0) {$ X \ci Y \rvert M \;\;\; -0.0009 $};
 			\end{scope}
-			\draw[ultra thick, ->] (2.5, 1) -- (3.5, 1.8);
+			\draw[ultra thick, ->, cyan] (2.5, 1) -- (3.5, 1.8);
 			\begin{scope}[xshift=4cm, yshift=0cm]
 				\tikzstyle{every node}=[align=center, inner sep=1pt]
 				\node (X) at (0, 0) {$ X $};
@@ -351,7 +351,7 @@
 
 				\node at (5, 0) { $M \ci Y \rvert X \;\;\; \;\;\;\; 0.515 $ };
 			\end{scope}
-			\draw[ultra thick, ->] (2.5, -1) -- (3.5, -1.8);
+			\draw[ultra thick, ->, cyan] (2.5, -1) -- (3.5, -1.8);
 			\begin{scope}[xshift=4cm, yshift=-2cm]
 				\tikzstyle{every node}=[align=center, inner sep=1pt]
 				\node (X) at (0, 0) {$ X $};
@@ -476,7 +476,7 @@
 					   \cdots
 					   \end{bmatrix} \implies \begin{bmatrix} 1 & 0 & 0 \\
 				   						  0 & 1 & 0 \\
-									          0 & 0 & 0 \\
+									          0 & 0 & 1 \\
 									          0 & 1 & 0 \\
 										    & \cdots &
 									  \end{bmatrix}$$
@@ -485,15 +485,16 @@
 \end{frame}
 
 \begin{frame}{Effect Sizes: Mixed Data}
-	Computing residuals:
 	\begin{itemize}
 		\item If $ \bm{Z} \ne \emptyset $, train two estimators $ f_x: X \sim \bm{Z} $ and $ f_y: Y \sim \bm{Z} $.
-		\item Compute the residuals, $ R_x = f_x(\bm{Z}) $, and $ R_y = f_y(\bm{Z}) $.
-		\item Computing residuals is not straightforward in this case.
+		\item Computing residuals:
 			\begin{itemize}
 				\item If continuous, difference between true and predicted.
-				\item If ordinal, Li-Sheperd residuals.
+					$$ R_{y_i} = y_i - \hat{y}_i $$
+				\item If ordinal, Li-Shepherd residuals.
+					$$ R_{y_i} = \hat{p}(Y < y_i) - \hat{p}(Y > y_i) $$
 				\item If categorical, treat each column as binary.
+					$$ R_{y_i} = y_i - \hat{p}(Y=1) $$
 			\end{itemize}
 		\item Compute $ \tau(R_x, R_y) $.
 	\end{itemize}
@@ -542,7 +543,7 @@
 					\draw[dashed]  (X) -- node[midway, sloped, below] {\scriptsize $ 0.12 $} (Y);
 				\end{scope}
 				\begin{scope}[xshift=3cm]
-					\draw[->, ultra thick] (0.5, 0) -- (1, 0);
+					\draw[->, ultra thick, cyan] (0.5, 0) -- (1, 0);
 				\end{scope}
 				\begin{scope}[xshift=6cm, yshift=3cm]
 					\node[rectangle, draw, align=center, inner sep=1pt] at (0, 0) {
@@ -561,7 +562,7 @@
 					};
 				\end{scope}
 				\begin{scope}[xshift=6cm, yshift=1cm]
-					\draw[->, ultra thick] (0, 0.5) -- (0, 0);
+					\draw[->, ultra thick, cyan] (0, 0.5) -- (0, 0);
 				\end{scope}
 				\begin{scope}[xshift=4.5cm]
 					\tikzstyle{every node}=[align=center, inner sep=1pt]
@@ -573,10 +574,10 @@
 					\draw[dashed]  (X) -- node[midway, sloped, below] {\scriptsize $ 0.12 $} (Y);
 				\end{scope}
 				\begin{scope}[xshift=7.5cm]
-					\draw[->, ultra thick] (0.5, 0) -- (1, 0);
+					\draw[->, ultra thick, cyan] (0.5, 0) -- (1, 0);
 				\end{scope}
 				\begin{scope}[xshift=10cm, yshift=1cm]
-					\draw[dashed, ->, ultra thick] (0, 0.5) -- (0.5, 0);
+					\draw[dashed, ->, ultra thick, cyan] (0, 0.5) -- (0.5, 0);
 				\end{scope}
 				\begin{scope}[xshift=9cm]
 					\tikzstyle{every node}=[align=center, inner sep=1pt]
@@ -636,7 +637,7 @@
 			\draw[dashed]  (X) -- (Y);
 		\end{scope}
 		\begin{scope}[xshift=3cm]
-			\draw[->, ultra thick] (0.5, 0) -- (1, 0);
+			\draw[->, ultra thick, cyan] (0.5, 0) -- (1, 0);
 		\end{scope}
 		\begin{scope}[xshift=4.5cm]
 			\tikzstyle{every node}=[align=center, inner sep=1pt]
@@ -653,13 +654,13 @@
 			\draw[->]  (X) -- (Y);
 		\end{scope}
 		\begin{scope}[xshift=7.5cm]
-			\draw[->, ultra thick] (0.5, 0) -- (1, 0);
+			\draw[->, ultra thick, cyan] (0.5, 0) -- (1, 0);
 		\end{scope}
 		\begin{scope}[xshift=9cm]
 			\node at (0, 0) {$ \dots $};	
 		\end{scope}
 		\begin{scope}[xshift=9cm]
-			\draw[->, ultra thick] (0, -0.5) -- (0, -1);
+			\draw[->, ultra thick, cyan] (0, -0.5) -- (0, -1);
 		\end{scope}
 		\begin{scope}[xshift=7.5cm, yshift=-2.5cm]
 			\tikzstyle{every node}=[align=center, inner sep=1pt]
@@ -675,7 +676,7 @@
 			\draw[->, red]  (X) -- node[sloped, above] {\scriptsize $ 0 $} (Y);
 		\end{scope}
 		\begin{scope}[xshift=6.5cm, yshift=-2.5cm]
-			\draw[->, ultra thick] (0.5, 0) -- (0, 0);
+			\draw[->, ultra thick, cyan] (0.5, 0) -- (0, 0);
 		\end{scope}
 		\begin{scope}[xshift=3cm, yshift=-2.5cm]
 			\tikzstyle{every node}=[align=center, inner sep=1pt]
