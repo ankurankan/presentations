@@ -462,15 +462,10 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Effect Size: Mixed Data}
-	\centerline{We want to compute the effect size for $ X \ci Y \rvert \bm{Z} $.}
-	
-	\vspace{1em}
-
-	If $ \bm{Z} = \emptyset $:
+\begin{frame}{Effect Size: Mixed Data}	
+	If $ \bm{Z} = \emptyset $, and either $ X $ or $ Y $ is:
 	\begin{itemize}
-		\item If either $ X $ or $ Y $ are discrete, dummy encode them.
-			$$ \textnormal{Country: } \begin{bmatrix} DE \\
+		\item discrete, dummy encode. E.g., $\textnormal{Country: } \begin{bmatrix} DE \\
 					   NL \\
 				           FR \\
 				           NL \\
@@ -480,8 +475,12 @@
 									          0 & 0 & 1 \\
 									          0 & 1 & 0 \\
 										    & \cdots &
-									  \end{bmatrix}$$
-		\todo[inline]{Add the ordinal case}
+									  \end{bmatrix}$
+		\item ordinal, replace with ridit scores. $ \textnormal{Ridit}(k) = \frac{1}{2} P_k + \sum_{j=1}^{k-1} P_j $. E.g.,
+
+			$$ P(\textnormal{Performance}) = \{\textnormal{Poor}: 0.1, \textnormal{Fair}: 0.2, \textnormal{Good}: 0.4, \textnormal{Excellent}: 0.3 \} $$
+			$$ \textnormal{Ridit}(\textnormal{Good}) = \frac{1}{2} \times (0.4) + 0.3 = 0.5 $$
+				
 		\item Compute $ \tau(X, Y) $.
 	\end{itemize}
 \end{frame}
@@ -509,7 +508,7 @@
 	\end{itemize}
 \end{frame}
 \begin{frame}{Effect Size: Mixed Data}
-	Effect size has nice properties:
+	This effect size has some nice properties:
 	\begin{itemize}
 		\item Bounded between $ 0 $ and $ 1 $. Easy to interpret.
 		\item When all variables are continuous, equivalent to correlation coefficient, or partial correlation.
