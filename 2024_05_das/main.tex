@@ -414,7 +414,7 @@
 % \end{frame}
 
 \begin{frame}{Effect Sizes}
-	We have a bunch of effect sizes for different variable types.
+	Choose effect size depending on the variable type.
 
 	\vspace{2em}
 	\begin{itemize}
@@ -426,7 +426,7 @@
 
 	\vspace{2em}
 
-	\center{But there is nothing that works for a combination of discrete, ordinal, and continuous variables.}
+	\center{But there is no effect size that works for a combination of discrete, ordinal, and continuous variables.}
 \end{frame}
 
 % \begin{frame}{Effect Sizes: Mixed Data}
@@ -462,17 +462,17 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Effect Sizes: Mixed Data}
-	We want to compute the effect size for $ X \ci Y \rvert \bm{Z} $.
+\begin{frame}{Effect Size: Mixed Data}
+	\centerline{We want to compute the effect size for $ X \ci Y \rvert \bm{Z} $.}
 	
 	\vspace{1em}
 
 	If $ \bm{Z} = \emptyset $:
 	\begin{itemize}
 		\item If either $ X $ or $ Y $ are discrete, dummy encode them.
-			$$ \textnorma{Country: } \begin{bmatrix} DE \\
+			$$ \textnormal{Country: } \begin{bmatrix} DE \\
 					   NL \\
-				           UK \\
+				           FR \\
 				           NL \\
 					   \cdots
 					   \end{bmatrix} \implies \begin{bmatrix} 1 & 0 & 0 \\
@@ -481,41 +481,79 @@
 									          0 & 1 & 0 \\
 										    & \cdots &
 									  \end{bmatrix}$$
+		\todo[inline]{Add the ordinal case}
 		\item Compute $ \tau(X, Y) $.
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Effect Sizes: Mixed Data}
-	If $ \bm{Z} \ne \emptyset $, repeat for $ X $ and $ Y $:
+\begin{frame}{Effect Size: Mixed Data}
+	If $ \bm{Z} \ne \emptyset $:
 	\begin{itemize}
-		\item If continuous, train estimator, $ f_x: X \sim \bm{Z} $.
-		\item If ordinal or categorical, train probability estimator, $ p_x: X \sim \bm{Z} $.
-		\item Compute residuals [1]:
-			\begin{itemize}
-				\item If continuous, difference between true and predicted values:
-					$$ R_{x_i} = x_i - \hat{x}_i $$
-				\item If ordinal, Li-Shepherd residuals.
-					$$ R_{x_i} = \hat{p}(X < x_i) - \hat{p}(X > x_i) $$
-				\item If categorical, treat each column as binary.
-					$$ R_{x_i} = x_i - \hat{p}(X=1) $$
-			\end{itemize}
+		\item Repeat for $ X $ and $ Y $.
+		\begin{itemize}
+			\item If continuous, train estimator, $ f_x: X \sim \bm{Z} $.
+			\item If ordinal or categorical, train probability estimator, $ p_x: X \sim \bm{Z} $.
+			\item Compute residuals:
+				\begin{itemize}
+					\item If continuous, difference between true and predicted values:
+						$$ R_{x_i} = x_i - f_x(\bm{z}_i) $$
+					\item If ordinal, Li-Shepherd residuals:
+						$$ R_{x_i} = p_x(X < x_i | \bm{z}_i) - p_x(X > x_i | \bm{z}_i) $$
+						$$ \textnormal{E.g., } p_x(\bm{z}_i) = [0.3, 0.2, \textcolor{red}{0.4}, 0.1] \implies (0.5 - 0.1) = 0.4 $$
+					\item If categorical, treat dummy encoded columns separately:
+						$$ R_{x_i} = x_i - p_x(X=1 | \bm{z}_i) $$
+						$$ \textnormal{E.g., } p_x(\bm{z_i}) = [0.3, 0.2, \textcolor{red}{0.4}, 0.1] \implies [-0.3, -0.2, 0.6, -0.1] $$
+				\end{itemize}
+		\end{itemize}
 		\item Compute $ \tau(R_x, R_y) $.
 	\end{itemize}
-
-	\footnotetext[1]{ Ankan, Ankur, and Johannes Textor. "A simple unified approach to testing high-dimensional conditional independences for categorical and ordinal data." }
 \end{frame}
-
-\begin{frame}{Human-in-the-loop Structure Learning}
+\begin{frame}{Effect Size: Mixed Data}
+	Effect size has nice properties:
+	\begin{itemize}
+		\item Bounded between $ 0 $ and $ 1 $. Easy to interpret.
+		\item When all variables are continuous, equivalent to correlation coefficient, or partial correlation.
+		\item When all variables are discrete, analogous to Cram\'er's V.
+	\end{itemize}
+\end{frame}
+\begin{frame}{Human-in-the-loop Causal Discovery}
 	\begin{itemize}
 		\item We have an effect size for mixed data.
 		\item Using this effect size we built a web-based tool to assist in constructing/modifying DAGs.
-		\item Given a dataset, the tool shows all unexplained correlations between variables.
-		\item It also shows when certain edges do not add any extra explanation between variables.
+		% \item Given a dataset, the tool shows all unexplained correlations between variables.
+		% \item It also shows when certain edges do not add any extra explanation between variables.
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
-	\center \huge DEMO
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.35]{1.png}
+	\end{figure}
+\end{frame}
+\begin{frame}
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.35]{2.png}
+	\end{figure}
+\end{frame}
+\begin{frame}
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.35]{3.png}
+	\end{figure}
+\end{frame}
+\begin{frame}
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.35]{4.png}
+	\end{figure}
+\end{frame}
+\begin{frame}
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.35]{5.png}
+	\end{figure}
 \end{frame}
 
 \begin{frame}{Empirical Analysis: Simulate Expert}
@@ -532,7 +570,7 @@
 		\end{tikzpicture}
 	\end{figure}
 	
-	\vspace{2em}
+	\vspace{1em}
 
 	\begin{figure}
 		\begin{tikzpicture}
@@ -766,7 +804,7 @@
 \begin{frame}{Conclusion}
 	\begin{itemize}
 		\item We propose a generalized effect size measure for mixed data.
-		\item As DAGs are predominantly drawn manually, we built a web-based tool to aid in the process.
+		\item We built a web-based tool to aid in constructing DAGs manually.
 		\item Greedy approach has a comparable performance when the expert gets $ 1 $ in $ 3 $ edge directions correctly.
 		\item Implementing some back-tracking logic in expert simulation might perform better.
 		\item Future work: Can LLMs be used as experts?
