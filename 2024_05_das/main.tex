@@ -481,32 +481,40 @@
 			$$ P(\textnormal{Performance}) = \{\textnormal{Poor}: 0.1, \textnormal{Fair}: 0.2, \textnormal{Good}: 0.4, \textnormal{Excellent}: 0.3 \} $$
 			$$ \textnormal{Ridit}(\textnormal{Good}) = \frac{1}{2} \times (0.4) + 0.3 = 0.5 $$
 				
-		\item Compute $ \tau(X, Y) $.
 	\end{itemize}
+\vspace{1em}
+Compute $ \tau(X, Y) $.
 \end{frame}
 
 \begin{frame}{Effect Size: Mixed Data}
-	If $ \bm{Z} \ne \emptyset $:
-	\begin{itemize}
-		\item Repeat for $ X $ and $ Y $.
+	If $ \bm{Z} \ne \emptyset $, repeat for $ X $ and $ Y $:
 		\begin{itemize}
 			\item If continuous, train estimator, $ f_x: X \sim \bm{Z} $.
 			\item If ordinal or categorical, train probability estimator, $ p_x: X \sim \bm{Z} $.
 			\item Compute residuals:
-				\begin{itemize}
-					\item If continuous, difference between true and predicted values:
-						$$ R_{x_i} = x_i - f_x(\bm{z}_i) $$
-					\item If ordinal, Li-Shepherd residuals:
-						$$ R_{x_i} = p_x(X < x_i | \bm{z}_i) - p_x(X > x_i | \bm{z}_i) $$
-						$$ \textnormal{E.g., } p_x(\bm{z}_i) = [0.3, 0.2, \textcolor{red}{0.4}, 0.1] \implies (0.5 - 0.1) = 0.4 $$
-					\item If categorical, treat dummy encoded columns separately:
-						$$ R_{x_i} = x_i - p_x(X=1 | \bm{z}_i) $$
-						$$ \textnormal{E.g., } p_x(\bm{z_i}) = [0.3, 0.2, \textcolor{red}{0.4}, 0.1] \implies [-0.3, -0.2, 0.6, -0.1] $$
-				\end{itemize}
+			\begin{itemize}
+				\item If continuous, difference between true and predicted values:
+			 	$$ R_{x_i} = x_i - f_x(\bm{z}_i) $$
+				\item If ordinal, Li-Shepherd residuals:
+					\begin{equation*}
+						\begin{split}
+							R_{x_i} &= p_x(X < x_i | \bm{z}_i) - p_x(X > x_i | \bm{z}_i) \\
+							\textnormal{E.g., } p_x(\bm{z}_i) &= [0.3, 0.2, \textcolor{red}{0.4}, 0.1] \implies (0.5 - 0.1) = 0.4 \\
+						\end{split}
+					\end{equation*}
+				\item If categorical, treat as a set of dummy encoded variables:
+				\begin{equation*}
+					\begin{split}
+						R_{x_i} &= x_i - p_x(X=1 | \bm{z}_i) \\
+						% \textnormal{E.g., } p_x(\bm{z}_i) &= \\
+						\textnormal{E.g., } p_x(\bm{z}_i) &= [0.3, 0.2, \textcolor{red}{0.4}, 0.1] \implies [-0.3, -0.2, 0.6, -0.1] \\
+					\end{split}
+				\end{equation*}
+			\end{itemize}
 		\end{itemize}
-		\item Compute $ \tau(R_x, R_y) $.
-	\end{itemize}
+	Compute $ \tau(R_x, R_y) $.
 \end{frame}
+
 \begin{frame}{Effect Size: Mixed Data}
 	This effect size has some nice properties:
 	\begin{itemize}
