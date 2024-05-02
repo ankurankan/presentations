@@ -40,7 +40,8 @@
 
 
 \title[]{Enhancing and Promoting Data Simulation Capabilities of pgmpy}
-\date{}
+\author{Ankur Ankan}
+\date{May 8, 2024}
 \begin{document}
 
 \maketitle
@@ -49,39 +50,74 @@
 
 %TODO: Insert a figure of a real DAG.
 
-Bayesian Networks (BNs) or Directed Acyclic Graphs (DAGs) represent relationship between variables using a graphical structure. Used widely in a lot of fields ranging from %TODO: Finish this
-
-Userbase can be very broadly categorized into: 
-\begin{enumerate}
-	\item Predictive Modelling: Used as a way to efficiently represent
-		joint distributions and perform operations on it. The graphical
-		structure adds interpretability.
-	\item Causal Inference: With some added assumptions, used to answer
-		causal questions such as: what would be the effect of changing etc.
-		%TODO: add causal questions based on the example.
-\end{enumerate}
+Bayesian Networks (BNs) are used widely in a lot of fields. Usecases can be broadly categorized into: 
+\begin{itemize}
+	\item \textbf{Predictive Modelling:}
+		\begin{itemize}
+			\item A generative model to efficiently represent joint distributions.
+			\item Graphical structure adds interpretability.
+		\end{itemize}
+	\item \textbf{Causal Inference:}
+		\begin{itemize}
+			\item Edges are interpreted as causal direction.
+			\item Used for causal effect estimation, application of interventions.
+		\end{itemize}
+\end{itemize}
 
 \end{frame}
 
-\begin{frame}{Use of simulations in these graphical models}
+\begin{frame}{Simulations in Bayesian Networks}
 %TODO: Make a table here with Predictive modelling and causal inference columns. And put each use case in either or middle for both.
+	\begin{itemize}
+		\item \textbf{Predictive Modelling:}
+			\begin{itemize}
+				\item Approximate Inference.
+				\item Validating methods such as Structure Learning.
+				\item Teaching
+			\end{itemize}
+		\item \textbf{Causal Inference:}
+			\begin{itemize}
+				\item Validating methods such as causal discovery, causal estimation.
+				\item Teaching.
+			\end{itemize}
+	\end{itemize}
 
-Common between both: Structure Learning/Causal Discovery, Education.
-Predictive modelling: Approximate inference.
-Causal Inference: People are interested in testing how well different estimation methods perform.
+% Common between both: Structure Learning/Causal Discovery, Education.
+% Predictive modelling: Approximate inference.
+% Causal Inference: People are interested in testing how well different estimation methods perform.
 \end{frame}
 
 \begin{frame}{Simulation features in pgmpy}
-	Allows simulation from these BNs under various conditions such as (uncertain) evidence, (uncertain) intervention, time-series data, partial simulations for incorporating other simulations.
+	Already has extensive features for simulation under various condition:
+	\begin{itemize}
+		\item Certain/Uncertain evidence
+		\item Certain/Uncertain Intervention.
+		\item Time-Series data.
+		\item Partial simulations.
+	\end{itemize}
 
-	Wide range of features but is limited to discrete variable.
+	\vspace{1em}
+	\begin{itemize}
+		\item No other python package has such extensive simulation features.
+	\end{itemize}
 
-	Extending this to continuous variables would have a huge impact as it would allow for 
-	a lot of different simulations. No other Python package that offers so much functionality.
+	\vspace{3em}
+	\centerline{\textcolor{red}{Limited to discrete variables only}}
+	\centerline{Many requests to extend pgmpy to continuous variables.}
+
+	% Allows simulation from these BNs under various conditions such as
+	% (uncertain) evidence, (uncertain) intervention, time-series data,
+	% partial simulations for incorporating other simulations.
+
+	% Wide range of features but is limited to discrete variable.
+
+	% Extending this to continuous variables would have a huge impact as it
+	% would allow for  a lot of different simulations. No other Python
+	% package that offers so much functionality.
 \end{frame}
 
 \begin{frame}{Fellowship Plan: Phase 1}
-	Extend the simulation capabilties to continuous variables.
+	Extend the simulation capabilities to continuous variables.
 
 	%TODO: Show a figure to show the following message:
 
@@ -91,11 +127,18 @@ Causal Inference: People are interested in testing how well different estimation
 \begin{frame}{Fellowship Plan: Phase 2}
 	Promote these data simulation capabilities.
 
-	1) Tutorial for 
+	\begin{itemize}
+		\item Tutorial for the predictive modelling user. They don't need intervention, typically don't include latent variables.
+		\item Tutorial for the causal inference user. Intervention, latent variables.
+	\end{itemize}
 \end{frame}
 
 \begin{frame}{Why am I suitable to perform this}
-	Something
+	\begin{itemize}
+		\item Started and maintained the package, very familiar with the ins/outs.
+		\item I use simulations in my research, have an understanding of how it is used.
+		\item Have an understanding of the userbase of how they use these methods.
+	\end{itemize}
 \end{frame}
 
 \end{document}
