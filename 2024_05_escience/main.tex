@@ -40,28 +40,60 @@
 
 
 \title[]{Enhancing and Promoting Data Simulation Capabilities of pgmpy}
-\author{Ankur Ankan}
+\author{Ankur Ankan, Radboud University}
 \date{May 8, 2024}
 \begin{document}
 
 \maketitle
 
-\begin{frame}{Directed Acyclic Graphs}
-Bayesian Networks (BNs) are used widely in a lot of fields. Usecases can be broadly categorized into: 
-\todo[inline]{Add a real DAG example}
-\begin{itemize}
-	\item \textbf{Predictive Modelling:}
-		\begin{itemize}
-			\item A generative model to efficiently represent joint distributions.
-			\item Graphical structure adds interpretability.
-		\end{itemize}
-	\item \textbf{Causal Inference:}
-		\begin{itemize}
-			\item Edges are interpreted as causal direction.
-			\item Used for causal effect estimation, application of interventions.
-		\end{itemize}
-\end{itemize}
+\begin{frame}
+	\centerline{pgmpy is a Python package for Bayesian Networks(BNs)}
+\end{frame}
 
+\begin{frame}{Applications of Bayesian Networks}
+\begin{columns}
+	\begin{column}{0.55\textwidth}
+		\begin{itemize}
+			\item \textbf{Predictive Modelling:}
+				\begin{itemize}
+					\item A generative model to efficiently represent joint distributions.
+					\item Graphical structure adds interpretability.
+				\end{itemize}
+			\item \textbf{Causal Inference:}
+				\begin{itemize}
+					\item Edges are interpreted as causal direction.
+					\item Used for causal effect estimation, application of interventions.
+				\end{itemize}
+		\end{itemize}
+	\end{column}		
+	\begin{column}{0.45 \textwidth}
+		\begin{figure}
+			\centering
+			\begin{tikzpicture}[scale=1]
+			\tikzstyle{every node}=[align=center, inner sep=1pt]
+				\node (sex) at (-0.7, -0.8) {Sex};
+				\node (age) at (-0.3, 0) {Age};
+				\node (ed) at (-1.8, -1.6) {Education};
+				\node (occ) at (1.8, 0) {Occupation};
+				\node (hrpw) at (1.3, -1.6) {Hours Per \\ Week};
+				\node (income) at (-0.7, -2.8) {Income};
+			
+				\draw[->]  (age) to[bend right=20] (ed);
+				\draw[->]  (sex) to (ed);
+				\draw[->]  (age) to (hrpw);
+				\draw[->]  (ed) to (hrpw);
+				\draw[->]  (sex) to (hrpw);
+				\draw[->]  (ed) to (income);
+				\draw[->]  (hrpw) to (income);
+				\draw[->]  (occ) to[out=300, in=0, looseness=1.4] (income.east);
+				\draw[->]  (sex) to (income);
+				\draw[->]  (ed) to[out=90, in=150, looseness=1.3] (occ);
+				\draw[->]  (sex) to (occ);	
+			\end{tikzpicture}
+			\caption*{\footnotesize {Example of a DAG}}
+		\end{figure}
+	\end{column}
+\end{columns}
 \end{frame}
 
 \begin{frame}{Simulations in Bayesian Networks}
@@ -109,6 +141,9 @@ Bayesian Networks (BNs) are used widely in a lot of fields. Usecases can be broa
 	% Extending this to continuous variables would have a huge impact as it
 	% would allow for  a lot of different simulations. No other Python
 	% package that offers so much functionality.
+\end{frame}
+
+\begin{frame}{Emails}
 \end{frame}
 
 \begin{frame}{Fellowship Plan: Phase 1}
