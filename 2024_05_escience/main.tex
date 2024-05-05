@@ -12,6 +12,8 @@
 \usepackage{ragged2e}
 \usepackage{titlecaps}
 \usepackage{fancyvrb}
+\usepackage{diagbox}
+\usepackage{listings}
 
 \def\ci{\perp\!\!\!\!\!\perp}
 
@@ -40,19 +42,24 @@
 
 
 \title[]{Enhancing and Promoting Data Simulation Capabilities of pgmpy}
-\author{Ankur Ankan \\ Radboud University}
+\author{Ankur Ankan}
+\institute[iCIS, Radboud University]{Institute for Computing and Information Sciences \\ Radboud University}
 \date{May 8, 2024}
 \begin{document}
 
 \maketitle
 
 \begin{frame}{Applications of Bayesian Networks}
+	\begin{minipage}{\textwidth}
+		\centerline{pgmpy is a Python package for Bayesian Networks(BNs) and related models.}
+	\end{minipage}
+	\vspace{2em}
 	\begin{columns}
-		\begin{column}{0.65\textwidth}
+		\begin{column}{0.67\textwidth}
 			\begin{itemize}
 				\item \textbf{Predictive Modelling:}
 					\begin{itemize}
-						\item Generative model for efficient joint distribution represented and computation.
+						\item Generative model for efficient representation and computation on joint distributions.
 						\item Graphical structure adds interpretability.
 					\end{itemize}
 				\item \textbf{Causal Inference:}
@@ -89,10 +96,6 @@
 			\end{figure}
 		\end{column}
 	\end{columns}
-	\vspace{4em}
-	\begin{minipage}{\textwidth}
-		\centerline{pgmpy is a Python package for Bayesian Networks(BNs) and related models.}
-	\end{minipage}
 \end{frame}
 
 \begin{frame}{Applications of Bayesian Networks}
@@ -137,8 +140,9 @@
 	% \todo[inline]{List some other packages here}
 
 	\vspace{4em}
-	\centerline{\textcolor{red}{Limited to discrete variables only}}
+	\centerline{\textcolor{red}{Limited to discrete variables only.}}
 	\centerline{Adding continuous variables would significantly increase applicability.}
+	\centerline{Support for continuous variables is one of the most requested features.}
 
 	% Allows simulation from these BNs under various conditions such as
 	% (uncertain) evidence, (uncertain) intervention, time-series data,
@@ -151,31 +155,91 @@
 	% package that offers so much functionality.
 \end{frame}
 
-\begin{frame}{Emails}
-\end{frame}
+\begin{frame}[fragile]{Fellowship Plan: Phase 1}
+	\begin{minipage}{\textwidth}
+	\centerline{Extend simulation capabilities to continuous and mixed variables.}
+	\end{minipage}
 
-\begin{frame}{Fellowship Plan: Phase 1}
-	Extend the simulation capabilities to continuous variables.
-
-	%TODO: Show a figure to show the following message:
-
-	The parameterization is represented in tabular CPDs which is essentially a function of the variable given it's parents. => Extend pgmpy such that it can accept arbitrary functions.
+	\vspace{2em}
+	\begin{columns}
+		\begin{column}{0.6\textwidth}
+		\vspace{2em}
+		\begin{figure}
+		\begin{tikzpicture}
+			\node at (0, 0) {\tiny
+				\begin{tabular}{| c | c | c | c | c | c |}
+					\hline
+					Occu. & \multicolumn{4}{c|}{Teacher} & $ \cdots $ \\
+					\hline
+					HrPW &  \multicolumn{2}{c|}{$ < 30$} $ &  \multicolumn{2}{c|}{$\geq 30$} & $ \cdots $ \\
+					\hline
+					\diagbox[width=2cm]{Income}{Sex} & M & F & M & F & $ \cdots $ \\
+					\hline
+					High & 0.6 & 0.4 & 0.55 & 0.45 & $ \cdots $ \\
+					\hline
+					Low & 0.4 & 0.6 & 0.45 & 0.55 & $ \cdots $ \\
+					\hline
+				\end{tabular}
+			};
+			\draw[double, ->] (0, -1) to (0, -1.5);
+			\node at (0, -2) {
+					\begin{lstlisting}[basicstyle=\tiny]
+function(Income, Occu, HrPW, Sex):
+    Occu = DummyEncode(Occu)
+    return Gaussian(0.2 * Occ + 0.8 * HrPW + 0.05 * Sex, 1)
+				\end{lstlisting}
+				};
+		\end{tikzpicture}
+		\end{figure}
+		\end{column}
+		\begin{column}{0.4\textwidth}
+			\vspace{-5em}
+			\begin{figure}
+				\centering
+				\begin{tikzpicture}[scale=0.7]
+				\tikzstyle{every node}=[align=center, inner sep=1pt]
+					\node (sex) at (0, -2) {Sex};
+					\node (age) at (-0.3, 0) {Age};
+					\node (ed) at (-1.8, -1.4) {Education};
+					\node (occ) at (-1.8, -2.5) {Occupation};
+					\node (hrpw) at (2, -1.4) {Hours Per \\ Week};
+					\node (income) at (0.5, -3.5) {Income};
+				
+					\draw[->]  (age) to (ed);
+					\draw[->]  (sex) to (ed);
+					\draw[->]  (age) to (hrpw);
+					\draw[->]  (ed) to (hrpw);
+					\draw[->]  (sex) to (hrpw);
+					% \draw[->]  (ed) to (income);
+					\draw[->]  (hrpw) to (income);
+					\draw[->]  (occ) to (income);
+					\draw[->]  (sex) to (income);
+					\draw[->]  (ed) to (occ);
+					\draw[->]  (sex) to (occ);	
+				\end{tikzpicture}
+			\end{figure}
+		\end{column}
+	\end{columns}
 \end{frame}
 
 \begin{frame}{Fellowship Plan: Phase 2}
 	Develop tutorials under two user personas:
 
 	\begin{itemize}
-		\item Predictive modelling user: Focusing on approximate inference features.
-		\item Causal inference user: Highlighting 
+		\item Predictive modelling user: Focusing on approximate inference features, focusing on specifying evidence in simulations.
+		\item Causal inference user: Highlighting causal inference features such as interventions, and specifying various types of biases.
 	\end{itemize}
 \end{frame}
 
 \begin{frame}{Why am I Suitable?}
 	\begin{itemize}
-		\item Started and maintaining the package.
-		\item Understanding of the user base. 
+		\item Started and maintain the ``pgmpy'' package.
+		\item Understand the user base. 
 		\item Related to my own research.
 	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\huge{Thank you.}
 \end{frame}
 \end{document}
