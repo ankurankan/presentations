@@ -20,117 +20,125 @@
 
 \setbeamertemplate{section in toc}{\inserttocsectionnumber.~\inserttocsection}
 \usetheme{Boadilla}
-\makeatletter
-\setbeamertemplate{footline}{%
-    \leavevmode%
-    \hbox{%
-        \begin{beamercolorbox}[wd=.3\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
-            \usebeamerfont{author in head/foot}\insertshortauthor\expandafter\beamer@ifempty\expandafter{\beamer@shortinstitute}{}{~~(\insertshortinstitute)}
-        \end{beamercolorbox}%
-        \begin{beamercolorbox}[wd=.55\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
-            \usebeamerfont{title in head/foot}\insertshorttitle
-        \end{beamercolorbox}%
-        \begin{beamercolorbox}[wd=.15\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
-            \usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}
-            \insertframenumber{} / \inserttotalframenumber\hspace*{2ex} 
-        \end{beamercolorbox}}%
-        \vskip0pt%
-    }
-\makeatother
+% \makeatletter
+% \setbeamertemplate{footline}{%
+%     \leavevmode%
+%     \hbox{%
+%         \begin{beamercolorbox}[wd=.3\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+%             \usebeamerfont{author in head/foot}\insertshortauthor\expandafter\beamer@ifempty\expandafter{\beamer@shortinstitute}{}{~~(\insertshortinstitute)}
+%         \end{beamercolorbox}%
+%         \begin{beamercolorbox}[wd=.55\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+%             \usebeamerfont{title in head/foot}\insertshorttitle
+%         \end{beamercolorbox}%
+%         \begin{beamercolorbox}[wd=.15\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+%             \usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}
+%             \insertframenumber{} / \inserttotalframenumber\hspace*{2ex} 
+%         \end{beamercolorbox}}%
+%         \vskip0pt%
+%     }
+% \makeatother
 
 
 \title[]{Enhancing and Promoting Data Simulation Capabilities of pgmpy}
-\author{Ankur Ankan, Radboud University}
+\author{Ankur Ankan \\ Radboud University}
 \date{May 8, 2024}
 \begin{document}
 
 \maketitle
 
-\begin{frame}
-	\centerline{pgmpy is a Python package for Bayesian Networks(BNs)}
+\begin{frame}{Applications of Bayesian Networks}
+	\begin{columns}
+		\begin{column}{0.65\textwidth}
+			\begin{itemize}
+				\item \textbf{Predictive Modelling:}
+					\begin{itemize}
+						\item Generative model for efficient joint distribution represented and computation.
+						\item Graphical structure adds interpretability.
+					\end{itemize}
+				\item \textbf{Causal Inference:}
+					\begin{itemize}
+						\item Edges inferred as causal relationship.
+						\item Used for causal effect estimation.
+					\end{itemize}
+			\end{itemize}
+		\end{column}		
+		\begin{column}{0.4 \textwidth}
+			\begin{figure}
+				\centering
+				\begin{tikzpicture}[scale=0.7]
+				\tikzstyle{every node}=[align=center, inner sep=1pt]
+					\node (sex) at (0, -2) {Sex};
+					\node (age) at (-0.3, 0) {Age};
+					\node (ed) at (-1.8, -1.4) {Education};
+					\node (occ) at (-1.8, -2.5) {Occupation};
+					\node (hrpw) at (2, -1.4) {Hours Per \\ Week};
+					\node (income) at (0.5, -3.5) {Income};
+				
+					\draw[->]  (age) to (ed);
+					\draw[->]  (sex) to (ed);
+					\draw[->]  (age) to (hrpw);
+					\draw[->]  (ed) to (hrpw);
+					\draw[->]  (sex) to (hrpw);
+					% \draw[->]  (ed) to (income);
+					\draw[->]  (hrpw) to (income);
+					\draw[->]  (occ) to (income);
+					\draw[->]  (sex) to (income);
+					\draw[->]  (ed) to (occ);
+					\draw[->]  (sex) to (occ);	
+				\end{tikzpicture}
+			\end{figure}
+		\end{column}
+	\end{columns}
+	\vspace{4em}
+	\begin{minipage}{\textwidth}
+		\centerline{pgmpy is a Python package for Bayesian Networks(BNs) and related models.}
+	\end{minipage}
 \end{frame}
 
 \begin{frame}{Applications of Bayesian Networks}
-\begin{columns}
-	\begin{column}{0.55\textwidth}
-		\begin{itemize}
-			\item \textbf{Predictive Modelling:}
-				\begin{itemize}
-					\item A generative model to efficiently represent joint distributions.
-					\item Graphical structure adds interpretability.
-				\end{itemize}
-			\item \textbf{Causal Inference:}
-				\begin{itemize}
-					\item Edges are interpreted as causal direction.
-					\item Used for causal effect estimation, application of interventions.
-				\end{itemize}
-		\end{itemize}
-	\end{column}		
-	\begin{column}{0.45 \textwidth}
-		\begin{figure}
-			\centering
-			\begin{tikzpicture}[scale=1]
-			\tikzstyle{every node}=[align=center, inner sep=1pt]
-				\node (sex) at (-0.7, -0.8) {Sex};
-				\node (age) at (-0.3, 0) {Age};
-				\node (ed) at (-1.8, -1.6) {Education};
-				\node (occ) at (1.8, 0) {Occupation};
-				\node (hrpw) at (1.3, -1.6) {Hours Per \\ Week};
-				\node (income) at (-0.7, -2.8) {Income};
-			
-				\draw[->]  (age) to[bend right=20] (ed);
-				\draw[->]  (sex) to (ed);
-				\draw[->]  (age) to (hrpw);
-				\draw[->]  (ed) to (hrpw);
-				\draw[->]  (sex) to (hrpw);
-				\draw[->]  (ed) to (income);
-				\draw[->]  (hrpw) to (income);
-				\draw[->]  (occ) to[out=300, in=0, looseness=1.4] (income.east);
-				\draw[->]  (sex) to (income);
-				\draw[->]  (ed) to[out=90, in=150, looseness=1.3] (occ);
-				\draw[->]  (sex) to (occ);	
-			\end{tikzpicture}
-			\caption*{\footnotesize {Example of a DAG}}
-		\end{figure}
-	\end{column}
-\end{columns}
+	\begin{figure}
+		\centering
+		\begin{tikzpicture}
+			\node at (0, 1)  {\includegraphics[scale=0.3]{imgs/citation_1.png}};
+			\node at (4, 0.5)  {\includegraphics[scale=0.3]{imgs/citation_2.png}};
+			\node at (0, 0) {\includegraphics[scale=0.3]{imgs/citation_9.png}};
+			\node at (5, -0.5) {\includegraphics[scale=0.3]{imgs/citation_4.png}};
+			\node at (0, -1) {\includegraphics[scale=0.3]{imgs/citation_5.png}};
+			\node at (5, -1.5) {\includegraphics[scale=0.3]{imgs/citation_6.png}};
+			\node at (0, -2) {\includegraphics[scale=0.3]{imgs/citation_7.png}};
+			\node at (5, -2.5) {\includegraphics[scale=0.3]{imgs/citation_8.png}};
+			\node at (0, -3.2) {\includegraphics[scale=0.3]{imgs/citation_3.png}};
+		\end{tikzpicture}
+	\end{figure}
 \end{frame}
 
 \begin{frame}{Simulations in Bayesian Networks}
-	\todo[inline]{Look into more examples how people are using simulations}
 	\begin{itemize}
-		\item \textbf{Predictive Modelling:}
-			\begin{itemize}
-				\item Approximate Inference.
-				\item Validating methods such as Structure Learning.
-				\item Teaching
-			\end{itemize}
-		\item \textbf{Causal Inference:}
-			\begin{itemize}
-				\item Validating methods such as causal discovery, causal estimation.
-				\item Teaching.
-			\end{itemize}
+		\item Approximate Inference.
+		\item Validating analysis methods.
+		\item Benchmarking new algorithms/methods.
+		\item Teaching.
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{State of Simulation Features in pgmpy}
-	Already has extensive features for simulation under various condition:
+\begin{frame}{Simulation Features in pgmpy}
+	Has extensive features for simulation:
 	\begin{itemize}
-		\item Certain/Uncertain evidence
-		\item Certain/Uncertain Intervention.
-		\item Time-Series data.
-		\item Partial simulations.
+		\item Supports both normal and time-series.
+		\item Can specify certain/uncertain/time-series evidence and interventions.
+		\item Incorporate other simulation methods.
+		\item Optimized.
 	\end{itemize}
 
-	\vspace{1em}
-	\begin{itemize}
-		\item No other python package has such extensive simulation features.
-	\end{itemize}
-	\todo[inline]{List some other packages here}
+	% \vspace{1em}
+	% \begin{itemize}
+	% 	\item No other python package has such extensive simulation features. DagSim comes close.
+	% \end{itemize}
+	% \todo[inline]{List some other packages here}
 
-	\vspace{3em}
+	\vspace{4em}
 	\centerline{\textcolor{red}{Limited to discrete variables only}}
-	\centerline{Many requests to extend pgmpy to continuous variables.}
+	\centerline{Adding continuous variables would significantly increase applicability.}
 
 	% Allows simulation from these BNs under various conditions such as
 	% (uncertain) evidence, (uncertain) intervention, time-series data,
@@ -155,20 +163,19 @@
 \end{frame}
 
 \begin{frame}{Fellowship Plan: Phase 2}
-	Promote these data simulation capabilities.
+	Develop tutorials under two user personas:
 
 	\begin{itemize}
-		\item Tutorial for the predictive modelling user. They don't need intervention, typically don't include latent variables.
-		\item Tutorial for the causal inference user. Intervention, latent variables.
+		\item Predictive modelling user: Focusing on approximate inference features.
+		\item Causal inference user: Highlighting 
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Why am I suitable to perform this}
+\begin{frame}{Why am I Suitable?}
 	\begin{itemize}
-		\item Started and maintained the package, very familiar with the ins/outs.
-		\item I use simulations in my research, have an understanding of how it is used.
-		\item Have an understanding of the userbase of how they use these methods.
+		\item Started and maintaining the package.
+		\item Understanding of the user base. 
+		\item Related to my own research.
 	\end{itemize}
 \end{frame}
-
 \end{document}
