@@ -98,24 +98,25 @@
 	\end{columns}
 \end{frame}
 
-\begin{frame}{Applications of Bayesian Networks}
-	\begin{figure}
-		\centering
-		\begin{tikzpicture}
-			\node at (0, 1)  {\includegraphics[scale=0.3]{imgs/citation_1.png}};
-			\node at (4, 0.5)  {\includegraphics[scale=0.3]{imgs/citation_2.png}};
-			\node at (0, 0) {\includegraphics[scale=0.3]{imgs/citation_9.png}};
-			\node at (5, -0.5) {\includegraphics[scale=0.3]{imgs/citation_4.png}};
-			\node at (0, -1) {\includegraphics[scale=0.3]{imgs/citation_5.png}};
-			\node at (5, -1.5) {\includegraphics[scale=0.3]{imgs/citation_6.png}};
-			\node at (0, -2) {\includegraphics[scale=0.3]{imgs/citation_7.png}};
-			\node at (5, -2.5) {\includegraphics[scale=0.3]{imgs/citation_8.png}};
-			\node at (0, -3.2) {\includegraphics[scale=0.3]{imgs/citation_3.png}};
-		\end{tikzpicture}
-	\end{figure}
-\end{frame}
+% \begin{frame}{Applications of Bayesian Networks}
+% 	\begin{figure}
+% 		\centering
+% 		\begin{tikzpicture}
+% 			\node at (0, 1)  {\includegraphics[scale=0.3]{imgs/citation_1.png}};
+% 			\node at (4, 0.5)  {\includegraphics[scale=0.3]{imgs/citation_2.png}};
+% 			\node at (0, 0) {\includegraphics[scale=0.3]{imgs/citation_9.png}};
+% 			\node at (5, -0.5) {\includegraphics[scale=0.3]{imgs/citation_4.png}};
+% 			\node at (0, -1) {\includegraphics[scale=0.3]{imgs/citation_5.png}};
+% 			\node at (5, -1.5) {\includegraphics[scale=0.3]{imgs/citation_6.png}};
+% 			\node at (0, -2) {\includegraphics[scale=0.3]{imgs/citation_7.png}};
+% 			\node at (5, -2.5) {\includegraphics[scale=0.3]{imgs/citation_8.png}};
+% 			\node at (0, -3.2) {\includegraphics[scale=0.3]{imgs/citation_3.png}};
+% 		\end{tikzpicture}
+% 	\end{figure}
+% \end{frame}
 
 \begin{frame}{Simulations in Bayesian Networks}
+	Some of the use cases for simulations:
 	\begin{itemize}
 		\item Approximate Inference.
 		\item Validating analysis methods.
@@ -139,10 +140,13 @@
 	% \end{itemize}
 	% \todo[inline]{List some other packages here}
 
-	\vspace{4em}
+	\vspace{2em}
 	\centerline{\textcolor{red}{Limited to discrete variables only.}}
-	\centerline{Adding continuous variables would significantly increase applicability.}
-	\centerline{Support for continuous variables is one of the most requested features.}
+	\vspace{2em}
+	\begin{itemize}
+		\item Adding continuous variables would significantly increase applicability.
+		\item One of the most requested features.
+	\end{itemize}
 
 	% Allows simulation from these BNs under various conditions such as
 	% (uncertain) evidence, (uncertain) intervention, time-series data,
@@ -235,7 +239,7 @@ function(Income, Occu, HrPW, Sex):
 	\begin{itemize}
 		\item Started and maintain the ``pgmpy'' package.
 		\item Understand the user base. 
-		\item Related to my own research.
+		\item Extensively use simulations in my own research.
 	\end{itemize}
 \end{frame}
 
