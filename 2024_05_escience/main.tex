@@ -57,16 +57,16 @@
 	\begin{columns}
 		\begin{column}{0.67\textwidth}
 			\begin{itemize}
-				\item \textbf{Predictive Modelling:}
-					\begin{itemize}
-						\item Generative model for efficient representation and computation on joint distributions.
-						\item Graphical structure adds interpretability.
-					\end{itemize}
-				\item \textbf{Causal Inference:}
-					\begin{itemize}
-						\item Edges inferred as causal relationship.
-						\item Used for causal effect estimation.
-					\end{itemize}
+				\item \textbf{Predictive Modelling:} Predict the Income given other attributes.
+					% \begin{itemize}
+					% 	\item Generative model for efficient representation and computation on joint distributions.
+					% 	\item Graphical structure adds interpretability.
+					% \end{itemize}
+				\item \textbf{Causal Inference:} Study gender pay gap.
+					% \begin{itemize}
+					% 	\item Edges inferred as causal relationship.
+					% 	\item Used for causal effect estimation.
+					% \end{itemize}
 			\end{itemize}
 		\end{column}		
 		\begin{column}{0.4 \textwidth}
@@ -93,6 +93,7 @@
 					\draw[->]  (ed) to (occ);
 					\draw[->]  (sex) to (occ);	
 				\end{tikzpicture}
+				\caption{\small{Example of a BN based on Adult Income Dataset}}
 			\end{figure}
 		\end{column}
 	\end{columns}
@@ -119,8 +120,8 @@
 	Some of the use cases for simulations:
 	\begin{itemize}
 		\item Approximate Inference.
-		\item Validating analysis methods.
-		\item Benchmarking new algorithms/methods.
+		\item Validating analysis pipelines.
+		\item Benchmarking and understanding behavior of new algorithms or methods.
 		\item Teaching.
 	\end{itemize}
 \end{frame}
@@ -208,7 +209,7 @@ function(Income, Occu, HrPW, Sex):
 					\node (occ) at (-1.8, -2.5) {Occupation};
 					\node (hrpw) at (2, -1.4) {Hours Per \\ Week};
 					\node (income) at (0.5, -3.5) {Income};
-				
+
 					\draw[->]  (age) to (ed);
 					\draw[->]  (sex) to (ed);
 					\draw[->]  (age) to (hrpw);
@@ -229,9 +230,11 @@ function(Income, Occu, HrPW, Sex):
 \begin{frame}{Fellowship Plan: Phase 2}
 	Develop tutorials under two user personas:
 
+	\vspace{2em}
+
 	\begin{itemize}
-		\item Predictive modelling user: Focusing on approximate inference features, focusing on specifying evidence in simulations.
-		\item Causal inference user: Highlighting causal inference features such as interventions, and specifying various types of biases.
+		\item \textbf{Predictive modelling user:} Focus on approximate inference features, such as specifying different evidences.
+		\item \textbf{Causal inference user:} Highlighting causal inference features such as latent variables, interventions, and ways to specify different types of biases.
 	\end{itemize}
 \end{frame}
 
