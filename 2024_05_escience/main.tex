@@ -57,12 +57,13 @@
 	\begin{columns}
 		\begin{column}{0.67\textwidth}
 			\begin{itemize}
-				\item \textbf{Predictive Modelling:} Predict the Income given other attributes.
+			\setlength\itemsep{1em}
+				\item \textbf{Predictive Modelling:} E.g., predict the ``Income'' given other attributes.
 					% \begin{itemize}
 					% 	\item Generative model for efficient representation and computation on joint distributions.
 					% 	\item Graphical structure adds interpretability.
 					% \end{itemize}
-				\item \textbf{Causal Inference:} Study gender pay gap.
+				\item \textbf{Causal Inference:} E.g., study gender pay gap.
 					% \begin{itemize}
 					% 	\item Edges inferred as causal relationship.
 					% 	\item Used for causal effect estimation.
@@ -93,36 +94,38 @@
 					\draw[->]  (ed) to (occ);
 					\draw[->]  (sex) to (occ);	
 				\end{tikzpicture}
-				\caption{\small{Example of a BN based on Adult Income Dataset}}
+				\caption{\footnotesize{Example of a BN based on Adult Income Dataset}}
 			\end{figure}
 		\end{column}
 	\end{columns}
 \end{frame}
 
-% \begin{frame}{Applications of Bayesian Networks}
-% 	\begin{figure}
-% 		\centering
-% 		\begin{tikzpicture}
-% 			\node at (0, 1)  {\includegraphics[scale=0.3]{imgs/citation_1.png}};
-% 			\node at (4, 0.5)  {\includegraphics[scale=0.3]{imgs/citation_2.png}};
-% 			\node at (0, 0) {\includegraphics[scale=0.3]{imgs/citation_9.png}};
-% 			\node at (5, -0.5) {\includegraphics[scale=0.3]{imgs/citation_4.png}};
-% 			\node at (0, -1) {\includegraphics[scale=0.3]{imgs/citation_5.png}};
-% 			\node at (5, -1.5) {\includegraphics[scale=0.3]{imgs/citation_6.png}};
-% 			\node at (0, -2) {\includegraphics[scale=0.3]{imgs/citation_7.png}};
-% 			\node at (5, -2.5) {\includegraphics[scale=0.3]{imgs/citation_8.png}};
-% 			\node at (0, -3.2) {\includegraphics[scale=0.3]{imgs/citation_3.png}};
-% 		\end{tikzpicture}
-% 	\end{figure}
-% \end{frame}
+\begin{frame}{Applications of Bayesian Networks}
+	\begin{figure}
+		\centering
+		\begin{tikzpicture}
+			\node at (0, 1)  {\includegraphics[scale=0.3]{imgs/citation_1.png}};
+			\node at (4, 0.5)  {\includegraphics[scale=0.3]{imgs/citation_2.png}};
+			\node at (0, 0) {\includegraphics[scale=0.3]{imgs/citation_9.png}};
+			\node at (5, -0.5) {\includegraphics[scale=0.3]{imgs/citation_4.png}};
+			\node at (0, -1) {\includegraphics[scale=0.3]{imgs/citation_5.png}};
+			\node at (5, -1.5) {\includegraphics[scale=0.3]{imgs/citation_6.png}};
+			\node at (0, -2) {\includegraphics[scale=0.3]{imgs/citation_7.png}};
+			\node at (5, -2.5) {\includegraphics[scale=0.3]{imgs/citation_8.png}};
+			\node at (0, -3.2) {\includegraphics[scale=0.3]{imgs/citation_3.png}};
+		\end{tikzpicture}
+	\end{figure}
+\end{frame}
 
 \begin{frame}{Simulations in Bayesian Networks}
-	Some of the use cases for simulations:
+	Use cases for simulations:
+	\vspace{2em}
 	\begin{itemize}
-		\item Approximate Inference.
-		\item Validating analysis pipelines.
-		\item Benchmarking and understanding behavior of new algorithms or methods.
-		\item Teaching.
+		\setlength\itemsep{1em}
+		\item \textbf{Approximate Inference:} When exact inference is intractable.
+		\item \textbf{Validating Analysis:} Use data from a known model to check if analysis gives correct results.
+		\item \textbf{Benchmarking Methods:} Understanding the behavior of new algorithms and methods.
+		\item \textbf{Teaching:} Generate data with specified properties to explain concepts such as bias.
 	\end{itemize}
 \end{frame}
 
@@ -176,13 +179,13 @@
 					\hline
 					Occu. & \multicolumn{4}{c|}{Teacher} & $ \cdots $ \\
 					\hline
-					HrPW &  \multicolumn{2}{c|}{$ < 30$} $ &  \multicolumn{2}{c|}{$\geq 30$} & $ \cdots $ \\
+					HrPW &  \multicolumn{2}{c|}{$ < 30$} &  \multicolumn{2}{c|}{$\geq 30$} & $ \cdots $ \\
 					\hline
 					\diagbox[width=2cm]{Income}{Sex} & M & F & M & F & $ \cdots $ \\
 					\hline
-					High & 0.6 & 0.4 & 0.55 & 0.45 & $ \cdots $ \\
+					High & $ 0.6 $ & $ 0.4 $ & $ 0.55 $ & $ 0.45 $ & $ \cdots $ \\
 					\hline
-					Low & 0.4 & 0.6 & 0.45 & 0.55 & $ \cdots $ \\
+					Low & $ 0.4 $ & $ 0.6 $ & $ 0.45 $ & $ 0.55 $ & $ \cdots $ \\
 					\hline
 				\end{tabular}
 			};
@@ -233,8 +236,9 @@ function(Income, Occu, HrPW, Sex):
 	\vspace{2em}
 
 	\begin{itemize}
-		\item \textbf{Predictive modelling user:} Focus on approximate inference features, such as specifying different evidences.
-		\item \textbf{Causal inference user:} Highlighting causal inference features such as latent variables, interventions, and ways to specify different types of biases.
+		\item \textbf{Predictive Modelling User:} Focus on approximate inference features, such as specifying different evidences.
+		\vspace{1em}
+		\item \textbf{Causal Inference User:} Highlighting causal inference features such as latent variables, interventions, and ways to specify different types of biases.
 	\end{itemize}
 \end{frame}
 
