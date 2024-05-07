@@ -55,7 +55,7 @@
 	\end{minipage}
 	\vspace{2em}
 	\begin{columns}
-		\begin{column}{0.67\textwidth}
+		\begin{column}{0.6\textwidth}
 			\begin{itemize}
 			\setlength\itemsep{1em}
 				\item \textbf{Predictive Modelling:} E.g., predict the ``Income'' given other attributes.
@@ -70,10 +70,10 @@
 					% \end{itemize}
 			\end{itemize}
 		\end{column}		
-		\begin{column}{0.4 \textwidth}
+		\begin{column}{0.45 \textwidth}
 			\begin{figure}
 				\centering
-				\begin{tikzpicture}[scale=0.7]
+				\begin{tikzpicture}[scale=0.8]
 				\tikzstyle{every node}=[align=center, inner sep=1pt]
 					\node (sex) at (0, -2) {Sex};
 					\node (age) at (-0.3, 0) {Age};
@@ -94,28 +94,29 @@
 					\draw[->]  (ed) to (occ);
 					\draw[->]  (sex) to (occ);	
 				\end{tikzpicture}
-				\caption{\footnotesize{Example of a BN based on Adult Income Dataset}}
+				\caption{\footnotesize{Example of a BN based on Adult Income Dataset [1]}}
 			\end{figure}
 		\end{column}
 	\end{columns}
+	\footnotetext[1]{Becker,Barry and Kohavi,Ronny. (1996). Adult. UCI Machine Learning Repository.}
 \end{frame}
 
-\begin{frame}{Applications of Bayesian Networks}
-	\begin{figure}
-		\centering
-		\begin{tikzpicture}
-			\node at (0, 1)  {\includegraphics[scale=0.3]{imgs/citation_1.png}};
-			\node at (4, 0.5)  {\includegraphics[scale=0.3]{imgs/citation_2.png}};
-			\node at (0, 0) {\includegraphics[scale=0.3]{imgs/citation_9.png}};
-			\node at (5, -0.5) {\includegraphics[scale=0.3]{imgs/citation_4.png}};
-			\node at (0, -1) {\includegraphics[scale=0.3]{imgs/citation_5.png}};
-			\node at (5, -1.5) {\includegraphics[scale=0.3]{imgs/citation_6.png}};
-			\node at (0, -2) {\includegraphics[scale=0.3]{imgs/citation_7.png}};
-			\node at (5, -2.5) {\includegraphics[scale=0.3]{imgs/citation_8.png}};
-			\node at (0, -3.2) {\includegraphics[scale=0.3]{imgs/citation_3.png}};
-		\end{tikzpicture}
-	\end{figure}
-\end{frame}
+% \begin{frame}{Applications of Bayesian Networks}
+% 	\begin{figure}
+% 		\centering
+% 		\begin{tikzpicture}
+% 			\node at (0, 1)  {\includegraphics[scale=0.3]{imgs/citation_1.png}};
+% 			\node at (4, 0.5)  {\includegraphics[scale=0.3]{imgs/citation_2.png}};
+% 			\node at (0, 0) {\includegraphics[scale=0.3]{imgs/citation_9.png}};
+% 			\node at (5, -0.5) {\includegraphics[scale=0.3]{imgs/citation_4.png}};
+% 			\node at (0, -1) {\includegraphics[scale=0.3]{imgs/citation_5.png}};
+% 			\node at (5, -1.5) {\includegraphics[scale=0.3]{imgs/citation_6.png}};
+% 			\node at (0, -2) {\includegraphics[scale=0.3]{imgs/citation_7.png}};
+% 			\node at (5, -2.5) {\includegraphics[scale=0.3]{imgs/citation_8.png}};
+% 			\node at (0, -3.2) {\includegraphics[scale=0.3]{imgs/citation_3.png}};
+% 		\end{tikzpicture}
+% 	\end{figure}
+% \end{frame}
 
 \begin{frame}{Simulations in Bayesian Networks}
 	Use cases for simulations:
@@ -125,7 +126,7 @@
 		\item \textbf{Approximate Inference:} When exact inference is intractable.
 		\item \textbf{Validating Analysis:} Use data from a known model to check if analysis gives correct results.
 		\item \textbf{Benchmarking Methods:} Understanding the behavior of new algorithms and methods.
-		\item \textbf{Teaching:} Generate data with specified properties to explain concepts such as bias.
+		\item \textbf{Teaching:} Generate data with specific properties to explain concepts such as bias.
 	\end{itemize}
 \end{frame}
 
@@ -135,7 +136,7 @@
 		\item Supports both normal and time-series.
 		\item Can specify certain/uncertain/time-series evidence and interventions.
 		\item Incorporate other simulation methods.
-		\item Optimized.
+		\item Optimized implementation.
 	\end{itemize}
 
 	% \vspace{1em}
@@ -165,13 +166,16 @@
 
 \begin{frame}[fragile]{Fellowship Plan: Phase 1}
 	\begin{minipage}{\textwidth}
-	\centerline{Extend simulation capabilities to continuous and mixed variables.}
+		\begin{itemize}
+			\item Extend simulation capabilities to continuous and mixed variables.
+			\item Each node is a BN is parameterized by its conditional distribution given it's parents.
+			\item Allow users to specify it in functional form.
+		\end{itemize}
 	\end{minipage}
 
 	\vspace{2em}
 	\begin{columns}
 		\begin{column}{0.6\textwidth}
-		\vspace{2em}
 		\begin{figure}
 		\begin{tikzpicture}
 			\node at (0, 0) {\tiny
@@ -204,7 +208,7 @@ function(Income, Occu, HrPW, Sex):
 			\vspace{-5em}
 			\begin{figure}
 				\centering
-				\begin{tikzpicture}[scale=0.7]
+				\begin{tikzpicture}[scale=0.8]
 				\tikzstyle{every node}=[align=center, inner sep=1pt]
 					\node (sex) at (0, -2) {Sex};
 					\node (age) at (-0.3, 0) {Age};
@@ -238,7 +242,7 @@ function(Income, Occu, HrPW, Sex):
 	\begin{itemize}
 		\item \textbf{Predictive Modelling User:} Focus on approximate inference features, such as specifying different evidences.
 		\vspace{1em}
-		\item \textbf{Causal Inference User:} Highlighting causal inference features such as latent variables, interventions, and ways to specify different types of biases.
+		\item \textbf{Causal Inference User:} Highlighting causal inference features such as confounding, interventions, and specifying different types of biases.
 	\end{itemize}
 \end{frame}
 
