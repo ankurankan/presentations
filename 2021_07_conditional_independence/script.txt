@@ -1,0 +1,165 @@
+Slide 1: Intro
+
+Hello everyone, I am Ankur. I am a PhD student in Johannes Textor's group and
+this presentation is based on a paper that Johannes and I have been working on.
+We have a bit of a long title: A simple unified approach to testing high-dimensional
+conditional independencies for categorical and ordinal data.
+
+Slide 2: Overview
+I have structured the presentation as follows. First, I will start with some applications 
+of conditional independence testing specifically for causal inference. Then I will 
+talk about the tests which are currently used. After which I will show our proposed method,
+and some emiprical results comparing our method to the other methods. And finally end 
+with a conclusion.
+
+Slide 3: Example DAG/Causal Bayesian Network
+In this slide, I will just quickly introduce a DAG or Causal Bayesian Network.
+In the figure, you can see an example of a Causal Bayesian Network also
+commonly known as DAGs. Here, the nodes in the graph represent the random
+variables and the edges represent direct causal effect between these random
+variables. So, from the graph we can see that Pollution has a direct effect on
+the whether someone has Lung cancer or not. One of the properties of these DAGs
+is that the network structure implies conditional indpendencies. For example in the
+example model: Pollution is independent of XRAY given Cancer.
+
+Slide 4: Motivation: Model Testing
+Coming to the applications of conditional independencie tests. In applied research
+most of these DAG models are made by hand based on domain knowledge. So it is
+very important that we test whether our model is consistent with our dataset.
+For checking the consistency, we can use CI tests to check whether the implied
+CIs of our model hold in the dataset or not.
+
+Slide 5: Motivation: Structure Learning
+The other application of CI testing in causal inference is Structure learning.
+A conditional independence between two variables in data implies that there is
+no direct causal effect between the variables. For example, if from a CI test
+on the dataset we know that Pollution is independent of XRAY given Cancer, it
+would mean that there can't be an edge between Pollution and XRay in the model.
+Constraint Based Structure learning algorithms like PC and FCI systematically
+search for these conditional indpendencies using tests in the dataset to
+generate the model skeleton.
+
+Slide 6: (Conditional) Independence Test
+Coming to how we define Independence and Conditional Independence. We say two
+variables X and Y are independent if their joint distribution is equal to the
+product of their marginal distribution. This basically means that having
+information on either of the variables doesn't affect the other variable.
+
+Similarly, we say two variables  X and Y are conditionally independent given
+Z if for all z with p(z) > 0, the conditional joint distribution of X and Y 
+conditioned on z is same as the product of the marginal distribution.
+
+Slide 7: CI testing is Difficult.
+Normal independence testing without conditional variables is much easier. For
+the discrete case there are exact tests, for continuous case can rely of
+correlation based tests. But it gets much more difficult when we have conditional
+variables. In this recent paper from Shah and Peters, for continuous conditional
+variables, they prove that no single test can have power against all dataset.
+At the same time it is also a well studied problem and many different approaches 
+already exist.
+
+Slide 8: Main classes of tests
+I will now give a quick background on the common types of CI tests. We can 
+broadly categorize these tests into three categories. Stratification based test,
+variable importance based test, and residualization based tests. I will briefly 
+describe each of these approaches.
+
+Slide 9: Stratification based test
+Starting with the stratification based test. It is one of the most common type
+of test for discrete variables. Some examples are chi-squared and mutual
+information test.  The idea behind this approach is to convert a conditional
+indpendence test into a bunch of normal independence tests by dividing the
+dataset into smaller chunks.  So, for a given dataset it would generate a
+smaller dataset for each possible combination of values of Z. With this split 
+the value of Z is constant for each of the smaller datasets. We then run a 
+simple non-conditional test on each of these datasets and then combine the results.
+The problem with this approach is that as the number of conditional variables
+increases, the number of samples avaiable in each strata decreases exponentially because
+of which the individual tests become unreliable. Because of this problem, this 
+class of tests looses power when the number of conditional variables increases.
+
+Slide 10: Variable Importance Tests
+The next class of tests is variable importance tests. These are based on comparing 
+probability models. We basically use two estimators to predict x with one using only
+z and the other using both y and z. If the estimator trained on only using z doesn't
+fit significantly worse that the one using both y and z, we say that the independence 
+is True. The idea is that if the fit isn't worse when y is used as a feature, it doesn't 
+have any extra information on x given z. An example of this type of test is SCCI. It 
+is also the current state-of-the-art for structure learning in discrete variables.
+One of the benefits of this approach is that we can use any estimator for which 
+a reasonable goodness of fit exists. Although a problem with this apporach is that it
+is inherently asymmetric. So the result of X independent of Y given Z and Y independent
+of X given Z can be different.
+
+Slide 11: Residualization Based Approach
+The final approach is residualization based approach. It is a bit similar to
+the last case in the sense that we use estimators in this case as well. But in
+this case we use the first estimators to predict x from z and the second to
+predict y from z. Then using these estimators we compute the residuals and
+check whether they are correlated. This test relies on this theorem that if we
+have residuals such that their expection is 0, the product of their expectation
+would also be 0 using conditional independence. This approach is mainly used
+for continuous variables like the partial correlation test because the
+residuals doesn't have very clear interpretation for discrete or ordinal
+variables.
+
+Slide 12: Proposed Method
+Now coming to our proposed method. We are proposing a residualization based test. As we 
+saw in the previous slide, any estimator can be used in this case as well. Since we are 
+working with discrete variables, we use this Lee-Shepherd residuals. 
+
+Slide 13: Lee-Shepherd Residuals
+As we saw that discrete and ordinal variables don't have a very clear interpretation of
+residuals, we use this LS-Residual which is defined for ordinal variables.
+
+Slide 14:
+
+Slide 15:
+
+Slide 16:
+
+Slide 17:
+
+Slide 18:
+
+Slide 19:
+
+Slide 20: Empirical: Analysis
+Now coming to empirical analysis. For all the empirical analysis we compare it to 3 other
+tests: Mutual Information, Monte Carlo Mutual Information, RFT is our test, and SCCI is a 
+variable importance based test. SCCI is one of the current best performing tests.
+
+The first analysis that I am showing here is the calibration analysis. In this
+plot, we show the Type 1 error of the test vs the significance level on
+conditionally independent datasets.  For the ideal test, from definition we
+would expect the Type 1 error to be the same as the significance level. That means that 
+for the ideal test the calibration plot would be a straight diagonal line as shown with
+the dashed line in the plot. A couple of things to notice here: 1) The SCCI test is not
+calibrated at all. It's because the test only gives a pseudo p-value and is always around 
+0.01. 2) In the plot we are focusing on very low p-values as that's the range where we 
+usually use a threshold for p-values. We generate conditionally independent datasets for
+this plot and add random variables for any extra conditional variables. From top to
+bottom we are increatsing the sample size, so you can see that the calibration for all
+the tests improve when going from top to bottom. From left to right we are increasing the number
+of conditional variables, and hence the calibration gets worse. Two things to notice in the
+plot is that the MC-MI is better calibrated compared to our test for low number of conditional
+variables and high sample size. 
+
+Slide 21: Empirical: Discrimination
+The calibration plot only used condiitonally independent data. We now show the
+discrimination analysis is which we show how well the tests are able to
+correctly classify conditionally dependent data. We generate the data using a
+logistic regression with the regression coefficient fixed to the effect that we show
+on the x axis. We show the accuracy of
+
+Slide 22: Empirical: Ordinal
+This is discrimation analysis on ordinal data. In this case the analysis setup
+is same as the last one where we generate conditionally dependent and
+independent datasets and see how well the tests are able to detect that. Although
+we plot the accuracy vs number of samples here. Also, we in this analysis we 
+also included the Jockheere-Terpstra test which is for ordinal variables also.
+For low conditional variables, both the tests perform equally well, but as
+we increase the number of conditional variables our tests starts performing better.
+
+Slide 23: Applications: Model Testing
+Now I am showing some analysis based on the 

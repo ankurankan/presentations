@@ -48,3 +48,8 @@ vignettes/*.pdf
 *.snm
 *.toc
 *.vrb
+*.bbl
+*.bcf
+*.blg
+*.xml
+*.xdv
