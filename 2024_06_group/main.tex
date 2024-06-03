@@ -43,23 +43,76 @@
 \title[]{A cautious approach to constraint-based causal model selection}
 \date{}
 
-\maketitle
-
-\begin{frame}{Background: Causal DAGs and d-separation}
+\begin{frame}
+	\begin{figure}
+		\includegraphics[scale=0.3]{imgs/title.png}
+	\end{figure}
 \end{frame}
 
-\begin{frame}{Background: Example of constraint-based algorithm}
+\begin{frame}{DAGs and Implied Conditional Independences}
+	Each missing edge implies a Conditional Independence (CI) statement.
+
+	\begin{figure}
+		\centering
+		\begin{tikzpicture}
+			\begin{scope}[yshift=0.7cm, scale=0.8]
+			\tikzstyle{every node}=[align=center, inner sep=1pt]
+				\node (sex) at (-0.7, -0.8) {Sex};
+				\node (age) at (-0.3, 0) {Age};
+				\node (ed) at (-1.8, -1.6) {Education};
+				\node (occ) at (1.8, 0) {Occupation};
+				\node (hrpw) at (1.3, -1.6) {Hours Per \\ Week};
+				\node (income) at (-0.7, -2.8) {Income};
+			
+				\draw[->]  (age) to[bend right=20] (ed);
+				\draw[->]  (sex) to (ed);
+				\draw[->]  (age) to (hrpw);
+				\draw[->]  (ed) to (hrpw);
+				\draw[->]  (sex) to (hrpw);
+				\draw[->]  (ed) to (income);
+				\draw[->]  (hrpw) to (income);
+				\draw[->]  (occ) to[out=300, in=0, looseness=1.4] (income.east);
+				\draw[->]  (sex) to (income);
+				\draw[->]  (ed) to[out=90, in=150, looseness=1.3] (occ);
+				\draw[->]  (sex) to (occ);	
+			\end{scope}
+			\draw[thick, ->, double, cyan] (2.5,0) -- (3,0);
+			\node[rectangle, align=center, inner sep=1pt] at (6, 0) {
+				\begin{minipage}{\textwidth}
+					\begin{equation*}
+						\begin{split}
+							\textnormal{Age} &\ci \textnormal{Incm} \rvert \textnormal{Edct, Hrpw, Sex} \\
+							\textnormal{Age} &\ci \textnormal{Occp} \rvert \textnormal{Edct, Sex} \\
+							\textnormal{Age} &\ci \textnormal{Sex} \\
+							\textnormal{Hrpw} &\ci \textnormal{Occp} \rvert \textnormal{Edct, Sex} \\
+						\end{split}
+					\end{equation*}
+				\end{minipage}
+				};
+		\end{tikzpicture}
+	\end{figure}
+	\vspace{1em}
+	Datasets generated from this DAG should also satisfy these CIs (faithfulness).
+
 \end{frame}
 
-\begin{frame}{Background: Epidemiological Setting}
-	\begin{itemize}
-		\item Moderate-dimensional setting, more than $ 4 $ variables but less than hundreds.
-		\item Causal graph could be partially known.
-		\item Sparsity should not be assumed.
-	\end{itemize}
+\begin{frame}[t]{Constraint-Based Structure Learning}
+	\center Algorithms such as PC, FCI utilizes CIs in data to learn DAGs.
 \end{frame}
 
-\begin{frame}{Problems with the CI testing approach}
+\begin{frame}{CI Testing in Data}
+	Statistical tests are used to test CIs in data. Typically,
+	\begin{equation*}
+		\begin{split}
+			H_0 &: X \ci Y \rvert Z \\
+			H_A &: X \not \ci Y \rvert Z
+		\end{split}
+	\end{equation*}
+	\vspace{2em}
+	\center (p-value $ > \alpha $ ) $ \implies X \ci Y \rvert Z  \implies $ Remove Edge
+\end{frame}
+
+\begin{frame}{Problems With This Testing}
 	\begin{itemize}
 		\item Estimated Structures are usually too sparse, i.e., missing too many edges compared to the ground truth.
 		\item Much statistical theory has been dedicated to controlling false positives in the sense of false edge inclusion such as multiple testing adjustments, limits on false discovery rate.
@@ -69,11 +122,89 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Solution:Reformulation of the CI testing approach}
+\begin{frame}{Two Settings For Structure Learning Applications}
 	\begin{itemize}
-		\item Inst
+		\item Moderate-dimensional setting, more than $ 4 $ variables but less than hundreds.
+		\item Causal graph could be partially known.
+		\item Sparsity should not be assumed.
 	\end{itemize}
 \end{frame}
 
+\begin{frame}{Denser Models for Epidemiological Setting}
+\end{frame}
+
+\begin{frame}{Effect Estimation in Denser Graph}
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.4]{imgs/theorem1.png}
+	\end{figure}
+	\begin{itemize}
+		\item Using a super-DAG of the true DAG to select an adjustment set will always be valid.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Reformulating CI Test Hypothesis}
+	\begin{itemize}
+		\item $ \theta_{ij.S} $: Some measure of association between $ X_i $ and $ X_j $ given $ X_S $.
+		\item $ \delta $: User chosen threshold.
+	\end{itemize}
+
+	\begin{equation*}
+		\begin{split}
+			H_0&: \rvert \theta_{ij.S} \rvert \ge \delta \\
+			H_A&: \rvert \theta_{ij.S} \rvert < \delta \\
+		\end{split}
+	\end{equation*}
+
+	\begin{itemize}
+		\item $ H_0 $ implies dependence.
+		\item Remove edge when $ H_0 $ is rejected.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Test Using Partial Correlation}
+\end{frame}
+
+\begin{frame}{Test Using Expected Conditional Covariance}
+\end{frame}
+
+\begin{frame}{Test Using Odds Ratios}
+\end{frame}
+
+\begin{frame}{Empirical Results}
+	\begin{itemize}
+		\item Random graphs on $ 10 $ nodes with an expected degree of $ 7 $.
+		\item Very dense graphs, $ < 10 $ missing edges.
+		\item Linear data simulation with random ($ [0.5, 1.0] $) parameter value.
+		\item Fixed $ \alpha = 0.05 $ for e-PC.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Empirical Results: Recall}
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.2]{imgs/recall.png}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Empirical Results: Precision}
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.2]{imgs/precision.png}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Empirical Analysis: Comparison}
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.12]{imgs/empirical_compare.png}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Conclusion}
+	\begin{itemize}
+		\item Previous approaches have been 
+	\end{itemize}
+\end{frame}
 
 \end{document}
