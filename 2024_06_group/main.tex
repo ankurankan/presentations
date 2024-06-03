@@ -96,8 +96,48 @@
 
 \end{frame}
 
-\begin{frame}[t]{Constraint-Based Structure Learning}
-	\center Algorithms such as PC, FCI utilizes CIs in data to learn DAGs.
+\begin{frame}{Constraint-Based Structure Learning}
+	\center Constraint-based algorithms utilize CIs in data to learn DAGs.
+	%\begin{figure}
+	%	\centering
+	%	\begin{tikzpicture}
+	%		\begin{scope}
+	%			\tikzstyle{every node}=[align=center, inner sep=1pt]
+	%			\node (x1) at (0, 0) {$ X_1 $};
+	%			\node (x2) at (0, -1) {$ X_2 $};
+	%			\node (x3) at (1, -1) {$ X_3 $};
+	%			\node (x4) at (1, 0) {$ X_4 $};
+
+	%			\draw[->] (x1) to (x3);
+	%			\draw[->] (x2) to (x3);
+	%			\draw[->] (x3) to (x4);
+	%		\end{scope}
+	%		\begin{scope}[xshift=2cm]
+	%			\draw[->] (0, -0.5) to (1, -0.5);
+	%		\end{scope}
+	%	\end{tikzpicture}
+	%\end{figure}
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.12]{imgs/example1.png}
+	\end{figure}
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.12]{imgs/example2.png}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.1]{imgs/example3.png}
+	\end{figure}
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.1]{imgs/example4.png}
+	\end{figure}
+
+	\center Edges are then oriented using Meek's rule.
 \end{frame}
 
 \begin{frame}{CI Testing in Data}
@@ -115,10 +155,10 @@
 \begin{frame}{Problems With This Testing}
 	\begin{itemize}
 		\item Estimated Structures are usually too sparse, i.e., missing too many edges compared to the ground truth.
-		\item Much statistical theory has been dedicated to controlling false positives in the sense of false edge inclusion such as multiple testing adjustments, limits on false discovery rate.
-		\item In practice easy to achieve very few false edge inclusion.
+		\item Much statistical theory has been dedicated to controlling false positives. in the sense of false edge inclusion such as multiple testing adjustments, limits on false discovery rate.
+		\item In practice, easy to achieve very few false edge inclusion.
 		\item However, it is difficult to achieve low rates of error for false edge exclusions (high recall).
-		\item Bias is largely driven by high rates of wrongly excluded edges.
+		\item Bias is causal effect estimates is largely driven by high rates of wrongly excluded edges.
 	\end{itemize}
 \end{frame}
 
@@ -163,12 +203,52 @@
 \end{frame}
 
 \begin{frame}{Test Using Partial Correlation}
+	\center When variables are multivariate Gaussian, Pearson's partial correlation.
+	\vspace{1em}
+	\begin{equation*}
+		\begin{split}
+			H_0&: \rvert \rho_{ij.S} \rvert \ge \delta \\
+			H_A&: \rvert \rho_{ij.S} \rvert < \delta \\
+		\end{split}
+	\end{equation*}
+
+	\begin{equation*}
+		\begin{split}
+			\textnormal{Fisher's z-transform: }& z(\hat{\rho}_{ij.S}) = \frac{1}{2} ln \frac{1+\hat{\rho}_{ij.S}}{1 - \hat{\rho}_{ij.S}} \\
+			\textnormal{Property: }& \sqrt{n - \rvert S \rvert - 3}(z(\hat{\rho}_{ij.S}) - z(\rho_{ij.S})) \sim N(0, 1) \\
+			\textnormal{Rejection Rule: }& \sqrt{n - \rvert S \rvert - 3}(z(\hat{\rho}_{ij.S}) - z(\delta)) \le \Phi^{-1}(\alpha) \\
+			\textnormal{and } & \sqrt{n - \rvert S \rvert - 3}(z(\hat{\rho}_{ij.S}) - z(\delta)) \ge \Phi^{-1}(\alpha)
+		\end{split}
+	\end{equation*}
 \end{frame}
 
 \begin{frame}{Test Using Expected Conditional Covariance}
+	\center{When Gaussianity assumption is not satisfied.}
+	\begin{equation*}
+		\begin{split}
+			\Psi^*_{ij.S} &= \mathbb{E}[cov(X_i, X_j | X_S)] \\
+			\sqrt{n}(\hat{\Psi}^*_{ij.S} - \Psi^*_{ij.S}) & \sim N(0, \sigma^2_{ij.S}) \\
+		\end{split}
+	\end{equation*}
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.3]{imgs/test2.png}
+	\end{figure}
 \end{frame}
 
 \begin{frame}{Test Using Odds Ratios}
+	In case of mixed variables (continuous and binary), conditional odds ratio.
+
+	\begin{equation*}
+		\begin{split}
+			\gamma_{ij.S} &= log OR(X_i, X_j \rvert X_S) \\
+			\sqrt{n}(\hat{\gamma}_{ij.S} - \gamma_{ij.S}) &\sim N(0, \omega^2_{ij.S}) \\
+		\end{split}
+	\end{equation*}
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.3]{imgs/test3.png}
+	\end{figure}
 \end{frame}
 
 \begin{frame}{Empirical Results}
