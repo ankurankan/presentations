@@ -152,28 +152,44 @@
 	\center (p-value $ > \alpha $ ) $ \implies X \ci Y \rvert Z  \implies $ Remove Edge
 \end{frame}
 
-\begin{frame}{Problems With This Testing}
+\begin{frame}{Problems With This Testing Approach}
 	\begin{itemize}
-		\item Estimated Structures are usually too sparse, i.e., missing too many edges compared to the ground truth.
-		\item Much statistical theory has been dedicated to controlling false positives. in the sense of false edge inclusion such as multiple testing adjustments, limits on false discovery rate.
-		\item In practice, easy to achieve very few false edge inclusion.
-		\item However, it is difficult to achieve low rates of error for false edge exclusions (high recall).
-		\item Bias is causal effect estimates is largely driven by high rates of wrongly excluded edges.
+		\item Has a tendency to estimate sparse structures, i.e., missing too many edges compared to ground truth.
+		\item Methods focusing on controlling false positives (i.e., false edge inclusion) have been developed such as multiple testing adjustment.
+		\item In practice, easy to achieve very few false edge inclusion, i.e., high precision.
+		\item But difficult to achieve low rates of error for false edge exclusions, i.e., high recall.
+		\item For downstream tasks, such as causal effect estimation, bias is largely driven by high rates of wrongly excluded edges.
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Two Settings For Structure Learning Applications}
+\begin{frame}{Two Contexts For Structure Learning}
 	\begin{itemize}
-		\item Moderate-dimensional setting, more than $ 4 $ variables but less than hundreds.
-		\item Causal graph could be partially known.
-		\item Sparsity should not be assumed.
+		\item \textbf{Causal Discovery:} Sparse models are better.
+			\begin{itemize}
+				\item Goal is to identify strong, novel, and promising causal relationships.
+				\item Use the learned structure to plan possible experiments, or identify the most promising targets of intervention.
+				\item E.g., high-dimensional genetics research, where the goal is to identify a small number of important genes that are promising targets.
+				\item Precision is important.
+			\end{itemize}
+		\item \textbf{Submodel Selection:} Denser models are better.
+			\begin{itemize}
+				\item Goal is to quantify the effect of a small number of causal relationships of interest.
+				\item Need to select a DAG that can be informative about strategies for identification or estimation.
+				\item E.g., epidemiological settings where we are interested in estimating effects such as smoking on lung cancer.
+				\item Recall is important.
+			\end{itemize}
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Denser Models for Epidemiological Setting}
-\end{frame}
+% \begin{frame}{Denser Models for Epidemiological Setting}
+% 	\begin{itemize}
+% 		\item Moderate-dimensional setting, more than $ 4 $ variables but less than hundreds.
+% 		\item Causal graph could be partially known.
+% 		\item Sparsity should not be assumed.
+% 	\end{itemize}
+% \end{frame}
 
-\begin{frame}{Effect Estimation in Denser Graph}
+\begin{frame}{Adjustment Sets From Denser Graph}
 	\begin{figure}
 		\centering
 		\includegraphics[scale=0.4]{imgs/theorem1.png}
@@ -181,6 +197,10 @@
 	\begin{itemize}
 		\item Using a super-DAG of the true DAG to select an adjustment set will always be valid.
 	\end{itemize}
+	\vspace{1em}
+	\begin{figure}
+		\includegraphics[scale=0.15]{imgs/figure1.png}
+	\end{figure}
 \end{frame}
 
 \begin{frame}{Reformulating CI Test Hypothesis}
@@ -216,10 +236,12 @@
 		\begin{split}
 			\textnormal{Fisher's z-transform: }& z(\hat{\rho}_{ij.S}) = \frac{1}{2} ln \frac{1+\hat{\rho}_{ij.S}}{1 - \hat{\rho}_{ij.S}} \\
 			\textnormal{Property: }& \sqrt{n - \rvert S \rvert - 3}(z(\hat{\rho}_{ij.S}) - z(\rho_{ij.S})) \sim N(0, 1) \\
-			\textnormal{Rejection Rule: }& \sqrt{n - \rvert S \rvert - 3}(z(\hat{\rho}_{ij.S}) - z(\delta)) \le \Phi^{-1}(\alpha) \\
-			\textnormal{and } & \sqrt{n - \rvert S \rvert - 3}(z(\hat{\rho}_{ij.S}) - z(\delta)) \ge \Phi^{-1}(\alpha)
 		\end{split}
 	\end{equation*}
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.3]{imgs/partial.png}
+	\end{figure}
 \end{frame}
 
 \begin{frame}{Test Using Expected Conditional Covariance}
@@ -283,7 +305,10 @@
 
 \begin{frame}{Conclusion}
 	\begin{itemize}
-		\item Previous approaches have been 
+		\item Previous approaches to causal discovery has focused on not including false edges.
+		\item In context of causal effect estimation, important to have denser models and control for false edge removals.
+		\item Paper proposes an inversion of the usual null hypothesis used in CI testing along with tests for it.
+		\item This leads to learning denser graphs.
 	\end{itemize}
 \end{frame}
 
