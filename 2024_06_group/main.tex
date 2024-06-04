@@ -303,6 +303,23 @@
 	\end{figure}
 \end{frame}
 
+\begin{frame}{Empirical Analysis: Effect Estimation}
+	\begin{itemize}
+		\item Estimate the ATE of $ X_5 $ on $ X_{10} $ where the DAG is topologically ordered: $ X_i < X_{i+1} $.
+		\item Learn the CPDAG using PC with partial ordering information:
+			$$ (X_1, X_2) < (X_3, X_4, X_5, X_6, X_7) < (X_8, X_9) < X_{10} $$
+		\item Gives a set of estimated effects $ \hat{\beta} = (\hat{\beta}^{min}, \cdots, \hat{\beta}^{max}) $
+		\item $$ \textnormal{Int-MSE}:  \begin{cases}
+				0 & \!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\! \textnormal{if } \hat{\beta}^{min} < \hat{\beta}^{oracle} < \hat{\beta}^{max} \\
+				min((\hat{\beta}^{oracle} - \hat{\beta}^{min})^2, (\hat{\beta}^{oracle} - \hat{\beta}^{max})^2) & \textnormal{otherwise} \\
+						\end{cases} $$
+	\end{itemize}
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.35]{imgs/table1.png}
+	\end{figure}
+\end{frame}
+
 \begin{frame}{Conclusion}
 	\begin{itemize}
 		\item Previous approaches to causal discovery has focused on not including false edges.
