@@ -246,9 +246,10 @@
 
 \begin{frame}{Test Using Expected Conditional Covariance}
 	\center{When Gaussianity assumption is not satisfied.}
+	\vspace{1em}
 	\begin{equation*}
 		\begin{split}
-			\Psi^*_{ij.S} &= \mathbb{E}[cov(X_i, X_j | X_S)] \\
+			\Psi^*_{ij.S} &= \frac{\mathbb{E}[cov(X_i, X_j | X_S)]}{\sqrt{\mathbb{E}[\sigma^2(X_i \rvert X_S)] \mathbb{E}[\sigma^2(X_j \rvert X_S)]}} \\
 			\sqrt{n}(\hat{\Psi}^*_{ij.S} - \Psi^*_{ij.S}) & \sim N(0, \sigma^2_{ij.S}) \\
 		\end{split}
 	\end{equation*}
