@@ -1,0 +1,7 @@
+1. A convincing argument for what/why are we doing causal inference. Show some examples.
+
+
+Inspiration Material:
+1. https://github.com/matheusfacure/python-causality-handbook
+2. https://towardsdatascience.com/validating-the-causal-impact-of-the-synthetic-control-method-2f3bf185f266
+3. 
