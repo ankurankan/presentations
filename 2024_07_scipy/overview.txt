@@ -1,5 +1,9 @@
 1. A convincing argument for what/why are we doing causal inference. Show some examples.
-
+	a. 
+2. Show a walkthrough example using all the features.
+	a. First problem is to come up with the structure of the model.
+	b. Once we have the structure, we can start with doing inference from it.
+3. Conclusion.
 
 Inspiration Material:
 1. https://github.com/matheusfacure/python-causality-handbook
