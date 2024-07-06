@@ -49,68 +49,87 @@
 	\begin{itemize}
 		\item Finding how variables interact.
 		\item Key drivers of an outcome.
+		\item Feature Selection
 	\end{itemize}
 \end{frame}
 
 \begin{frame}{Predictive vs Causal Questions}
 \end{frame}
 
-\begin{frame}{Frameworks for Causal Inference}
+\begin{frame}{Landscape of Causal Inference Packages}
 	\begin{itemize}
-		\item Potential Outcomes Framework (Rubin's Causal Models): Use when you exactly know what you are trying to estimate.
-			\begin{enumerate}
+		\item Potential Outcomes Framework
+			\begin{itemize}
+				\item a.k.a Rubin's Causal Models 
+				\item Very broadly: Use when you exactly know what you are trying to estimate.
 				\item Propensity score methods
+					\begin{figure}
+						\includegraphics[scale=0.1]{imgs/dowhy.png}
+					\end{figure}
 				\item Doubly Robust Estimation
+					\begin{figure}
+						\includegraphics[scale=0.1]{imgs/doubleml.png}
+					\end{figure}
 				\item Meta Learners: T-Learner, S-Learner, X-Learner.
-			\end{enumerate}
+					\begin{figure}
+						\includegraphics[scale=0.1]{imgs/causalml.png}
+					\end{figure}
+			\end{itemize}
 		\item Directed Acyclic Graphs / Structural Causal Models: 
+			\begin{figure}
+				\includegraphics[scale=0.1]{imgs/pgmpy.png}
+			\end{figure}
+			
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{A General Workflow for Causal Inference}
+\begin{frame}{A General Workflow in the DAG Framework}
 
 \begin{figure}[t]
 	\centering
-	\begin{tikzpicture}[yscale=.86, inner sep=1pt]
+	\begin{tikzpicture}[yscale=1, xscale=0.75, inner sep=1pt]
 	\tikzstyle{every node}=[align=left]
-		\node (data)  at (0, 0) {Data};
-		\node (dag)    at (5, 0) {DAG};
-		\node (user)  at (5, 1.2) {Import / User Defined};
-		\node (bn)    at (12, 0) {Parameterized BN};
-		\node (test)  at (2.5, -0.8) {Model Testing};
-		\node (iv)    at (3.7, -1.4) {Instrumental Variables};
-		\node (as)    at (6, -0.8) {Adjustment Set};
-		\node (sim)   at (9, -0.8) {Simulations};
-		\node (ci)    at (9.8, -1.4) {Causal Inference};
-		\node (pi)    at (11.2, -2) {Probabilistic Inference};
-		\node (testp) at (14, -0.8) {Model Testing};
-		\node (readwrite) at (12.8, -1.4) {Export};
-		\node (read) at (12, 1.2) {Import / User Defined};
+		\node (data) at (0, 0) {Data};
+		\node (dag) at (5, 0) {DAG};
+		\node (estimand) at (10, 0) {Estimand};
+		\node (estimation) at (15, 0) {Causal Estimation};
 
-		\draw[->] (data) edge [bend left=10] node [midway, above]{Structure Learning} (dag.west);
-		\draw (dag.east) edge [->,bend left=10] node [midway, above]{Parameter Learning} (bn.west);
-		\draw[->] (user.south) -- (dag.north);
-		\draw[->] (dag.south) -- (test.north);
-		\draw[->] (dag.south) -- (iv.north);
-		\draw[->] (dag.south) -- (as.north);
-		\draw[->] (bn.south) -- (pi.north);
-		\draw[->] (bn.south) -- (ci.north);
-		\draw[->] (bn.south) -- (sim.north);
-		\draw[->] (bn.south) -- (testp.north);
-		\draw[->] (bn.south) -- (readwrite.north);
-		\draw[->] (read.south) -- (bn.north);
+		\draw[->] (data) to node[midway, above]{\footnotesize Causal Discovery} (dag);
+		\draw[->] (dag) to node[midway, above] {\footnotesize Identification} (estimand);
+		\draw[->] (estimand) to node[midway, above] {\footnotesize Estimation} (estimation);
+		\draw[->] (dag) [out=120, in=30, looseness=10] to node[midway, above] {\footnotesize Testing} (dag);
 	\end{tikzpicture}
-	\caption{Possible workflows in pgmpy for Bayesian Networks}
 	\label{fig:workflow}
 \end{figure}
 
 \end{frame}
 
 \begin{frame}{Causal Discovery}
-	\begin{itemize}
-		\item How to get the DAG from the data?
-		\item Usually the most challenging step of using the DAG framework.
+	\begin{figure}[t]
+		\centering
+		\begin{tikzpicture}[yscale=1, xscale=0.75, inner sep=1pt]
+		\tikzstyle{every node}=[align=left]
+			\node (data) at (0, 0) {Data};
+			\node (dag) at (5, 0) {DAG};
+			\node (estimand) at (10, 0) {Estimand};
+			\node (estimation) at (15, 0) {Causal Estimation};
+	
+			\draw[->] (data) to node[midway, above]{\footnotesize \textcolor{red}{Causal Discovery}} (dag);
+			\draw[->] (dag) to node[midway, above] {\footnotesize Identification} (estimand);
+			\draw[->] (estimand) to node[midway, above] {\footnotesize Estimation} (estimation);
+			\draw[->] (dag) [out=120, in=30, looseness=10] to node[midway, above] {\footnotesize Testing} (dag);
+		\end{tikzpicture}
+		\label{fig:workflow}
+	\end{figure}
 
+	\begin{itemize}
+		\item Given a dataset learn the network structure.
+		\item The most challenging step of using the DAG framework.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Casual Discovery}
+	\begin{itemize}
 		\item Really have to remember that: "All models are wrong, but some are useful" - George Box
 		\item Many automated algorithms but most of them would make mistakes.
 		\item Usually need to have some manual intervention. Need tools to guide this intervention.
@@ -141,7 +160,6 @@
 \end{frame}
 
 \begin{frame}{LLM Based Structure Learning}
-
 \end{frame}
 
 \begin{frame}{Model evaluation}
@@ -159,10 +177,12 @@
 \end{frame}
 
 \begin{frame}{Identification}
-	Second step: Assuming that we have an oriented DAG.
-	Everything is identified in the case of fully observed models.
+	\begin{itemize}
+		\item Second step: Assuming that we have an oriented DAG.
+		\item Everything is identified in the case of fully observed models.
 
-	When latent variables are present, need to determine identfiablity.
+		\item When latent variables are present, need to determine identfiablity.
+	\end{itemize}
 \end{frame}
 
 \begin{frame}{do-calculus}
@@ -175,6 +195,15 @@
 		\item Front-door criterion
 		\item Instrumental variables.
 	\end{itemize}
+\end{frame}
+
+\begin{frame}{Backdoor Criterion}
+\end{frame}
+
+\begin{frame}{Front-door Criterion}
+\end{frame}
+
+\begin{frame}{Instrumental Variables}
 \end{frame}
 
 \begin{frame}{pgmpy takes care of all this}
