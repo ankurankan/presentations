@@ -40,14 +40,14 @@
 
 \begin{document}
 
-\title[]{Introduction to Casual Inference using pgmpy}
+\title[Causal Inference using pgmpy]{Introduction to Casual Inference using pgmpy}
 \author{Ankur Ankan}
-\institute{Postdoctoral Researcher, Radboud University, The Netherlands}
+\institute[]{Postdoctoral Researcher \\ Radboud University, The Netherlands}
 \date{}
 
 \maketitle
 
-\begin{frame}{Predictive Models vs Causal Questions}
+\begin{frame}{Predictive vs Causal Modelling}
 \end{frame}
 
 \begin{frame}{Motivating Examples}
@@ -58,65 +58,82 @@
 	\end{itemize}
 \end{frame}
 
+\begin{frame}{Motivating Examples}
+\end{frame}
+
+\begin{frame}{Motivating Examples}
+\end{frame}
+
 \begin{frame}{Two Main Framworks}
 	Mathematical formulations of causal inference:
 	\begin{itemize}
-		\item Potential Outcomes Framework (aka Rubin's Casual Model)
+		\item Potential Outcomes Framework (a.k.a. Rubin's Casual Model)
 			\begin{itemize}
-				\item Counterfactual is at core.
-				\item Methods for estimation of counterfactual if assumptions are satisfied.
-				\item Robust methods that can work under some assumption violations.
+				\item Counterfactual statement at the core.
+				\item Provides statistical methods for estimating the counterfactual.
+				\item Statistically robust methods that can deal with assumption violations.
 			\end{itemize}
 		\item Directed Acyclic Graphs (DAG) / Structural Equation Models (SEMs)
 			\begin{itemize}
 				\item Causal diagram, i.e., DAG at the core.
-				\item Estimators for causal effect of interest can be defined using the DAG.
+				\item Causal effect estimators can be defined using the DAG.
 				\item Modelling assumptions are more explicit.
 			\end{itemize}
 	\end{itemize}
 \end{frame}
 
 \begin{frame}{Landscape of Causal Inference Python Packages}
-	\begin{itemize}
-		\item Potential Outcomes Framework (aka Rubin's Causal Model)
+	\begin{columns}
+		\begin{column}{0.5 \textwidth}
+			\center{\textbf{Potential Outcomes Framework}}
 			\begin{itemize}
-				\item Propensity score methods
+				\item Estimation methods such as Propensity Score.
 					\begin{figure}
-						\includegraphics[scale=0.1]{imgs/dowhy.png}
+						\includegraphics[scale=0.2]{imgs/dowhy.png}
 					\end{figure}
 				\item Doubly Robust Estimation
 					\begin{figure}
 						\includegraphics[scale=0.1]{imgs/doubleml.png}
 					\end{figure}
-				\item Meta Learners: T-Learner, S-Learner, X-Learner.
+				\item Meta Learners: T/S/X-Learners.
 					\begin{figure}
-						\includegraphics[scale=0.1]{imgs/causalml.png}
+						\includegraphics[scale=0.3]{imgs/causalml.png}
 					\end{figure}
 			\end{itemize}
-		\item Directed Acyclic Graphs / Structural Causal Models: 
-			\item pgmpy
-				\begin{figure}
-					\includegraphics[scale=0.1]{imgs/pgmpy.png}
-				\end{figure}
-			\item bnlearn
-			\item casualnex
-	\end{itemize}
+
+		\end{column}
+		\vrule
+		\begin{column}{0.5 \textwidth}
+			\center{\textbf{DAG Framework}}
+			\begin{itemize}
+				\item pgmpy
+					\begin{figure}
+						\includegraphics[scale=0.2]{imgs/pgmpy.png}
+					\end{figure}
+				\item \textbf{bnlearn}: Easy to use API
+				\item casualnex
+					\begin{figure}
+						\includegraphics[height=2cm, width=3cm, scale=0.2]{imgs/causalnex.png}
+					\end{figure}
+			\end{itemize}
+		\end{column}
+	\end{columns}
 \end{frame}
 
 \begin{frame}{A General Workflow in the DAG Framework}
 	\begin{figure}
 		\centering
-		\begin{tikzpicture}[yscale=1, xscale=0.75, inner sep=1pt]
+		\begin{tikzpicture}[yscale=1, xscale=0.75, inner sep=3pt]
 		\tikzstyle{every node}=[align=left]
 			\node (data) at (0, 0) {Data};
-			\node (dag) at (5, 0) {DAG};
-			\node (estimand) at (10, 0) {Estimand};
-			\node (estimation) at (15, 0) {Causal Estimation};
+			\node (dag) at (6, 0) {DAG};
+			\node (estimand) at (12, 0) {Estimation Strategy};
+			\node (estimation) at (12, -2.5) {Causal Estimate};
 	
-			\draw[->] (data) to node[midway, above]{\footnotesize Causal Discovery} (dag);
-			\draw[->] (dag) to node[midway, above] {\footnotesize Identification} (estimand);
-			\draw[->] (estimand) to node[midway, above] {\footnotesize Estimation} (estimation);
-			\draw[->] (dag) [out=120, in=30, looseness=10] to node[midway, above] {\footnotesize Testing} (dag);
+			\draw[thick, ->] (data) to node[midway, above]{\footnotesize Causal Discovery} (dag);
+			\draw[thick, ->] (dag) to node[midway, above] {\footnotesize Identification} (estimand);
+			\draw[thick, ->] (estimand) to node[midway, above, rotate=90] {\footnotesize Estimator} (estimation);
+			\draw[thick, ->] (dag) [out=150, in=30, looseness=10] to node[midway, above] {\footnotesize Testing/Evaluation/Modification} (dag);
 		\end{tikzpicture}
 		\label{fig:workflow}
 	\end{figure}
@@ -131,52 +148,87 @@
 \end{frame}
 
 \begin{frame}{Causal Discovery}
-	\begin{figure}[t]
+	\begin{figure}
 		\centering
-		\begin{tikzpicture}[yscale=1, xscale=0.75, inner sep=1pt]
+		\begin{tikzpicture}[yscale=1, xscale=0.75, inner sep=3pt]
 		\tikzstyle{every node}=[align=left]
 			\node (data) at (0, 0) {Data};
-			\node (dag) at (5, 0) {DAG};
-			\node (estimand) at (10, 0) {Estimand};
-			\node (estimation) at (15, 0) {Causal Estimation};
+			\node (dag) at (6, 0) {DAG};
+			\node (estimand) at (12, 0) {Estimation Strategy};
+			\node (estimation) at (12, -2.5) {Causal Estimate};
 	
-			\draw[->] (data) to node[midway, above]{\footnotesize \textcolor{red}{Causal Discovery}} (dag);
-			\draw[->] (dag) to node[midway, above] {\footnotesize Identification} (estimand);
-			\draw[->] (estimand) to node[midway, above] {\footnotesize Estimation} (estimation);
-			\draw[->] (dag) [out=120, in=30, looseness=10] to node[midway, above] {\footnotesize Testing} (dag);
-		\end{tikzpicture}
-		\label{fig:workflow}
-	\end{figure}
+			\draw[thick, ->] (data) to node[midway, above]{\footnotesize Causal Discovery} (dag);
+			\draw[thick, ->] (dag) to node[midway, above] {\footnotesize Identification} (estimand);
+			\draw[thick, ->] (estimand) to node[midway, above, rotate=90] {\footnotesize Estimator} (estimation);
+			\draw[thick, ->] (dag) [out=150, in=30, looseness=10] to node[midway, above] {\footnotesize Testing/Evaluation/Modification} (dag);
 
+			\draw[draw=red, thick] (-1, -0.5) rectangle (7, 0.5);
+		\end{tikzpicture}
+		\label{fig:workflow1}
+	\end{figure}
 	\begin{itemize}
-		\item Given a dataset learn the network structure.
-		\item The most challenging step of using the DAG framework.
+		\item \textbf{Casual Discovery: } Given a dataset, learn the causal structure among the variables.
+		\item Challenging to come up with a correct model.
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{PC algorithm}
-	Constraint-Based Algorithm: Exploits Conditional Indpendences in the data to construct the DAG.
+\begin{frame}{Automated Algorithms}
+	\begin{columns}
+		\begin{column}{0.5 \textwidth}
+			\center{\textbf{PC}: Constraint-Based Algorithm}
+			\begin{figure}
+				\centering
+				\includegraphics[scale=0.25]{imgs/adult_x2.png}
+			\end{figure}
+		\end{column}
+		\vrule
+		\begin{column}{0.5 \textwidth}
+			\center{\textbf{Hill-Climb Search: } Score Based Algorithm}
+			% \begin{figure}
+			% 	\centering
+			% 	\includegraphics[scale=0.25]{imgs/adult_bic.png}
+			% \end{figure}
+		\end{column}
+	\end{columns}
+	\vspace{3em}
+	\begin{itemize}
+		\item Algorithms have nice asymptotic properties.
+		\item In practice however, results vary significantly depending on the 
+			sample size, algorithm, and hyperparameters.
+	\end{itemize}
 \end{frame}
 
-\begin{frame}{Hill-Climb Search}
-	Score based: Tries to optimize the score by doing local changes.
-
-	Results can be very different depending on the algorithm, hyperparameter selections, etc.
-\end{frame}
+% \begin{frame}{PC algorithm}
+% 	Constraint-Based Algorithm: Exploits Conditional Indpendences in the data to construct the DAG.	
+% \end{frame}
+% 
+% \begin{frame}{Hill-Climb Search}
+% 	Score based: Tries to optimize the score by doing local changes.
+% 
+% 	Results can be very different depending on the algorithm, hyperparameter selections, etc.
+% \end{frame}
 
 \begin{frame}{And it continues}
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.4]{imgs/adult_pillai.png}
+	\end{figure}
 \end{frame}
 
 \begin{frame}{Casual Discovery}
-	Learnt models are usually incorrect.
+	\center{Models learnt using algorithms are usually incorrect.}
+
+	To get something useful:
 	\begin{itemize}
-		\item Really have to remember that: "All models are wrong, but some are useful" - George Box
-		\item Many automated algorithms but most of them would make mistakes.
-		\item Usually need to have some manual intervention. Need tools to guide this intervention.
-		\item As the ground truth is not known, difficult to test how good our model is. Adhoc methods to help with it.
+		% \item Really have to remember that: "All models are wrong, but some are useful" - George Box
+		% \item Many automated algorithms but most of them would make mistakes.
+		% \item Usually need to have some manual intervention. Need tools to guide this intervention.
+		% \item As the ground truth is not known, difficult to test how good our model is. Adhoc methods to help with it.
 	\end{itemize}
 	How do we improve on these methods?
-	We have implemented a bunch of method to help users create these models
+
+	pgmpy has a bunch of tools to help with this.
+
 \end{frame}
 
 \begin{frame}{Expert Knowledge Integration}
@@ -191,9 +243,13 @@
 	Specify fixed edges.
 \end{frame}
 
-\begin{frame}{Model evaluation}
-	Lots of options for learning the models. As we do not have access to ground truth
-	can be difficult to know which one is the best model.
+\begin{frame}{Bootstrapping}
+\end{frame}
+
+\begin{frame}{Model Evaluation}
+	Even with integrating expert knowledge, how can we be sure? 
+	As we have no ground truth information (think of unsupervised learning).
+	
 	\begin{itemize}
 		\item Implied CIs: Benefits, local testing, gives a hint of where things are wrong.
 		\item Fisher C: Similar to implied CIs but summerizes the whole model fit.
@@ -201,10 +257,14 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Bootstrapping}
+\begin{frame}{Implied Conditional Independences (CIs)}
+
 \end{frame}
 
 \begin{frame}{Causal Discovery Algorithms learn a CPDAG}
+	\begin{figure}
+	\end{figure}
+	
 	\begin{itemize}
 		\item Trying to learn a network structure which matches the covariance
 			structure.
