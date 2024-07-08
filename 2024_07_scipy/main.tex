@@ -69,6 +69,7 @@
 
 \begin{frame}{Two Main Framworks}
 	Mathematical formulations of causal inference:
+	\vspace{0.5em}
 	\begin{itemize}
 		\item Potential Outcomes Framework (a.k.a. Rubin's Casual Model)
 			\begin{itemize}
@@ -76,11 +77,14 @@
 				\item Provides statistical methods for estimating the counterfactual.
 				\item Statistically robust methods that can deal with assumption violations.
 			\end{itemize}
-		\item Directed Acyclic Graphs (DAG) / Structural Equation Models (SEMs)
+	\end{itemize}
+	\vspace{2em}
+	\begin{itemize}
+		\item Directed Acyclic Graphs (DAGs) / Structural Equation Models (SEMs)
 			\begin{itemize}
 				\item Causal diagram, i.e., DAG at the core.
 				\item Causal effect estimators can be defined using the DAG.
-				\item Modelling assumptions are more explicit.
+				\item Modelling assumptions are explicit.
 			\end{itemize}
 	\end{itemize}
 \end{frame}
@@ -169,36 +173,32 @@
 		\end{tikzpicture}
 		\label{fig:workflow1}
 	\end{figure}
-	\begin{itemize}
-		\item \textbf{Casual Discovery: } Given a dataset, learn the causal structure among the variables.
-		\item Challenging to come up with a correct model.
-	\end{itemize}
+	\vspace{2em}
+	\center \textbf{Casual Discovery: } Learn the causal structure among the variables using data.
 \end{frame}
 
 \begin{frame}{Automated Algorithms}
-	\begin{columns}
-		\begin{column}{0.5 \textwidth}
-			\center{\textbf{PC}: Constraint-Based Algorithm}
-			\begin{figure}
-				\centering
-				\includegraphics[scale=0.25]{imgs/adult_x2.png}
-			\end{figure}
-		\end{column}
-		\vrule
-		\begin{column}{0.5 \textwidth}
-			\center{\textbf{Hill-Climb Search: } Score Based Algorithm}
-			% \begin{figure}
-			% 	\centering
-			% 	\includegraphics[scale=0.25]{imgs/adult_bic.png}
-			% \end{figure}
-		\end{column}
-	\end{columns}
-	\vspace{3em}
 	\begin{itemize}
-		\item Algorithms have nice asymptotic properties.
-		\item In practice however, results vary significantly depending on the 
-			sample size, algorithm, and hyperparameters.
+		\item Plenty of automated algorithms with nice asymptotic properties.
+		\item In practice, output varies significantly depending on sample size,
+			algorithm, and their hyperparameters.
+		\item Difficult to decide which model is correct.
 	\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Automated Algorithms}
+	\todo[inline]{Code for both}
+	\center{\textbf{PC}: Constraint-Based Algorithm}
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.25]{imgs/adult_x2.png}
+	\end{figure}
+	\center{\textbf{Hill-Climb Search: } Score Based Algorithm}
+	% \begin{figure}
+	% 	\centering
+	% 	\includegraphics[scale=0.25]{imgs/adult_bic.png}
+	% \end{figure}
 \end{frame}
 
 % \begin{frame}{PC algorithm}
@@ -219,19 +219,26 @@
 \end{frame}
 
 \begin{frame}{Casual Discovery}
+	\center{Which of these models are correct?}
+
+	\center{\textcolor{Probably None}}
+
 	\center{Models learnt using algorithms are usually incorrect.}
 
-	To get something useful:
+	\center{\textcolor{red}{ How do we improve the output?}}
+
+	\vspace{2em}
+
 	\begin{itemize}
+		\item Incorporate expert knowledge
+		\item Testing models and manually modify based on that.
 		% \item Really have to remember that: "All models are wrong, but some are useful" - George Box
 		% \item Many automated algorithms but most of them would make mistakes.
 		% \item Usually need to have some manual intervention. Need tools to guide this intervention.
 		% \item As the ground truth is not known, difficult to test how good our model is. Adhoc methods to help with it.
 	\end{itemize}
-	How do we improve on these methods?
 
-	pgmpy has a bunch of tools to help with this.
-
+	\center{pgmpy implements a bunch of tools to help with these}
 \end{frame}
 
 \begin{frame}{Expert Knowledge Integration}
@@ -247,6 +254,27 @@
 \end{frame}
 
 \begin{frame}{Bootstrapping}
+\end{frame}
+
+\begin{frame}
+	\begin{figure}
+		\centering
+		\begin{tikzpicture}[yscale=1, xscale=0.75, inner sep=3pt]
+		\tikzstyle{every node}=[align=left]
+			\node (data) at (0, 0) {Data};
+			\node (dag) at (6, 0) {DAG};
+			\node (estimand) at (12, 0) {Estimation Strategy};
+			\node (estimation) at (12, -2.5) {Causal Estimate};
+	
+			\draw[thick, ->] (data) to node[midway, above]{\footnotesize Causal Discovery} (dag);
+			\draw[thick, ->] (dag) to node[midway, above] {\footnotesize Identification} (estimand);
+			\draw[thick, ->] (estimand) to node[midway, above, rotate=90] {\footnotesize Estimator} (estimation);
+			\draw[thick, ->] (dag) [out=150, in=30, looseness=10] to node[midway, above] {\footnotesize Testing/Evaluation/Modification} (dag);
+
+			\draw[draw=red, thick] (3, -0.5) rectangle (9, 3);
+		\end{tikzpicture}
+		\label{fig:workflow1}
+	\end{figure}
 \end{frame}
 
 \begin{frame}{Model Evaluation}
@@ -335,11 +363,15 @@
 \end{frame}
 
 \begin{frame}{Simulations}
+
 \end{frame}
 
-\begin{frame}{Extensibiilty}
-	Lots of new methods are being developed.
-	Easy to integrate new algorithms.
+\begin{frame}{Extensible}
+	\begin{itemize}
+		\item Very active field of research, lots of new methods are getting developed.
+		\item pgmpy offers easy ways to extend/modify algorithms where ever possible.
+	\end{itemize}	
+	$ random ci_test $
 \end{frame}
 
 \begin{frame}{Lot more functionality}
