@@ -324,23 +324,37 @@
 \end{frame}
 
 \begin{frame}{Identification}
+	\begin{figure}
+		\centering
+		\begin{tikzpicture}[yscale=1, xscale=0.75, inner sep=3pt]
+		\tikzstyle{every node}=[align=left]
+			\node (data) at (0, 0) {Data};
+			\node (dag) at (6, 0) {DAG};
+			\node (estimand) at (12, 0) {Estimation Strategy};
+			\node (estimation) at (12, -2.5) {Causal Estimate};
+	
+			\draw[thick, ->] (data) to node[midway, above]{\footnotesize Causal Discovery} (dag);
+			\draw[thick, ->] (dag) to node[midway, above] {\footnotesize Identification} (estimand);
+			\draw[thick, ->] (estimand) to node[midway, above, rotate=90] {\footnotesize Estimator} (estimation);
+			\draw[thick, ->] (dag) [out=150, in=30, looseness=10] to node[midway, above] {\footnotesize Testing/Evaluation/Modification} (dag);
+
+			\draw[draw=red, thick] (-1, -0.5) rectangle (7, 0.5);
+		\end{tikzpicture}
+		\label{fig:workflow1}
+	\end{figure}
 	\begin{itemize}
-		\item Second step: Assuming that we have an oriented DAG.
+		\item Once we have decided on the model, we can start estimating causal effects.
+		\item \textbf{Identification}: Whether the causal effect is estimable? If yes, what is the estimand?
 		\item Everything is identified in the case of fully observed models.
-		\item When latent variables are present, need to determine identfiablity.
 	\end{itemize}
 \end{frame}
 
 \begin{frame}{do-calculus}
-	\begin{itemize}
-		\item Rules of do-calculus provide a full solution but no
-			efficient algorithm.
-		\item Other criterion with efficient algorithm but can only
-			identify special cases.
-		\item Back-door criterion
-		\item Front-door criterion
-		\item Instrumental variables.
-	\end{itemize}
+	Theoretically, do-calculus provided a complete solution.
+
+	\textcolor{red}{No efficient algorithms to use it in practice}
+
+	Solution is to use simpler criteria for identifiability. But it can miss cases which might be identifiable.
 \end{frame}
 
 \begin{frame}{Backdoor Criterion}
@@ -356,9 +370,28 @@
 \end{frame}
 
 \begin{frame}{Estimation}
+	\begin{figure}
+		\centering
+		\begin{tikzpicture}[yscale=1, xscale=0.75, inner sep=3pt]
+		\tikzstyle{every node}=[align=left]
+			\node (data) at (0, 0) {Data};
+			\node (dag) at (6, 0) {DAG};
+			\node (estimand) at (12, 0) {Estimation Strategy};
+			\node (estimation) at (12, -2.5) {Causal Estimate};
+	
+			\draw[thick, ->] (data) to node[midway, above]{\footnotesize Causal Discovery} (dag);
+			\draw[thick, ->] (dag) to node[midway, above] {\footnotesize Identification} (estimand);
+			\draw[thick, ->] (estimand) to node[midway, above, rotate=90] {\footnotesize Estimator} (estimation);
+			\draw[thick, ->] (dag) [out=150, in=30, looseness=10] to node[midway, above] {\footnotesize Testing/Evaluation/Modification} (dag);
+
+			\draw[draw=red, thick] (-1, -0.5) rectangle (7, 0.5);
+		\end{tikzpicture}
+		\label{fig:workflow1}
+	\end{figure}
+
 	\begin{itemize}
-		\item The identification method give the estimand.
-		\item Use your favourite method for actual estimation.
+		\item Identification methods give the estimand.
+		\item Use your faviorite estimator to actually do the estimates.
 	\end{itemize}
 \end{frame}
 
