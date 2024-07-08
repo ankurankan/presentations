@@ -191,16 +191,17 @@
 	Specify fixed edges.
 \end{frame}
 
-\begin{frame}{Bootstrapping}
-\end{frame}
-
 \begin{frame}{Model evaluation}
-	Lots of options for learning the models. How do know which one is the best?
+	Lots of options for learning the models. As we do not have access to ground truth
+	can be difficult to know which one is the best model.
 	\begin{itemize}
 		\item Implied CIs: Benefits, local testing, gives a hint of where things are wrong.
 		\item Fisher C: Similar to implied CIs but summerizes the whole model fit.
 		\item Compare models using likelihood or a scoring metric to see which fits better.
 	\end{itemize}
+\end{frame}
+
+\begin{frame}{Bootstrapping}
 \end{frame}
 
 \begin{frame}{Causal Discovery Algorithms learn a CPDAG}
@@ -231,7 +232,6 @@
 	\begin{itemize}
 		\item Second step: Assuming that we have an oriented DAG.
 		\item Everything is identified in the case of fully observed models.
-
 		\item When latent variables are present, need to determine identfiablity.
 	\end{itemize}
 \end{frame}
