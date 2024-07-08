@@ -41,9 +41,14 @@
 \begin{document}
 
 \title[]{Introduction to Casual Inference using pgmpy}
+\author{Ankur Ankan}
+\institute{Radboud University}
 \date{}
 
 \maketitle
+
+\begin{frame}{Predictive vs Causal Questions}
+\end{frame}
 
 \begin{frame}{Few real life examples}
 	\begin{itemize}
@@ -53,15 +58,11 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Predictive vs Causal Questions}
-\end{frame}
-
 \begin{frame}{Landscape of Causal Inference Packages}
 	\begin{itemize}
-		\item Potential Outcomes Framework
+		\item Potential Outcomes Framework (aka Rubin's Causal Model)
 			\begin{itemize}
-				\item a.k.a Rubin's Causal Models 
-				\item Very broadly: Use when you exactly know what you are trying to estimate.
+				\item 
 				\item Propensity score methods
 					\begin{figure}
 						\includegraphics[scale=0.1]{imgs/dowhy.png}
@@ -129,10 +130,12 @@
 \end{frame}
 
 \begin{frame}{PC algorithm}
+	Constraint-Based Algorithm: Exploits Conditional Indpendences in the data to construct the DAG.
 
 \end{frame}
 
 \begin{frame}{Hill-Climb Search}
+	Score based: Tries to optimize the score by doing local changes.
 \end{frame}
 
 \begin{frame}{Casual Discovery}
@@ -163,7 +166,7 @@
 	Pairwise edge orientation rules.
 \end{frame}
 
-\begin{frame}
+\begin{frame}{Minimal Orientation}
 \end{frame}
 
 \begin{frame}{LLM Based Structure Learning}
@@ -181,6 +184,8 @@
 \begin{frame}{Using DAG in the PO framework}
 	As DAGs explicitly show all the information, it can be used to make
 	decisions in the PO framework as well.
+
+	The graph can be put into pywhy as well.
 \end{frame}
 
 \begin{frame}{Identification}
