@@ -42,7 +42,7 @@
 
 \title[]{Introduction to Casual Inference using pgmpy}
 \author{Ankur Ankan}
-\institute{Radboud University}
+\institute{Postdoctoral Researcher, Radboud University, The Netherlands}
 \date{}
 
 \maketitle
@@ -63,15 +63,15 @@
 	\begin{itemize}
 		\item Potential Outcomes Framework (aka Rubin's Casual Model)
 			\begin{itemize}
-				\item Counterfactual is at the center.
-				\item Provides methods to robustly estimate the counterfactual given assumptions are satisfied.
-				\item Flexible methods that can give estimates even when some of the assumptions fail.
+				\item Counterfactual is at core.
+				\item Methods for estimation of counterfactual if assumptions are satisfied.
+				\item Robust methods that can work under some assumption violations.
 			\end{itemize}
 		\item Directed Acyclic Graphs (DAG) / Structural Equation Models (SEMs)
 			\begin{itemize}
-				\item The causal diagram (DAG) is at the center.
-				\item Using the DAG, we can define estimators of interest.
-				\item Assumptions of model are more explicit.
+				\item Causal diagram, i.e., DAG at the core.
+				\item Estimators for causal effect of interest can be defined using the DAG.
+				\item Modelling assumptions are more explicit.
 			\end{itemize}
 	\end{itemize}
 \end{frame}
@@ -98,35 +98,36 @@
 				\begin{figure}
 					\includegraphics[scale=0.1]{imgs/pgmpy.png}
 				\end{figure}
+			\item bnlearn
 			\item casualnex
-				\begin{figure}
-					\includegrap
-				\end{figure}
 	\end{itemize}
 \end{frame}
 
 \begin{frame}{A General Workflow in the DAG Framework}
-
-\begin{figure}[t]
-	\centering
-	\begin{tikzpicture}[yscale=1, xscale=0.75, inner sep=1pt]
-	\tikzstyle{every node}=[align=left]
-		\node (data) at (0, 0) {Data};
-		\node (dag) at (5, 0) {DAG};
-		\node (estimand) at (10, 0) {Estimand};
-		\node (estimation) at (15, 0) {Causal Estimation};
-
-		\draw[->] (data) to node[midway, above]{\footnotesize Causal Discovery} (dag);
-		\draw[->] (dag) to node[midway, above] {\footnotesize Identification} (estimand);
-		\draw[->] (estimand) to node[midway, above] {\footnotesize Estimation} (estimation);
-		\draw[->] (dag) [out=120, in=30, looseness=10] to node[midway, above] {\footnotesize Testing} (dag);
-	\end{tikzpicture}
-	\label{fig:workflow}
-\end{figure}
-
+	\begin{figure}
+		\centering
+		\begin{tikzpicture}[yscale=1, xscale=0.75, inner sep=1pt]
+		\tikzstyle{every node}=[align=left]
+			\node (data) at (0, 0) {Data};
+			\node (dag) at (5, 0) {DAG};
+			\node (estimand) at (10, 0) {Estimand};
+			\node (estimation) at (15, 0) {Causal Estimation};
+	
+			\draw[->] (data) to node[midway, above]{\footnotesize Causal Discovery} (dag);
+			\draw[->] (dag) to node[midway, above] {\footnotesize Identification} (estimand);
+			\draw[->] (estimand) to node[midway, above] {\footnotesize Estimation} (estimation);
+			\draw[->] (dag) [out=120, in=30, looseness=10] to node[midway, above] {\footnotesize Testing} (dag);
+		\end{tikzpicture}
+		\label{fig:workflow}
+	\end{figure}
 \end{frame}
 
 \begin{frame}{What does pgmpy provide}
+	\begin{itemize}
+		\item Provides standardized implementations of commonly used algorithms.
+		\item Practical methods methods.
+		\item Extensible.
+	\end{itemize}
 \end{frame}
 
 \begin{frame}{Causal Discovery}
@@ -159,6 +160,8 @@
 
 \begin{frame}{Hill-Climb Search}
 	Score based: Tries to optimize the score by doing local changes.
+
+	Results can be very different depending on the algorithm, hyperparameter selections, etc.
 \end{frame}
 
 \begin{frame}{And it continues}
@@ -180,12 +183,15 @@
 	Specify blacklisted and whitelisted edges.
 \end{frame}
 
-\begin{frame}{Expert Knowledge} 
+\begin{frame}{Expert Knowledge Integration} 
 	Specify initial model.
 \end{frame}
 
-\begin{frame}
+\begin{frame}{Expert Knowledge Integration}
 	Specify fixed edges.
+\end{frame}
+
+\begin{frame}{Bootstrapping}
 \end{frame}
 
 \begin{frame}{Model evaluation}
