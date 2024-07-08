@@ -180,7 +180,12 @@
 \begin{frame}{Automated Algorithms}
 	\begin{itemize}
 		\item Plenty of automated algorithms with nice asymptotic properties.
-		\item In practice, output varies significantly depending on sample size,
+			\begin{itemize}
+				\item Constraint-based: PC, Fast Causal Inference.
+				\item Score-based: Greedy Equivalence Search, Hill-Climb Search.
+				\item Optimization-based: NoTears, DAGMA.
+			\end{itemize}
+		\item In practice, output varies significantly depending on sample size,	
 			algorithm, and their hyperparameters.
 		\item Difficult to decide which model is correct.
 	\end{itemize}
@@ -188,17 +193,21 @@
 \end{frame}
 
 \begin{frame}{Automated Algorithms}
-	\todo[inline]{Code for both}
 	\center{\textbf{PC}: Constraint-Based Algorithm}
 	\begin{figure}
 		\centering
-		\includegraphics[scale=0.25]{imgs/adult_x2.png}
+		\begin{subfigure}{0.5\textwidth}
+			\includegraphics[scale=0.2]{imgs/pc_x2.png}
+		\end{subfigure}%
+		\begin{subfigure}{0.5\textwidth}
+			\includegraphics[scale=0.25]{imgs/adult_x2.png}
+		\end{subfigure}
 	\end{figure}
 	\center{\textbf{Hill-Climb Search: } Score Based Algorithm}
-	% \begin{figure}
-	% 	\centering
-	% 	\includegraphics[scale=0.25]{imgs/adult_bic.png}
-	% \end{figure}
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.25]{imgs/adult_bic.png}
+	\end{figure}
 \end{frame}
 
 % \begin{frame}{PC algorithm}
@@ -221,11 +230,11 @@
 \begin{frame}{Casual Discovery}
 	\center{Which of these models are correct?}
 
-	\center{\textcolor{Probably None}}
+	% \center{\textcolor{Probably None}}
 
 	\center{Models learnt using algorithms are usually incorrect.}
 
-	\center{\textcolor{red}{ How do we improve the output?}}
+	% \center{\textcolor{red}{ How do we improve the output?}}
 
 	\vspace{2em}
 
@@ -242,15 +251,24 @@
 \end{frame}
 
 \begin{frame}{Expert Knowledge Integration}
-	Specify blacklisted and whitelisted edges.
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.4]{imgs/adult_bic_blacklist.png}
+	\end{figure}
 \end{frame}
 
 \begin{frame}{Expert Knowledge Integration} 
-	Specify initial model.
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.4]{imgs/adult_bic_start.png}
+	\end{figure}
 \end{frame}
 
 \begin{frame}{Expert Knowledge Integration}
-	Specify fixed edges.
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.4]{imgs/adult_bic_fixed.png}
+	\end{figure}
 \end{frame}
 
 \begin{frame}{Bootstrapping}
@@ -273,7 +291,7 @@
 
 			\draw[draw=red, thick] (3, -0.5) rectangle (9, 3);
 		\end{tikzpicture}
-		\label{fig:workflow1}
+		\label{fig:workflow2}
 	\end{figure}
 \end{frame}
 
@@ -338,9 +356,9 @@
 			\draw[thick, ->] (estimand) to node[midway, above, rotate=90] {\footnotesize Estimator} (estimation);
 			\draw[thick, ->] (dag) [out=150, in=30, looseness=10] to node[midway, above] {\footnotesize Testing/Evaluation/Modification} (dag);
 
-			\draw[draw=red, thick] (-1, -0.5) rectangle (7, 0.5);
+			\draw[draw=red, thick] (5, -0.5) rectangle (14.5, 0.5);
 		\end{tikzpicture}
-		\label{fig:workflow1}
+		\label{fig:workflow3}
 	\end{figure}
 	\begin{itemize}
 		\item Once we have decided on the model, we can start estimating causal effects.
@@ -384,9 +402,9 @@
 			\draw[thick, ->] (estimand) to node[midway, above, rotate=90] {\footnotesize Estimator} (estimation);
 			\draw[thick, ->] (dag) [out=150, in=30, looseness=10] to node[midway, above] {\footnotesize Testing/Evaluation/Modification} (dag);
 
-			\draw[draw=red, thick] (-1, -0.5) rectangle (7, 0.5);
+			\draw[draw=red, thick] (9, -3) rectangle (15, 0.5);
 		\end{tikzpicture}
-		\label{fig:workflow1}
+		\label{fig:workflow4}
 	\end{figure}
 
 	\begin{itemize}
