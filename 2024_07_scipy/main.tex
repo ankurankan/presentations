@@ -47,10 +47,10 @@
 
 \maketitle
 
-\begin{frame}{Predictive vs Causal Questions}
+\begin{frame}{Predictive Models vs Causal Questions}
 \end{frame}
 
-\begin{frame}{Few real life examples}
+\begin{frame}{Motivating Examples}
 	\begin{itemize}
 		\item Finding how variables interact.
 		\item Key drivers of an outcome.
@@ -58,11 +58,28 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Landscape of Causal Inference Packages}
+\begin{frame}{Two Main Framworks}
+	Mathematical formulations of causal inference:
+	\begin{itemize}
+		\item Potential Outcomes Framework (aka Rubin's Casual Model)
+			\begin{itemize}
+				\item Counterfactual is at the center.
+				\item Provides methods to robustly estimate the counterfactual given assumptions are satisfied.
+				\item Flexible methods that can give estimates even when some of the assumptions fail.
+			\end{itemize}
+		\item Directed Acyclic Graphs (DAG) / Structural Equation Models (SEMs)
+			\begin{itemize}
+				\item The causal diagram (DAG) is at the center.
+				\item Using the DAG, we can define estimators of interest.
+				\item Assumptions of model are more explicit.
+			\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Landscape of Causal Inference Python Packages}
 	\begin{itemize}
 		\item Potential Outcomes Framework (aka Rubin's Causal Model)
 			\begin{itemize}
-				\item 
 				\item Propensity score methods
 					\begin{figure}
 						\includegraphics[scale=0.1]{imgs/dowhy.png}
@@ -77,10 +94,14 @@
 					\end{figure}
 			\end{itemize}
 		\item Directed Acyclic Graphs / Structural Causal Models: 
-			\begin{figure}
-				\includegraphics[scale=0.1]{imgs/pgmpy.png}
-			\end{figure}
-			
+			\item pgmpy
+				\begin{figure}
+					\includegraphics[scale=0.1]{imgs/pgmpy.png}
+				\end{figure}
+			\item casualnex
+				\begin{figure}
+					\includegrap
+				\end{figure}
 	\end{itemize}
 \end{frame}
 
@@ -103,6 +124,9 @@
 	\label{fig:workflow}
 \end{figure}
 
+\end{frame}
+
+\begin{frame}{What does pgmpy provide}
 \end{frame}
 
 \begin{frame}{Causal Discovery}
@@ -131,27 +155,45 @@
 
 \begin{frame}{PC algorithm}
 	Constraint-Based Algorithm: Exploits Conditional Indpendences in the data to construct the DAG.
-
 \end{frame}
 
 \begin{frame}{Hill-Climb Search}
 	Score based: Tries to optimize the score by doing local changes.
 \end{frame}
 
+\begin{frame}{And it continues}
+\end{frame}
+
 \begin{frame}{Casual Discovery}
+	Learnt models are usually incorrect.
 	\begin{itemize}
 		\item Really have to remember that: "All models are wrong, but some are useful" - George Box
 		\item Many automated algorithms but most of them would make mistakes.
 		\item Usually need to have some manual intervention. Need tools to guide this intervention.
 		\item As the ground truth is not known, difficult to test how good our model is. Adhoc methods to help with it.
 	\end{itemize}
+	How do we improve on these methods?
+	We have implemented a bunch of method to help users create these models
 \end{frame}
 
-\begin{frame}{Integrating Expert Knowledge}
+\begin{frame}{Expert Knowledge Integration}
+	Specify blacklisted and whitelisted edges.
+\end{frame}
+
+\begin{frame}{Expert Knowledge} 
+	Specify initial model.
+\end{frame}
+
+\begin{frame}
+	Specify fixed edges.
+\end{frame}
+
+\begin{frame}{Model evaluation}
+	Lots of options for learning the models. How do know which one is the best?
 	\begin{itemize}
-		\item Specify blacklisted/whitelisted edges.
-		\item Specify starting model.
-		\item Specify fixed edges.
+		\item Implied CIs: Benefits, local testing, gives a hint of where things are wrong.
+		\item Fisher C: Similar to implied CIs but summerizes the whole model fit.
+		\item Compare models using likelihood or a scoring metric to see which fits better.
 	\end{itemize}
 \end{frame}
 
@@ -170,15 +212,6 @@
 \end{frame}
 
 \begin{frame}{LLM Based Structure Learning}
-\end{frame}
-
-\begin{frame}{Model evaluation}
-	Lots of options for learning the models. How do know which one is the best?
-	\begin{itemize}
-		\item Implied CIs: Benefits, local testing, gives a hint of where things are wrong.
-		\item Fisher C: Similar to implied CIs but summerizes the whole model fit.
-		\item Compare models using likelihood or a scoring metric to see which fits better.
-	\end{itemize}
 \end{frame}
 
 \begin{frame}{Using DAG in the PO framework}
@@ -231,6 +264,11 @@
 \begin{frame}{Simulations}
 \end{frame}
 
+\begin{frame}{Extensibiilty}
+	Lots of new methods are being developed.
+	Easy to integrate new algorithms.
+\end{frame}
+
 \begin{frame}{Lot more functionality}
 	\begin{itemize}
 		\item Other models such as SEM, Dynamic Bayesian Networks, Cluster Graphs.
@@ -239,6 +277,21 @@
 		\item Reading writing to interface with other packages.
 		\item Plotting functionality
 		\item Parameter Estimation
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Conclusion}
+	\begin{itemize}
+		\item Building causal models is an iterative process.
+		\item Integrating expert knowledge can help a lot.
+		\item Things are easy once we have the graph.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Future Plans}
+	\begin{itemize}
+		\item Focus on developing more practical methods.
+		\item Wider support for mixed data.
 	\end{itemize}
 \end{frame}
 
@@ -259,5 +312,4 @@
 		\item Can show an example where Shapley values would still find an association, but causal inference would not. The standard confounding case.
 	\end{itemize}
 \end{frame}
-
 \end{document}
