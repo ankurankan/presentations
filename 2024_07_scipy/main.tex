@@ -74,8 +74,8 @@
 		\item Potential Outcomes Framework (a.k.a. Rubin's Casual Model)
 			\begin{itemize}
 				\item Counterfactual statement at the core.
-				\item Provides statistical methods for estimating the counterfactual.
-				\item Statistically robust methods that can deal with assumption violations.
+				\item Provides statistical methods for estimating the counterfactual such Propensity Score based methods, Dobly robust estimators, etc.
+				% \item Statistically robust methods that can deal with assumption violations.
 			\end{itemize}
 	\end{itemize}
 	\vspace{2em}
@@ -94,7 +94,7 @@
 		\begin{column}{0.5 \textwidth}
 			\center{\textbf{Potential Outcomes Framework}}
 			\begin{itemize}
-				\item Estimation methods such as Propensity Score.
+				\item Collection of estimation methods
 					\begin{figure}
 						\includegraphics[scale=0.2]{imgs/dowhy.png}
 					\end{figure}
@@ -117,7 +117,6 @@
 					\begin{figure}
 						\includegraphics[scale=0.2]{imgs/pgmpy.png}
 					\end{figure}
-				\item \textbf{bnlearn}: Easy to use API
 				\item casualnex
 					\begin{figure}
 						\includegraphics[height=2cm, width=3cm, scale=0.2]{imgs/causalnex.png}
@@ -144,16 +143,19 @@
 		\end{tikzpicture}
 		\label{fig:workflow}
 	\end{figure}
+
+	\center{pgmpy provides functionality to perform each of these steps}
+
 \end{frame}
 
-\begin{frame}{What does pgmpy provide}
-	Will show how to perform each of these steps in pgmpy.
-	\begin{itemize}
-		\item Provides standardized implementations of commonly used algorithms.
-		\item Practical methods methods.
-		\item Extensible.
-	\end{itemize}
-\end{frame}
+% \begin{frame}{What does pgmpy provide}
+% 	Will show how to perform each of these steps in pgmpy.
+% 	\begin{itemize}
+% 		\item Provides standardized implementations of commonly used algorithms.
+% 		\item Practical methods methods.
+% 		\item Extensible.
+% 	\end{itemize}
+% \end{frame}
 
 \begin{frame}{Causal Discovery}
 	\begin{figure}
@@ -178,17 +180,17 @@
 	\center \textbf{Casual Discovery: } Learn the causal structure among the variables using data.
 \end{frame}
 
-\begin{frame}{Automated Algorithms}
+\begin{frame}{Automated Causal Discovery Algorithms}
 	\begin{itemize}
-		\item Plenty of automated algorithms with nice asymptotic properties.
+		\item Many automated algorithms with nice asymptotic properties.
 			\begin{itemize}
 				\item Constraint-based: PC, Fast Causal Inference.
 				\item Score-based: Greedy Equivalence Search, Hill-Climb Search.
 				\item Optimization-based: NoTears, DAGMA.
 			\end{itemize}
-		\item In practice, output varies significantly depending on sample size	
-			algorithm, and their hyperparameters.
-		\item With no standard evaluation method, difficult to choose a model.
+		\item In practice, output varies significantly depending on sample size,
+			algorithm used, and their hyperparameters.
+		\item With no standard evaluation method, difficult to decide the correct model.
 	\end{itemize}
 \end{frame}
 
@@ -204,6 +206,7 @@
 		\end{subfigure}
 	\end{figure}
 	\center{\textbf{Hill-Climb Search: } Score Based Algorithm}
+	\todo[inline]{Add the code figure}
 	\begin{figure}
 		\centering
 		\includegraphics[scale=0.25]{imgs/adult_bic.png}
@@ -223,51 +226,63 @@
 \begin{frame}{Hyperparameter}
 	\begin{figure}
 		\centering
+		\includegraphics[scale=0.4]{imgs/adult_x2.png}
+	\end{figure}
+	\begin{figure}
+		\centering
 		\includegraphics[scale=0.4]{imgs/adult_pillai.png}
 	\end{figure}
 \end{frame}
 
-\begin{frame}{Problems with automated Casual Discovery}
-	\center{Which of these models are correct?}
-
-	\center{\textcolor{Probably None}}
+\begin{frame}{Problems With Automated Casual Discovery}
+	\todo[inline]{Improve this slide}
+	\begin{itemize}
+		\item Difficult to choose the correct model.
+		\item Lack of standard evaluation metrics.
+	\end{itemize}
 
 	\vspace{2em}
 
 	pgmpy implements a bunch of tools to help with:
 	\begin{itemize}
 		\item Incorporating expert knowledge.
-		\item Testing models.
+		\item Evaluation Metrics.
+		\item Methods to help users modify models.
 	\end{itemize}
 \end{frame}
 
 \begin{frame}{Expert Knowledge Integration}
 	\begin{itemize}
-		\item Users can blacklist/whitelist edges.
+		\item Users can specify edges to blacklist/whitelist.
+		\item The algorithm never adds blacklisted edges and only
+			searches over whitelisted edges.
 	\end{itemize}
 	\begin{figure}
 		\centering
-		\includegraphics[scale=0.4]{imgs/adult_bic_blacklist.png}
+		\includegraphics[scale=0.3]{imgs/adult_bic_blacklist.png}
 	\end{figure}
 \end{frame}
 
 \begin{frame}{Expert Knowledge Integration}
 	\begin{itemize}
-		\item Hill-Climb Search does local optimization, giving a good start point can lead to better results.
+		\item Score based methods perform local optimization.
+		\item Specifying a good starting model can help them in getting to better 
+			optimum.
 	\end{itemize}
 	\begin{figure}
 		\centering
-		\includegraphics[scale=0.4]{imgs/adult_bic_start.png}
+		\includegraphics[scale=0.3]{imgs/adult_bic_start.png}
 	\end{figure}
 \end{frame}
 
 \begin{frame}{Expert Knowledge Integration}
 	\begin{itemize}
-		\item Can fix some edges that we are confident about to be present in the final DAG.
+		\item Allows users to specify fixed edges that they want in final model.
+		\item Can be used to specify obvious relations in the model.
 	\end{itemize}
 	\begin{figure}
 		\centering
-		\includegraphics[scale=0.4]{imgs/adult_bic_fixed.png}
+		\includegraphics[scale=0.2]{imgs/adult_bic_fixed.png}
 	\end{figure}
 \end{frame}
 
@@ -293,20 +308,24 @@
 		\end{tikzpicture}
 		\label{fig:workflow2}
 	\end{figure}
-\end{frame}
 
-\begin{frame}{Model Evaluation}	
-	Even with integrating expert knowledge, how can we be sure? 
-	As we have no ground truth information (think of unsupervised learning).
-	
 	\begin{itemize}
-		\item Implied CIs: Benefits, local testing, gives a hint of where things are wrong.
-		\item Fisher C: Similar to implied CIs but summerizes the whole model fit.
-		\item Compare models using likelihood or a scoring metric to see which fits better.
+		\item Adding expert knowledge can be helpful, but experts can also make mistakes, or miss/overadd edges.
+		\item Usually experts end up with very dense models when drawing manually.
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Implied Conditional Independences (CIs)}
+\begin{frame}{Model Evaluation}
+	We don't have access to ground truth, so no straight-forward way to evaluate the model.
+
+	\begin{itemize}
+		\item Testing implied Conditional Independences (CIs): 
+		\item Fisher C: Similar to implied CIs but summerizes the whole model fit.
+		\item Data Fit metrics such as likelihood or structure scores to compare models.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Testing Implied Conditional Independences (CIs)}
 	DAGs imply Conditional Independences (CIs).
 \end{frame}
 
