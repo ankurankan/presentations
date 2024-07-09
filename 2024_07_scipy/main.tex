@@ -68,7 +68,7 @@
 \end{frame}
 
 \begin{frame}{Two Main Framworks}
-	Mathematical formulations of causal inference:
+	Mathematical frameworks for causal inference:
 	\vspace{0.5em}
 	\begin{itemize}
 		\item Potential Outcomes Framework (a.k.a. Rubin's Casual Model)
@@ -220,7 +220,7 @@
 % 	Results can be very different depending on the algorithm, hyperparameter selections, etc.
 % \end{frame}
 
-\begin{frame}{And it continues}
+\begin{frame}{Hyperparameter}
 	\begin{figure}
 		\centering
 		\includegraphics[scale=0.4]{imgs/adult_pillai.png}
@@ -242,13 +242,19 @@
 \end{frame}
 
 \begin{frame}{Expert Knowledge Integration}
+	\begin{itemize}
+		\item Users can blacklist/whitelist edges.
+	\end{itemize}
 	\begin{figure}
 		\centering
 		\includegraphics[scale=0.4]{imgs/adult_bic_blacklist.png}
 	\end{figure}
 \end{frame}
 
-\begin{frame}{Expert Knowledge Integration} 
+\begin{frame}{Expert Knowledge Integration}
+	\begin{itemize}
+		\item Hill-Climb Search does local optimization, giving a good start point can lead to better results.
+	\end{itemize}
 	\begin{figure}
 		\centering
 		\includegraphics[scale=0.4]{imgs/adult_bic_start.png}
@@ -256,14 +262,17 @@
 \end{frame}
 
 \begin{frame}{Expert Knowledge Integration}
+	\begin{itemize}
+		\item Can fix some edges that we are confident about to be present in the final DAG.
+	\end{itemize}
 	\begin{figure}
 		\centering
 		\includegraphics[scale=0.4]{imgs/adult_bic_fixed.png}
 	\end{figure}
 \end{frame}
 
-\begin{frame}{Bootstrapping}
-\end{frame}
+% \begin{frame}{Bootstrapping}
+% \end{frame}
 
 \begin{frame}
 	\begin{figure}
@@ -299,8 +308,6 @@
 
 \begin{frame}{Implied Conditional Independences (CIs)}
 	DAGs imply Conditional Independences (CIs).
-
-
 \end{frame}
 
 \begin{frame}{Causal Discovery Algorithms learn a CPDAG}
@@ -367,18 +374,28 @@
 
 	In practice, we use a bunch of simpler identification strategies, each of which
 	can identify a subset of effects.
+
+	\todo[inline]{Add a venn diagram here}
 \end{frame}
 
 \begin{frame}{Backdoor Criterion}
+	\begin{itemize}
+		\item Finds adjustment variables to block all confounding paths.
+	\end{itemize}
 \end{frame}
 
 \begin{frame}{Front-door Criterion}
+	\begin{itemize}
+		\item Double application of backdoor criterion.
+		\item Used for scenarios when there are mediator variables.
+	\end{itemize}
 \end{frame}
 
 \begin{frame}{Instrumental Variables}
-\end{frame}
-
-\begin{frame}{pgmpy takes care of all this}
+	\begin{itemize}
+		\item Use variables which are correlated with the outcome variable only
+			through the exposure variable.
+	\end{itemize}
 \end{frame}
 
 \begin{frame}{Estimation}
@@ -403,7 +420,17 @@
 
 	\begin{itemize}
 		\item Identification methods give the estimand.
-		\item Use your faviorite estimator to actually do the estimates.
+		\item Any estimator can be used to make the estimates.
+		\item Usually people use linear models for their interpretability.
+		\item pgmpy has a discrete variable inference engine, that can be used
+			as well.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Some other functionality}
+	\begin{itemize}
+		\item Simulations
+		\item Extensible
 	\end{itemize}
 \end{frame}
 
@@ -418,25 +445,6 @@
 	\end{itemize}	
 	$ random ci_test $
 \end{frame}
-
-\begin{frame}{Lot more functionality}
-	\begin{itemize}
-		\item Other models such as SEM, Dynamic Bayesian Networks, Cluster Graphs.
-		\item Probabilistic Inference
-		\item Approximate Inference using Sampling
-		\item Reading writing to interface with other packages.
-		\item Plotting functionality
-		\item Parameter Estimation
-	\end{itemize}
-\end{frame}
-
-% \begin{frame}{Conclusion}
-% 	\begin{itemize}
-% 		\item Building causal models is an iterative process.
-% 		\item Integrating expert knowledge can help a lot.
-% 		\item Things are easy once we have the graph.
-% 	\end{itemize}
-% \end{frame}
 
 \begin{frame}{Future Plans}
 	\begin{itemize}
@@ -455,15 +463,15 @@
 	\email: ankurankan@gmail.com
 \end{frame}
 
-\begin{frame}{Extra slide}
-	When to use PO vs DAG framework?
-\end{frame}
-
-\begin{frame}
-	How does it compare to Shapley values 
-	\begin{itemize}
-		\item Still prediction based. Does not matter if perturbing direct effect variable or undirect.
-		\item Can show an example where Shapley values would still find an association, but causal inference would not. The standard confounding case.
-	\end{itemize}
-\end{frame}
-\end{document}
+% \begin{frame}{Extra slide}
+% 	When to use PO vs DAG framework?
+% \end{frame}
+% 
+% \begin{frame}
+% 	How does it compare to Shapley values 
+% 	\begin{itemize}
+% 		\item Still prediction based. Does not matter if perturbing direct effect variable or undirect.
+% 		\item Can show an example where Shapley values would still find an association, but causal inference would not. The standard confounding case.
+% 	\end{itemize}
+% \end{frame}
+% \end{document}
