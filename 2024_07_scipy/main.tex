@@ -147,6 +147,7 @@
 \end{frame}
 
 \begin{frame}{What does pgmpy provide}
+	Will show how to perform each of these steps in pgmpy.
 	\begin{itemize}
 		\item Provides standardized implementations of commonly used algorithms.
 		\item Practical methods methods.
@@ -185,11 +186,10 @@
 				\item Score-based: Greedy Equivalence Search, Hill-Climb Search.
 				\item Optimization-based: NoTears, DAGMA.
 			\end{itemize}
-		\item In practice, output varies significantly depending on sample size,	
+		\item In practice, output varies significantly depending on sample size	
 			algorithm, and their hyperparameters.
-		\item Difficult to decide which model is correct.
+		\item With no standard evaluation method, difficult to choose a model.
 	\end{itemize}
-
 \end{frame}
 
 \begin{frame}{Automated Algorithms}
@@ -227,27 +227,18 @@
 	\end{figure}
 \end{frame}
 
-\begin{frame}{Casual Discovery}
+\begin{frame}{Problems with automated Casual Discovery}
 	\center{Which of these models are correct?}
 
-	% \center{\textcolor{Probably None}}
-
-	\center{Models learnt using algorithms are usually incorrect.}
-
-	% \center{\textcolor{red}{ How do we improve the output?}}
+	\center{\textcolor{Probably None}}
 
 	\vspace{2em}
 
+	pgmpy implements a bunch of tools to help with:
 	\begin{itemize}
-		\item Incorporate expert knowledge
-		\item Testing models and manually modify based on that.
-		% \item Really have to remember that: "All models are wrong, but some are useful" - George Box
-		% \item Many automated algorithms but most of them would make mistakes.
-		% \item Usually need to have some manual intervention. Need tools to guide this intervention.
-		% \item As the ground truth is not known, difficult to test how good our model is. Adhoc methods to help with it.
+		\item Incorporating expert knowledge.
+		\item Testing models.
 	\end{itemize}
-
-	\center{pgmpy implements a bunch of tools to help with these}
 \end{frame}
 
 \begin{frame}{Expert Knowledge Integration}
@@ -295,7 +286,7 @@
 	\end{figure}
 \end{frame}
 
-\begin{frame}{Model Evaluation}
+\begin{frame}{Model Evaluation}	
 	Even with integrating expert knowledge, how can we be sure? 
 	As we have no ground truth information (think of unsupervised learning).
 	
@@ -307,6 +298,8 @@
 \end{frame}
 
 \begin{frame}{Implied Conditional Independences (CIs)}
+	DAGs imply Conditional Independences (CIs).
+
 
 \end{frame}
 
@@ -327,19 +320,19 @@
 \begin{frame}{Minimal Orientation}
 \end{frame}
 
-\begin{frame}{LLM Based Structure Learning}
+\begin{frame}{LLM Based Causal Discovery}
 	\begin{figure}
 		\centering
 		\includegraphics[scale=0.3]{imgs/adult_llm.png}
 	\end{figure}
 \end{frame}
 
-\begin{frame}{Using DAG in the PO framework}
-	As DAGs explicitly show all the information, it can be used to make
-	decisions in the PO framework as well.
-
-	The graph can be put into pywhy as well.
-\end{frame}
+% \begin{frame}{Using learned DAG in the PO framework}
+% 	As DAGs explicitly show all the information, it can be used to make
+% 	decisions in the PO framework as well.
+% 
+% 	The graph can be put into pywhy as well.
+% \end{frame}
 
 \begin{frame}{Identification}
 	\begin{figure}
@@ -361,18 +354,19 @@
 		\label{fig:workflow3}
 	\end{figure}
 	\begin{itemize}
-		\item Once we have decided on the model, we can start estimating causal effects.
-		\item \textbf{Identification}: Whether the causal effect is estimable? If yes, what is the estimand?
-		\item Everything is identified in the case of fully observed models.
+		\item Once we have decided on the DAG, we can start estimating causal effects.
+		\item \textbf{Identification}: Is the causal effect of interest estimable?
+		\item Everything is identified if all variables are observed.
 	\end{itemize}
 \end{frame}
 
 \begin{frame}{do-calculus}
-	Theoretically, do-calculus provided a complete solution.
+	Theoretically, do-calculus provided a complete solution. 
 
-	\textcolor{red}{No efficient algorithms to use it in practice}
+	\textcolor{red}{However, no efficient algorithms to use it in practice}
 
-	Solution is to use simpler criteria for identifiability. But it can miss cases which might be identifiable.
+	In practice, we use a bunch of simpler identification strategies, each of which
+	can identify a subset of effects.
 \end{frame}
 
 \begin{frame}{Backdoor Criterion}
@@ -436,18 +430,19 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Conclusion}
-	\begin{itemize}
-		\item Building causal models is an iterative process.
-		\item Integrating expert knowledge can help a lot.
-		\item Things are easy once we have the graph.
-	\end{itemize}
-\end{frame}
+% \begin{frame}{Conclusion}
+% 	\begin{itemize}
+% 		\item Building causal models is an iterative process.
+% 		\item Integrating expert knowledge can help a lot.
+% 		\item Things are easy once we have the graph.
+% 	\end{itemize}
+% \end{frame}
 
 \begin{frame}{Future Plans}
 	\begin{itemize}
-		\item Focus on developing more practical methods.
-		\item Wider support for mixed data.
+		\item Focus on implementing practical methods.
+		\item Wider support for mixed data i.e., combination of categorical, ordinal, and continuous variables.
+		\item Add few more of the commonly used algorithms.
 	\end{itemize}
 \end{frame}
 
@@ -458,8 +453,6 @@
 	\github: pgmpy/pgmpy
 
 	\email: ankurankan@gmail.com
-
-	Consulting Company: Squanch Labs. Feel free to reach out to discuss use cases etc.
 \end{frame}
 
 \begin{frame}{Extra slide}
