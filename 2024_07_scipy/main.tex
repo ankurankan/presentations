@@ -12,6 +12,9 @@
 \usepackage{ragged2e}
 \usepackage{titlecaps}
 \usepackage{fancyvrb}
+\usepackage{minted}
+\usepackage{xcolor}
+\definecolor{LightGray}{gray}{0.9}
 
 \def\ci{\perp\!\!\!\!\!\perp}
 
@@ -122,6 +125,7 @@
 						\includegraphics[height=2cm, width=3cm, scale=0.2]{imgs/causalnex.png}
 					\end{figure}
 			\end{itemize}
+			\vspace{2em}
 		\end{column}
 	\end{columns}
 \end{frame}
@@ -143,6 +147,8 @@
 		\end{tikzpicture}
 		\label{fig:workflow}
 	\end{figure}
+
+	\vspace{1em}
 
 	\center{pgmpy provides functionality to perform each of these steps}
 
@@ -176,8 +182,8 @@
 		\end{tikzpicture}
 		\label{fig:workflow1}
 	\end{figure}
-	\vspace{2em}
-	\center \textbf{Casual Discovery: } Learn the causal structure among the variables using data.
+	\vspace{1em}
+	\center \textbf{Casual Discovery: } Learn the causal DAG from data.
 \end{frame}
 
 \begin{frame}{Automated Causal Discovery Algorithms}
@@ -195,22 +201,29 @@
 \end{frame}
 
 \begin{frame}{Automated Algorithms}
-	\center{\textbf{PC}: Constraint-Based Algorithm}
-	\begin{figure}
-		\centering
-		\begin{subfigure}{0.5\textwidth}
-			\includegraphics[scale=0.2]{imgs/pc_x2.png}
-		\end{subfigure}%
-		\begin{subfigure}{0.5\textwidth}
-			\includegraphics[scale=0.25]{imgs/adult_x2.png}
-		\end{subfigure}
-	\end{figure}
-	\center{\textbf{Hill-Climb Search: } Score Based Algorithm}
-	\todo[inline]{Add the code figure}
-	\begin{figure}
-		\centering
-		\includegraphics[scale=0.25]{imgs/adult_bic.png}
-	\end{figure}
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+			\center{\textbf{PC}}
+			\begin{figure}
+				\centering
+				\begin{subfigure}{\linewidth}
+					\includegraphics[scale=0.25]{imgs/pc_x2.png}
+				\end{subfigure}
+				\vspace{1em}
+				\begin{subfigure}{\linewidth}
+					\includegraphics[scale=0.25]{imgs/adult_x2.png}
+				\end{subfigure}
+			\end{figure}
+		\end{column}
+		\vrule
+		\begin{column}{0.5\textwidth}
+			\center{\textbf{Hill-Climb Search}}
+			\begin{figure}
+				\centering
+				\includegraphics[scale=0.25]{imgs/adult_bic.png}
+			\end{figure}
+		\end{column}
+	\end{columns}
 \end{frame}
 
 % \begin{frame}{PC algorithm}
@@ -224,6 +237,7 @@
 % \end{frame}
 
 \begin{frame}{Hyperparameter}
+
 	\begin{figure}
 		\centering
 		\includegraphics[scale=0.4]{imgs/adult_x2.png}
@@ -289,7 +303,7 @@
 % \begin{frame}{Bootstrapping}
 % \end{frame}
 
-\begin{frame}
+\begin{frame}{Testing and Evaluation}
 	\begin{figure}
 		\centering
 		\begin{tikzpicture}[yscale=1, xscale=0.75, inner sep=3pt]
@@ -310,7 +324,7 @@
 	\end{figure}
 
 	\begin{itemize}
-		\item Adding expert knowledge can be helpful, but experts can also make mistakes, or miss/overadd edges.
+		\item Adding expert knowledge can be helpful, but experts can also make mistakes.
 		\item Usually experts end up with very dense models when drawing manually.
 	\end{itemize}
 \end{frame}
@@ -327,6 +341,15 @@
 
 \begin{frame}{Testing Implied Conditional Independences (CIs)}
 	\center{Each missing edge in a DAG implies a Conditional Independence (CI) statement.}
+
+	\todo[inline]{Add a figure showing implied CIs}
+\end{frame}
+
+\begin{frame}{Testing Implied Conditional Independences (CIs)}
+	\begin{enumerate}
+		\item A DAG 
+		\item Use statistical CI tests to test whether CIs hold in the data.
+	\end{enumerate}
 \end{frame}
 
 \begin{frame}{Fisher's C and Correlation Score}
@@ -503,4 +526,4 @@
 % 		\item Can show an example where Shapley values would still find an association, but causal inference would not. The standard confounding case.
 % 	\end{itemize}
 % \end{frame}
-% \end{document}
+\end{document}
