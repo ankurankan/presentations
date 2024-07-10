@@ -100,7 +100,7 @@
 	Mathematical frameworks for causal inference:
 	\vspace{0.5em}
 	\begin{itemize}
-		\item Potential Outcomes Framework (a.k.a. Rubin's Casual Model)
+		\item \textbf{Potential Outcomes Framework} (a.k.a. Rubin's Casual Model)
 			\begin{itemize}
 				\item Usually interested only in estimating causal effect.
 				\item Provides statistical methods for estimating the causal effect.
@@ -109,19 +109,19 @@
 	\end{itemize}
 	\vspace{2em}
 	\begin{itemize}
-		\item Directed Acyclic Graphs (DAGs) / Structural Equation Models (SEMs)
+		\item \textbf{Directed Acyclic Graphs (DAGs)} / Structural Equation Models (SEMs)
 			\begin{itemize}
 				\item Causal diagram, i.e., DAG at the core.
-				\item Causal effect estimators can be defined using the DAG.
-				\item Modelling assumptions are explicit.
+				\item The DAG can be used to define estimators for causal effects of interest.
+				\item DAGs make modelling assumptions explicit.
 			\end{itemize}
 	\end{itemize}
 \end{frame}
 
 \begin{frame}{Landscape of Causal Inference Python Packages}
 	\begin{columns}
-		\begin{column}[T]{0.5 \textwidth}
-			\center{\textbf{Potential Outcomes Framework}}
+		\begin{column}[T]{0.55 \textwidth}
+			\center{\textbf{Potential Outcomes Frameworks}}
 			\begin{itemize}
 				\item Collection of estimation methods
 					\begin{figure}
@@ -139,8 +139,8 @@
 
 		\end{column}
 		\vrule
-		\begin{column}[T]{0.5 \textwidth}
-			\center{\textbf{DAG Framework}}
+		\begin{column}[T]{0.45 \textwidth}
+			\center{\textbf{DAG Frameworks}}
 			\begin{itemize}
 				\item pgmpy
 					\begin{figure}
@@ -175,7 +175,7 @@
 
 	\vspace{1em}
 
-	\center{pgmpy provides functionality to perform each of these steps}
+	\center{pgmpy provides functionality to perform each of these steps.}
 
 \end{frame}
 
@@ -226,6 +226,7 @@
 \end{frame}
 
 \begin{frame}{Automated Algorithms}
+	\todo[inline]{Fix this slide}
 	\begin{columns}
 		\begin{column}[T]{0.5\textwidth}
 			\center{\textbf{PC}}
@@ -294,6 +295,7 @@
 		\item Difficult to choose the correct algorithm/model.
 		\item In finite sample scenario, all algorithms make mistakes.
 		\item Lack of standard evaluation metrics.
+		\item Usually requires manual modifications to the outputs.
 	\end{itemize}
 
 	\vspace{2em}
@@ -387,15 +389,17 @@
 \end{frame}
 
 \begin{frame}{Model Evaluation}
-	\center{Don't have access to ground truth, so no straight-forward way to evaluate the models.}
+	\center{Similar to unsupervised learning, we do not have any ground truth data, so there is no straightforward way to evaluate models}
+
 
 	\vspace{2em}
 
 	pgmpy implements a few methods to test and compare models.
 	\begin{itemize}
-		\item Testing implied Conditional Independences (CIs): 
-		\item Fisher C: Similar to implied CIs but summarizes the whole model fit.
-		\item Data Fit metrics such as likelihood or structure scores to compare models.
+		\item \textbf{Implied Conditional Independence (CI) Testing.}
+		\item \textbf{Fisher's C:} Summarizes the CIs testing into a single p-value.
+		\item \textbf{Correlation score:} F1-Score of how much of observed correlations in the data is explained by the model.
+		\item \textbf{Data Fit metrics:} To compare the fit of two or more models to given data.
 	\end{itemize}
 \end{frame}
 
@@ -456,7 +460,7 @@
 \end{frame}
 
 \begin{frame}{Fisher's C}
-	\center{Combines the CI tests to give a single p-value.}
+	\center{Combines the CI tests to give a single p-value. p-value $ > $ threshold signifies good fit.}
 	\vspace{2em}
 	\begin{figure}
 		\centering
@@ -559,25 +563,26 @@
 \end{frame}
 
 \begin{frame}{do-calculus}
-	% \begin{figure}
-	% 	\begin{subfigure}{0.5 \textwidth}
-	% 		\centering
-	% 		\includegraphics[page=1]{figures.pdf}
-	% 		\label{fig:uniden}
-	% 	\end{subfigure}%
-	% 	\begin{subfigure}{0.5 \textwidth}
-	% 		\centering
-	% 		\includegraphics[page=2]{figures.pdf}
-	% 		\label{fig:iden}
-	% 	\end{subfigure}	
-	% 	\caption*{\center{(Left) $ U $ is unobserved; $\beta$ is unidentifiable. (Right) $ U $ is observed; $ \beta $ is identifiable.}}
-	% \end{figure}
+	\begin{figure}
+		\begin{subfigure}{0.5 \textwidth}
+			\centering
+			\includegraphics[page=1]{figures.pdf}
+		\end{subfigure}%
+		\begin{subfigure}{0.5 \textwidth}
+			\centering
+			\includegraphics[page=2]{figures.pdf}
+		\end{subfigure}
+		\label{fig:idnent}
+		% \caption{\center{(Left) $ U $ is unobserved; $\beta$ is unidentifiable. (Right) $ U $ is observed; $ \beta $ is identifiable.}}
+	\end{figure}
+
 	\begin{itemize}
 		\item Theoretically, do-calculus provides a complete solution to identification.
 		\item i.e., can give an estimation strategy for every identified causal effect.
 		\item However, no efficient algorithms for do-calculus.
 		\item In practice, we rely on a set of simpler identification strategies that work in special cases.
 	\end{itemize}
+	\todo[inline]{Add a venn diagram here}
 \end{frame}
 
 \begin{frame}{Backdoor Criterion}
