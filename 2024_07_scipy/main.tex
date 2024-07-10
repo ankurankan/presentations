@@ -42,7 +42,7 @@
 
 \begin{document}
 
-\title[Causal Inference using pgmpy]{Introduction to Casual Inference using pgmpy}
+\title[Causal Inference using pgmpy]{Introduction to Casual Inference (DAG Framework) using pgmpy}
 \author{Ankur Ankan}
 \institute[]{Postdoctoral Researcher \\ Radboud University, The Netherlands}
 \date{}
@@ -53,14 +53,13 @@
 	\textbf{Predictive Modelling}
 		\begin{itemize}
 			\item Exploits correlation among variables.
-			\item Usually interested in prediction accuracy.
+			\item Usually interested in predicting outcome variables.
 		\end{itemize}
 	\vspace{1em}
 	\textbf{Causal Modelling}
 		\begin{itemize}
-			\item Tries to figure out causal relationship between variables.
-			\item Interested in understanding the data generating mechanism and/or causal effect estimation.
-			\item Allows to identify potential interventions.
+			\item Try to learn causal-effect relationships between variables.
+			\item Interested in understanding the causal structure of the data generating mechanism and/or causal effect estimation.
 		\end{itemize}
 
 	\begin{figure}
@@ -275,9 +274,8 @@
 
 \begin{frame}{Problems With Automated Casual Discovery}
 	\begin{itemize}
-		\item Difficult to choose the correct algorithm/model.
+		\item Difficult to choose the best algorithm/model.
 		\item In finite sample scenario, all algorithms make mistakes.
-		\item Lack of standard evaluation metrics.
 		\item Usually requires manual modifications to the outputs.
 	\end{itemize}
 
@@ -676,6 +674,10 @@
 		\item Any estimator can be used to make the estimates.
 		\item Usually linear models are used for their interpretability.
 	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\Huge Some other features.
 \end{frame}
 
 \begin{frame}{Simulations}
