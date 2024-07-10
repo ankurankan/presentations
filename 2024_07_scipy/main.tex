@@ -583,7 +583,6 @@
 		\item However, no efficient algorithms to get these estimands using do-calculus.
 		\item In practice, we rely on a set of simpler identification strategies that work in special cases.
 	\end{itemize}
-	\todo[inline]{Add a venn diagram here}
 \end{frame}
 
 \begin{frame}{Backdoor Criterion}
@@ -592,11 +591,21 @@
 		\item Finds adjustment variables to block confounding paths.
 	\end{itemize}
 	\begin{figure}
-		\centering
-		\includegraphics[page=4]{figures.pdf}
+		\begin{subfigure}{0.5\textwidth}
+			\centering
+			\includegraphics[page=4]{figures.pdf}
+		\end{subfigure}%
+		\begin{subfigure}{0.5 \textwidth}
+			\begin{equation*}
+				\beta_{xy}: Y \sim X + U $$
+			\end{equation*}
+		\end{subfigure}
 	\end{figure}
 
-	$$ \beta_{xy}: Y \sim X + U $$
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.25]{imgs/backdoor.png}
+	\end{figure}
 
 \end{frame}
 
@@ -606,18 +615,25 @@
 		\item Double application of backdoor criterion.
 	\end{itemize}
 	\begin{figure}
-		\centering
-		\includegraphics[page=5]{figures.pdf}
+		\begin{subfigure}{0.5 \textwidth}
+			\centering
+			\includegraphics[page=5]{figures.pdf}
+		\end{subfigure}%
+		\begin{subfigure}{0.5 \textwidth}
+			\begin{equation*}
+				\begin{split}
+					\beta_{xm}:& M \sim X \\
+					\beta_{my}:& Y \sim M + X \\
+					\beta_{xy} =& \beta_{xm}\beta_{my}
+				\end{split}
+			\end{equation*}
+		\end{subfigure}
 	\end{figure}
 
-	\begin{equation*}
-		\begin{split}
-			\beta_{xm}:& M \sim X \\
-			\beta_{my}:& Y \sim M + X \\
-			\beta_{xy} =& \beta_{xm}\beta_{my}
-		\end{split}
-	\end{equation*}
-
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.25]{imgs/frontdoor.png}
+	\end{figure}
 \end{frame}
 
 \begin{frame}{Instrumental Variables}
@@ -627,22 +643,24 @@
 			variable.
 	\end{itemize}
 	\begin{figure}
-		\centering
-		\includegraphics[page=6]{figures.pdf}
+		\begin{subfigure}{0.5 \textwidth}
+			\centering
+			\includegraphics[page=6]{figures.pdf}
+		\end{subfigure}%
+		\begin{subfigure}{0.5 \textwidth}
+			\begin{equation*}
+				\begin{split}
+					\beta_{zx} \beta_{xy}:& Y \sim Z \\
+					\beta_{zx}:& X \sim Z \\
+					\beta_{xy} =& \frac{\beta_{zx}\beta_{xy}}{\beta_{zx}} \\
+				\end{split}
+			\end{equation*}
+		\end{subfigure}
 	\end{figure}
-	\begin{equation*}
-		\begin{split}
-			\beta_{zx} \beta_{xy}:& Y \sim Z \\
-			\beta_{zx}:& X \sim Z \\
-			\beta_{xy} =& \frac{\beta_{zx}\beta_{xy}}{\beta_{zx}} \\
-		\end{split}
-	\end{equation*}
-\end{frame}
 
-\begin{frame}{Identification with pgmpy}
 	\begin{figure}
 		\centering
-		\includegraphics[page=7]{figures.pdf}
+		\includegraphics[scale=0.25]{imgs/ivs.png}
 	\end{figure}
 \end{frame}
 
@@ -671,9 +689,6 @@
 		\item Any estimator can be used to make the estimates.
 		\item Usually linear models are used for their interpretability.
 	\end{itemize}
-\end{frame}
-
-\begin{frame}{Estimation}
 \end{frame}
 
 \begin{frame}{Simulations}
@@ -711,8 +726,8 @@
 
 \begin{frame}{Future Plans}
 	\begin{itemize}
-		\item Focus on implementing practical methods.
-		\item Wider support for mixed data, i.e., combination of categorical, ordinal, and continuous variables.
+		\item Focus on implementing more practical methods such as bootstrapping, model comparison methods.
+		\item Improve support for mixed data, i.e., combination of categorical, ordinal, and continuous variables.
 		\item Add more commonly used causal discovery, and identification algorithms.
 	\end{itemize}
 \end{frame}
