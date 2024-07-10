@@ -202,11 +202,11 @@
 			\center{\textbf{PC}}
 			\begin{figure}
 				\centering
-				\begin{subfigure}{\linewidth}
-					\includegraphics[scale=0.25]{imgs/pc_x2.png}
+				\begin{subfigure}{\textwidth}
+					\includegraphics[scale=0.28]{imgs/pc_chisquare.png}
 				\end{subfigure}
 				\vspace{1em}
-				\begin{subfigure}{\linewidth}
+				\begin{subfigure}{\textwidth}
 					\includegraphics[scale=0.25]{imgs/adult_x2.png}
 				\end{subfigure}
 			\end{figure}
@@ -216,7 +216,12 @@
 			\center{\textbf{Hill-Climb Search}}
 			\begin{figure}
 				\centering
-				\includegraphics[scale=0.25]{imgs/adult_bic.png}
+				\begin{subfigure}{\textwidth}
+					\includegraphics[scale=0.25]{imgs/hill_bic.png}
+				\end{subfigure}
+				\begin{subfigure}{\textwidth}
+					\includegraphics[scale=0.25]{imgs/adult_bic.png}
+				\end{subfigure}
 			\end{figure}
 		\end{column}
 	\end{columns}
@@ -232,28 +237,39 @@
 % 	Results can be very different depending on the algorithm, hyperparameter selections, etc.
 % \end{frame}
 
-\begin{frame}{Hyperparameter}
-
+\begin{frame}{Automated Algorithms}
 	\begin{figure}
-		\centering
-		\includegraphics[scale=0.4]{imgs/adult_x2.png}
+		\begin{subfigure}{0.5\textwidth}
+			\centering
+			\includegraphics[scale=0.2]{imgs/pc_chisquare.png}
+		\end{subfigure}
+		\begin{subfigure}{0.5 \textwidth}
+			\centering
+			\includegraphics[scale=0.2]{imgs/adult_x2.png}
+		\end{subfigure}
 	\end{figure}
 	\begin{figure}
-		\centering
-		\includegraphics[scale=0.4]{imgs/adult_pillai.png}
+		\begin{subfigure}{0.5 \textwidth}
+			\centering
+			\includegraphics[scale=0.2]{imgs/pc_pillai.png}
+		\end{subfigure}
+		\begin{subfigure}{0.5 \textwidth}
+			\centering
+			\includegraphics[scale=0.2]{imgs/adult_pillai.png}
+		\end{subfigure}
 	\end{figure}
 \end{frame}
 
 \begin{frame}{Problems With Automated Casual Discovery}
-	\todo[inline]{Improve this slide}
 	\begin{itemize}
 		\item Difficult to choose the correct model.
+		\item In finite sample scenario, all algorithms make mistakes.
 		\item Lack of standard evaluation metrics.
 	\end{itemize}
 
 	\vspace{2em}
 
-	pgmpy implements a bunch of tools to help with:
+	pgmpy implements tools to tackle these issues. 
 	\begin{itemize}
 		\item Incorporating expert knowledge.
 		\item Evaluation Metrics.
@@ -268,8 +284,13 @@
 			searches over whitelisted edges.
 	\end{itemize}
 	\begin{figure}
-		\centering
-		\includegraphics[scale=0.3]{imgs/adult_bic_blacklist.png}
+		\begin{subfigure}{0.5 \textwidth}
+			\todo[inline]{Add the code here}
+		\end{subfigure}%
+		\begin{subfigure}{0.5 \textwidth}
+			\centering
+			\includegraphics[scale=0.3]{imgs/adult_bic_blacklist.png}
+		\end{subfigure}
 	\end{figure}
 \end{frame}
 
@@ -279,9 +300,15 @@
 		\item Specifying a good starting model can help them in getting to better 
 			optimum.
 	\end{itemize}
+
 	\begin{figure}
-		\centering
-		\includegraphics[scale=0.3]{imgs/adult_bic_start.png}
+		\begin{subfigure}{0.5 \textwidth}
+			\todo[inline]{Add the code here}
+		\end{subfigure}%
+		\begin{subfigure}{0.5 \textwidth}
+			\centering
+			\includegraphics[scale=0.3]{imgs/adult_bic_start.png}
+		\end{subfigure}
 	\end{figure}
 \end{frame}
 
@@ -290,9 +317,15 @@
 		\item Allows users to specify fixed edges that they want in final model.
 		\item Can be used to specify obvious relations in the model.
 	\end{itemize}
+
 	\begin{figure}
-		\centering
-		\includegraphics[scale=0.2]{imgs/adult_bic_fixed.png}
+		\begin{subfigure}{0.5 \textwidth}
+			\todo[inline]{Add the code here}
+		\end{subfigure}%
+		\begin{subfigure}{0.5 \textwidth}
+			\centering
+			\includegraphics[scale=0.3]{imgs/adult_bic_fixed.png}
+		\end{subfigure}
 	\end{figure}
 \end{frame}
 
@@ -321,13 +354,15 @@
 
 	\begin{itemize}
 		\item Adding expert knowledge can be helpful, but experts can also make mistakes.
-		\item Usually experts end up with very dense models when drawing manually.
+		\item Hard to distinguish between direct and indirect effects, hence common to end up with very dense models when drawing manually.
 	\end{itemize}
 \end{frame}
 
 \begin{frame}{Model Evaluation}
-	We don't have access to ground truth, so no straight-forward way to evaluate the model.
+	\center{Don't have access to ground truth, so no straight-forward way to evaluate the models.}
 
+	\vspace{2em}
+	pgmpy implements a few methods to test and compare models.
 	\begin{itemize}
 		\item Testing implied Conditional Independences (CIs): 
 		\item Fisher C: Similar to implied CIs but summerizes the whole model fit.
@@ -378,7 +413,7 @@
 \begin{frame}{LLM Based Causal Discovery}
 	\begin{figure}
 		\centering
-		\includegraphics[scale=0.3]{imgs/adult_llm.png}
+		\includegraphics[scale=0.2]{imgs/adult_llm.png}
 	\end{figure}
 \end{frame}
 
