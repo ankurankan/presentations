@@ -342,6 +342,32 @@
 	\end{figure}
 \end{frame}
 
+\begin{frame}{Expert-In-The-Loop Causal Discovery}
+	\center{Since, causal discovery in practice is an iterative manual process, we designed an algorithm that works with interactive input from the user.}
+
+	\vspace{2em}
+
+	\begin{itemize}
+		\item Finds pair of variables whose observed correlation isn't explained by the model
+		\item Employs a ranking scheme to rank these violations.
+		\item Uses an expert or an LLM to decide the direction of the edge for these violations.
+		\item Iteratively adds and removes edges with interactive input from the user or LLM.
+	\end{itemize}
+\end{frame}
+\begin{frame}{Expert-In-The-Loop Causal Discovery}
+	\begin{figure}
+		\begin{subfigure}{0.5 \textwidth}
+			\centering
+			\includegraphics[scale=0.22]{imgs/dag_llm.png}
+		\end{subfigure}%
+		\begin{subfigure}{0.5 \textwidth}
+			\centering
+			\includegraphics[scale=0.22]{imgs/adult_llm.png}
+		\end{subfigure}
+	\end{figure}
+
+\end{frame}
+
 % \begin{frame}{Bootstrapping}
 % \end{frame}
 
@@ -377,15 +403,9 @@
 	\vspace{2em}
 
 	pgmpy implements a few methods to test and compare models.
-	\begin{itemize}
-		\item \textbf{Implied Conditional Independence (CI) Testing: } Helps in modifying models.
-		\item \textbf{Fisher's C:} Summarizes the CIs testing into a single p-value.
-		\item \textbf{Correlation score:} F1-Score of how much of observed correlations in the data is explained by the model.
-		\item \textbf{Data Fit metrics:} To compare the fit of two or more models to given data.
-	\end{itemize}
 \end{frame}
 
-\begin{frame}{Testing Implied Conditional Independences (CIs)}
+\begin{frame}{Model Evaluation: Implied Conditional Independences (CIs)}
 	\begin{figure}
 		\centering
 		\begin{tikzpicture}
@@ -435,14 +455,17 @@
 
 \end{frame}
 
-\begin{frame}{Testing Implied Conditional Independences (CIs)}
+\begin{frame}{Model Evaluation: Implied Conditional Independences (CIs)}
 	\begin{figure}
 		\includegraphics[scale=0.27]{imgs/implied_cis.png}
 	\end{figure}
 \end{frame}
 
-\begin{frame}{Fisher's C}
-	\center{Combines the CI tests to give a single p-value. p-value $ > $ threshold signifies good fit.}
+\begin{frame}{Model Evaluation: Fisher's C Test}
+	\begin{itemize}
+		\item Combines the implied CI tests to summarize it into a single p-value.
+		\item Using some significance threshold, we can decide whether the model fits well to the data.
+	\end{itemize}
 	\vspace{2em}
 	\begin{figure}
 		\centering
@@ -450,8 +473,12 @@
 	\end{figure}
 \end{frame}
 
-\begin{frame}{Correlation Score}
-	\center{F1-scores comparing pair of variables correlated in the data vs in the DAG.}
+\begin{frame}{Model Evaluation: Correlation Score}
+	\begin{itemize}
+		\item Compares whether variables that are correlated in data
+			are also correlated in the model.
+		\item Computes the F1-score based on this comparison.
+	\end{itemize}
 	\vspace{2em}
 	\begin{figure}
 		\centering
@@ -461,7 +488,7 @@
 \end{frame}
 
 
-\begin{frame}{Score metrics}
+\begin{frame}{Model Evaluation: Score metrics}
 	\begin{itemize}
 		\item Scores the network structure based on how well they fit to data.
 		\item Useful for comparing multiple models.
@@ -489,27 +516,6 @@
 % \begin{frame}{Minimal Orientation}
 % \end{frame}
 
-\begin{frame}{LLM Based Causal Discovery}
-	\begin{itemize}
-		\item Combines CI based model testing with an LLM for iteratively modifying the model.
-		\item Finds pair of variables whose correlation isn't explained by the model
-		\item Iteratively adds edge between such pair of variables based on an effect size ranking.
-		\item The direction of the edge can be decided by an expert or an LLM based on variable descriptions.
-	\end{itemize}
-\end{frame}
-\begin{frame}{LLM Based Causal Discovery}
-	\begin{figure}
-		\begin{subfigure}{0.5 \textwidth}
-			\centering
-			\includegraphics[scale=0.22]{imgs/dag_llm.png}
-		\end{subfigure}%
-		\begin{subfigure}{0.5 \textwidth}
-			\centering
-			\includegraphics[scale=0.22]{imgs/adult_llm.png}
-		\end{subfigure}
-	\end{figure}
-
-\end{frame}
 
 % \begin{frame}{Using learned DAG in the PO framework}
 % 	As DAGs explicitly show all the information, it can be used to make
