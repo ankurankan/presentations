@@ -226,35 +226,20 @@
 \end{frame}
 
 \begin{frame}{Automated Algorithms}
-	\todo[inline]{Fix this slide}
-	\begin{columns}
-		\begin{column}[T]{0.5\textwidth}
-			\center{\textbf{PC}}
-			\begin{figure}
-				\centering
-				\begin{subfigure}{\textwidth}
-					\includegraphics[scale=0.28]{imgs/pc_chisquare.png}
-				\end{subfigure}
-				\vspace{1em}
-				\begin{subfigure}{\textwidth}
-					\includegraphics[scale=0.25]{imgs/adult_x2.png}
-				\end{subfigure}
-			\end{figure}
-		\end{column}
-		\vrule
-		\begin{column}[T]{0.5\textwidth}
-			\center{\textbf{Hill-Climb Search}}
-			\begin{figure}
-				\centering
-				\begin{subfigure}{\textwidth}
-					\includegraphics[scale=0.25]{imgs/hill_bic.png}
-				\end{subfigure}
-				\begin{subfigure}{\textwidth}
-					\includegraphics[scale=0.25]{imgs/adult_bic.png}
-				\end{subfigure}
-			\end{figure}
-		\end{column}
-	\end{columns}
+	\begin{figure}
+		\begin{subfigure}{0.45 \textwidth}
+			\includegraphics[scale=0.28]{imgs/pc_chisquare.png}
+		\end{subfigure}%
+		\begin{subfigure}{0.55 \textwidth}
+			\includegraphics[scale=0.25]{imgs/adult_x2.png}
+		\end{subfigure}\vfill
+		\begin{subfigure}{0.6 \textwidth}
+			\includegraphics[scale=0.28]{imgs/hill_bic.png}
+		\end{subfigure}%
+		\begin{subfigure}{0.4 \textwidth}
+			\includegraphics[scale=0.25]{imgs/adult_bic.png}
+		\end{subfigure}
+	\end{figure}
 \end{frame}
 
 % \begin{frame}{PC algorithm}
@@ -268,25 +253,22 @@
 % \end{frame}
 
 \begin{frame}{Automated Algorithms}
-	\todo[inline]{Fix this slide}
 	\begin{figure}
-		\begin{subfigure}{0.5\textwidth}
+		\begin{subfigure}{0.45\textwidth}
 			\centering
-			\includegraphics[scale=0.2]{imgs/pc_chisquare.png}
-		\end{subfigure}
-		\begin{subfigure}{0.5 \textwidth}
+			\includegraphics[scale=0.28]{imgs/pc_chisquare.png}
+		\end{subfigure}%
+		\begin{subfigure}{0.55 \textwidth}
 			\centering
-			\includegraphics[scale=0.2]{imgs/adult_x2.png}
-		\end{subfigure}
-	\end{figure}
-	\begin{figure}
-		\begin{subfigure}{0.5 \textwidth}
+			\includegraphics[scale=0.25]{imgs/adult_x2.png}
+		\end{subfigure}\vfill
+		\begin{subfigure}{0.45 \textwidth}
 			\centering
-			\includegraphics[scale=0.2]{imgs/pc_pillai.png}
-		\end{subfigure}
-		\begin{subfigure}{0.5 \textwidth}
+			\includegraphics[scale=0.28]{imgs/pc_pillai.png}
+		\end{subfigure}%
+		\begin{subfigure}{0.55 \textwidth}
 			\centering
-			\includegraphics[scale=0.2]{imgs/adult_pillai.png}
+			\includegraphics[scale=0.25]{imgs/adult_pillai.png}
 		\end{subfigure}
 	\end{figure}
 \end{frame}
@@ -315,6 +297,7 @@
 		\item The algorithm never adds blacklisted edges and only
 			searches over whitelisted edges.
 	\end{itemize}
+	\vfill
 	\begin{figure}
 		\begin{subfigure}{0.5 \textwidth}
 			\centering
@@ -332,6 +315,8 @@
 		\item Score based methods perform local optimization.
 	\end{itemize}
 
+	\vfill
+
 	\begin{figure}
 		\begin{subfigure}{0.55 \textwidth}
 			\centering
@@ -348,6 +333,8 @@
 	\begin{itemize}
 		\item Allows to specify fixed edges that will be present in the final model.
 	\end{itemize}
+
+	\vfill
 
 	\begin{figure}
 		\begin{subfigure}{0.5 \textwidth}
