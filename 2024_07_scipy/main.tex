@@ -352,9 +352,9 @@
 	\begin{itemize}
 		\item Finds pair of variables whose observed correlation isn't explained by the model.
 		\item Employs a ranking scheme to rank these violations.
-		\item Uses an expert or an LLM to decide the direction of the edge for these violations.
-		\item Iteratively adds and removes edges with interactive input from the user or LLM.
-		\item Greatly reduces the amount of manual intervention.
+		\item Iteratively adds and removes edges.
+		\item Uses an expert to decide the direction of the edge.
+		\item Greatly reduces the amount of manual intervention required.
 	\end{itemize}
 \end{frame}
 \begin{frame}{Causal Discovery: Expert-In-The-Loop}
@@ -491,7 +491,7 @@
 \end{frame}
 
 
-\begin{frame}{Model Evaluation: Score metrics}
+\begin{frame}{Model Evaluation: Structure Score Metrics}
 	\begin{itemize}
 		\item Scores the network structure based on how well they fit to data.
 		\item Useful for comparing multiple models.
