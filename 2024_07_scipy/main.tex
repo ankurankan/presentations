@@ -66,6 +66,7 @@
 		\centering
 		\includegraphics[page=3]{figures.pdf}
 	\end{figure}
+	\center{Would an intervention on Ice-cream Sales affect Drowning Cases?}
 \end{frame}
 
 \begin{frame}{Example: Protein Signalling Causal Network \footnote{Sachs, Karen, et al. "Causal protein-signaling networks derived from multiparameter single-cell data." Science 308.5721 (2005): 523-529.}}
@@ -90,7 +91,7 @@
 \begin{frame}{Examples}
 	\begin{itemize}
 		\item \textbf{Epidemiology:} Analyzing data on how different treatment or exposures affect health outcomes.
-		\item \textbf{Economics and Social Sciences:} Understanding impacts of policy interventions and help in designing potential interventions.
+		\item \textbf{Economics and Social Sciences:} Understanding impacts of policy interventions and help in designing potential policies.
 		\item \textbf{Machine Learning:} For interpretability, feature selection, making models robust to out of distribution predictions.
 	\end{itemize}
 \end{frame}
@@ -210,7 +211,7 @@
 	\center \textbf{Casual Discovery: } Learn the causal DAG from data.
 \end{frame}
 
-\begin{frame}{Automated Causal Discovery Algorithms}
+\begin{frame}{Causal Discovery: Automated Algorithms}
 	\begin{itemize}
 		\item Many automated algorithms with nice asymptotic properties.
 			\begin{itemize}
@@ -224,7 +225,7 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Automated Algorithms}
+\begin{frame}{Causal Discovery: Automated Algorithms}
 	\begin{figure}
 		\begin{subfigure}{0.45 \textwidth}
 			\includegraphics[scale=0.28]{imgs/pc_chisquare.png}
@@ -251,7 +252,7 @@
 % 	Results can be very different depending on the algorithm, hyperparameter selections, etc.
 % \end{frame}
 
-\begin{frame}{Automated Algorithms}
+\begin{frame}{Causal Discovery: Automated Algorithms}
 	\begin{figure}
 		\begin{subfigure}{0.45\textwidth}
 			\centering
@@ -272,7 +273,7 @@
 	\end{figure}
 \end{frame}
 
-\begin{frame}{Problems With Automated Casual Discovery}
+\begin{frame}{Causal Discovery: Problems Automated Algorithms}
 	\begin{itemize}
 		\item Difficult to choose the best algorithm/model.
 		\item In finite sample scenario, all algorithms make mistakes.
@@ -285,7 +286,7 @@
 	algorithms.}
 \end{frame}
 
-\begin{frame}{Expert Knowledge Integration}
+\begin{frame}{Causal Discovery: Expert Knowledge Integration}
 	\begin{itemize}
 		\item Users can specify edges to blacklist/whitelist.
 		\item The algorithm never adds blacklisted edges and only
@@ -304,7 +305,7 @@
 	\end{figure}
 \end{frame}
 
-\begin{frame}{Expert Knowledge Integration}
+\begin{frame}{Causal Discovery: Expert Knowledge Integration}
 	\begin{itemize}
 		\item Score based methods perform local optimization.
 	\end{itemize}
@@ -323,7 +324,7 @@
 	\end{figure}
 \end{frame}
 
-\begin{frame}{Expert Knowledge Integration}
+\begin{frame}{Causal Discovery: Expert Knowledge Integration}
 	\begin{itemize}
 		\item Allows to specify fixed edges that will be present in the final model.
 	\end{itemize}
@@ -342,7 +343,7 @@
 	\end{figure}
 \end{frame}
 
-\begin{frame}{Expert-In-The-Loop Causal Discovery}
+\begin{frame}{Causal Discovery: Expert-In-The-Loop}
 	\center{Since, causal discovery in practice is an iterative manual process, we designed an algorithm that works with interactive input from the user.}
 
 	\vspace{2em}
@@ -352,9 +353,10 @@
 		\item Employs a ranking scheme to rank these violations.
 		\item Uses an expert or an LLM to decide the direction of the edge for these violations.
 		\item Iteratively adds and removes edges with interactive input from the user or LLM.
+		\item Greatly reduces the amount of manual intervention.
 	\end{itemize}
 \end{frame}
-\begin{frame}{Expert-In-The-Loop Causal Discovery}
+\begin{frame}{Causal Discovery: Expert-In-The-Loop}
 	\begin{figure}
 		\begin{subfigure}{0.5 \textwidth}
 			\centering
@@ -371,7 +373,7 @@
 % \begin{frame}{Bootstrapping}
 % \end{frame}
 
-\begin{frame}{Testing and Evaluation}
+\begin{frame}{Model Evaluation}
 	\begin{figure}
 		\centering
 		\begin{tikzpicture}[yscale=1, xscale=0.75, inner sep=3pt]
@@ -550,7 +552,7 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{do-calculus}
+\begin{frame}{Identification: do-calculus}
 	\begin{figure}
 		\begin{subfigure}{0.5 \textwidth}
 			\centering
@@ -572,7 +574,7 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Backdoor Criterion}
+\begin{frame}{Identification: Backdoor Criterion}
 	\begin{itemize}
 		\item For cases when biasing paths can be blocked by conditioning.
 		\item Finds adjustment variables to block confounding paths.
@@ -596,7 +598,7 @@
 
 \end{frame}
 
-\begin{frame}{Front-door Criterion}
+\begin{frame}{Identification: Front-door Criterion}
 	\begin{itemize}
 		\item Used for scenarios when there are mediator variables.
 		\item Double application of backdoor criterion.
@@ -623,7 +625,7 @@
 	\end{figure}
 \end{frame}
 
-\begin{frame}{Instrumental Variables}
+\begin{frame}{Identification: Instrumental Variables}
 	\begin{itemize}
 		\item When there are variables in the model that are correlated
 			with the outcome variable only through the exposure
@@ -701,7 +703,7 @@
 	\end{figure}
 \end{frame}
 
-\begin{frame}{Extensible}
+\begin{frame}{Extensibility}
 	\begin{itemize}
 		\item Causal Inference is a very active field of research.
 		\item pgmpy offers easy ways to extend/modify algorithms.
