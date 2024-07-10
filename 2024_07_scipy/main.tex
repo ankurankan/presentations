@@ -281,12 +281,8 @@
 
 	\vspace{2em}
 
-	pgmpy implements tools to tackle these issues. 
-	\begin{itemize}
-		\item Incorporating expert knowledge.
-		\item Evaluation Metrics.
-		\item Methods to help users modify models.
-	\end{itemize}
+	\center{pgmpy implements option to incorporate expert knowledge to these
+	algorithms.}
 \end{frame}
 
 \begin{frame}{Expert Knowledge Integration}
@@ -370,7 +366,7 @@
 	\end{figure}
 
 	\begin{itemize}
-		\item Adding expert knowledge can be helpful, but algorithms can still end up learning incorrect models.
+		\item Adding expert knowledge can be helpful, but algorithms can still end up learning incorrect edges.
 	\end{itemize}
 \end{frame}
 
@@ -382,7 +378,7 @@
 
 	pgmpy implements a few methods to test and compare models.
 	\begin{itemize}
-		\item \textbf{Implied Conditional Independence (CI) Testing.}
+		\item \textbf{Implied Conditional Independence (CI) Testing: } Helps in modifying models.
 		\item \textbf{Fisher's C:} Summarizes the CIs testing into a single p-value.
 		\item \textbf{Correlation score:} F1-Score of how much of observed correlations in the data is explained by the model.
 		\item \textbf{Data Fit metrics:} To compare the fit of two or more models to given data.
