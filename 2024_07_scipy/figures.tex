@@ -3,11 +3,11 @@
 
 \usepackage{amsmath}
 \usepackage{bm}
-\usetikzlibrary{positioning,calc, arrows}
+\usetikzlibrary{positioning,calc, arrows,shapes}
 
 % variable styles
 \tikzstyle{measure} = [ draw, rectangle ]
-\tikzstyle{latent} = [ draw, circle ]
+\tikzstyle{latent} = [ draw, ellipse ]
 
 
 \tikzstyle{edge} = [->]
@@ -35,12 +35,12 @@
 \end{tikzpicture}
 
 \begin{tikzpicture}
-	\node[measure] (supp) at (0, 0) {Supp. Quality};
-	\node[measure] (raw) at (0.5, 1) {Raw Material};
-	\node[measure] (def) at (1, 2) {Defective Prod.};
-	\node[measure] (prod) at (2, 1) {Prod. Process};
-	\node[measure] (oper) at (4, 0) {Operator Train.};
-	\node[measure] (mac) at (2, 1) {Machine Maint.};
+	\node[measure] (x) at (0, 0) {Drowning Cases};
+	\node[measure] (y) at (4, 0) {Ice-cream Sales};
+	\node[latent] (u) at (2, 1) {Season};
+
+	\draw[edge](u) -- (x);
+	\draw[edge](u) -- (y);
 \end{tikzpicture}
 
 \end{document}

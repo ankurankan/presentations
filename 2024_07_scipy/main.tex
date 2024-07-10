@@ -50,6 +50,23 @@
 \maketitle
 
 \begin{frame}{Predictive vs Causal Modelling}
+	\textbf{Predictive Modelling}
+		\begin{itemize}
+			\item Exploits correlation among variables.
+			\item Interested in prediction accuracy.
+		\end{itemize}
+	\vspace{1em}
+	\textbf{Causal Modelling}
+		\begin{itemize}
+			\item Tries to figure out causal relationship between variables.
+			\item Interested in causal effect estimation or understanding the data generating mechanism.
+			\item Allows to identify potential interventions.
+		\end{itemize}
+
+	\begin{figure}
+		\centering
+		\includegraphics[page=3]{figures.pdf}
+	\end{figure}
 \end{frame}
 
 \begin{frame}{Example: Protein Signalling Causal Network}
@@ -95,7 +112,7 @@
 
 \begin{frame}{Landscape of Causal Inference Python Packages}
 	\begin{columns}
-		\begin{column}{0.5 \textwidth}
+		\begin{column}[T]{0.5 \textwidth}
 			\center{\textbf{Potential Outcomes Framework}}
 			\begin{itemize}
 				\item Collection of estimation methods
@@ -114,7 +131,7 @@
 
 		\end{column}
 		\vrule
-		\begin{column}{0.5 \textwidth}
+		\begin{column}[T]{0.5 \textwidth}
 			\center{\textbf{DAG Framework}}
 			\begin{itemize}
 				\item pgmpy
@@ -126,7 +143,6 @@
 						\includegraphics[height=2cm, width=3cm, scale=0.2]{imgs/causalnex.png}
 					\end{figure}
 			\end{itemize}
-			\vspace{2em}
 		\end{column}
 	\end{columns}
 \end{frame}
@@ -203,7 +219,7 @@
 
 \begin{frame}{Automated Algorithms}
 	\begin{columns}
-		\begin{column}{0.5\textwidth}
+		\begin{column}[T]{0.5\textwidth}
 			\center{\textbf{PC}}
 			\begin{figure}
 				\centering
@@ -217,7 +233,7 @@
 			\end{figure}
 		\end{column}
 		\vrule
-		\begin{column}{0.5\textwidth}
+		\begin{column}[T]{0.5\textwidth}
 			\center{\textbf{Hill-Climb Search}}
 			\begin{figure}
 				\centering
@@ -267,7 +283,7 @@
 
 \begin{frame}{Problems With Automated Casual Discovery}
 	\begin{itemize}
-		\item Difficult to choose the correct model.
+		\item Difficult to choose the correct algorithm/model.
 		\item In finite sample scenario, all algorithms make mistakes.
 		\item Lack of standard evaluation metrics.
 	\end{itemize}
@@ -319,8 +335,7 @@
 
 \begin{frame}{Expert Knowledge Integration}
 	\begin{itemize}
-		\item Allows users to specify fixed edges that they want in final model.
-		\item Can be used to specify obvious relations in the model.
+		\item Allows to specify fixed edges that will be present in the final model.
 	\end{itemize}
 
 	\begin{figure}
@@ -359,8 +374,7 @@
 	\end{figure}
 
 	\begin{itemize}
-		\item Adding expert knowledge can be helpful, but experts can also make mistakes.
-		\item Hard to distinguish between direct and indirect effects, hence common to end up with very dense models when drawing manually.
+		\item Adding expert knowledge can be helpful, but algorithms can still end up learning incorrect models.
 	\end{itemize}
 \end{frame}
 
@@ -368,6 +382,7 @@
 	\center{Don't have access to ground truth, so no straight-forward way to evaluate the models.}
 
 	\vspace{2em}
+
 	pgmpy implements a few methods to test and compare models.
 	\begin{itemize}
 		\item Testing implied Conditional Independences (CIs): 
@@ -432,22 +447,32 @@
 	\end{figure}
 \end{frame}
 
-\begin{frame}{Correlation Score and Fisher's C}
-	Correlation Score: F1-scores comparing pair of variables correlated in the data vs in the DAG.
+\begin{frame}{Fisher's C}
+	\center{Combines the CI tests to give a single p-value.}
+	\vspace{2em}
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.3]{imgs/fisherc.png}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Correlation Score}
+	\center{F1-scores comparing pair of variables correlated in the data vs in the DAG.}
+	\vspace{2em}
 	\begin{figure}
 		\centering
 		\includegraphics[scale=0.3]{imgs/corr_score.png}
 	\end{figure}
 
-	Fisher's C: Combines the CI tests to give a single p-value.
-	\todo[inline]{Add figure here}
 \end{frame}
+
 
 \begin{frame}{Score metrics}
 	\begin{itemize}
-		\item Scores the network structure.
+		\item Scores the network structure based on how well they fit to data.
 		\item Useful for comparing multiple models.
 	\end{itemize}
+	\vspace{1em}
 	\begin{figure}
 		\includegraphics[scale=0.3]{imgs/structure_score.png}
 	\end{figure}
@@ -551,6 +576,7 @@
 	\begin{itemize}
 		\item Finds adjustment variables to block all confounding paths.
 	\end{itemize}
+
 \end{frame}
 
 \begin{frame}{Front-door Criterion}
@@ -590,10 +616,11 @@
 	\begin{itemize}
 		\item Identification methods give the estimand.
 		\item Any estimator can be used to make the estimates.
-		\item Usually people use linear models for their interpretability.
-		\item pgmpy has a discrete variable inference engine, that can be used
-			as well.
+		\item Usually linear models are used for their interpretability.
 	\end{itemize}
+\end{frame}
+
+\begin{frame}{Estimation}
 \end{frame}
 
 \begin{frame}{Simulations}
@@ -619,15 +646,21 @@
 	\begin{itemize}
 		\item Causal Inference is a very active field of research.
 		\item pgmpy offers easy ways to extend/modify algorithms.
-	\end{itemize}	
-	$ random ci_test $
+		\item Methods accept custom functions as argument.
+		\item Base classes make it easier to implement new algorithms and can be plugged into other functionality.
+	\end{itemize}
+	\vspace{1em}
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.3]{imgs/extend.png}
+	\end{figure}
 \end{frame}
 
 \begin{frame}{Future Plans}
 	\begin{itemize}
 		\item Focus on implementing practical methods.
 		\item Wider support for mixed data, i.e., combination of categorical, ordinal, and continuous variables.
-		\item Add more commonly used algorithms.
+		\item Add more commonly used causal discovery, and identification algorithms.
 	\end{itemize}
 \end{frame}
 
