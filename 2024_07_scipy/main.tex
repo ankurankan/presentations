@@ -53,13 +53,13 @@
 	\textbf{Predictive Modelling}
 		\begin{itemize}
 			\item Exploits correlation among variables.
-			\item Interested in prediction accuracy.
+			\item Usually interested in prediction accuracy.
 		\end{itemize}
 	\vspace{1em}
 	\textbf{Causal Modelling}
 		\begin{itemize}
 			\item Tries to figure out causal relationship between variables.
-			\item Interested in causal effect estimation or understanding the data generating mechanism.
+			\item Interested in understanding the data generating mechanism and/or causal effect estimation.
 			\item Allows to identify potential interventions.
 		\end{itemize}
 
@@ -69,7 +69,7 @@
 	\end{figure}
 \end{frame}
 
-\begin{frame}{Example: Protein Signalling Causal Network}
+\begin{frame}{Example: Protein Signalling Causal Network \footnote{Sachs, Karen, et al. "Causal protein-signaling networks derived from multiparameter single-cell data." Science 308.5721 (2005): 523-529.}}
 	\begin{columns}
 		\begin{column}{0.5\textwidth}
 			\begin{itemize}
@@ -88,15 +88,23 @@
 	\end{columns}
 \end{frame}
 
-\begin{frame}{Two Main Framworks}
+\begin{frame}{Examples}
+	\begin{itemize}
+		\item \textbf{Epidemiology:} Analyzing data on how different treatment or exposures affect health outcomes.
+		\item \textbf{Economics and Social Sciences:} Understanding impacts of policy interventions and help in designing potential interventions.
+		\item \textbf{Machine Learning:} For interpretability, feature selection, making models robust to out of distribution predictions.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Two Main Frameworks}
 	Mathematical frameworks for causal inference:
 	\vspace{0.5em}
 	\begin{itemize}
 		\item Potential Outcomes Framework (a.k.a. Rubin's Casual Model)
 			\begin{itemize}
-				\item Counterfactual statement at the core.
-				\item Provides statistical methods for estimating the counterfactual such Propensity Score based methods, Dobly robust estimators, etc.
-				% \item Statistically robust methods that can deal with assumption violations.
+				\item Usually interested only in estimating causal effect.
+				\item Provides statistical methods for estimating the causal effect.
+					Examples are Propensity Score based methods, Doubly robust estimators, etc.
 			\end{itemize}
 	\end{itemize}
 	\vspace{2em}
@@ -386,7 +394,7 @@
 	pgmpy implements a few methods to test and compare models.
 	\begin{itemize}
 		\item Testing implied Conditional Independences (CIs): 
-		\item Fisher C: Similar to implied CIs but summerizes the whole model fit.
+		\item Fisher C: Similar to implied CIs but summarizes the whole model fit.
 		\item Data Fit metrics such as likelihood or structure scores to compare models.
 	\end{itemize}
 \end{frame}
