@@ -268,6 +268,7 @@
 % \end{frame}
 
 \begin{frame}{Automated Algorithms}
+	\todo[inline]{Fix this slide}
 	\begin{figure}
 		\begin{subfigure}{0.5\textwidth}
 			\centering
@@ -578,8 +579,8 @@
 
 	\begin{itemize}
 		\item Theoretically, do-calculus provides a complete solution to identification.
-		\item i.e., can give an estimation strategy for every identified causal effect.
-		\item However, no efficient algorithms for do-calculus.
+		\item do-calculus can give an estimand for every identified causal effect.
+		\item However, no efficient algorithms to get these estimands using do-calculus.
 		\item In practice, we rely on a set of simpler identification strategies that work in special cases.
 	\end{itemize}
 	\todo[inline]{Add a venn diagram here}
@@ -631,9 +632,9 @@
 	\end{figure}
 	\begin{equation*}
 		\begin{split}
-			\beta_{zy}:& Y \sim Z \\
+			\beta_{zx} \beta_{xy}:& Y \sim Z \\
 			\beta_{zx}:& X \sim Z \\
-			\beta_{xy} =& \beta_{zy} / \beta_{zx} \\
+			\beta_{xy} =& \frac{\beta_{zx}\beta_{xy}}{\beta_{zx}} \\
 		\end{split}
 	\end{equation*}
 \end{frame}
