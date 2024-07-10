@@ -574,23 +574,62 @@
 
 \begin{frame}{Backdoor Criterion}
 	\begin{itemize}
-		\item Finds adjustment variables to block all confounding paths.
+		\item For cases when biasing paths can be blocked by conditioning.
+		\item Finds adjustment variables to block confounding paths.
 	\end{itemize}
+	\begin{figure}
+		\centering
+		\includegraphics[page=4]{figures.pdf}
+	\end{figure}
+
+	$$ \beta_{xy}: Y \sim X + U $$
 
 \end{frame}
 
 \begin{frame}{Front-door Criterion}
 	\begin{itemize}
-		\item Double application of backdoor criterion.
 		\item Used for scenarios when there are mediator variables.
+		\item Double application of backdoor criterion.
 	\end{itemize}
+	\begin{figure}
+		\centering
+		\includegraphics[page=5]{figures.pdf}
+	\end{figure}
+
+	\begin{equation*}
+		\begin{split}
+			\beta_{xm}:& M \sim X \\
+			\beta_{my}:& Y \sim M + X \\
+			\beta_{xy} =& \beta_{xm}\beta_{my}
+		\end{split}
+	\end{equation*}
+
 \end{frame}
 
 \begin{frame}{Instrumental Variables}
 	\begin{itemize}
-		\item Use variables which are correlated with the outcome variable only
-			through the exposure variable.
+		\item When there are variables in the model that are correlated
+			with the outcome variable only through the exposure
+			variable.
 	\end{itemize}
+	\begin{figure}
+		\centering
+		\includegraphics[page=6]{figures.pdf}
+	\end{figure}
+	\begin{equation*}
+		\begin{split}
+			\beta_{zy}:& Y \sim Z \\
+			\beta_{zx}:& X \sim Z \\
+			\beta_{xy} =& \beta_{zy} / \beta_{zx} \\
+		\end{split}
+	\end{equation*}
+\end{frame}
+
+\begin{frame}{Identification with pgmpy}
+	\begin{figure}
+		\centering
+		\includegraphics[page=7]{figures.pdf}
+	\end{figure}
 \end{frame}
 
 \begin{frame}{Estimation}
