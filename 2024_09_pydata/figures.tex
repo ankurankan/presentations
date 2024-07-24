@@ -1,0 +1,95 @@
+\documentclass[tikz,margin=2mm]{standalone}
+\pagestyle{empty}
+
+\usepackage{amsmath}
+\usepackage{bm}
+\usetikzlibrary{positioning,calc, arrows,shapes}
+
+% variable styles
+\tikzstyle{measure} = [ draw, rectangle ]
+\tikzstyle{latent} = [ draw, ellipse ]
+
+
+\tikzstyle{edge} = [->]
+
+\begin{document}
+
+\begin{tikzpicture}
+	\node[measure] (x) at (0, 0) {$X$};
+	\node[measure] (y) at (2, 0) {$Y$};
+	\node[latent] (u) at (1, 1) {$U$};
+
+	\draw[edge](x) -- (y) node[midway, above]{\scriptsize $\beta$};
+	\draw[edge](u) -- (x);
+	\draw[edge](u) -- (y);
+\end{tikzpicture}
+
+\begin{tikzpicture}
+	\node[measure] (x) at (0, 0) {$X$};
+	\node[measure] (y) at (2, 0) {$Y$};
+	\node[measure] (u) at (1, 1) {$U$};
+
+	\draw[edge](x) -- (y) node[midway, above]{\scriptsize $\beta$};
+	\draw[edge](u) -- (x);
+	\draw[edge](u) -- (y);
+\end{tikzpicture}
+
+\begin{tikzpicture}
+	\node[measure] (x) at (4, 0) {Drowning Cases};
+	\node[measure] (y) at (0, 0) {Ice-cream Sales};
+	\node[latent] (u) at (2, 1) {Season};
+
+	\draw[edge](u) -- (x);
+	\draw[edge](u) -- (y);
+\end{tikzpicture}
+
+\begin{tikzpicture}
+	\node[measure] (x) at (0, 0) {$X$};
+	\node[measure] (y) at (2, 0) {$Y$};
+	\node[measure] (u) at (1, 1) {$U$};
+
+	\draw[edge](x) -- (y) node[midway, below]{\scriptsize $\beta_{xy}$};
+	\draw[edge](u) -- (x);
+	\draw[edge](u) -- (y);
+\end{tikzpicture}
+
+\begin{tikzpicture}
+	\node[measure] (x) at (0, 0) {$X$};
+	\node[measure] (y) at (3, 0) {$Y$};
+	\node[measure] (m) at (1.5, 0) {$M$};
+	\node[latent] (u) at (1.5, 1) {$U$};
+
+	\draw[edge](x) -- (m) node[midway, below]{\scriptsize $\beta_{xm}$};
+	\draw[edge](m) -- (y) node[midway, below]{\scriptsize $\beta_{my}$};
+	\draw[edge](u) -- (x);
+	\draw[edge](u) -- (y);
+\end{tikzpicture}
+
+\begin{tikzpicture}
+	\node[measure] (x) at (0, 0) {$X$};
+	\node[measure] (y) at (2, 0) {$Y$};
+	\node[latent] (u) at (1, 1) {$U$};
+	\node[measure] (z) at (-2, 0) {$Z$};
+
+	\draw[edge](z) -- (x) node[midway, below]{\scriptsize $\beta_{zx}$};
+	\draw[edge](x) -- (y) node[midway, below]{\scriptsize $\beta_{xy}$};
+	\draw[edge](u) -- (x);
+	\draw[edge](u) -- (y);
+\end{tikzpicture}
+
+\begin{tikzpicture}
+	\node[measure] (x) at (0, 0) {$X$};
+	\node[measure] (y) at (3, 0) {$Y$};
+	\node[measure] (b) at (1.5, 1) {$B$};
+	\node[measure] (a) at (0, 2) {$A$};
+	\node[measure] (c) at (3, 2) {$C$};
+
+	\draw[edge](x) -- (y);
+	\draw[edge](a) -- (x);
+	\draw[edge](a) -- (b);
+	\draw[edge](b) -- (x);
+	\draw[edge](c) -- (b);
+	\draw[edge](c) -- (y);
+\end{tikzpicture}
+
+\end{document}
