@@ -1,5 +1,25 @@
 Simplified title of your PhD thesis:
+Testing and Estimation in Causal Models: Addressing Mixed and Missing Data Challenges
 
 Brief Public Summary (200 words max.):
 
+Causal questions are important in many areas of science, such as understanding
+how a new medicine affects patient health, how environmental changes impact
+wildlife, or what causes economic recessions. Typically, answering these
+questions requires a Randomized Controlled Trial (RCT). For example, to
+determine the effects of a new medicine, this would involve splitting people
+into two random groups, giving one group the treatment, and then comparing the
+effects between the two groups. However, RCTs can sometimes be too expensive,
+unethical to conduct, or simply infeasible. In such scenarios, causal inference
+methods help scientists understand cause-and-effect relationships without
+needing an RCT. This dissertation addresses some of the practical challenges of
+applying these causal inference methods specifically on dealing with missing
+data or when datasets contain a mix of variable types.
+
 Brief CV (150 words max.)
+
+Ankur Ankan (1993) obtained his Master's degree in Artificial Intelligence from
+Radboud University. In 2019, he began his PhD research at the Tumor Immunology
+Lab at Radboud UMC, later moving to the Institute for Computing and Information
+Sciences (iCIS) at Radboud University. Currently, he works as a Postdoctoral
+Researcher at iCIS.
