@@ -7,13 +7,14 @@ Causal questions are important in many areas of science, such as understanding
 how a new medicine affects patient health, how environmental changes impact
 wildlife, or what causes economic recessions. Typically, answering these
 questions requires a Randomized Controlled Trial (RCT). For example, to
-determine the effects of a new medicine, this would involve splitting people
-into two random groups, giving one group the treatment, and then comparing the
-effects between the two groups. However, RCTs can sometimes be too expensive,
-unethical to conduct, or simply infeasible. In such scenarios, causal inference
-methods help scientists understand cause-and-effect relationships without
-needing an RCT. This dissertation addresses some of the practical challenges of
-applying these causal inference methods specifically when dealing with missing
+determine the effects of a new medicine, an RCT involves splitting people into
+two random groups, giving one group the medicine while keeping the other group
+untreated, and then comparing the outcome between the two groups. However, RCTs
+can sometimes be too expensive, unethical, or simply infeasible. In such
+scenarios, causal inference methods help scientists understand cause-and-effect
+relationships using observational data without needing an RCT. This
+dissertation develops methods addresses some of the practical challenges of
+applying these causal inference methods, specifically when dealing with missing
 data or when datasets contain a mix of variable types.
 
 Brief CV (150 words max.)
