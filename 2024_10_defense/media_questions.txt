@@ -13,7 +13,7 @@ effects between the two groups. However, RCTs can sometimes be too expensive,
 unethical to conduct, or simply infeasible. In such scenarios, causal inference
 methods help scientists understand cause-and-effect relationships without
 needing an RCT. This dissertation addresses some of the practical challenges of
-applying these causal inference methods specifically on dealing with missing
+applying these causal inference methods specifically when dealing with missing
 data or when datasets contain a mix of variable types.
 
 Brief CV (150 words max.)
