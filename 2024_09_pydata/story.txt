@@ -1,7 +1,25 @@
-1. Motivating examples for causal analysis.
-2. Propensity score vs Pearl's method.
-3. Show an example using pywhy
-4. Motivation for causal discovery.
-5. Difficult problem.
-6. Expert knowledge integration.
-7. LLMs
+1. Why do we care about Causal Inference? (5 slides)
+	a. Show some real examples of the kind of questions that we can answer using it?
+		1. Take example from economics
+		2. Take Protein Signalling example.
+		3. Take example from epidemiology.
+	b. Why can't these be answered using standard machine learning models?
+
+2. Two main frameworks for Causal Inference. (2 slides)
+	a. The two frameworks.
+	b. Package landscape in Python.
+
+3. Standard workflow in the DAG framework. (1 slide)
+4. Causal Discovery
+	a. Doesn't work very well by itself. Requires expert knowledge integration.
+	b. Lot of effort put in pgmpy towards allowing users to input expert knowledge.
+	c. LLM based method.
+	d. How can causal discovery assist in covariate selection in Rubin's causal model.
+	e. Model testing.
+
+5. Identification. (2 slides)
+
+6. Estimation. (1 slide)
+	a. Show a simple example using linear regression or something
+
+7. Takeaways (1 slide)
