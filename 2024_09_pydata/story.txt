@@ -4,18 +4,25 @@
 		2. Take Protein Signalling example.
 		3. Take example from epidemiology.
 	b. Why can't these be answered using standard machine learning models?
+		1. In observational data, we can only observe correlation.
+		2. Correlation doesn't imply causation, so we need to somehow infer
+			that from the correlation structure between the variables.
+
 
 2. Two main frameworks for Causal Inference. (2 slides)
 	a. The two frameworks.
 	b. Package landscape in Python.
 
 3. Standard workflow in the DAG framework. (1 slide)
+
 4. Causal Discovery
 	a. Doesn't work very well by itself. Requires expert knowledge integration.
 	b. Lot of effort put in pgmpy towards allowing users to input expert knowledge.
-	c. LLM based method.
-	d. How can causal discovery assist in covariate selection in Rubin's causal model.
-	e. Model testing.
+	c. Outputs CPDAGs that need to be oriented or can directly be used for identification.
+	d. Minimal required orientation algorithm?? Implmenet
+	d. LLM based method.
+	e. How can causal discovery assist in covariate selection in Rubin's causal model.
+	f. Model testing.
 
 5. Identification. (2 slides)
 
