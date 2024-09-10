@@ -1,4 +1,14 @@
-Broad:
+Very broad:
 1. Causal Inference is important in many fields.
-2. Building causal models is challenging. Especially in mixed and missing data scenarios.
-3. 
+2. Many challenges in building these causal models.
+	a. Difficult to test whether our model structure is correct.
+	a. High-dimensionality.
+	b. Mixed-data.
+	c. Missing data.
+	d. Software.
+3. Chapter 2: For practitioners to test whether their models are correct or not.
+4. Chapter 3: This model testing and causal discovery algorithms rely on CI tests. In high-dimensions and mixed-data scenarios, these tests are difficult.
+5. Chapter 4: In missing data scenarios (i.e. when latent variables are present).
+6. Chapter 5: Lastly, to make to accessible to people using this, good software is required. pgmpy is a package to use these methods.
+7. Chapter 6: Future research:
+8.
