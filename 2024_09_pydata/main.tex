@@ -49,17 +49,55 @@
 
 \maketitle
 
+\begin{frame}{pgmpy}
+
+\begin{figure}[t]
+	\centering
+	\begin{tikzpicture}[inner sep=1pt]
+	\tikzstyle{every node}=[align=left]
+		\node (data)  at (0, 0) {Data};
+		\node (dag)    at (5, 0) {DAG};
+		\node (user)  at (5, 1.2) {Import / User Defined};
+		\node (bn)    at (12, 0) {Parameterized BN};
+		\node (test)  at (2.5, -0.8) {Model Testing};
+		\node (iv)    at (3.7, -1.4) {Instrumental Variables};
+		\node (as)    at (6, -0.8) {Adjustment Set};
+		\node (sim)   at (9, -0.8) {Simulations};
+		\node (ci)    at (9.8, -1.4) {Causal Inference};
+		\node (pi)    at (11.2, -2) {Probabilistic Inference};
+		\node (testp) at (14, -0.8) {Model Testing};
+		\node (readwrite) at (12.8, -1.4) {Export};
+		\node (read) at (12, 1.2) {Import / User Defined};
+
+		\draw[->] (data) edge [bend left=10] node [midway, above]{Structure Learning} (dag.west);
+		\draw (dag.east) edge [->,bend left=10] node [midway, above]{Parameter Learning} (bn.west);
+		\draw[->] (user.south) -- (dag.north);
+		\draw[->] (dag.south) -- (test.north);
+		\draw[->] (dag.south) -- (iv.north);
+		\draw[->] (dag.south) -- (as.north);
+		\draw[->] (bn.south) -- (pi.north);
+		\draw[->] (bn.south) -- (ci.north);
+		\draw[->] (bn.south) -- (sim.north);
+		\draw[->] (bn.south) -- (testp.north);
+		\draw[->] (bn.south) -- (readwrite.north);
+		\draw[->] (read.south) -- (bn.north);
+	\end{tikzpicture}
+	\caption{Possible workflows in pgmpy for Bayesian Networks}
+	\label{fig:workflow}
+\end{figure}
+\end{frame}
+
 \begin{frame}{Predictive vs Causal Modelling}
-	\textbf{Predictive Modelling}
+	\textbf{Predictive Modelling}:
 		\begin{itemize}
-			\item Exploits correlation among variables.
 			\item Usually interested in predicting outcome variables.
+			\item Methods exploit correlation among variables.
 		\end{itemize}
 	\vspace{1em}
 	\textbf{Causal Modelling}
 		\begin{itemize}
-			\item Try to learn causal-effect relationships between variables.
-			\item Interested in understanding the causal structure of the data generating mechanism and/or causal effect estimation.
+			\item Usually interested in identifying potential interventions or estimating effects of interventions.
+			\item Methods try to learn the causal-effect relationships between variables.
 		\end{itemize}
 
 	\begin{figure}
@@ -89,6 +127,7 @@
 \end{frame}
 
 \begin{frame}{Examples}
+	\todo[inline]{Expand a lot more in this section and give more examples + what causal inference can achieve.}
 	\begin{itemize}
 		\item \textbf{Epidemiology:} Analyzing data on how different treatment or exposures affect health outcomes.
 		\item \textbf{Economics and Social Sciences:} Understanding impacts of policy interventions and help in designing potential policies.
@@ -116,6 +155,8 @@
 				\item DAGs make modelling assumptions explicit.
 			\end{itemize}
 	\end{itemize}
+
+	\todo[inline]{Add more explicitly which is used where}
 \end{frame}
 
 \begin{frame}{Landscape of Causal Inference Python Packages}
@@ -142,6 +183,7 @@
 		\begin{column}[T]{0.45 \textwidth}
 			\center{\textbf{DAG Frameworks}}
 			\begin{itemize}
+				\item causal-learn
 				\item pgmpy
 					\begin{figure}
 						\includegraphics[scale=0.2]{imgs/pgmpy.png}
@@ -194,16 +236,16 @@
 		\begin{tikzpicture}[yscale=1, xscale=0.75, inner sep=3pt]
 		\tikzstyle{every node}=[align=left]
 			\node (data) at (0, 0) {Data};
-			\node (dag) at (6, 0) {DAG};
-			\node (estimand) at (12, 0) {Estimation Strategy};
-			\node (estimation) at (12, -2.5) {Causal Estimate};
+			\node (dag) at (4, 0) {DAG};
+			\node (estimand) at (10, 0) {Estimation \\ Strategy};
+			\node (estimation) at (17, 0) {Causal Estimate};
 	
-			\draw[thick, ->] (data) to node[midway, above]{\footnotesize Causal Discovery} (dag);
+			\draw[thick, ->] (data) to node[midway, above]{\footnotesize Causal \\ \footnotesize Discovery} (dag);
 			\draw[thick, ->] (dag) to node[midway, above] {\footnotesize Identification} (estimand);
-			\draw[thick, ->] (estimand) to node[midway, above, rotate=90] {\footnotesize Estimator} (estimation);
+			\draw[thick, ->] (estimand) to node[midway, above] {\footnotesize Estimator} (estimation);
 			\draw[thick, ->] (dag) [out=150, in=30, looseness=10] to node[midway, above] {\footnotesize Testing/Evaluation/Modification} (dag);
 
-			\draw[draw=red, thick] (-1, -0.5) rectangle (7, 0.5);
+			\draw[draw=red, thick] (-1, -0.5) rectangle (5, 1);
 		\end{tikzpicture}
 		\label{fig:workflow1}
 	\end{figure}
@@ -723,6 +765,15 @@
 		\item Focus on implementing more practical methods such as bootstrapping, model comparison methods.
 		\item Improve support for mixed data, i.e., combination of categorical, ordinal, and continuous variables.
 		\item Add more commonly used causal discovery, and identification algorithms.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Take Home Messages}
+	\begin{itemize}
+		\item DAG based causal inference is great for interpretability, making 
+			our data assumptions explicit.
+		\item Constructing the model from data can be challenging.
+		\item Often requires some addition of expert knowledge.
 	\end{itemize}
 \end{frame}
 
