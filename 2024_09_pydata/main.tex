@@ -13,6 +13,7 @@
 \usepackage{titlecaps}
 \usepackage{fancyvrb}
 \usepackage{minted}
+\setminted{xleftmargin=1cm}
 \def\ci{\perp\!\!\!\!\!\perp}
 
 \newtheorem{proposition}{Proposition}
@@ -30,6 +31,8 @@
 
 \setbeamertemplate{section in toc}{\inserttocsectionnumber.~\inserttocsection}
 \usetheme{Boadilla}
+
+\setbeamersize{text margin left=2em,text margin right=2em}
 \makeatletter
 \setbeamertemplate{footline}{%
     \leavevmode%
@@ -408,7 +411,7 @@ dag = est.estimate(ci_test='pillai')
 	algorithms.}
 \end{frame}
 
-\begin{frame}{Causal Discovery: Expert Knowledge Integration}
+\begin{frame}[fragile]{Causal Discovery: Expert Knowledge Integration}
 	\begin{itemize}
 		\item Users can specify edges to blacklist/whitelist.
 		\item The algorithm never adds blacklisted edges and only
@@ -416,11 +419,21 @@ dag = est.estimate(ci_test='pillai')
 	\end{itemize}
 	\vfill
 	\begin{figure}
-		\begin{subfigure}{0.5 \textwidth}
-			\centering
-			\includegraphics[scale=0.28]{imgs/adult_blacklist.png}
+		\begin{subfigure}{0.6 \textwidth}
+			\begin{minted}[linenos, fontsize=\footnotesize]{python}
+est = HillClimbSearch(df)
+blist = [('Sex', 'MaritalStatus'),
+	 ('MaritalStatus', 'Income'),
+	 ('Income', 'Education'),
+	 ('MaritalStatus', 'Age'),
+	 ('Income', 'HoursPerWeek')]
+dag = est.estimate(scoring_method='bicscore',
+		   black_list=blist)
+			\end{minted}
+			% \centering
+			% \includegraphics[scale=0.28]{imgs/adult_blacklist.png}
 		\end{subfigure}%
-		\begin{subfigure}{0.5 \textwidth}
+		\begin{subfigure}{0.4 \textwidth}
 			\centering
 			\includegraphics[scale=0.3]{imgs/adult_bic_blacklist.png}
 		\end{subfigure}
