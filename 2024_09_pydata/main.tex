@@ -12,6 +12,7 @@
 \usepackage{ragged2e}
 \usepackage{titlecaps}
 \usepackage{fancyvrb}
+\usepackage{minted}
 \def\ci{\perp\!\!\!\!\!\perp}
 
 \newtheorem{proposition}{Proposition}
@@ -19,6 +20,13 @@
 
 \newcommand\github{\includegraphics[height=2ex]{imgs/github.png}}
 \newcommand\email{\includegraphics[height=3ex]{imgs/email.png}}
+
+\newcommand\blfootnote[1]{
+    \begingroup
+    \renewcommand\thefootnote{}\footnote{#1}
+    \addtocounter{footnote}{-1}
+    \endgroup
+}
 
 \setbeamertemplate{section in toc}{\inserttocsectionnumber.~\inserttocsection}
 \usetheme{Boadilla}
@@ -40,14 +48,16 @@
     }
 \makeatother
 
-\begin{document}
-
 \title[Causal Inference using pgmpy]{Introduction to Casual Inference using pgmpy}
 \author{Ankur Ankan}
 \institute[]{Postdoctoral Researcher \\ Radboud University, The Netherlands}
 \date{}
 
-\maketitle
+\begin{document}
+
+\begin{frame}
+	\maketitle
+\end{frame}
 
 
 \begin{frame}{Predictive vs Causal Modelling}
@@ -65,6 +75,19 @@
 \end{frame}
 
 \begin{frame}{Spurious Correlations}
+	\begin{figure}
+		\center
+		\includegraphics[scale=0.6]{imgs/spurious1.pdf}
+	\end{figure}
+	\blfootnote{https://tylervigen.com/spurious-correlations}
+\end{frame}
+
+\begin{frame}{Spurious Correlations}
+	\begin{figure}
+		\center
+		\includegraphics[scale=0.6]{imgs/spurious2.pdf}
+	\end{figure}
+	\blfootnote{https://tylervigen.com/spurious-correlations}
 \end{frame}
 
 \begin{frame}{Correlation Structure}
@@ -79,6 +102,7 @@
 		\includegraphics[page=8]{figures.pdf}
 		\caption{Blood Pressure is mediator}
 	\end{figure}
+	\todo[inline]{Add more examples here}
 \end{frame}
 
 \begin{frame}{Example: Protein Signalling Causal Network \footnote{Sachs, Karen, et al. "Causal protein-signaling networks derived from multiparameter single-cell data." Science 308.5721 (2005): 523-529.}}
@@ -271,28 +295,44 @@
 				\item \textbf{Score-based:} Greedy Equivalence Search, Hill-Climb Search.
 				\item \textbf{Optimization-based:} NoTears, DAGMA.
 			\end{itemize}
-		\item In practice, output varies significantly depending on sample size,
-			algorithm used, and their hyperparameters.
-		\item As causal discovery is an unsupervised learning problem, difficult to decide/choose between different outputs.
+		\item However, in practice, difficult to use these algorithms.
+			\begin{itemize}
+				\item Outputs are sensitive to algorithm, hyperparameters, and sample size.
+				\item Theoretically many DAGs can represent the same correlation structure.
+				\item Unsupervised learning problem, difficult to decide/choose between different outputs.
+			\end{itemize}
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Causal Discovery: Automated Algorithms}
-	\begin{figure}
-		\begin{subfigure}{0.45 \textwidth}
-			\includegraphics[scale=0.28]{imgs/pc_chisquare.png}
-		\end{subfigure}%
-		\begin{subfigure}{0.55 \textwidth}
-			\includegraphics[scale=0.25]{imgs/adult_x2.png}
-		\end{subfigure}\vfill
-		\begin{subfigure}{0.6 \textwidth}
-			\includegraphics[scale=0.28]{imgs/hill_bic.png}
-		\end{subfigure}%
-		\begin{subfigure}{0.4 \textwidth}
-			\includegraphics[scale=0.25]{imgs/adult_bic.png}
-		\end{subfigure}
-	\end{figure}
-	\footnotetext{Becker,Barry and Kohavi,Ronny. (1996). Adult. UCI Machine Learning Repository. https://doi.org/10.24432/C5XW20.}
+\begin{frame}[fragile]{Causal Discovery: Automated Algorithms}
+	\begin{columns}
+		\begin{column}{0.5 \textwidth}
+			\begin{minted}[linenos, fontsize=\footnotesize]{python}
+from pgmpy.estimators import PC
+
+est = PC(df)
+dag = est.estimate(ci_test='chi_square')
+			\end{minted}
+			\vspace{4em}
+
+			\begin{minted}[linenos, fontsize=\footnotesize]{python}
+from pgmpy.estimators import HillClimbSearch
+
+est = HillClimbSearch(df)
+dag = est.estimate(scoring_method='bicscore')
+			\end{minted}
+		\end{column}
+		\begin{column}{0.5 \textwidth}
+			\begin{figure}
+				\includegraphics[scale=0.25]{imgs/adult_x2.png}
+			\end{figure}
+			\vspace{2em}
+			\begin{figure}
+				\includegraphics[scale=0.25]{imgs/adult_bic.png}
+			\end{figure}
+		\end{column}
+	\end{columns}
+	\blfootnote{Becker,Barry and Kohavi,Ronny. (1996). Adult. UCI Machine Learning Repository.}
 \end{frame}
 
 % \begin{frame}{PC algorithm}
@@ -305,25 +345,54 @@
 % 	Results can be very different depending on the algorithm, hyperparameter selections, etc.
 % \end{frame}
 
-\begin{frame}{Causal Discovery: Automated Algorithms}
-	\begin{figure}
-		\begin{subfigure}{0.45\textwidth}
-			\centering
-			\includegraphics[scale=0.28]{imgs/pc_chisquare.png}
-		\end{subfigure}%
-		\begin{subfigure}{0.55 \textwidth}
-			\centering
-			\includegraphics[scale=0.25]{imgs/adult_x2.png}
-		\end{subfigure}\vfill
-		\begin{subfigure}{0.45 \textwidth}
-			\centering
-			\includegraphics[scale=0.28]{imgs/pc_pillai.png}
-		\end{subfigure}%
-		\begin{subfigure}{0.55 \textwidth}
-			\centering
-			\includegraphics[scale=0.25]{imgs/adult_pillai.png}
-		\end{subfigure}
-	\end{figure}
+\begin{frame}[fragile]{Causal Discovery: Automated Algorithms}
+	\begin{columns}
+		\begin{column}{0.5 \textwidth}
+			\begin{minted}[linenos, fontsize=\footnotesize]{python}
+from pgmpy.estimators import PC
+
+est = PC(df)
+dag = est.estimate(ci_test='chi_square')
+			\end{minted}
+			\vspace{4em}
+
+			\begin{minted}[linenos, fontsize=\footnotesize]{python}
+from pgmpy.estimators import PC
+
+est = PC(df)
+dag = est.estimate(ci_test='pillai')
+			\end{minted}
+		\end{column}
+		\begin{column}{0.5 \textwidth}
+			\begin{figure}
+				\includegraphics[scale=0.25]{imgs/adult_x2.png}
+			\end{figure}
+			\vspace{2em}
+			\begin{figure}
+				\includegraphics[scale=0.25]{imgs/adult_pillai.png}
+			\end{figure}
+		\end{column}
+	\end{columns}
+
+
+	% \begin{figure}
+	% 	\begin{subfigure}{0.45\textwidth}
+	% 		\centering
+	% 		\includegraphics[scale=0.28]{imgs/pc_chisquare.png}
+	% 	\end{subfigure}%
+	% 	\begin{subfigure}{0.55 \textwidth}
+	% 		\centering
+	% 		\includegraphics[scale=0.25]{imgs/adult_x2.png}
+	% 	\end{subfigure}\vfill
+	% 	\begin{subfigure}{0.45 \textwidth}
+	% 		\centering
+	% 		\includegraphics[scale=0.28]{imgs/pc_pillai.png}
+	% 	\end{subfigure}%
+	% 	\begin{subfigure}{0.55 \textwidth}
+	% 		\centering
+	% 		\includegraphics[scale=0.25]{imgs/adult_pillai.png}
+	% 	\end{subfigure}
+	% \end{figure}
 \end{frame}
 
 \begin{frame}{Causal Discovery: Problems Automated Algorithms}
@@ -589,16 +658,16 @@
 		\begin{tikzpicture}[yscale=1, xscale=0.75, inner sep=3pt]
 		\tikzstyle{every node}=[align=left]
 			\node (data) at (0, 0) {Data};
-			\node (dag) at (6, 0) {DAG};
-			\node (estimand) at (12, 0) {Estimation Strategy};
-			\node (estimation) at (12, -2.5) {Effect Estimate};
+			\node (dag) at (4, 0) {DAG};
+			\node (estimand) at (10, 0) {Estimation \\ Strategy};
+			\node (estimation) at (17, 0) {Effect Estimate};
 	
-			\draw[thick, ->] (data) to node[midway, above]{\footnotesize Causal Discovery} (dag);
-			\draw[thick, ->] (dag) to node[midway, above] {\footnotesize Identification} (estimand);
-			\draw[thick, ->] (estimand) to node[midway, above, rotate=90] {\footnotesize Estimator} (estimation);
+			\draw[thick, ->] (data) to node[midway, below]{\footnotesize Causal \\ \footnotesize Discovery} (dag);
+			\draw[thick, ->] (dag) to node[midway, below] {\footnotesize Identification} (estimand);
+			\draw[thick, ->] (estimand) to node[midway, below] {\footnotesize Estimator} (estimation);
 			\draw[thick, ->] (dag) [out=150, in=30, looseness=10] to node[midway, above] {\footnotesize Testing/Evaluation/Modification} (dag);
 
-			\draw[draw=red, thick] (5, -0.5) rectangle (14.5, 0.5);
+			\draw[draw=red, thick] (3, -0.5) rectangle (11.5, 0.5);
 		\end{tikzpicture}
 		\label{fig:workflow3}
 	\end{figure}
@@ -716,16 +785,16 @@
 		\begin{tikzpicture}[yscale=1, xscale=0.75, inner sep=3pt]
 		\tikzstyle{every node}=[align=left]
 			\node (data) at (0, 0) {Data};
-			\node (dag) at (6, 0) {DAG};
-			\node (estimand) at (12, 0) {Estimation Strategy};
-			\node (estimation) at (12, -2.5) {Effect Estimate};
+			\node (dag) at (4, 0) {DAG};
+			\node (estimand) at (10, 0) {Estimation \\ Strategy};
+			\node (estimation) at (17, 0) {Effect Estimate};
 	
-			\draw[thick, ->] (data) to node[midway, above]{\footnotesize Causal Discovery} (dag);
-			\draw[thick, ->] (dag) to node[midway, above] {\footnotesize Identification} (estimand);
-			\draw[thick, ->] (estimand) to node[midway, above, rotate=90] {\footnotesize Estimator} (estimation);
+			\draw[thick, ->] (data) to node[midway, below]{\footnotesize Causal \\ \footnotesize Discovery} (dag);
+			\draw[thick, ->] (dag) to node[midway, below] {\footnotesize Identification} (estimand);
+			\draw[thick, ->] (estimand) to node[midway, below] {\footnotesize Estimator} (estimation);
 			\draw[thick, ->] (dag) [out=150, in=30, looseness=10] to node[midway, above] {\footnotesize Testing/Evaluation/Modification} (dag);
 
-			\draw[draw=red, thick] (9, -3) rectangle (15, 0.5);
+			\draw[draw=red, thick] (8.8, -0.5) rectangle (19, 0.5);
 		\end{tikzpicture}
 		\label{fig:workflow4}
 	\end{figure}
