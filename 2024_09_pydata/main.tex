@@ -64,12 +64,16 @@
 		\end{itemize}
 \end{frame}
 
-\begin{frame}{Spurious Correlation}
+\begin{frame}{Spurious Correlations}
 	\begin{figure}
 		\centering
 		\includegraphics[page=3]{figures.pdf}
 	\end{figure}
 	\center{Would an intervention on Ice-cream Sales affect Drowning Cases?}
+	\begin{figure}
+		\centering
+		\includegraphics[page=8]{figures.pdf}
+	\end{figure}
 \end{frame}
 
 \begin{frame}{Example: Protein Signalling Causal Network \footnote{Sachs, Karen, et al. "Causal protein-signaling networks derived from multiparameter single-cell data." Science 308.5721 (2005): 523-529.}}
@@ -199,7 +203,7 @@
 		\draw[->] (read.south) -- (bn.north);
 	\end{tikzpicture}
 	\caption{Possible workflows in pgmpy for Bayesian Networks}
-	\label{fig:workflow}
+	\label{fig:pgmpy_workflow}
 \end{figure}
 \end{frame}
 
@@ -423,16 +427,16 @@
 		\begin{tikzpicture}[yscale=1, xscale=0.75, inner sep=3pt]
 		\tikzstyle{every node}=[align=left]
 			\node (data) at (0, 0) {Data};
-			\node (dag) at (6, 0) {DAG};
-			\node (estimand) at (12, 0) {Estimation Strategy};
-			\node (estimation) at (12, -2.5) {Effect Estimate};
+			\node (dag) at (4, 0) {DAG};
+			\node (estimand) at (10, 0) {Estimation \\ Strategy};
+			\node (estimation) at (17, 0) {Effect Estimate};
 	
-			\draw[thick, ->] (data) to node[midway, above]{\footnotesize Causal Discovery} (dag);
-			\draw[thick, ->] (dag) to node[midway, above] {\footnotesize Identification} (estimand);
-			\draw[thick, ->] (estimand) to node[midway, above, rotate=90] {\footnotesize Estimator} (estimation);
+			\draw[thick, ->] (data) to node[midway, below]{\footnotesize Causal \\ \footnotesize Discovery} (dag);
+			\draw[thick, ->] (dag) to node[midway, below] {\footnotesize Identification} (estimand);
+			\draw[thick, ->] (estimand) to node[midway, below] {\footnotesize Estimator} (estimation);
 			\draw[thick, ->] (dag) [out=150, in=30, looseness=10] to node[midway, above] {\footnotesize Testing/Evaluation/Modification} (dag);
 
-			\draw[draw=red, thick] (3, -0.5) rectangle (9, 3);
+			\draw[draw=red, thick] (1, -0.2) rectangle (7, 3);
 		\end{tikzpicture}
 		\label{fig:workflow2}
 	\end{figure}
@@ -443,19 +447,22 @@
 \end{frame}
 
 \begin{frame}{Model Evaluation}
-	\center{Similar to unsupervised learning, we do not have any ground truth data, so there is no straightforward way to evaluate models}
-
+	\begin{itemize}
+		\item Causal Discovery is similar to unsupervised learning problem.
+		\item Do not have access to ground truth data.
+		\item Ad-hoc methods to determine how good the model is.	
+	\end{itemize}
 
 	\vspace{2em}
 
-	pgmpy implements a few methods to test and compare models.
+	\center{pgmpy implements a few methods to test and compare models.}
 \end{frame}
 
 \begin{frame}{Model Evaluation: Implied Conditional Independences (CIs)}
 	\begin{figure}
 		\centering
 		\begin{tikzpicture}
-			\begin{scope}[yshift=0.7cm, scale=0.8]
+			\begin{scope}[xshift=1cm, yshift=0.7cm, scale=1]
 			\tikzstyle{every node}=[align=center, inner sep=1pt]
 				\node (sex) at (-0.7, -0.8) {Sex};
 				\node (age) at (-0.3, 0) {Age};
@@ -476,8 +483,8 @@
 				\draw[->]  (ed) to[out=90, in=150, looseness=1.3] (occ);
 				\draw[->]  (sex) to (occ);	
 			\end{scope}
-			\draw[thick, ->, double] (2.5,0) -- (3.5,0);
-			\node[rectangle, align=center, inner sep=1pt] at (6, 0) {
+			\draw[thick, ->, double] (4,0) -- (5,0);
+			\node[rectangle, align=center, inner sep=1pt] at (8, 0) {
 				\begin{minipage}{\textwidth}
 					\begin{equation*}
 						\begin{split}

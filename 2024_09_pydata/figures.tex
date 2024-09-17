@@ -92,4 +92,14 @@
 	\draw[edge](c) -- (y);
 \end{tikzpicture}
 
+\begin{tikzpicture}
+	\node[measure] (x) at (0, 0) {Obesity};
+	\node[measure] (y) at (3, 0) {Blood Pressure};
+	\node[measure] (z) at (6, 0) {Heart Disease};
+
+	\draw[edge](x) -- (y);
+	\draw[edge](y) -- (z);
+	\draw[edge](x) to[bend left=20] (z);
+\end{tikzpicture}
+
 \end{document}
