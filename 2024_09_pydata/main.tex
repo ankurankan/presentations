@@ -49,59 +49,22 @@
 
 \maketitle
 
-\begin{frame}{pgmpy}
-
-\todo[inline]{Do I want to keep this slide}
-
-\begin{figure}[t]
-	\centering
-	\begin{tikzpicture}[inner sep=1pt]
-	\tikzstyle{every node}=[align=left]
-		\node (data)  at (0, 0) {Data};
-		\node (dag)    at (5, 0) {DAG};
-		\node (user)  at (5, 1.2) {Import / User Defined};
-		\node (bn)    at (12, 0) {Parameterized BN};
-		\node (test)  at (2.5, -0.8) {Model Testing};
-		\node (iv)    at (3.7, -1.4) {Instrumental Variables};
-		\node (as)    at (6, -0.8) {Adjustment Set};
-		\node (sim)   at (9, -0.8) {Simulations};
-		\node (ci)    at (9.8, -1.4) {Causal Inference};
-		\node (pi)    at (11.2, -2) {Probabilistic Inference};
-		\node (testp) at (14, -0.8) {Model Testing};
-		\node (readwrite) at (12.8, -1.4) {Export};
-		\node (read) at (12, 1.2) {Import / User Defined};
-
-		\draw[->] (data) edge [bend left=10] node [midway, above]{Structure Learning} (dag.west);
-		\draw (dag.east) edge [->,bend left=10] node [midway, above]{Parameter Learning} (bn.west);
-		\draw[->] (user.south) -- (dag.north);
-		\draw[->] (dag.south) -- (test.north);
-		\draw[->] (dag.south) -- (iv.north);
-		\draw[->] (dag.south) -- (as.north);
-		\draw[->] (bn.south) -- (pi.north);
-		\draw[->] (bn.south) -- (ci.north);
-		\draw[->] (bn.south) -- (sim.north);
-		\draw[->] (bn.south) -- (testp.north);
-		\draw[->] (bn.south) -- (readwrite.north);
-		\draw[->] (read.south) -- (bn.north);
-	\end{tikzpicture}
-	\caption{Possible workflows in pgmpy for Bayesian Networks}
-	\label{fig:workflow}
-\end{figure}
-\end{frame}
 
 \begin{frame}{Predictive vs Causal Modelling}
-	\textbf{Predictive Modelling}:
+	\textbf{Predictive Modelling:}
 		\begin{itemize}
-			\item Usually interested in predicting outcome variables.
+			\item Interested in predicting outcome variables.
 			\item Methods exploit correlation among variables.
 		\end{itemize}
 	\vspace{1em}
-	\textbf{Causal Modelling}
+	\textbf{Causal Modelling:}
 		\begin{itemize}
-			\item Usually interested in identifying potential interventions and their effects.
-			\item Methods try to learn the causal-effect relationships between variables.
+			\item Interested in identifying potential interventions and their effects.
+			\item Methods learn the causal-effect relationships between variables.
 		\end{itemize}
+\end{frame}
 
+\begin{frame}{Spurious Correlation}
 	\begin{figure}
 		\centering
 		\includegraphics[page=3]{figures.pdf}
@@ -199,6 +162,47 @@
 	\end{columns}
 \end{frame}
 
+
+\begin{frame}{pgmpy}
+
+\todo[inline]{Do I want to keep this slide}
+
+\begin{figure}[t]
+	\centering
+	\begin{tikzpicture}[inner sep=1pt]
+	\tikzstyle{every node}=[align=left]
+		\node (data)  at (0, 0) {Data};
+		\node (dag)    at (5, 0) {DAG};
+		\node (user)  at (5, 1.2) {Import / User Defined};
+		\node (bn)    at (12, 0) {Parameterized BN};
+		\node (test)  at (2.5, -0.8) {Model Testing};
+		\node (iv)    at (3.7, -1.4) {Instrumental Variables};
+		\node (as)    at (6, -0.8) {Adjustment Set};
+		\node (sim)   at (9, -0.8) {Simulations};
+		\node (ci)    at (9.8, -1.4) {Causal Inference};
+		\node (pi)    at (11.2, -2) {Probabilistic Inference};
+		\node (testp) at (14, -0.8) {Model Testing};
+		\node (readwrite) at (12.8, -1.4) {Export};
+		\node (read) at (12, 1.2) {Import / User Defined};
+
+		\draw[->] (data) edge [bend left=10] node [midway, above]{Structure Learning} (dag.west);
+		\draw (dag.east) edge [->,bend left=10] node [midway, above]{Parameter Learning} (bn.west);
+		\draw[->] (user.south) -- (dag.north);
+		\draw[->] (dag.south) -- (test.north);
+		\draw[->] (dag.south) -- (iv.north);
+		\draw[->] (dag.south) -- (as.north);
+		\draw[->] (bn.south) -- (pi.north);
+		\draw[->] (bn.south) -- (ci.north);
+		\draw[->] (bn.south) -- (sim.north);
+		\draw[->] (bn.south) -- (testp.north);
+		\draw[->] (bn.south) -- (readwrite.north);
+		\draw[->] (read.south) -- (bn.north);
+	\end{tikzpicture}
+	\caption{Possible workflows in pgmpy for Bayesian Networks}
+	\label{fig:workflow}
+\end{figure}
+\end{frame}
+
 \begin{frame}{A General Workflow in the DAG Framework}
 	\begin{figure}
 		\centering
@@ -216,10 +220,6 @@
 		\end{tikzpicture}
 		\label{fig:workflow}
 	\end{figure}
-	\vspace{1em}
-
-	\center{pgmpy provides functionality to perform each of these steps.}
-
 \end{frame}
 
 % \begin{frame}{What does pgmpy provide}
@@ -521,6 +521,7 @@
 
 \begin{frame}{Model Evaluation: Correlation Score}
 	\begin{itemize}
+		\item How much of the observed correlation in the data is explained by the model.
 		\item Compares whether variables that are correlated in data
 			are also correlated in the model.
 		\item Computes the F1-score based on this comparison.
