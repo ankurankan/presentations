@@ -51,6 +51,8 @@
 
 \begin{frame}{pgmpy}
 
+\todo[inline]{Do I want to keep this slide}
+
 \begin{figure}[t]
 	\centering
 	\begin{tikzpicture}[inner sep=1pt]
@@ -96,7 +98,7 @@
 	\vspace{1em}
 	\textbf{Causal Modelling}
 		\begin{itemize}
-			\item Usually interested in identifying potential interventions or estimating effects of interventions.
+			\item Usually interested in identifying potential interventions and their effects.
 			\item Methods try to learn the causal-effect relationships between variables.
 		\end{itemize}
 
@@ -161,18 +163,18 @@
 
 \begin{frame}{Landscape of Causal Inference Python Packages}
 	\begin{columns}
-		\begin{column}[T]{0.55 \textwidth}
+		\begin{column}[T]{0.5 \textwidth}
 			\center{\textbf{Potential Outcomes Frameworks}}
 			\begin{itemize}
 				\item Collection of estimation methods
 					\begin{figure}
-						\includegraphics[scale=0.2]{imgs/dowhy.png}
+						\includegraphics[scale=0.15]{imgs/dowhy.png}
 					\end{figure}
 				\item Doubly Robust Estimation
 					\begin{figure}
 						\includegraphics[scale=0.1]{imgs/doubleml.png}
 					\end{figure}
-				\item Meta Learners: T/S/X-Learners.
+				\item Meta Learners: T/S/X-Learners
 					\begin{figure}
 						\includegraphics[scale=0.3]{imgs/causalml.png}
 					\end{figure}
@@ -180,17 +182,17 @@
 
 		\end{column}
 		\vrule
-		\begin{column}[T]{0.45 \textwidth}
-			\center{\textbf{DAG Frameworks}}
+		\begin{column}[T]{0.5 \textwidth}
+			\center{\textbf{DAG Based Frameworks}}
 			\begin{itemize}
 				\item causal-learn
 				\item pgmpy
 					\begin{figure}
-						\includegraphics[scale=0.2]{imgs/pgmpy.png}
+						\includegraphics[scale=0.15]{imgs/pgmpy.png}
 					\end{figure}
 				\item casualnex
 					\begin{figure}
-						\includegraphics[height=2cm, width=3cm, scale=0.2]{imgs/causalnex.png}
+						\includegraphics[height=2cm, width=3cm, scale=0.15]{imgs/causalnex.png}
 					\end{figure}
 			\end{itemize}
 		\end{column}
@@ -203,18 +205,17 @@
 		\begin{tikzpicture}[yscale=1, xscale=0.75, inner sep=3pt]
 		\tikzstyle{every node}=[align=left]
 			\node (data) at (0, 0) {Data};
-			\node (dag) at (6, 0) {DAG};
-			\node (estimand) at (12, 0) {Estimation Strategy};
-			\node (estimation) at (12, -2.5) {Causal Estimate};
+			\node (dag) at (4, 0) {DAG};
+			\node (estimand) at (10, 0) {Estimation \\ Strategy};
+			\node (estimation) at (17, 0) {Effect Estimate};
 	
-			\draw[thick, ->] (data) to node[midway, above]{\footnotesize Causal Discovery} (dag);
-			\draw[thick, ->] (dag) to node[midway, above] {\footnotesize Identification} (estimand);
-			\draw[thick, ->] (estimand) to node[midway, above, rotate=90] {\footnotesize Estimator} (estimation);
+			\draw[thick, ->] (data) to node[midway, below]{\footnotesize Causal \\ \footnotesize Discovery} (dag);
+			\draw[thick, ->] (dag) to node[midway, below] {\footnotesize Identification} (estimand);
+			\draw[thick, ->] (estimand) to node[midway, below] {\footnotesize Estimator} (estimation);
 			\draw[thick, ->] (dag) [out=150, in=30, looseness=10] to node[midway, above] {\footnotesize Testing/Evaluation/Modification} (dag);
 		\end{tikzpicture}
 		\label{fig:workflow}
 	\end{figure}
-
 	\vspace{1em}
 
 	\center{pgmpy provides functionality to perform each of these steps.}
@@ -238,32 +239,32 @@
 			\node (data) at (0, 0) {Data};
 			\node (dag) at (4, 0) {DAG};
 			\node (estimand) at (10, 0) {Estimation \\ Strategy};
-			\node (estimation) at (17, 0) {Causal Estimate};
+			\node (estimation) at (17, 0) {Effect Estimate};
 	
-			\draw[thick, ->] (data) to node[midway, above]{\footnotesize Causal \\ \footnotesize Discovery} (dag);
-			\draw[thick, ->] (dag) to node[midway, above] {\footnotesize Identification} (estimand);
-			\draw[thick, ->] (estimand) to node[midway, above] {\footnotesize Estimator} (estimation);
+			\draw[thick, ->] (data) to node[midway, below]{\footnotesize Causal \\ \footnotesize Discovery} (dag);
+			\draw[thick, ->] (dag) to node[midway, below] {\footnotesize Identification} (estimand);
+			\draw[thick, ->] (estimand) to node[midway, below] {\footnotesize Estimator} (estimation);
 			\draw[thick, ->] (dag) [out=150, in=30, looseness=10] to node[midway, above] {\footnotesize Testing/Evaluation/Modification} (dag);
 
-			\draw[draw=red, thick] (-1, -0.5) rectangle (5, 1);
+			\draw[draw=red, thick] (-1, -1) rectangle (4.7, 0.5);
 		\end{tikzpicture}
 		\label{fig:workflow1}
 	\end{figure}
 	\vspace{1em}
-	\center \textbf{Casual Discovery: } Learn the causal DAG from data.
+	\center \textbf{Casual Discovery: } Learn the causal graph (DAG) from the given data.
 \end{frame}
 
 \begin{frame}{Causal Discovery: Automated Algorithms}
 	\begin{itemize}
 		\item Many automated algorithms with nice asymptotic properties.
 			\begin{itemize}
-				\item Constraint-based: PC, Fast Causal Inference.
-				\item Score-based: Greedy Equivalence Search, Hill-Climb Search.
-				\item Optimization-based: NoTears, DAGMA.
+				\item \textbf{Constraint-based:} PC, Fast Causal Inference.
+				\item \textbf{Score-based:} Greedy Equivalence Search, Hill-Climb Search.
+				\item \textbf{Optimization-based:} NoTears, DAGMA.
 			\end{itemize}
 		\item In practice, output varies significantly depending on sample size,
 			algorithm used, and their hyperparameters.
-		\item With no standard evaluation method, difficult to decide the correct model.
+		\item As causal discovery is an unsupervised learning problem, difficult to decide/choose between different outputs.
 	\end{itemize}
 \end{frame}
 
@@ -424,7 +425,7 @@
 			\node (data) at (0, 0) {Data};
 			\node (dag) at (6, 0) {DAG};
 			\node (estimand) at (12, 0) {Estimation Strategy};
-			\node (estimation) at (12, -2.5) {Causal Estimate};
+			\node (estimation) at (12, -2.5) {Effect Estimate};
 	
 			\draw[thick, ->] (data) to node[midway, above]{\footnotesize Causal Discovery} (dag);
 			\draw[thick, ->] (dag) to node[midway, above] {\footnotesize Identification} (estimand);
@@ -577,7 +578,7 @@
 			\node (data) at (0, 0) {Data};
 			\node (dag) at (6, 0) {DAG};
 			\node (estimand) at (12, 0) {Estimation Strategy};
-			\node (estimation) at (12, -2.5) {Causal Estimate};
+			\node (estimation) at (12, -2.5) {Effect Estimate};
 	
 			\draw[thick, ->] (data) to node[midway, above]{\footnotesize Causal Discovery} (dag);
 			\draw[thick, ->] (dag) to node[midway, above] {\footnotesize Identification} (estimand);
@@ -704,7 +705,7 @@
 			\node (data) at (0, 0) {Data};
 			\node (dag) at (6, 0) {DAG};
 			\node (estimand) at (12, 0) {Estimation Strategy};
-			\node (estimation) at (12, -2.5) {Causal Estimate};
+			\node (estimation) at (12, -2.5) {Effect Estimate};
 	
 			\draw[thick, ->] (data) to node[midway, above]{\footnotesize Causal Discovery} (dag);
 			\draw[thick, ->] (dag) to node[midway, above] {\footnotesize Identification} (estimand);
