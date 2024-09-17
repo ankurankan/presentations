@@ -65,14 +65,19 @@
 \end{frame}
 
 \begin{frame}{Spurious Correlations}
+\end{frame}
+
+\begin{frame}{Correlation Structure}
 	\begin{figure}
 		\centering
 		\includegraphics[page=3]{figures.pdf}
+		\caption{Season is confounder}
 	\end{figure}
-	\center{Would an intervention on Ice-cream Sales affect Drowning Cases?}
+	% \center{Would an intervention on Ice-cream Sales affect Drowning Cases?}
 	\begin{figure}
 		\centering
 		\includegraphics[page=8]{figures.pdf}
+		\caption{Blood Pressure is mediator}
 	\end{figure}
 \end{frame}
 
@@ -152,15 +157,15 @@
 		\begin{column}[T]{0.5 \textwidth}
 			\center{\textbf{DAG Based Frameworks}}
 			\begin{itemize}
-				\item causal-learn
 				\item pgmpy
 					\begin{figure}
 						\includegraphics[scale=0.15]{imgs/pgmpy.png}
 					\end{figure}
-				\item casualnex
-					\begin{figure}
-						\includegraphics[height=2cm, width=3cm, scale=0.15]{imgs/causalnex.png}
-					\end{figure}
+				\item causal-learn
+				% \item casualnex
+				% 	\begin{figure}
+				% 		\includegraphics[height=2cm, width=3cm, scale=0.15]{imgs/causalnex.png}
+				% 	\end{figure}
 			\end{itemize}
 		\end{column}
 	\end{columns}
