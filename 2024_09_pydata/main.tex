@@ -51,7 +51,7 @@
     }
 \makeatother
 
-\title[Causal Inference using pgmpy]{Introduction to Casual Inference (DAG Framework) using pgmpy}
+\title[Causal Inference using pgmpy]{Introduction to Casual Inference using pgmpy}
 \author{Ankur Ankan}
 \institute[]{Postdoctoral Researcher \\ Radboud University, The Netherlands}
 \date{}
@@ -79,7 +79,7 @@
 	\vspace{2em}
 	\textbf{Causal Modelling:}
 		\begin{itemize}
-			\item Interested in identifying potential interventions and their effects (answering what-if question).
+			\item Interested in identifying potential interventions and their effects (answering what-if questions).
 			\item Methods learn the causal-effect relationships between variables.
 		\end{itemize}
 \end{frame}
@@ -98,7 +98,7 @@
 	\begin{itemize}
 		\item Confounder:  \begin{figure} \includegraphics[scale=0.8, page=3]{figures.pdf}\end{figure}
 		\item Mediator: \begin{figure} \includegraphics[scale=0.8, page=8]{figures.pdf} \end{figure}
-		\item Collider:
+		\item Collider: \begin{figure} \includegraphics[scale=0.8, page=9]{figures.pdf} \end{figure}
 	\end{itemize}
 	% \center{Would an intervention on Ice-cream Sales affect Drowning Cases?}
 \end{frame}
@@ -428,12 +428,6 @@ dag = est.estimate(ci_test='pillai')
 \end{frame}
 
 \begin{frame}[fragile]{Causal Discovery: Expert Knowledge Integration}
-	\begin{itemize}
-		\item Users can specify edges to blacklist/whitelist.
-		\item The algorithm never adds blacklisted edges and only
-			searches over whitelisted edges.
-	\end{itemize}
-	\vfill
 	\begin{figure}
 		\begin{subfigure}{0.6 \textwidth}
 			\begin{minted}[linenos, fontsize=\footnotesize]{python}
@@ -446,8 +440,6 @@ blist = [('Sex', 'MaritalStatus'),
 dag = est.estimate(scoring_method='bicscore',
 		   black_list=blist)
 			\end{minted}
-			% \centering
-			% \includegraphics[scale=0.28]{imgs/adult_blacklist.png}
 		\end{subfigure}%
 		\begin{subfigure}{0.4 \textwidth}
 			\centering
@@ -456,40 +448,58 @@ dag = est.estimate(scoring_method='bicscore',
 	\end{figure}
 \end{frame}
 
-\begin{frame}{Causal Discovery: Expert Knowledge Integration}
-	\begin{itemize}
-		\item Score based methods perform local optimization.
-	\end{itemize}
-
-	\vfill
-
+\begin{frame}[fragile]{Causal Discovery: Expert Knowledge Integration}
 	\begin{figure}
-		\begin{subfigure}{0.55 \textwidth}
-			\centering
-			\includegraphics[scale=0.28]{imgs/adult_start.png}
+		\begin{subfigure}{0.5 \textwidth}
+			\begin{minted}[linenos, fontsize=\footnotesize]{python}
+from pgmpy.base import DAG
+start_dag = DAG([
+    ('Age', 'Income'),
+    ('Age', 'Education'),
+    ('Age', 'MaritalStatus'),
+    ('Age', 'HoursPerWeek'),
+    ('NativeCountry', 'Race'),
+    ('HoursPerWeek', 'Income'),
+    ('Education', 'Occupation'),
+    ('Education', 'Income'),
+    ('Education', 'Workclass'),
+    ('Occupation', 'Income'),
+    ('Sex', 'Income'),
+    ('Relationship', 'MaritalStatus')
+    ])
+dag_bic_start = est.estimate(
+    scoring_method='bicscore',
+    start_dag=start_dag
+)
+			\end{minted}
 		\end{subfigure}%
-		\begin{subfigure}{0.45 \textwidth}
+		\begin{subfigure}{0.5 \textwidth}
 			\centering
-			\includegraphics[scale=0.28]{imgs/adult_bic_start.png}
+			\includegraphics[scale=0.3]{imgs/adult_bic_start.png}
 		\end{subfigure}
 	\end{figure}
 \end{frame}
 
-\begin{frame}{Causal Discovery: Expert Knowledge Integration}
-	\begin{itemize}
-		\item Allows to specify fixed edges that will be present in the final model.
-	\end{itemize}
-
-	\vfill
-
+\begin{frame}[fragile]{Causal Discovery: Expert Knowledge Integration}
 	\begin{figure}
 		\begin{subfigure}{0.5 \textwidth}
-			\centering
-			\includegraphics[scale=0.28]{imgs/adult_fixed.png}
+			\begin{minted}[linenos, fontsize=\footnotesize]{python}
+est = HillClimbSearch(df)
+dag_bic_fixed = est.estimate(
+    scoring_method='bicscore',
+    fixed_edges=[
+        ('HoursPerWeek', 'Income'),
+	('Education', 'Income'),
+	('Occupation', 'Income'),
+	('Workclass', 'Income'),
+	('Sex', 'Income'),
+	]
+)
+			\end{minted}
 		\end{subfigure}%
 		\begin{subfigure}{0.5 \textwidth}
 			\centering
-			\includegraphics[scale=0.25]{imgs/adult_bic_fixed.png}
+			\includegraphics[scale=0.3]{imgs/adult_bic_fixed.png}
 		\end{subfigure}
 	\end{figure}
 \end{frame}
@@ -518,18 +528,35 @@ dag_expert = est_expert.estimate(use_llm=False)
 	\end{minted}
 \end{frame}
 
+\begin{frame}[fragile]{Causal Discovery: Expert-In-The-Loop}
+	\begin{minted}[fontsize=\scriptsize]{python}
+descriptions = {
+    "Age": "The age of a person",
+    "Workclass": "The workplace where the person is employed such as ",
+    		 "Private industry, or self employed",
+    "Education": "The highest level of education the person has finished",
+    "MaritalStatus": "The marital status of the person",
+    "Occupation": "The kind of job the person does. For example, sales, craft repair, ",
+    		  "clerical",
+    "Relationship": "The relationship status of the person",
+    "Race": "The ethnicity of the person",
+    "Sex": "The sex or gender of the person",
+    "HoursPerWeek": "The number of hours per week the person works",
+    "NativeCountry": "The native country of the person",
+    "Income": "The income i.e. amount of money the person makes",
+}
+
+dag_expert = est_expert.estimate(
+    variable_descriptions=descriptions,
+    use_llm=True)
+	\end{minted}
+\end{frame}
+
 \begin{frame}{Causal Discovery: Expert-In-The-Loop}
 	\begin{figure}
-		\begin{subfigure}{0.5 \textwidth}
-			\centering
-			\includegraphics[scale=0.22]{imgs/dag_llm.png}
-		\end{subfigure}%
-		\begin{subfigure}{0.5 \textwidth}
-			\centering
-			\includegraphics[scale=0.28]{imgs/adult_llm.png}
-		\end{subfigure}
+		\centering
+		\includegraphics[scale=0.35]{imgs/adult_llm.png}
 	\end{figure}
-
 \end{frame}
 
 % \begin{frame}{Bootstrapping}

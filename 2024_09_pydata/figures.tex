@@ -37,7 +37,7 @@
 \begin{tikzpicture}
 	\node[measure] (x) at (4, 0) {Drowning Cases};
 	\node[measure] (y) at (0, 0) {Ice-cream Sales};
-	\node[latent] (u) at (2, 1) {Season};
+	\node[measure] (u) at (2, 1) {Season};
 
 	\draw[edge](u) -- (x);
 	\draw[edge](u) -- (y);
@@ -102,4 +102,13 @@
 	\draw[edge](x) to[bend left=20] (z);
 \end{tikzpicture}
 
+\begin{tikzpicture}
+	\node[measure] (x) at (0, 0) {Exercise Freq};
+	\node[measure] (y) at (3, -1) {Heart Disease};
+	\node[measure] (z) at (6, 0) {Diet Quality};
+
+	\draw[edge](x) -- (y);
+	\draw[edge](z) -- (y);
+
+\end{tikzpicture}
 \end{document}
