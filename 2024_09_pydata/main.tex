@@ -13,6 +13,7 @@
 \usepackage{ragged2e}
 \usepackage{titlecaps}
 \usepackage{fancyvrb}
+\usepackage[export]{adjustbox}
 \usepackage{minted}
 \setminted{xleftmargin=1cm}
 \def\ci{\perp\!\!\!\!\!\perp}
@@ -33,7 +34,7 @@
 \setbeamertemplate{section in toc}{\inserttocsectionnumber.~\inserttocsection}
 \usetheme{Boadilla}
 
-\setbeamersize{text margin left=2em,text margin right=2em}
+\setbeamersize{text margin left=1em,text margin right=1em}
 \makeatletter
 \setbeamertemplate{footline}{%
     \leavevmode%
@@ -311,61 +312,59 @@
 \end{frame}
 
 \begin{frame}{Causal Discovery: Automated Algorithms}
+	\textbf{Adult Income Dataset:}
+	\vspace{2em}
 	\begin{figure}
 		\center
-		\includegraphics[scale=0.4]{imgs/adult_data.png}
+		\includegraphics[scale=0.5]{imgs/adult_describe.png}
 	\end{figure}
+	\blfootnote{Becker,Barry and Kohavi,Ronny. (1996). Adult. UCI Machine Learning Repository.}
 \end{frame}
 
 \begin{frame}[fragile]{Causal Discovery: Automated Algorithms}
 	\begin{columns}
-		\begin{column}{0.5 \textwidth}
+		\begin{column}{0.45 \textwidth}
 			\begin{minted}[linenos, fontsize=\footnotesize]{python}
 from pgmpy.estimators import PC
 
 est = PC(df)
-dag = est.estimate(ci_test='chi_square')
+dag = est.estimate(
+	ci_test='chi_square'
+)
 			\end{minted}
-			\vspace{4em}
+			\vspace{3em}
 
 			\begin{minted}[linenos, fontsize=\footnotesize]{python}
 from pgmpy.estimators import HillClimbSearch
 
 est = HillClimbSearch(df)
-dag = est.estimate(scoring_method='bicscore')
+dag = est.estimate(
+	scoring_method='bicscore'
+)
 			\end{minted}
 		\end{column}
-		\begin{column}{0.5 \textwidth}
+		\begin{column}{0.55 \textwidth}
 			\begin{figure}
-				\includegraphics[scale=0.25]{imgs/adult_x2.png}
+				\includegraphics[scale=0.3]{imgs/adult_x2.png}
 			\end{figure}
-			\vspace{2em}
+			\vspace{1em}
 			\begin{figure}
-				\includegraphics[scale=0.25]{imgs/adult_bic.png}
+				\includegraphics[scale=0.3]{imgs/adult_bic.png}
 			\end{figure}
 		\end{column}
 	\end{columns}
-	\blfootnote{Becker,Barry and Kohavi,Ronny. (1996). Adult. UCI Machine Learning Repository.}
 \end{frame}
-
-% \begin{frame}{PC algorithm}
-% 	Constraint-Based Algorithm: Exploits Conditional Indpendences in the data to construct the DAG.	
-% \end{frame}
-% 
-% \begin{frame}{Hill-Climb Search}
-% 	Score based: Tries to optimize the score by doing local changes.
-% 
-% 	Results can be very different depending on the algorithm, hyperparameter selections, etc.
-% \end{frame}
 
 \begin{frame}[fragile]{Causal Discovery: Automated Algorithms}
 	\begin{columns}
-		\begin{column}{0.5 \textwidth}
+		\begin{column}{0.45 \textwidth}
 			\begin{minted}[linenos, fontsize=\footnotesize]{python}
 from pgmpy.estimators import PC
 
 est = PC(df)
-dag = est.estimate(ci_test='chi_square')
+dag = est.estimate(
+	ci_test='chi_square'
+)
 			\end{minted}
 			\vspace{4em}
 
@@ -373,16 +372,18 @@ dag = est.estimate(ci_test='chi_square')
 from pgmpy.estimators import PC
 
 est = PC(df)
-dag = est.estimate(ci_test='pillai')
+dag = est.estimate(
+	ci_test='pillai'
+)
 			\end{minted}
 		\end{column}
-		\begin{column}{0.5 \textwidth}
+		\begin{column}{0.55 \textwidth}
 			\begin{figure}
-				\includegraphics[scale=0.25]{imgs/adult_x2.png}
+				\includegraphics[scale=0.3]{imgs/adult_x2.png}
 			\end{figure}
 			\vspace{2em}
 			\begin{figure}
-				\includegraphics[scale=0.25]{imgs/adult_pillai.png}
+				\includegraphics[scale=0.3]{imgs/adult_pillai.png}
 			\end{figure}
 		\end{column}
 	\end{columns}
@@ -411,19 +412,19 @@ dag = est.estimate(ci_test='pillai')
 \begin{frame}{Causal Discovery: Problems Automated Algorithms}
 	\begin{itemize}
 		\item Difficult to choose the best algorithm/model.
-		\item In finite sample scenario, all algorithms make mistakes.
-		\item Usually requires some expert knowledge input.
+		\item All algorithms usually make mistakes in finite sample scenario.
+		\item Integrating expert knowledge can help.
 	\end{itemize}
 
 	\vspace{2em}
 
-	pgmpy allows user to specify expert knowledge in a few ways:
-	\begin{itemize}
+	Few ways to specify expert knowledge in pgmpy:
+	\begin{enumerate}
 		\item Blacklist edges
 		\item Whitelist edges and fixed edges
-		\item Initial graph
+		\item Specifying initial graph
 		\item Temporal information (Upcoming)
-	\end{itemize}
+	\end{enumerate}
 	
 \end{frame}
 
@@ -444,6 +445,30 @@ dag = est.estimate(scoring_method='bicscore',
 		\begin{subfigure}{0.4 \textwidth}
 			\centering
 			\includegraphics[scale=0.3]{imgs/adult_bic_blacklist.png}
+		\end{subfigure}
+	\end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{Causal Discovery: Expert Knowledge Integration}
+	\begin{figure}
+		\begin{subfigure}{0.5 \textwidth}
+			\begin{minted}[linenos, fontsize=\footnotesize]{python}
+est = HillClimbSearch(df)
+dag_bic_fixed = est.estimate(
+    scoring_method='bicscore',
+    fixed_edges=[
+        ('HoursPerWeek', 'Income'),
+	('Education', 'Income'),
+	('Occupation', 'Income'),
+	('Workclass', 'Income'),
+	('Sex', 'Income'),
+	]
+)
+			\end{minted}
+		\end{subfigure}%
+		\begin{subfigure}{0.5 \textwidth}
+			\centering
+			\includegraphics[scale=0.3]{imgs/adult_bic_fixed.png}
 		\end{subfigure}
 	\end{figure}
 \end{frame}
@@ -480,42 +505,17 @@ dag_bic_start = est.estimate(
 	\end{figure}
 \end{frame}
 
-\begin{frame}[fragile]{Causal Discovery: Expert Knowledge Integration}
-	\begin{figure}
-		\begin{subfigure}{0.5 \textwidth}
-			\begin{minted}[linenos, fontsize=\footnotesize]{python}
-est = HillClimbSearch(df)
-dag_bic_fixed = est.estimate(
-    scoring_method='bicscore',
-    fixed_edges=[
-        ('HoursPerWeek', 'Income'),
-	('Education', 'Income'),
-	('Occupation', 'Income'),
-	('Workclass', 'Income'),
-	('Sex', 'Income'),
-	]
-)
-			\end{minted}
-		\end{subfigure}%
-		\begin{subfigure}{0.5 \textwidth}
-			\centering
-			\includegraphics[scale=0.3]{imgs/adult_bic_fixed.png}
-		\end{subfigure}
-	\end{figure}
-\end{frame}
-
 \begin{frame}{Causal Discovery: Expert-In-The-Loop}
 	\center{Since, causal discovery in practice is an iterative manual process, we designed an algorithm that works with interactive input from the user.}
 
 	\vspace{2em}
 
 	\begin{itemize}
-		\item Combines score and constraint based algorithm to find and
-			rank unexplained correlations.
-		\item Iteratively adds and removes edges.
-		\item Asks specific edge direction questions to the expert.
-		\item Greatly reduces the amount of manual information that need to be provided.
-		\item In absence of an expert, LLM can be used as an expert.
+		\item Combines score and constraint based algorithms.
+		\item Finds and ranks unexplained correlations in the data.
+		\item Iteratively adds and removes edges based on expert knowledge.
+		\item Reduces the amount of manual information that need to be provided.
+		\item In absence of an expert, LLMs can be used.
 	\end{itemize}
 \end{frame}
 
@@ -526,6 +526,9 @@ from pgmpy.estimators import ExpertInLoop
 est_expert = ExpertInLoop(df)
 dag_expert = est_expert.estimate(use_llm=False)
 	\end{minted}
+	\begin{figure}
+		\includegraphics[scale=0.4, left]{imgs/expert_prompt.png}
+	\end{figure}
 \end{frame}
 
 \begin{frame}[fragile]{Causal Discovery: Expert-In-The-Loop}
@@ -772,11 +775,11 @@ dag_expert = est_expert.estimate(
 		\item Finds adjustment variables to block confounding paths.
 	\end{itemize}
 	\begin{figure}
-		\begin{subfigure}{0.5\textwidth}
+		\begin{subfigure}[c]{0.5\textwidth}
 			\centering
 			\includegraphics[page=4]{figures.pdf}
 		\end{subfigure}%
-		\begin{subfigure}{0.5 \textwidth}
+		\begin{subfigure}[c]{0.5 \textwidth}
 			\begin{equation*}
 				\beta_{xy}: Y \sim X + U
 			\end{equation*}
@@ -796,11 +799,12 @@ dag_expert = est_expert.estimate(
 		\item Double application of backdoor criterion.
 	\end{itemize}
 	\begin{figure}
-		\begin{subfigure}{0.5 \textwidth}
+		\begin{subfigure}[c]{0.5 \textwidth}
 			\centering
 			\includegraphics[page=5]{figures.pdf}
 		\end{subfigure}%
-		\begin{subfigure}{0.5 \textwidth}
+		\begin{subfigure}[c]{0.5 \textwidth}
+			\centering
 			\begin{equation*}
 				\begin{split}
 					\beta_{xm}:& M \sim X \\
@@ -824,11 +828,11 @@ dag_expert = est_expert.estimate(
 			variable.
 	\end{itemize}
 	\begin{figure}
-		\begin{subfigure}{0.5 \textwidth}
+		\begin{subfigure}[c]{0.5 \textwidth}
 			\centering
 			\includegraphics[page=6]{figures.pdf}
 		\end{subfigure}%
-		\begin{subfigure}{0.5 \textwidth}
+		\begin{subfigure}[c]{0.5 \textwidth}
 			\begin{equation*}
 				\begin{split}
 					\beta_{zx} \beta_{xy}:& Y \sim Z \\
