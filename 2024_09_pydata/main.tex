@@ -7,6 +7,7 @@
 \usepackage{mathtools}
 \usepackage{todonotes}
 \usepackage{amsmath}
+\usepackage{float}
 \usepackage{bm}
 \usepackage{listings}
 \usepackage{ragged2e}
@@ -95,10 +96,11 @@
 
 \begin{frame}{Data Generating Process}
 	\center{Causal Modelling requires understanding the data generating process}
+	\vspace{1em}
 	\begin{itemize}
-		\item Confounder:  \begin{figure} \includegraphics[scale=0.8, page=3]{figures.pdf}\end{figure}
-		\item Mediator: \begin{figure} \includegraphics[scale=0.8, page=8]{figures.pdf} \end{figure}
-		\item Collider: \begin{figure} \includegraphics[scale=0.8, page=9]{figures.pdf} \end{figure}
+		\item Confounder:  \begin{figure}[H] \includegraphics[scale=0.7, page=3]{figures.pdf}\end{figure}
+		\item Mediator: \begin{figure}[H] \includegraphics[scale=0.7, page=8]{figures.pdf} \end{figure}
+		\item Collider: \begin{figure}[H] \includegraphics[scale=0.7, page=9]{figures.pdf} \end{figure}
 	\end{itemize}
 	% \center{Would an intervention on Ice-cream Sales affect Drowning Cases?}
 \end{frame}
@@ -123,11 +125,6 @@
 \end{frame}
 
 \begin{frame}{Examples}
-	\todo[inline]{Add another example}
-\end{frame}
-
-\begin{frame}{Examples}
-	\todo[inline]{Expand a lot more in this section and give more examples + what causal inference can achieve.}
 	\begin{itemize}
 		\item \textbf{Epidemiology:} Analyzing data on how different treatment or exposures affect health outcomes.
 		\item \textbf{Economics and Social Sciences:} Understanding impacts of policy interventions and help in designing potential policies.
