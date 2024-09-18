@@ -35,9 +35,9 @@
 \end{tikzpicture}
 
 \begin{tikzpicture}
-	\node[measure] (x) at (4, 0) {Drowning Cases};
+	\node[measure] (x) at (6, 0) {Drowning Cases};
 	\node[measure] (y) at (0, 0) {Ice-cream Sales};
-	\node[measure] (u) at (2, 1) {Season};
+	\node[measure] (u) at (3, 1) {Season};
 
 	\draw[edge](u) -- (x);
 	\draw[edge](u) -- (y);
@@ -95,11 +95,11 @@
 \begin{tikzpicture}
 	\node[measure] (x) at (0, 0) {Obesity};
 	\node[measure] (y) at (3, 0) {Blood Pressure};
-	\node[measure] (z) at (6, 0) {Heart Disease};
+	\node[measure] (z) at (6.5, 0) {Heart Disease};
 
 	\draw[edge](x) -- (y);
 	\draw[edge](y) -- (z);
-	\draw[edge](x) to[bend left=20] (z);
+	% \draw[edge](x) to[bend left=20] (z);
 \end{tikzpicture}
 
 \begin{tikzpicture}
