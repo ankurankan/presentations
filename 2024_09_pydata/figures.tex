@@ -37,7 +37,7 @@
 \begin{tikzpicture}
 	\node[measure] (x) at (6, 0) {Drowning Cases};
 	\node[measure] (y) at (0, 0) {Ice-cream Sales};
-	\node[measure] (u) at (3, 1) {Season};
+	\node[latent] (u) at (3, 1) {Season};
 
 	\draw[edge](u) -- (x);
 	\draw[edge](u) -- (y);
@@ -94,7 +94,7 @@
 
 \begin{tikzpicture}
 	\node[measure] (x) at (0, 0) {Obesity};
-	\node[measure] (y) at (3, 0) {Blood Pressure};
+	\node[latent] (y) at (3, 0) {Blood Pressure};
 	\node[measure] (z) at (6.5, 0) {Heart Disease};
 
 	\draw[edge](x) -- (y);
@@ -104,7 +104,7 @@
 
 \begin{tikzpicture}
 	\node[measure] (x) at (0, 0) {Exercise Freq};
-	\node[measure] (y) at (3, -1) {Heart Disease};
+	\node[latent] (y) at (3, -1) {Heart Disease};
 	\node[measure] (z) at (6, 0) {Diet Quality};
 
 	\draw[edge](x) -- (y);
