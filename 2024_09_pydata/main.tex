@@ -62,6 +62,13 @@
 	\maketitle
 \end{frame}
 
+\begin{frame}{Spurious Correlations}
+	\begin{figure}
+		\center
+		\includegraphics[scale=0.63]{imgs/spurious1.pdf}
+	\end{figure}
+	\blfootnote{https://tylervigen.com/spurious-correlations}
+\end{frame}
 
 \begin{frame}{Predictive vs Causal Modelling}
 	\textbf{Predictive Modelling:}
@@ -69,7 +76,7 @@
 			\item Interested in predicting outcome variables.
 			\item Methods exploit correlation among variables.
 		\end{itemize}
-	\vspace{1em}
+	\vspace{2em}
 	\textbf{Causal Modelling:}
 		\begin{itemize}
 			\item Interested in identifying potential interventions and their effects.
@@ -77,23 +84,17 @@
 		\end{itemize}
 \end{frame}
 
-\begin{frame}{Spurious Correlations}
-	\begin{figure}
-		\center
-		\includegraphics[scale=0.6]{imgs/spurious1.pdf}
-	\end{figure}
-	\blfootnote{https://tylervigen.com/spurious-correlations}
-\end{frame}
 
-\begin{frame}{Spurious Correlations}
-	\begin{figure}
-		\center
-		\includegraphics[scale=0.6]{imgs/spurious2.pdf}
-	\end{figure}
-	\blfootnote{https://tylervigen.com/spurious-correlations}
-\end{frame}
+% \begin{frame}{Spurious Correlations}
+% 	\begin{figure}
+% 		\center
+% 		\includegraphics[scale=0.6]{imgs/spurious2.pdf}
+% 	\end{figure}
+% 	\blfootnote{https://tylervigen.com/spurious-correlations}
+% \end{frame}
 
 \begin{frame}{Correlation Structure}
+	\todo[inline]{Improve this slide}
 	\begin{figure}
 		\centering
 		\includegraphics[page=3]{figures.pdf}
@@ -105,7 +106,6 @@
 		\includegraphics[page=8]{figures.pdf}
 		\caption{Blood Pressure is mediator}
 	\end{figure}
-	\todo[inline]{Add more examples here}
 \end{frame}
 
 \begin{frame}{Example: Protein Signalling Causal Network \footnote{Sachs, Karen, et al. "Causal protein-signaling networks derived from multiparameter single-cell data." Science 308.5721 (2005): 523-529.}}
@@ -128,6 +128,10 @@
 \end{frame}
 
 \begin{frame}{Examples}
+	\todo[inline]{Add another example}
+\end{frame}
+
+\begin{frame}{Examples}
 	\todo[inline]{Expand a lot more in this section and give more examples + what causal inference can achieve.}
 	\begin{itemize}
 		\item \textbf{Epidemiology:} Analyzing data on how different treatment or exposures affect health outcomes.
@@ -143,24 +147,21 @@
 		\item \textbf{Potential Outcomes Framework} (a.k.a. Rubin's Casual Model)
 			\begin{itemize}
 				\item Usually interested only in estimating causal effect.
-				\item Provides statistical methods for estimating the causal effect.
-					Examples are Propensity Score based methods, Doubly robust estimators, etc.
+				\item Provides robust statistical methods for estimating the causal effect.
+				\item Examples are Propensity Score based methods, Doubly robust estimators, meta learners, etc.
 			\end{itemize}
 	\end{itemize}
-	\vspace{2em}
+	\vspace{1em}
 	\begin{itemize}
 		\item \textbf{Directed Acyclic Graphs (DAGs)} / Structural Equation Models (SEMs)
 			\begin{itemize}
-				\item Causal diagram, i.e., DAG at the core.
-				\item The DAG can be used to define estimators for causal effects of interest.
-				\item DAGs make modelling assumptions explicit.
+				\item Causal graph (DAG) at the core.
+				\item The causal graph can be used to define estimators for causal effects of interest.
 			\end{itemize}
 	\end{itemize}
-
-	\todo[inline]{Add more explicitly which is used where}
 \end{frame}
 
-\begin{frame}{Landscape of Causal Inference Python Packages}
+\begin{frame}{Causal Inference Python Packages}
 	\begin{columns}
 		\begin{column}[T]{0.5 \textwidth}
 			\center{\textbf{Potential Outcomes Frameworks}}
@@ -200,8 +201,13 @@
 
 
 \begin{frame}{pgmpy}
+	\todo[inline]{Do I want to keep this slide}
+	\begin{itemize}
+		\item Support for mixed data.
+		\item Practical methods to integrate expert knowledge.
+		\item Extensible. Add your own scoring functions, conditional independence tests.
+	\end{itemize}
 
-\todo[inline]{Do I want to keep this slide}
 
 \begin{figure}[t]
 	\centering
@@ -298,11 +304,11 @@
 				\item \textbf{Score-based:} Greedy Equivalence Search, Hill-Climb Search.
 				\item \textbf{Optimization-based:} NoTears, DAGMA.
 			\end{itemize}
-		\item However, in practice, difficult to use these algorithms.
+		\item However, difficult to use in practice.
 			\begin{itemize}
+				\item Unsupervised learning problem, no way to check how good the output is.
 				\item Outputs are sensitive to algorithm, hyperparameters, and sample size.
-				\item Theoretically many DAGs can represent the same correlation structure.
-				\item Unsupervised learning problem, difficult to decide/choose between different outputs.
+				\item Many DAGs can represent the same observed correlation.
 			\end{itemize}
 	\end{itemize}
 \end{frame}
@@ -537,7 +543,7 @@ dag = est.estimate(scoring_method='bicscore',
 	\begin{itemize}
 		\item Causal Discovery is similar to unsupervised learning problem.
 		\item Do not have access to ground truth data.
-		\item Ad-hoc methods to determine how good the model is.	
+		\item Ad-hoc methods to determine how well the model fits the data.
 	\end{itemize}
 
 	\vspace{2em}
@@ -589,7 +595,7 @@ dag = est.estimate(scoring_method='bicscore',
 	\vspace{2em}
 	\begin{itemize}
 		\item Each missing edge implies a Conditional Independence (CI).
-		\item Statistical tests can be used to check whether they hold in data.
+		\item Statistical tests can be used to test whether the independence statement holds in the data.
 		\item Models can be modified based on these tests.
 	\end{itemize}
 
@@ -685,7 +691,6 @@ dag = est.estimate(scoring_method='bicscore',
 		\label{fig:workflow3}
 	\end{figure}
 	\begin{itemize}
-		\item After decided the DAG, we can start estimating causal effects.
 		\item \textbf{Identification}: Is the causal effect of interest estimable?
 		\item Everything is identified if all variables are observed.
 	\end{itemize}
