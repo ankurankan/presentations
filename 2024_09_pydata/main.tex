@@ -51,7 +51,7 @@
     }
 \makeatother
 
-\title[Causal Inference using pgmpy]{Introduction to Casual Inference using pgmpy}
+\title[Causal Inference using pgmpy]{Introduction to Casual Inference (DAG Framework) using pgmpy}
 \author{Ankur Ankan}
 \institute[]{Postdoctoral Researcher \\ Radboud University, The Netherlands}
 \date{}
@@ -62,7 +62,7 @@
 	\maketitle
 \end{frame}
 
-\begin{frame}{Spurious Correlations}
+\begin{frame}{Spurious Correlation}
 	\begin{figure}
 		\center
 		\includegraphics[scale=0.63]{imgs/spurious1.pdf}
@@ -79,7 +79,7 @@
 	\vspace{2em}
 	\textbf{Causal Modelling:}
 		\begin{itemize}
-			\item Interested in identifying potential interventions and their effects.
+			\item Interested in identifying potential interventions and their effects (answering what-if question).
 			\item Methods learn the causal-effect relationships between variables.
 		\end{itemize}
 \end{frame}
@@ -93,19 +93,14 @@
 % 	\blfootnote{https://tylervigen.com/spurious-correlations}
 % \end{frame}
 
-\begin{frame}{Correlation Structure}
-	\todo[inline]{Improve this slide}
-	\begin{figure}
-		\centering
-		\includegraphics[page=3]{figures.pdf}
-		\caption{Season is confounder}
-	\end{figure}
+\begin{frame}{Data Generating Process}
+	\center{Causal Modelling requires understanding the data generating process}
+	\begin{itemize}
+		\item Confounder:  \begin{figure} \includegraphics[scale=0.8, page=3]{figures.pdf}\end{figure}
+		\item Mediator: \begin{figure} \includegraphics[scale=0.8, page=8]{figures.pdf} \end{figure}
+		\item Collider:
+	\end{itemize}
 	% \center{Would an intervention on Ice-cream Sales affect Drowning Cases?}
-	\begin{figure}
-		\centering
-		\includegraphics[page=8]{figures.pdf}
-		\caption{Blood Pressure is mediator}
-	\end{figure}
 \end{frame}
 
 \begin{frame}{Example: Protein Signalling Causal Network \footnote{Sachs, Karen, et al. "Causal protein-signaling networks derived from multiparameter single-cell data." Science 308.5721 (2005): 523-529.}}
@@ -146,9 +141,10 @@
 	\begin{itemize}
 		\item \textbf{Potential Outcomes Framework} (a.k.a. Rubin's Casual Model)
 			\begin{itemize}
-				\item Usually interested only in estimating causal effect.
+				\item Usually interested in estimating causal effect.
 				\item Provides robust statistical methods for estimating the causal effect.
 				\item Examples are Propensity Score based methods, Doubly robust estimators, meta learners, etc.
+				\item Usually needs knowledge of confounding, mediator, collider variables.
 			\end{itemize}
 	\end{itemize}
 	\vspace{1em}
@@ -157,6 +153,7 @@
 			\begin{itemize}
 				\item Causal graph (DAG) at the core.
 				\item The causal graph can be used to define estimators for causal effects of interest.
+				\item Causal graph can also be used for selecting appropriate variables in Potential Outcomes framework.
 			\end{itemize}
 	\end{itemize}
 \end{frame}
@@ -190,6 +187,9 @@
 						\includegraphics[scale=0.15]{imgs/pgmpy.png}
 					\end{figure}
 				\item causal-learn
+					\begin{figure}
+						\includegraphics[scale=0.2]{imgs/pywhy_logo.png}
+					\end{figure}
 				% \item casualnex
 				% 	\begin{figure}
 				% 		\includegraphics[height=2cm, width=3cm, scale=0.15]{imgs/causalnex.png}
@@ -200,50 +200,50 @@
 \end{frame}
 
 
-\begin{frame}{pgmpy}
-	\todo[inline]{Do I want to keep this slide}
-	\begin{itemize}
-		\item Support for mixed data.
-		\item Practical methods to integrate expert knowledge.
-		\item Extensible. Add your own scoring functions, conditional independence tests.
-	\end{itemize}
-
-
-\begin{figure}[t]
-	\centering
-	\begin{tikzpicture}[inner sep=1pt]
-	\tikzstyle{every node}=[align=left]
-		\node (data)  at (0, 0) {Data};
-		\node (dag)    at (5, 0) {DAG};
-		\node (user)  at (5, 1.2) {Import / User Defined};
-		\node (bn)    at (12, 0) {Parameterized BN};
-		\node (test)  at (2.5, -0.8) {Model Testing};
-		\node (iv)    at (3.7, -1.4) {Instrumental Variables};
-		\node (as)    at (6, -0.8) {Adjustment Set};
-		\node (sim)   at (9, -0.8) {Simulations};
-		\node (ci)    at (9.8, -1.4) {Causal Inference};
-		\node (pi)    at (11.2, -2) {Probabilistic Inference};
-		\node (testp) at (14, -0.8) {Model Testing};
-		\node (readwrite) at (12.8, -1.4) {Export};
-		\node (read) at (12, 1.2) {Import / User Defined};
-
-		\draw[->] (data) edge [bend left=10] node [midway, above]{Structure Learning} (dag.west);
-		\draw (dag.east) edge [->,bend left=10] node [midway, above]{Parameter Learning} (bn.west);
-		\draw[->] (user.south) -- (dag.north);
-		\draw[->] (dag.south) -- (test.north);
-		\draw[->] (dag.south) -- (iv.north);
-		\draw[->] (dag.south) -- (as.north);
-		\draw[->] (bn.south) -- (pi.north);
-		\draw[->] (bn.south) -- (ci.north);
-		\draw[->] (bn.south) -- (sim.north);
-		\draw[->] (bn.south) -- (testp.north);
-		\draw[->] (bn.south) -- (readwrite.north);
-		\draw[->] (read.south) -- (bn.north);
-	\end{tikzpicture}
-	\caption{Possible workflows in pgmpy for Bayesian Networks}
-	\label{fig:pgmpy_workflow}
-\end{figure}
-\end{frame}
+% \begin{frame}{pgmpy}
+% 	\todo[inline]{Do I want to keep this slide}
+% 	\begin{itemize}
+% 		\item Support for mixed data.
+% 		\item Practical methods to integrate expert knowledge.
+% 		\item Extensible. Add your own scoring functions, conditional independence tests.
+% 	\end{itemize}
+% 
+% 
+% \begin{figure}[t]
+% 	\centering
+% 	\begin{tikzpicture}[inner sep=1pt]
+% 	\tikzstyle{every node}=[align=left]
+% 		\node (data)  at (0, 0) {Data};
+% 		\node (dag)    at (5, 0) {DAG};
+% 		\node (user)  at (5, 1.2) {Import / User Defined};
+% 		\node (bn)    at (12, 0) {Parameterized BN};
+% 		\node (test)  at (2.5, -0.8) {Model Testing};
+% 		\node (iv)    at (3.7, -1.4) {Instrumental Variables};
+% 		\node (as)    at (6, -0.8) {Adjustment Set};
+% 		\node (sim)   at (9, -0.8) {Simulations};
+% 		\node (ci)    at (9.8, -1.4) {Causal Inference};
+% 		\node (pi)    at (11.2, -2) {Probabilistic Inference};
+% 		\node (testp) at (14, -0.8) {Model Testing};
+% 		\node (readwrite) at (12.8, -1.4) {Export};
+% 		\node (read) at (12, 1.2) {Import / User Defined};
+% 
+% 		\draw[->] (data) edge [bend left=10] node [midway, above]{Structure Learning} (dag.west);
+% 		\draw (dag.east) edge [->,bend left=10] node [midway, above]{Parameter Learning} (bn.west);
+% 		\draw[->] (user.south) -- (dag.north);
+% 		\draw[->] (dag.south) -- (test.north);
+% 		\draw[->] (dag.south) -- (iv.north);
+% 		\draw[->] (dag.south) -- (as.north);
+% 		\draw[->] (bn.south) -- (pi.north);
+% 		\draw[->] (bn.south) -- (ci.north);
+% 		\draw[->] (bn.south) -- (sim.north);
+% 		\draw[->] (bn.south) -- (testp.north);
+% 		\draw[->] (bn.south) -- (readwrite.north);
+% 		\draw[->] (read.south) -- (bn.north);
+% 	\end{tikzpicture}
+% 	\caption{Possible workflows in pgmpy for Bayesian Networks}
+% 	\label{fig:pgmpy_workflow}
+% \end{figure}
+% \end{frame}
 
 \begin{frame}{A General Workflow in the DAG Framework}
 	\begin{figure}
@@ -306,11 +306,15 @@
 			\end{itemize}
 		\item However, difficult to use in practice.
 			\begin{itemize}
-				\item Unsupervised learning problem, no way to check how good the output is.
+				\item Unsupervised learning problem; no good way to check how good the learned graph is.
 				\item Outputs are sensitive to algorithm, hyperparameters, and sample size.
 				\item Many DAGs can represent the same observed correlation.
 			\end{itemize}
 	\end{itemize}
+\end{frame}
+
+\begin{frame}{Causal Discovery: Automated Algorithms}
+	\todo[inline]{Show the dataset}
 \end{frame}
 
 \begin{frame}[fragile]{Causal Discovery: Automated Algorithms}
@@ -408,13 +412,19 @@ dag = est.estimate(ci_test='pillai')
 	\begin{itemize}
 		\item Difficult to choose the best algorithm/model.
 		\item In finite sample scenario, all algorithms make mistakes.
-		\item Usually requires expert knowlege input.
+		\item Usually requires some expert knowledge input.
 	\end{itemize}
 
 	\vspace{2em}
 
-	\center{pgmpy implements option to incorporate expert knowledge to these
-	algorithms.}
+	pgmpy allows user to specify expert knowledge in a few ways:
+	\begin{itemize}
+		\item Blacklist edges
+		\item Whitelist edges and fixed edges
+		\item Initial graph
+		\item Temporal information (Upcoming)
+	\end{itemize}
+	
 \end{frame}
 
 \begin{frame}[fragile]{Causal Discovery: Expert Knowledge Integration}
@@ -490,13 +500,24 @@ dag = est.estimate(scoring_method='bicscore',
 	\vspace{2em}
 
 	\begin{itemize}
-		\item Finds pair of variables whose observed correlation isn't explained by the model.
-		\item Employs a ranking scheme to rank these violations.
+		\item Combines score and constraint based algorithm to find and
+			rank unexplained correlations.
 		\item Iteratively adds and removes edges.
-		\item Uses an expert to decide the direction of the edge.
-		\item Greatly reduces the amount of manual intervention required.
+		\item Asks specific edge direction questions to the expert.
+		\item Greatly reduces the amount of manual information that need to be provided.
+		\item In absence of an expert, LLM can be used as an expert.
 	\end{itemize}
 \end{frame}
+
+\begin{frame}[fragile]{Causal Discovery: Expert-In-The-Loop}
+	\begin{minted}[linenos, fontsize=\footnotesize]{python}
+from pgmpy.estimators import ExpertInLoop
+
+est_expert = ExpertInLoop(df)
+dag_expert = est_expert.estimate(use_llm=False)
+	\end{minted}
+\end{frame}
+
 \begin{frame}{Causal Discovery: Expert-In-The-Loop}
 	\begin{figure}
 		\begin{subfigure}{0.5 \textwidth}
@@ -505,7 +526,7 @@ dag = est.estimate(scoring_method='bicscore',
 		\end{subfigure}%
 		\begin{subfigure}{0.5 \textwidth}
 			\centering
-			\includegraphics[scale=0.22]{imgs/adult_llm.png}
+			\includegraphics[scale=0.28]{imgs/adult_llm.png}
 		\end{subfigure}
 	\end{figure}
 
