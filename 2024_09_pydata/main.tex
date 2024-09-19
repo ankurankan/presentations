@@ -64,7 +64,7 @@
 	\maketitle
 \end{frame}
 
-\begin{frame}{Spurious Correlation}
+\begin{frame}{Correlation Does not Imply Causation}
 	\begin{figure}
 		\center
 		\includegraphics[scale=0.63]{imgs/spurious1.pdf}
@@ -96,16 +96,16 @@
 % 	\blfootnote{https://tylervigen.com/spurious-correlations}
 % \end{frame}
 
-\begin{frame}{Data Generating Process}
-	\center{Causal Modelling requires understanding the data generating process}
-	\vspace{1em}
-	\begin{itemize}
-		\item Confounder:  \begin{figure}[H] \includegraphics[scale=0.7, page=3]{figures.pdf}\end{figure}
-		\item Mediator: \begin{figure}[H] \includegraphics[scale=0.7, page=8]{figures.pdf} \end{figure}
-		\item Collider: \begin{figure}[H] \includegraphics[scale=0.7, page=9]{figures.pdf} \end{figure}
-	\end{itemize}
-	% \center{Would an intervention on Ice-cream Sales affect Drowning Cases?}
-\end{frame}
+% \begin{frame}{Data Generating Process}
+% 	\center{Causal Modelling requires understanding the data generating process}
+% 	\vspace{1em}
+% 	\begin{itemize}
+% 		\item Confounder:  \begin{figure}[H] \includegraphics[scale=0.7, page=3]{figures.pdf}\end{figure}
+% 		\item Mediator: \begin{figure}[H] \includegraphics[scale=0.7, page=8]{figures.pdf} \end{figure}
+% 		\item Collider: \begin{figure}[H] \includegraphics[scale=0.7, page=9]{figures.pdf} \end{figure}
+% 	\end{itemize}
+% 	% \center{Would an intervention on Ice-cream Sales affect Drowning Cases?}
+% \end{frame}
 
 \begin{frame}{Example: Protein Signalling Causal Network \footnote{Sachs, Karen, et al. "Causal protein-signaling networks derived from multiparameter single-cell data." Science 308.5721 (2005): 523-529.}}
 	\begin{columns}
@@ -143,7 +143,6 @@
 				\item Usually interested in estimating causal effect.
 				\item Provides robust statistical methods for estimation.
 				\item Examples are Propensity Score based methods, Doubly robust estimators, meta learners, etc.
-				\item Usually needs knowledge of confounding, mediator, collider variables.
 			\end{itemize}
 	\end{itemize}
 	\vspace{1em}
@@ -513,8 +512,7 @@ dag_bic_start = est.estimate(
 
 	\begin{itemize}
 		\item Combines score and constraint based algorithms.
-		\item Finds and ranks unexplained correlations in the data.
-		\item Iteratively adds and removes edges based on expert knowledge.
+		\item Iteratively asks user for expert knowledge.
 		\item Reduces the amount of manual information that need to be provided.
 		\item In absence of an expert, LLMs can be used.
 	\end{itemize}
