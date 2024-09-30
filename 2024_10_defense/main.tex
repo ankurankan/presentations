@@ -51,17 +51,30 @@
 \maketitle
 
 \begin{frame}{Causal Inference}
-	In many scientific domains, causal questions are of interest.
+	\center{Many questions in science are causal}
 
-	\todo[inline]{Add examples here}
+	\begin{itemize}
+		\item Epidemiology: Does vaccination reduce the spread of infectious diseases in a population?
+		\item Social Sciences: Does exposure to violent video games increase aggressive behavior in children?
+		\item Environmental Science: Does deforestation contribute to climate change and loss of biodiversity?
+	\end{itemize}
 
-	Interested in: 1. Understanding how the variable interact. 2) To estimate effects.
-	
-	The best way to answer this is using randomized controlled trials. but not always possible.
+	In most of these cases, we are interested in:
+	\begin{itemize}
+		\item Is there a causal relationship.
+		\item Quantifying the causal relationship. How much effect?
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Randomized Control Trial}
+	\center{Best way to answer these questions is through randomized controlled trials}
+	\todo[inline]{Insert a figure here}
+
+	\center{However, not always possible}
 \end{frame}
 
 \begin{frame}{Directed Acyclic Graphs (DAGs)}
-
+	\center{So, we would like to answer such causal questions using observational data}
 	To answer such questions using only observational data we need to understand the data generating process.
 
 	\todo[inline]{Show an example of a DAG}
@@ -69,10 +82,23 @@
 	Even though there are many algorithms to learn these graphs, in practice these graphs are constructed manually.
 \end{frame}
 
-\begin{frame}{Chapter 2: Testing DAGs}
+\begin{frame}{Constructing Causal Graphs}
+	The casual graphs are mostly constructed by hand by researchers using domain knowledge.
+	This makes it important to be tested before using it for inferring anything.
+\end{frame}
+
+\begin{frame}{Testing Casual Graphs}
 	Because of being constructed manually important to test these models.
 
 	Chapter 2 gives a tutorial on how to test these.
+\end{frame}
+
+\begin{frame}{Conditional Independence Tests}
+	Model testing relies on these statistical Conditional independence tests.
+	Conditional Independence tests can also be used for constructing these graphs
+	automatically.
+
+	Hence, important that these tests are accurate.
 \end{frame}
 
 \begin{frame}{Chapter 3: CI test for testing and constructing graph}
