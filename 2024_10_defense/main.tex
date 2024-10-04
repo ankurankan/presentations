@@ -51,14 +51,16 @@
 \maketitle
 
 \begin{frame}{Causal Inference}
-	\center{Many questions in science are causal}
+	\center{Many questions in science are causal.}
 
 	\begin{itemize}
 		\item Epidemiology: Does vaccination reduce the spread of infectious diseases in a population?
 		\item Social Sciences: Does exposure to violent video games increase aggressive behavior in children?
 		\item Environmental Science: Does deforestation contribute to climate change and loss of biodiversity?
 	\end{itemize}
+\end{frame}
 
+\begin{frame}{Causal Inference}
 	In most of these cases, we are interested in:
 	\begin{itemize}
 		\item Is there a causal relationship.
@@ -66,20 +68,33 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Randomized Control Trial}
+\begin{frame}{Randomized Controlled Trial}
 	\center{Best way to answer these questions is through randomized controlled trials}
 	\todo[inline]{Insert a figure here}
+\end{frame}
 
-	\center{However, not always possible}
+\begin{frame}{Randomized Controlled Trial}
+	\center{However, not always possible}	
+
+	\center{We want to be able to answer these questions using observational data}
 \end{frame}
 
 \begin{frame}{Directed Acyclic Graphs (DAGs)}
 	\center{So, we would like to answer such causal questions using observational data}
+	
 	To answer such questions using only observational data we need to understand the data generating process.
 
-	\todo[inline]{Show an example of a DAG}
+	\todo[inline]{Show an example of a DAG. Show causal paths, and causal effects.}
 
 	Even though there are many algorithms to learn these graphs, in practice these graphs are constructed manually.
+\end{frame}
+
+\begin{frame}{Mixed and Missing Data}
+	During my PhD I worked on improving methods for constructing and estimating these graphs in case of mixed and missing data scenarios.
+
+	\textbf{Mixed Data}
+
+	\textbf{Missing Data}
 \end{frame}
 
 \begin{frame}{Constructing Causal Graphs}
@@ -116,6 +131,10 @@
 \end{frame}
 
 \begin{frame}{Future research}
+\end{frame}
+
+\begin{frame}
+	\Huge{Thank you}
 \end{frame}
 
 \end{document}
