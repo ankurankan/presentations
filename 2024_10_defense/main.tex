@@ -48,21 +48,37 @@
 \maketitle
 
 \begin{frame}{Causal Inference}
-	\center{Many questions in science are causal.}
+	\center{\Large{Many questions in science are causal}}
+
 	\vspace{2em}
 
-	\begin{itemize}
-		\item Epidemiology: Does vaccination reduce the spread of infectious diseases in a population?
-		\item Social Sciences: Does exposure to violent video games increase aggressive behavior in children?
-		\item Environmental Science: Does deforestation contribute to climate change and loss of biodiversity?
-	\end{itemize}
+	\only<2>{
+	\todo[inline]{Insert figure here}
+
+	Does vaccination reduce the spread of infectious disease?
+	}
+	\only<3>{
+	\todo[inline]{Insert figure here}
+	Does exposure to violent video games increase aggressive behavior in children?
+	}
+	\only<4>{
+	\todo[inline]{Insert figure here}
+	Environmental Science: Does deforestation contribute to climate change and loss of biodiversity?
+	}
 \end{frame}
 
 \begin{frame}{Causal Inference}
-	We are usually interested in:
+	\center{Goal: Understand how an intervention (e.g., deforestation) influences an outcome (e.g., climate change).}
+
+	\vspace{2em}
+
 	\begin{itemize}
-		\item \textbf{Understanding the causal relationship}: Does the intervention (deforestation) have an effect on the outcome (climate change)? If yes, direct or indirect?
-		\item \textbf{Quantifying the causal relationship}: How much effect does the intervention have on the outcome?
+		\item \textbf{Understand Causal Relationships: }
+			\begin{itemize}
+				\item Whether an intervention (e.g., deforestation) impacts the outcome (e.g., climate change).
+				\item Examine if the effect is direct, resulting from the intervention alone, or indirect, occurring through intermediary factors.
+			\end{itemize}
+		\item \textbf{Quantify Causal Relationships: } Measure the magnitude of the intervention's impact. If we increase the deforestation by 2x, how much would climate change.
 	\end{itemize}
 \end{frame}
 
@@ -72,21 +88,28 @@
 \end{frame}
 
 \begin{frame}{Randomized Controlled Trial}
-	\center{However, randomized controlled trials are not always possible.}
-	\begin{itemize}
-		\item Impossible to have two scenarios: Example deforestation.
-		\item Unethical: Can't give some treatment to a patient.
-		\item Expensive: 
-	\end{itemize}
+	\center{However, randomized controlled trials are \textbf{not always feasible.}}
+	
 	\vspace{2em}
-	\center{We want to be able to answer these questions using observational data.}
+
+	\begin{itemize}[<+->]
+		\item \textbf{Impossible to create two groups: } We cannot create a copy of earth on which to apply the intervention.
+		\item \textbf{Unethical: } Can't give some treatment to a patient.
+		\item \textbf{Expensive: }
+	\end{itemize}
+
+	\vspace{2em}
+
+\only<4>{
+\center{Can we answer these questions using data that we already have (i.e., observational data)?}}
 \end{frame}
 
-\begin{frame}{Directed Acyclic Graphs (DAGs)}
-	\center{To answer causal questions from observational data, we need an understanding of the causal mechanism underlying the process.}
+\begin{frame}{Causal Graphs}
+	\center{To answer such questions from observational data, we need to understand the causal mechanism}
 
 	\todo[inline]{Show an example of a DAG. Show causal paths, and causal effects.}
 
+	\todo[inline]{Highlight what the two tasks outlined before mean in terms of Causal Graphs}
 	\begin{itemize}
 		\item Causal relationship $ \implies $ causal paths.
 		\item Quantification $ \implies $ Strength of these edges.
@@ -94,7 +117,7 @@
 \end{frame}
 
 \begin{frame}{Mixed and Missing Data}
-	During my PhD I worked on improving methods for constructing and estimating these graphs in case of mixed and missing data scenarios.
+	\center{I have focused on improving these methods for mixed and missing data.}
 
 	\textbf{Mixed Data:}
 		\begin{enumerate}
@@ -111,6 +134,7 @@
 	\center{How do we know our graph is correct?: Model Testing}
 	
 	Graph $ \implies $ Independence statements.
+	Independence means 
 \end{frame}
 
 \begin{frame}{Testing Casual Graphs}
