@@ -49,6 +49,7 @@
 
 \begin{frame}{Causal Inference}
 	\center{Many questions in science are causal.}
+	\vspace{2em}
 
 	\begin{itemize}
 		\item Epidemiology: Does vaccination reduce the spread of infectious diseases in a population?
@@ -58,51 +59,64 @@
 \end{frame}
 
 \begin{frame}{Causal Inference}
-	In most of these cases, we are interested in:
+	We are usually interested in:
 	\begin{itemize}
-		\item Is there a causal relationship.
-		\item Quantifying the causal relationship. How much effect?
+		\item \textbf{Understanding the causal relationship}: Does the intervention (deforestation) have an effect on the outcome (climate change)? If yes, direct or indirect?
+		\item \textbf{Quantifying the causal relationship}: How much effect does the intervention have on the outcome?
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Randomized Controlled Trial}
-	\center{Best way to answer these questions is through randomized controlled trials}
+\begin{frame}{Randomized Controlled Trial}	
+	\center{Best way to answer these causal questions is using \textbf{Randomized Controlled Trials}.}
 	\todo[inline]{Insert a figure here}
 \end{frame}
 
 \begin{frame}{Randomized Controlled Trial}
-	\center{However, not always possible}	
-
-	\center{We want to be able to answer these questions using observational data}
+	\center{However, randomized controlled trials are not always possible.}
+	\begin{itemize}
+		\item Impossible to have two scenarios: Example deforestation.
+		\item Unethical: Can't give some treatment to a patient.
+		\item Expensive: 
+	\end{itemize}
+	\vspace{2em}
+	\center{We want to be able to answer these questions using observational data.}
 \end{frame}
 
 \begin{frame}{Directed Acyclic Graphs (DAGs)}
-	\center{So, we would like to answer such causal questions using observational data}
-	
-	To answer such questions using only observational data we need to understand the data generating process.
+	\center{To answer causal questions from observational data, we need an understanding of the causal mechanism underlying the process.}
 
 	\todo[inline]{Show an example of a DAG. Show causal paths, and causal effects.}
 
-	Even though there are many algorithms to learn these graphs, in practice these graphs are constructed manually.
+	\begin{itemize}
+		\item Causal relationship $ \implies $ causal paths.
+		\item Quantification $ \implies $ Strength of these edges.
+	\end{itemize}
 \end{frame}
 
 \begin{frame}{Mixed and Missing Data}
 	During my PhD I worked on improving methods for constructing and estimating these graphs in case of mixed and missing data scenarios.
 
-	\textbf{Mixed Data}
+	\textbf{Mixed Data:}
+		\begin{enumerate}
+			\item Numerical:
+			\item Categorical:
+			\item Ordinal:
+		\end{enumerate}
 
-	\textbf{Missing Data}
+	\textbf{Missing Data:} Not all variables can be measured. For example climate change.
 \end{frame}
 
 \begin{frame}{Constructing Causal Graphs}
-	The casual graphs are mostly constructed by hand by researchers using domain knowledge.
-	This makes it important to be tested before using it for inferring anything.
+	\center{How do we construct causal graphs: Usually done manually based on knowledge}
+	\center{How do we know our graph is correct?: Model Testing}
+	
+	Graph $ \implies $ Independence statements.
 \end{frame}
 
 \begin{frame}{Testing Casual Graphs}
-	Because of being constructed manually important to test these models.
+	Selecting the correct conditional independence test depends on a lot of factors.
 
-	Chapter 2 gives a tutorial on how to test these.
+	In one of the chapters, we presented a practical guide for researchers trying to apply these methods in their research on how to carry out this testing.
 \end{frame}
 
 \begin{frame}{Conditional Independence Tests}
