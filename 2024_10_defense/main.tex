@@ -13,6 +13,8 @@
 \usepackage{titlecaps}
 \usepackage{fancyvrb}
 \usepackage[export]{adjustbox}
+\usetikzlibrary{arrows}
+\usetikzlibrary{shapes}
 \def\ci{\perp\!\!\!\!\!\perp}
 
 \newtheorem{proposition}{Proposition}
@@ -137,28 +139,35 @@
 
 \begin{frame}{Causal Graphs}
 	\center{Yes, but we need to understand the causal mechanism.}
+	\vspace{1em}
 
-	\todo[inline]{Show an example of a DAG. Show causal paths, and causal effects.}
+	\begin{figure}
+		\includegraphics[page=1]{figures.pdf}
+	\end{figure}
 
-	\todo[inline]{Highlight what the two tasks outlined before mean in terms of Causal Graphs}
+	\vspace{1em}
 	\begin{itemize}
-		\item Causal relationship $ \implies $ causal paths.
-		\item Quantification $ \implies $ Strength of these edges.
+		\item Understanding causal relationship $ \implies $ Constructing causal graph.
+		\item Quantifying causal relationships $ \implies $ Estimating edge strength.
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Mixed and Missing Data}
-	\center{I have focused on improving these methods for mixed and missing data.}
-
-	\textbf{Mixed Data:}
-		\begin{enumerate}
-			\item Numerical:
-			\item Categorical:
-			\item Ordinal:
-		\end{enumerate}
-
-	\textbf{Missing Data:} Not all variables can be measured. For example climate change.
-\end{frame}
+% \begin{frame}{Mixed and Missing Data}
+% 	\center{I have focused on improving these methods for mixed and missing data.}
+% 
+% 	\vspace{2em}
+% 
+% 	\begin{itemize}
+% 		\item \textbf{Mixed Data:}
+% 			\begin{enumerate}
+% 				\item Numerical:
+% 				\item Categorical:
+% 				\item Ordinal:
+% 			\end{enumerate}
+% 
+% 		\item \textbf{Missing Data:} Not all variables can be measured. For example climate change.
+% 	\end{itemize}
+% \end{frame}
 
 \begin{frame}{Constructing Causal Graphs}
 \center{How do we construct these causal graphs?}
@@ -167,43 +176,24 @@
 
 \center{Important to test whether our causal graph is correct.}
 
+
 \begin{figure}
-	\begin{tikzpicture}
-		\begin{scope}[scale=1]
-		\tikzstyle{every node}=[align=center, inner sep=1pt]
-				\node (D) at (0, 0) {Deforestation};
-				\node (CC) at (5, 0) {Climate Change};
-				\node (E) at (2.5, -1) {Emissions};
-				\node (BL) at (2.5, -2) {Biodiversity Loss};
-				\node (ED) at (5, 1.5) {Economic \\ Development};
-				\node (AE) at (0, 1.5) {Agri. Expansion};
-			
-				\draw[->]  (D) -- (CC);
-				\draw[->]  (D) -- (E);
-				\draw[->]  (D) -- (BL);
-				\draw[->]  (E) -- (CC);
-				\draw[->]  (BL) -- (CC);
-				\draw[->]  (ED) -- (D);
-				\draw[->]  (ED) -- (AE);
-				\draw[->]  (AE) -- (D);
-				\draw[->]  (ED) -- (CC);
-		\end{scope}
-	\end{tikzpicture}
+	\includegraphics[page=1]{figures.pdf}
 \end{figure}
 	
 \end{frame}
 
 \begin{frame}{Testing Casual Graphs}
+	\todo[inline]{Add a figure showing Independence statements going in to a test and ticks and crosses coming out}
 
-	Graph $ \implies $ Independence statements.
-	Independence means 
+	However, selecting the correct conditional independence test depends on a lot of factors or data needs to be preprocessed.
 
-	Selecting the correct conditional independence test depends on a lot of factors.
-
-	In one of the chapters, we presented a practical guide for researchers trying to apply these methods in their research on how to carry out this testing.
+	We presented a practical guide for researchers trying to apply these methods in their research on how to carry out this testing.
 \end{frame}
 
-\begin{frame}{Conditional Independence Tests}
+\begin{frame}{Constructing Causal Graphs}
+	\todo[inline]{Insert an image with Data -> Tests -> Causal Graph}
+
 	Model testing relies on these statistical Conditional independence tests.
 	Conditional Independence tests can also be used for constructing these graphs
 	automatically.
@@ -211,24 +201,22 @@
 	Hence, important that these tests are accurate.
 \end{frame}
 
-\begin{frame}{Chapter 3: CI test for testing and constructing graph}
-	The model testing utilizes conditional independence tests.
-
-	In Chapter 3, we propose a novel test for mixed data.
-\end{frame}
-
 \begin{frame}{Causal Effect Estimation}
-	Some of the variables are unobserved.
-	Impossible to estimate the effect.
-	Trick: Use an observed child of the variable to estimate it by fixing one of the
-	variables.
+	If variables can be measured, we have methods to estimate the casual effect between them.
+
+	But some variable can not be directly measured. Example Climate Change.
+
+	These variables are measured indirectly through other variables. For example climate change can be measured through "Global Average Temperature", "Sea Level Rise", "Atmospheric CO2 concentration".
+
+	We developed a new method to be able to estimate these edges.
 \end{frame}
 
 \begin{frame}{Software}
+	\todo[inline]{If there is time finish this slide}
 	To make it easy for these methods to use, we have a software package.
 \end{frame}
 
-\begin{frame}{Future research}
+\begin{frame}{Future research}	
 \end{frame}
 
 \begin{frame}
