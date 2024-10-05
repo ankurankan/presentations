@@ -12,10 +12,13 @@
 \usepackage{ragged2e}
 \usepackage{titlecaps}
 \usepackage{fancyvrb}
+\usepackage[export]{adjustbox}
 \def\ci{\perp\!\!\!\!\!\perp}
 
 \newtheorem{proposition}{Proposition}
 \Addlcwords{for a is but and with of in as the etc on to if}
+
+\newcommand{\stackwords}[4]{\begin{tabular}[t]{@{}l@{}l@{}l@{}}#1\\#2\\#3\\#4\end{tabular}}
 
 \setbeamertemplate{section in toc}{\inserttocsectionnumber.~\inserttocsection}
 \usetheme{Boadilla}
@@ -49,26 +52,50 @@
 
 \begin{frame}{Causal Inference}
 	\center{\Large{Many questions in science are causal}}
-
-	\vspace{2em}
-
+	\vspace{0.5em}
 	\only<2>{
-	\todo[inline]{Insert figure here}
+	\begin{figure}
+		\begin{subfigure}{0.3 \textwidth}
+			\includegraphics[scale=0.1, valign=m]{imgs/vaccine.png}
+		\end{subfigure}
+		\qquad\tikz[baseline=-\baselineskip]\draw[ultra thick,->] (-1,0) -- ++ (1,0);\qquad	
+		\begin{subfigure}{0.3 \textwidth}
+			\includegraphics[scale=0.1, valign=m]{imgs/infectious.png}
+		\end{subfigure}
+	\end{figure}
 
+	\vspace{0.5em}
 	Epidemiology: Does vaccination reduce the spread of infectious disease?
 	}
 	\only<3>{
-	\todo[inline]{Insert figure here}
+	\begin{figure}
+		\begin{subfigure}{0.35 \textwidth}
+			\includegraphics[scale=0.1, valign=m]{imgs/video_game.png}
+		\end{subfigure}
+		\qquad\tikz[baseline=-\baselineskip]\draw[ultra thick,->] (0,0) -- ++ (1,0);\qquad	
+		\begin{subfigure}{0.35 \textwidth}
+			\includegraphics[scale=0.1, valign=m]{imgs/fight.png}
+		\end{subfigure}
+	\end{figure}
 	Social Sciences: Does exposure to violent video games increase aggressive behavior in children?
 	}
 	\only<4>{
-	\todo[inline]{Insert figure here}
+	\begin{figure}
+		\begin{subfigure}{0.35 \textwidth}
+			\includegraphics[scale=0.1, valign=m]{imgs/deforestation.png}
+		\end{subfigure}
+		\qquad\tikz[baseline=-\baselineskip]\draw[ultra thick,->] (0,0) -- ++ (1,0);\qquad	
+		\begin{subfigure}{0.35 \textwidth}
+			\includegraphics[scale=0.1, valign=m]{imgs/climate_change.png}
+		\end{subfigure}
+	\end{figure}
+
 	Environmental Science: Does deforestation contribute to climate change and loss of biodiversity?
 	}
 \end{frame}
 
 \begin{frame}{Causal Inference}
-	\center{\large{\textbf{Goal:} Understand how an \textbf{intervention} (e.g., deforestation) influences an \\ \textbf{outcome} (e.g., climate change).}}
+	\center{\large{\textbf{Goal:} Understand how an \stackwords{\textbf{intervention}}{vaccination}{video games}{deforestation} influences an \stackwords{\textbf{outcome}.}{infection spread}{aggressive behavior}{climate change}}}
 
 	\vspace{2em}
 
@@ -97,19 +124,19 @@
 	\vspace{2em}
 
 	\begin{itemize}[<+->]
-		\item \textbf{Impossible to create two groups: } We cannot create a copy of earth on which to apply the intervention.
-		\item \textbf{Unethical: } Can't give some treatment to a patient.
-		\item \textbf{Expensive: }
+		\item \textbf{Unethical: } To study the effect of smoking on lung cancer, we can not ask non-smokers to start smoking.
+		\item \textbf{Difficult to control exposures:} To study the effects of deforestation on climate, we can not create a clone of earth.
+		\item \textbf{Cost:} Assessing the effect of education on income would require decades of tracking individuals.
 	\end{itemize}
 
 	\vspace{2em}
 
 \only<4>{
-\center{Can we answer these questions using data that we already have (i.e., observational data)?}}
+\center{Can we answer these questions using data that we already have?}}
 \end{frame}
 
 \begin{frame}{Causal Graphs}
-	\center{Yes, but we need an understanding of the causal mechanism}
+	\center{Yes, but we need to understand the causal mechanism.}
 
 	\todo[inline]{Show an example of a DAG. Show causal paths, and causal effects.}
 
@@ -134,14 +161,43 @@
 \end{frame}
 
 \begin{frame}{Constructing Causal Graphs}
-	\center{How do we construct causal graphs: Usually done manually based on knowledge}
-	\center{How do we know our graph is correct?: Model Testing}
+\center{How do we construct these causal graphs?}
+
+\center{Usually done manually based on knowledge}
+
+\center{Important to test whether our causal graph is correct.}
+
+\begin{figure}
+	\begin{tikzpicture}
+		\begin{scope}[scale=1]
+		\tikzstyle{every node}=[align=center, inner sep=1pt]
+				\node (D) at (0, 0) {Deforestation};
+				\node (CC) at (5, 0) {Climate Change};
+				\node (E) at (2.5, -1) {Emissions};
+				\node (BL) at (2.5, -2) {Biodiversity Loss};
+				\node (ED) at (5, 1.5) {Economic \\ Development};
+				\node (AE) at (0, 1.5) {Agri. Expansion};
+			
+				\draw[->]  (D) -- (CC);
+				\draw[->]  (D) -- (E);
+				\draw[->]  (D) -- (BL);
+				\draw[->]  (E) -- (CC);
+				\draw[->]  (BL) -- (CC);
+				\draw[->]  (ED) -- (D);
+				\draw[->]  (ED) -- (AE);
+				\draw[->]  (AE) -- (D);
+				\draw[->]  (ED) -- (CC);
+		\end{scope}
+	\end{tikzpicture}
+\end{figure}
 	
-	Graph $ \implies $ Independence statements.
-	Independence means 
 \end{frame}
 
 \begin{frame}{Testing Casual Graphs}
+
+	Graph $ \implies $ Independence statements.
+	Independence means 
+
 	Selecting the correct conditional independence test depends on a lot of factors.
 
 	In one of the chapters, we presented a practical guide for researchers trying to apply these methods in their research on how to carry out this testing.
