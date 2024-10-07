@@ -136,10 +136,10 @@
 	
 	% Page 6
 	\begin{tikzpicture}
-		\node[rectangle, align=center, inner sep=1pt] at (0, 0) {Data};
-		\draw[ultra thick, ->] (1, 0) -- (2.5, 0) node[midway, above]{\includegraphics[scale=0.04]{imgs/stat_test.png}};
-		\node[rectangle, align=center, inner sep=1pt] at (5.5, 1){\underline{\textbf{Conditional Independences}}};
-		\node[rectangle, align=center, inner sep=1pt] at (5.5, 0) {
+		\node[rectangle, align=center, inner sep=1pt] at (0, 0) {\includegraphics[scale=0.05]{imgs/stat_test.png}};
+		\draw[ultra thick, ->] (1, 0) -- (2, 0);
+		\node[rectangle, align=center, inner sep=1pt] at (5, 1){\underline{\textbf{Conditional Independences}}};
+		\node[rectangle, align=center, inner sep=1pt] at (5, 0) {
 			\begin{minipage}{\textwidth}
 				\begin{equation*}
 					\begin{split}
@@ -150,8 +150,8 @@
 				\end{equation*}
 			\end{minipage}
 		};
-		\draw[ultra thick, ->] (8, 0) -- (9, 0);
-		\begin{scope}[scale=0.8, xshift=13cm]
+		\draw[ultra thick, ->] (7.5, 0) -- (8.5, 0);
+		\begin{scope}[scale=0.8, xshift=12.5cm]
 		\tikzstyle{every node}=[draw, ellipse, align=center, inner sep=2pt]
 			\node (D) at (0, 0) {\footnotesize{Deforestation}};
 			\node (CC) at (3.5, 0) {\footnotesize Climate \\ \footnotesize Change};
