@@ -80,9 +80,9 @@
 			\node (ED) at (3.5, 1.8) {\footnotesize Economic \\ \footnotesize Development};
 			\node (AE) at (0, 1.8) {\footnotesize Agricul. \\ \footnotesize Expansion};
 			
-			\draw[->, thick]  (D) -- (CC);
-			\draw[->, thick]  (D) -- (BL);
-			\draw[->, thick]  (BL) -- (CC);
+			\draw[->, thick]  (D) -- (CC) node[draw=none, midway, above]{$\scriptstyle{0.6}$};
+			\draw[->, thick]  (D) -- (BL) node[draw=none, midway, above, sloped]{$\scriptstyle{0.2}$};
+			\draw[->, thick]  (BL) -- (CC) node[draw=none, midway, above, sloped]{$\scriptstyle{0.3}$};
 			\draw[->, thick]  (ED) -- (D);
 			\draw[->, thick]  (ED) -- (AE);
 			\draw[->, thick]  (AE) -- (D);
