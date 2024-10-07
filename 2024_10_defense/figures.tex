@@ -11,20 +11,75 @@
 		\tikzstyle{every node}=[draw, ellipse, align=center, inner sep=1pt]
 				\node (D) at (0, 0) {Deforestation};
 				\node (CC) at (5, 0) {Climate Change};
-				\node (E) at (2.5, -1) {Emissions};
 				\node (BL) at (2.5, -2) {Biodiversity Loss};
 				\node (ED) at (5, 1.5) {Economic \\ Development};
 				\node (AE) at (0, 1.5) {Agri. Expansion};
 			
-				\draw[->]  (D) -- (CC);
-				\draw[->]  (D) -- (E);
-				\draw[->]  (D) -- (BL);
-				\draw[->]  (E) -- (CC);
-				\draw[->]  (BL) -- (CC);
-				\draw[->]  (ED) -- (D);
-				\draw[->]  (ED) -- (AE);
-				\draw[->]  (AE) -- (D);
-				\draw[->]  (ED) -- (CC);
+				\draw[->, thick]  (D) -- (CC);
+				\draw[->, thick]  (D) -- (BL);
+				\draw[->, thick]  (BL) -- (CC);
+				\draw[->, thick]  (ED) -- (D);
+				\draw[->, thick]  (ED) -- (AE);
+				\draw[->, thick]  (AE) -- (D);
+				\draw[->, thick]  (ED) -- (CC);
 		\end{scope}
 	\end{tikzpicture}
+
+	\begin{tikzpicture}
+		\begin{scope}[scale=0.8]
+		\tikzstyle{every node}=[draw, ellipse, align=center, inner sep=1pt]
+				\node (D) at (0, 0) {Deforestation};
+				\node (CC) at (5, 0) {Climate Change};
+				\node (BL) at (2.5, -2) {Biodiversity Loss};
+				\node (ED) at (5, 1.5) {Economic \\ Development};
+				\node (AE) at (0, 1.5) {Agri. Expansion};
+			
+				\draw[->, thick, red]  (D) -- (CC);
+				\draw[->, thick]  (D) -- (BL);
+				\draw[->, thick]  (BL) -- (CC);
+				\draw[->, thick]  (ED) -- (D);
+				\draw[->, thick]  (ED) -- (AE);
+				\draw[->, thick]  (AE) -- (D);
+				\draw[->, thick]  (ED) -- (CC);
+		\end{scope}
+	\end{tikzpicture}
+
+	\begin{tikzpicture}
+		\begin{scope}[scale=0.8]
+		\tikzstyle{every node}=[draw, ellipse, align=center, inner sep=1pt]
+				\node (D) at (0, 0) {Deforestation};
+				\node (CC) at (5, 0) {Climate Change};
+				\node (BL) at (2.5, -2) {Biodiversity Loss};
+				\node (ED) at (5, 1.5) {Economic \\ Development};
+				\node (AE) at (0, 1.5) {Agri. Expansion};
+			
+				\draw[->, thick]  (D) -- (CC);
+				\draw[->, thick, red]  (D) -- (BL);
+				\draw[->, thick, red]  (BL) -- (CC);
+				\draw[->, thick]  (ED) -- (D);
+				\draw[->, thick]  (ED) -- (AE);
+				\draw[->, thick]  (AE) -- (D);
+				\draw[->, thick]  (ED) -- (CC);
+		\end{scope}
+	\end{tikzpicture}
+
+	\begin{tikzpicture}
+		\begin{scope}[scale=0.8]
+		\tikzstyle{every node}=[draw, ellipse, align=center, inner sep=1pt]
+				\node (D) at (0, 0) {Deforestation};
+				\node (CC) at (5, 0) {Climate Change};
+				\node (BL) at (2.5, -2) {Biodiversity Loss};
+				\node (ED) at (5, 1.5) {Economic \\ Development};
+				\node (AE) at (0, 1.5) {Agri. Expansion};
+			
+				\draw[->, thick]  (D) -- (CC);
+				\draw[->, thick]  (D) -- (BL);
+				\draw[->, thick]  (BL) -- (CC);
+				\draw[->, thick, red]  (ED) -- (D);
+				\draw[->, thick]  (ED) -- (AE);
+				\draw[->, thick]  (AE) -- (D);
+				\draw[->, thick, red]  (ED) -- (CC);
+		\end{scope}
+	\end{tikzpicture}
+
 \end{document}

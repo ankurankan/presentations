@@ -53,7 +53,7 @@
 \maketitle
 
 \begin{frame}{Causal Inference}
-	\center{\Large{Many questions in science are causal}}
+	\center{\Large{Many questions in science are causal.}}
 	\vspace{0.5em}
 	\only<2>{
 	\begin{figure}
@@ -105,12 +105,12 @@
 		\item \textbf{Understanding Causal Relationships: }
 			\begin{itemize}
 				\item Whether there is a causal relationship between the exposure and the outcome.
-				\item Examine whether the relationship is direct, or indirect.
+				\item Examine the type of relationship such as direct, or indirect.
 			\end{itemize}
 		\item \textbf{Quantifying Causal Relationships: }
 			\begin{itemize}
 				\item Measure the magnitude of the intervention's impact.
-				\item For example, if we increase deforestation by 2x, how much impact would it have on climate change.
+				\item For example, if we start vaccinating people, by how much would the spread of infection decrease.
 			\end{itemize}
 	\end{itemize}
 \end{frame}
@@ -138,15 +138,24 @@
 \end{frame}
 
 \begin{frame}{Causal Graphs}
-	\center{Yes, but we need to understand the causal mechanism.}
+	\center{Yes, requires understanding the causal mechanism.}
 	\vspace{1em}
+	% \begin{overprint}
+	% 	\onslide<1>\begin{figure} \includegraphics[page=1]{figures.pdf} \end{figure}
+	% 	\onslide<2>\begin{figure} \includegraphics[page=2]{figures.pdf} \end{figure}
 
+	% \end{overprint}
 	\begin{figure}
-		\includegraphics[page=1]{figures.pdf}
+		\begin{overprint}
+			\onslide<1> \center \includegraphics[page=1]{figures.pdf}
+			\onslide<2> \center \includegraphics[page=2]{figures.pdf}
+			\onslide<3> \center \includegraphics[page=3]{figures.pdf}
+			\onslide<4> \center \includegraphics[page=4]{figures.pdf}
+		\end{overprint}
 	\end{figure}
 
 	\vspace{1em}
-\only<2>{
+\only<4>{
 	\begin{enumerate}
 		\item Understanding Causal Relationship $ \implies $ Constructing causal graph.
 		\item Quantifying causal relationships $ \implies $ Estimating edge strength.
