@@ -120,43 +120,43 @@
 	\begin{itemize}
 		\item \textbf{Understanding Causal Relationships: }
 			\begin{itemize}
-				\item Is there a causal relationship between the exposure and the outcome.
-				\item What kind of relationship? Direct, indirect, common cause, so on.
+				\item Is there a causal relationship between the exposure and the outcome?
+				\item What kind of relationship? Direct, indirect, common cause, and so on.
 			\end{itemize}
 		\item \textbf{Quantifying Causal Relationships: }
 			\begin{itemize}
-				\item Measure the magnitude of intervention's impact.
-				\item For example, by how much would vaccination reduce spread of infection.
+				\item Measure the magnitude of the intervention's impact.
+				\item For example, by how much would vaccination reduce spread of infection?
 			\end{itemize}
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Randomized Controlled Trial}	
+\begin{frame}{Randomized Controlled Trials}
 	\center{Best way to answer these causal questions is using \textbf{Randomized Controlled Trials}.}
 	\todo[inline]{Insert a figure here}
 \end{frame}
 
-\begin{frame}{Randomized Controlled Trial}
+\begin{frame}{Randomized Controlled Trials}
 	\center{However, randomized controlled trials are \textbf{not always feasible.}}
 	
 	\vspace{2em}
 
 	\begin{itemize}[<+->]
-		\item \textbf{Unethical: } To study the effect of smoking on lung cancer, we can not ask non-smokers to start smoking.
-		\item \textbf{Difficult to control exposures:} To study the effects of deforestation on climate, we can not create a clones of earth.
+		\item \textbf{Unethical: } To study the effect of smoking on lung cancer, we cannot ask non-smokers to start smoking.
+		\item \textbf{Difficult to control exposures:} To study the effects of deforestation on climate, we cannot create clones of Earth.
 		\item \textbf{Cost:} Assessing the effect of education on income would require decades of tracking individuals.
 	\end{itemize}
 
 	\vspace{2em}
 
 \only<4>{
-\center{Can we answer these questions using data that we already have?}
+\center{Can we answer these questions using non-experimental data that we already have?}
 }
 \end{frame}
 
 \begin{frame}{Causal Graphs}
 	\center{Yes, but requires understanding the causal mechanism.}
-	\vspace{1em}
+	\vspace{0.5em}
 	\begin{figure}
 		\begin{overprint}
 			\onslide<1> \center \includegraphics[page=1]{figures.pdf}
@@ -166,10 +166,9 @@
 		\end{overprint}
 	\end{figure}
 
-	\vspace{1em}
 \only<4>{
 	\begin{itemize}
-		\item Understanding causal relationship $ \implies $ Constructing the causal graph.
+		\item Understanding causal relationships $ \implies $ Constructing the causal graph.
 		\item Quantifying causal relationships $ \implies $ Estimating the edge strengths.
 	\end{itemize}
 }
@@ -212,17 +211,20 @@
 \end{frame}
 
 \begin{frame}{Testing Causal Graphs}
-	% \begin{figure}
-	% 	\includegraphics[page=5]{figures.pdf}
-	% \end{figure}
 	\begin{itemize}
 		\item Selecting the appropriate conditional independence test depends on a
 	lot of factors.
+		\item One of the main factors is type of variables:
+			\begin{itemize}
+				\item Numerical: Area of deforestation.
+				\item Categorical: 
+				\item Ordinal:
+			\end{itemize}
 	\end{itemize}
 
-	\vspace{1em}
+	\vspace{2em}
 		
-	\center{To help researchers to carry out model testing, we wrote a comprehensive guide for selecting appropriate tests for their data.}
+	\center{We wrote a comprehensive guide for selecting appropriate tests for their data.}
 \end{frame}
 
 \begin{frame}{Constructing Causal Graphs}
@@ -232,40 +234,52 @@
 	\end{figure}
 
 	\begin{itemize}
-		\item Both model testing and automatically constructing the graphs require that the statistical tests are accurate.
-		\item Incorrect test $ \implies $ Incorrect edge.
-		\item Hence, we want these tests to be as accurate as possible.
+		\item Both model testing and automatically constructing graphs rely on the accuracy of tests.
+		\item Incorrect tests $ \implies $ Incorrect edges.
 	\end{itemize}
+
+	\vspace{0.5em}
 	
-	\center{We proposed a new conditional independence test that can work
-	on mixed data and is more accurate than previous methods.}
+	\center{We proposed a new conditional independence test.}
 \end{frame}
 
 \begin{frame}{Causal Effect Estimation}
-
-	\begin{itemize}
-		\item If variables can be measured, we have methods to estimate the causal effect between them.
-		\item But not always possible to measure variables. For example, we can not directly measure climate change.
-		\item Such variables need to measured using other variables. Such as climate change can be measured using variables like:
+	\begin{columns}
+		\begin{column}{0.65 \textwidth}
 			\begin{itemize}
-				\item Global Average Temperature
-				\item Sea Level Rise
-				\item Atmospheric CO2 concentration
+				\item Easy to estimate if we can measure the variables.
+				\item But not always possible to measure variables.
+				\item Example, climate change cannot be measured directly.
+				\item But other variables can be used to measure them. For climate change we can use:
+					\begin{itemize}
+						\item Global average temperature
+						\item Sea level rise
+						\item Atmospheric CO2 concentration
+					\end{itemize}
 			\end{itemize}
-	\end{itemize}
+		\end{column}
+		\begin{column}{0.38 \textwidth}	
+			\begin{figure}
+				\center
+				\includegraphics[page=7]{figures.pdf}
+			\end{figure}
+		\end{column}
+	\end{columns}
 
-	\center{We developed a new method to be able to estimate effects between variables that can not be measured.}
+	\vspace{2em}
+	
+	\center{We developed a new method to be able to estimate effects between such variables that can not be measured directly.}
 \end{frame}
 
-\begin{frame}{Future research}
+\begin{frame}{Future Research}
 	\begin{itemize}
-		\item We plan to further improve the conditional independence test that we proposed.
-		\item We would like to combine the testing and estimation approach to come up with an interpretable metric for mixed data.
+		\item Plan to further improve the conditional independence test that we proposed.
+		\item Combine conditional independence testing and estimation methods to come up with an interpretable metric for mixed data.
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
-	\Huge{Thank you}
+	\Huge{Thank you.}
 \end{frame}
 
 \end{document}
