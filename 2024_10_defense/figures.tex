@@ -90,7 +90,7 @@
 	\end{tikzpicture}
 
 	\begin{tikzpicture}
-		\begin{scope}[scale=1]
+		\begin{scope}[scale=0.8]
 		\tikzstyle{every node}=[draw, ellipse, align=center, inner sep=2pt]
 			\node (D) at (0, 0) {\footnotesize{Deforestation}};
 			\node (CC) at (3.5, 0) {\footnotesize Climate \\ \footnotesize Change};
@@ -107,6 +107,7 @@
 			\draw[->, thick]  (ED) -- (CC);
 		\end{scope}
 		\draw[ultra thick, ->] (4,0) -- (5,0);
+		\node[rectangle, align=center, inner sep=1pt] at (8, 1){\underline{\textbf{Conditional Independences}}};
 		\node[rectangle, align=center, inner sep=1pt] at (8, 0) {
 			\begin{minipage}{\textwidth}
 				\begin{equation*}
@@ -118,8 +119,8 @@
 				\end{equation*}
 			\end{minipage}
 		};
-		\draw[ultra thick, ->] (10.5, 0) -- (11.5, 0);
-		\node[rectangle, align=center, inner sep=1pt] at (12.5, 0){
+	\draw[ultra thick, ->] (10.5, 0) -- (12.5, 0) node[midway, above]{\includegraphics[scale=0.04]{imgs/stat_test.png}};
+		\node[rectangle, align=center, inner sep=1pt] at (13, 0){
 				\begin{minipage}{\textwidth}
 					\begin{equation*}
 						\begin{split}
@@ -132,23 +133,39 @@
 			};
 	\end{tikzpicture}
 
-	% \begin{tikzpicture}
-	% 	\begin{scope}
-	% 		\node[rectangle, align=center, inner sep=1pt] at (0, 0) {Data};
-	% 	\end{scope}
-	% 	\begin{scope}
-	% 	\node[rectangle, align=center, inner sep=1pt] at (4, 0) {
-	% 		\begin{minipage}{\textwidth}
-	% 			\begin{equation*}
-	% 				\begin{split}
-	% 					\textrm{Age} &\ci \textrm{Incm} \rvert \textrm{Edct, Hrpw, Sex} \\
-	% 					\textrm{Age} &\ci \textrm{Occp} \rvert \textrm{Edct, Sex} \\
-	% 					\textrm{Age} &\ci \textrm{Sex} \\
-	% 					\textrm{Hrpw} &\ci \textrm{Occp} \rvert \textrm{Edct, Sex} \\
-	% 				\end{split}
-	% 			\end{equation*}
-	% 		\end{minipage}
-	% 	\end{scope}
-	% \end{tikzpicture}
+	\begin{tikzpicture}
+		\node[rectangle, align=center, inner sep=1pt] at (0, 0) {Data};
+		\draw[ultra thick, ->] (1, 0) -- (2.5, 0) node[midway, above]{\includegraphics[scale=0.04]{imgs/stat_test.png}};
+		\node[rectangle, align=center, inner sep=1pt] at (5.5, 1){\underline{\textbf{Conditional Independences}}};
+		\node[rectangle, align=center, inner sep=1pt] at (5.5, 0) {
+			\begin{minipage}{\textwidth}
+				\begin{equation*}
+					\begin{split}
+						\textrm{Agri.} &\ci \textrm{Climate} \rvert \textrm{Defores., Econ.} \\
+						\textrm{Agri.} &\ci \textrm{Biodiver.} \rvert \textrm{Defores.} \\
+						\textrm{Econ.} &\ci \textrm{Biodiver.} \rvert \textrm{Defores.} \\
+					\end{split}
+				\end{equation*}
+			\end{minipage}
+		};
+		\draw[ultra thick, ->] (8, 0) -- (9, 0);
+		\begin{scope}[scale=0.8, xshift=13cm]
+		\tikzstyle{every node}=[draw, ellipse, align=center, inner sep=2pt]
+			\node (D) at (0, 0) {\footnotesize{Deforestation}};
+			\node (CC) at (3.5, 0) {\footnotesize Climate \\ \footnotesize Change};
+			\node (BL) at (1.75, -1.5) {\footnotesize Biodiversity \\ \footnotesize Loss};
+			\node (ED) at (3.5, 1.8) {\footnotesize Economic \\ \footnotesize Development};
+			\node (AE) at (0, 1.8) {\footnotesize Agricul. \\ \footnotesize Expansion};
+			
+			\draw[->, thick]  (D) -- (CC);
+			\draw[->, thick]  (D) -- (BL);
+			\draw[->, thick]  (BL) -- (CC);
+			\draw[->, thick]  (ED) -- (D);
+			\draw[->, thick]  (ED) -- (AE);
+			\draw[->, thick]  (AE) -- (D);
+			\draw[->, thick]  (ED) -- (CC);
+		\end{scope}
+
+	\end{tikzpicture}
 
 \end{document}

@@ -193,23 +193,28 @@
 % \end{frame}
 
 \begin{frame}{Constructing Causal Graphs}
-\center{How to construct causal graphs? Usually done manually.}
+\center{How to construct causal graphs?}
+
+\vspace{2em}
+
+\begin{itemize}
+	\item Usually constructed manually based on domain knowledge.
+	\item Important to test whether our causal graph is correct.
+\end{itemize}
 
 \vspace{1em}
 
 \begin{figure}
-	\includegraphics[page=1]{figures.pdf}
+	\center
+	\includegraphics[page=5]{figures.pdf}
 \end{figure}
-
-\center{Important to test whether our causal graph is correct.}
 	
 \end{frame}
 
 \begin{frame}{Testing Causal Graphs}
-	\begin{figure}
-		\includegraphics[page=5]{figures.pdf}
-	\end{figure}
-
+	% \begin{figure}
+	% 	\includegraphics[page=5]{figures.pdf}
+	% \end{figure}
 	\begin{itemize}
 		\item Selecting the appropriate conditional independence test depends on a
 	lot of factors.
@@ -221,13 +226,15 @@
 \end{frame}
 
 \begin{frame}{Constructing Causal Graphs}
-	% \begin{figure}
-	% 	\includegraphics[page=6]{figures.pdf}
-	% \end{figure}
+	\begin{figure}
+		\center
+		\includegraphics[page=6]{figures.pdf}
+	\end{figure}
 
 	\begin{itemize}
 		\item Both model testing and automatically constructing the graphs require that the statistical tests are accurate.
 		\item Incorrect test $ \implies $ Incorrect edge.
+		\item Hence, we want these tests to be as accurate as possible.
 	\end{itemize}
 	
 	\center{We proposed a new conditional independence test that can work
