@@ -32,7 +32,7 @@ To answer such causal questions, we need to address two sub-questions:
 
 Firstly, we need to establish if there is a causal link between the exposure
 and the outcome. If so, we need to understand the type of relationship between
-them such as direct, indirect.
+them such as whether there is a direct causation or an indirect one.
 
 Secondly, we need to measure the impact of the intervention. For instance, if
 we vaccinate a group of people, by how much does the spread of infection
@@ -49,7 +49,7 @@ infection.
 In a randomized controlled trial, we begin by selecting a group of participants and
 then randomly dividing them into two groups.
 
-In one group, we give the vaccine to all participants, while we not give the vaccine
+In one group, we give the vaccine to all the participants, while we not give the vaccine
 to the second group.
 
 We can then compare the spread of infection in these two groups.
@@ -88,7 +88,7 @@ However, we already have lots of non-experimental data relevant to these questio
 ---------
 The answer is yes, but it requires us to understand the causal mechanism between the exposure and the outcome variables.
 
-One of the ways to represent these causal mechanisms is through these causal diagrams as shown in the example here.
+One of the ways to represent these causal mechanisms is through causal diagrams as shown in the example here.
 
 In this causal graph, I have used the example of the effect of deforestation on climate
 change. The nodes represent the variables of interest, while the edges indicate the causal
@@ -110,41 +110,44 @@ We can also quantify these causal relationships in causal graphs by assigning va
 
 17
 -----------
-Using these graphical representations, we can address both of our key questions.
+Using these graphical representations, we can address both of our key questions that we were interested in.
 
 First, by constructing these causal graphs, we can identify and understand the causal relationships between variables. Second, we can quantify these relationships by estimating the strength of the edges in the graph.
 
 18
 ------------
-The first question is: how do we construct these causal graphs from data?
+So, the first question is: how do we construct these causal graphs from data?
 
 In most cases, researchers manually build these graphs using their domain knowledge. Because of this manual process, it is crucial to test whether the constructed graph accurately represents our data.
 
 19
 ----------------
 One of the ways to test these causal graphs is using conditional independence
-tests. Each of these graphs imply a set of conditional independences. We can use
-statistical tests to verify whether these hold in our data or not. And based on
-the result of this testing we can further improve our model.
+tests. Each of these graphs imply a set of conditional independences as shown
+in the figure. We can use statistical tests to verify whether these conditional
+independences  hold in our data or not. And based on the result of this testing
+we can further improve our model.
 
 20
 -------------
 
-However, selecting the appropriate test can depend on a lot of factors.
+However, selecting the appropriate statistical test can depend on a lot of factors.
 
 One of the contributions during my PhD was to write a comprehensive guide to help researchers in selecting the appropriate test for their data.
 
 21
 ---------
-Another way to construct these graphs automatically is by somewhat reversing the model
-testing approach. Instead of starting with a graph, we can search for these conditional
-independences directly in the data, and use that information to build the causal graph.
+Another way to construct these causal graphs automatically is by somewhat
+reversing the model testing approach. Instead of starting with a graph, we can
+search for these conditional independences directly in the data, and use that
+information to build the causal graph.
 
-For both model testing and automated construction, it is important that our statistical 
-tests are accurate. Any inaccuracies in the test can lead to errors in our 
-resulting graph.
+For both model testing and automated construction, it is important that our
+statistical tests are accurate. Any inaccuracies in the test can lead to errors
+in our resulting graph.
 
-To address this, we developed a new conditional independence test that can work on mixed data and is more accurate than previous methods.
+To address this, we developed a new conditional independence test that can work
+on mixed data and is more accurate than previous methods.
 
 22
 ----------
@@ -157,20 +160,20 @@ to estimate the edge strengths in that case.
 
 However, not all variables can be measured directly. For instance, we can not
 assign a single number to represent climate change. To measure such variables,
-we have to rely on other proxy variables is indirectly measure them. For example, we can use proxy 
-variables like global average temperature, sea level rise, and atmospheric CO2 levels 
-to indirectly measure climate change. 
+we have to rely on other proxy variables to indirectly measure them. For
+example, we can use proxy variables like global average temperature, sea level
+rise, and atmospheric CO2 levels to indirectly measure climate change. 
 
-One of our contributions during my PhD was developing methods to estimate edge strengths
-in the case when variables can not be measured directly.
+One of our contributions during my PhD was to develop methods to estimate edge strengths
+when variables can not be measured directly.
 
 23
 ----------
-Two main directions for future researcher.
+We have two main directions for future researcher.
 
-Firstly, we want to further improve the conditional independence test. We have
-some preliminary results showing further improvements.
+Firstly, we want to further improve the conditional independence test that we
+had proposed. We have some preliminary results showing further improvements.
 
-Secondly, conditional independence testing and estimation for theoretically
-connected, and we want to utilize that to develop a new to quantify edge
-strengths in mixed data scenarios.
+Secondly, model testing and edge strength estimation are fundamentally
+connected concepts. We plan to utilize that to develop an interpretable
+metric for edge strength in case of mixed variables.
