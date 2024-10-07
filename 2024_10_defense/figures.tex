@@ -191,4 +191,18 @@
 
 	\end{tikzpicture}
 
+	% Page 8
+	\begin{tikzpicture}
+		\node[rectangle, align=center, inner sep=1pt] at (0, 0) {\includegraphics[scale=0.15]{imgs/rct_group.png}};
+		\draw[draw=red, very thick] (-0.6, -1) rectangle (1.4, 1);
+		\draw[->, very thick] (2, -0.8) -- (3, -1);
+		\draw[->, very thick] (2, 0.8) -- (3, 1);
+		\node[rectangle, align=center, inner sep=1pt] at (4.5, 1) {\includegraphics[scale=0.15]{imgs/rct_group_small.png}};
+		\node[rectangle, align=center, inner sep=1pt] at (4.5, -1) {\includegraphics[scale=0.15]{imgs/rct_group_small.png}};
+		\draw[->, very thick] (6, 1) -- (8, 1) node[midway, above]{Vaccine};
+		\draw[->, very thick] (6, -1) -- (8, -1) node[midway, below]{No vaccine};
+		\node at (10, 1) {Infection Spread};
+		\node at (10, -1) {Infection Spread};
+	\end{tikzpicture}
+
 \end{document}

@@ -115,7 +115,8 @@
 	\end{tabular}
 	\vspace{2em}
 
-	\begin{itemize}
+	\only<2>{
+		\begin{itemize}
 		\item \textbf{Understanding Causal Relationships: }
 			\begin{itemize}
 				\item Is there a causal relationship between the exposure and the outcome?
@@ -126,12 +127,23 @@
 				\item Measure the magnitude of the intervention's impact.
 				\item For example, by how much would vaccination reduce spread of infection?
 			\end{itemize}
-	\end{itemize}
+		\end{itemize}
+	}
 \end{frame}
 
 \begin{frame}{Randomized Controlled Trials}
 	\center{Best way to answer these causal questions is using \textbf{Randomized Controlled Trials}.}
-	\todo[inline]{Insert a figure here}
+	\begin{figure}
+		\center
+		\includegraphics[page=8]{figures.pdf}
+	\end{figure}
+
+	\only<2>{
+		\begin{itemize}
+			\item There is a causal relationship if there is a difference between the two groups.
+			\item The difference can be use to quantify the effect of vaccination.
+		\end{itemize}
+	}
 \end{frame}
 
 \begin{frame}{Randomized Controlled Trials}
@@ -190,21 +202,21 @@
 % \end{frame}
 
 \begin{frame}{Constructing Causal Graphs}
-\center{How to construct causal graphs?}
-
-\vspace{2em}
-
-\begin{itemize}
-	\item Usually constructed manually based on domain knowledge.
-	\item Important to test whether our causal graph is correct.
-\end{itemize}
-
-\vspace{1em}
-
-\begin{figure}
-	\center
-	\includegraphics[page=5]{figures.pdf}
-\end{figure}
+	\center{How to construct causal graphs?}
+	
+	\vspace{2em}
+	
+	\begin{itemize}
+		\item Usually constructed manually based on domain knowledge.
+		\item Important to test whether our causal graph is correct.
+	\end{itemize}
+	
+	\vspace{1em}
+	
+	\begin{figure}
+		\center
+		\includegraphics[page=5]{figures.pdf}
+	\end{figure}
 	
 \end{frame}
 
@@ -274,10 +286,6 @@
 		\item Plan to further improve the conditional independence test that we proposed.
 		\item Combine conditional independence testing and estimation methods to come up with an interpretable metric for mixed data.
 	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\Huge{Thank you.}
 \end{frame}
 
 \end{document}
