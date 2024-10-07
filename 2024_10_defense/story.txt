@@ -14,31 +14,50 @@ In social science, we might be interested in understanding whether violent video
 
 4
 ------
-In environmental science, where we might be interested in understanding whether deforestation contribute to climate change
+In environmental science, we might be interested in understanding whether deforestation contributes to climate change
 
 5
 ------
 In all of these causal questions, our main goal is to understand how an
 intervention on an exposure influences our outcome of interest. 
 
-In the examples, I showed earlier things like vaccination, playing video games, and
-deforestation were examples of our exposure and our outcomes of interest were things like
+In the examples, that I showed earlier things like vaccination, playing video
+games, and deforestation were examples of our exposure and we wanted to
+understand if we can somehow change them, how would it affect our outcomes like
 infection spread, aggressive behavior, or climate change. 
 
-With understanding the effect of intervention, we mean that if we could somehow
-change the exposure how would it impact our outcome.
+Answering such causal questions requires us to answer two sub-questions:
 
-Such questions can be answered using:
-1. Understanding the causal relationships. We want to understand if there is a causal relationship between the exposure and the outcome. And if there is one, is it direct or indirect and is mediated through some other variable.
-2. Secondly, by quantifying the strength of these casual relationships. For example, if we give the vaccination, by how much does the infection spread reduce.
+Firstly, understanding the causal relationships. We need to understand whether
+there is a causal relationship between the exposure and the outcome.
+
+And if there is one, what is the nature of the relationship, direct or
+indirect.
+
+Secondly, we need to quantifying the strength of these casual relationships.
+For example, if we give the vaccination to a group of people, by how much does
+the infection spread reduce.
 
 6
 -------
-The best way to answer both of these questions is through randomized controlled trials. 
+The best way to answer both of these questions is through randomized controlled
+trials. 
 
-For example if we wanted to study the effect of a vaccination, we could take a sample of our population, divide it into two groups. In one of the groups, we give the treatment (i.e. intervention) and not to the other. 
+To take the example of the effect of vaccination of spread of infection. 
 
-In the end, we can compare the infection spread among the two groups to determine both whether there was a causal effect of the vaccination, and if yes how much.
+To perform a randomized controlled trial, we would select a group of people,
+and then randomly divide them into two groups. 
+
+In one of the groups, we would give the vaccine to everyone, and in the second
+group we do not. 
+
+We can then compare the infection spread among the two groups to determine both
+whether there was a causal effect of the vaccination, and if yes how much.
+
+This can help us in answering both of our questions. If there was a difference
+in the two groups, we can say that there is a casual effect of the vaccine on
+the infection spread. And we can also quantifying by comparing the number of people
+getting infected in the two groups.
 
 7
 --------
@@ -48,7 +67,8 @@ For example, it could be unethical to conduct such a trial. We can take an examp
 
 8
 ---------
-The intervention might not be possible. For example for studying the effect of deforestation climate change, we can not create another earth where we increase or decrease deforestation.
+Might be difficult to control the exposure. If we take the example of the
+effect of deforestation on climate change, we can not create multiple clones of Earth.
 
 9
 ---------
@@ -56,8 +76,9 @@ Cost can also be an issue. For example if we wanted to assess the effect of educ
 
 10
 ---------
-But we already also have lots of data for some of the questions. Can we somehow use that
- to answer our causal questions?
+But we already also have lots of non-experimental data related to these
+questions. For example, we have plenty of data for deforestation and climate
+change over time. Can we somehow use that to answer our causal questions?
 
 11
 ---------
@@ -65,26 +86,37 @@ The answer is yes, but it requires us to understand the causal mechanism between
 
 One of the ways to represent these causal mechanism is through these causal diagrams as I have shown in the example here.
 
-Here, I have taken the example of the effect of deforestation on climate change. I have also included a few other variables which might be related to them such as Agricultural expansion, economic development.
+Here, I have taken the example of the effect of deforestation on climate
+change. Here, the nodes represent the variables of interest and the edges
+represent the causal relationships between these variables.
 
 12
 ----------
-If we have a causal graph like this, we can read off the causal relationships between
-variables, for example as we have a direct edge between Deforestation and Climate Change, there is a direct causal relationship between them.
+If we have a causal graph like this, we can read off the causal relationships
+between variables by looking at paths in the graphs. For example as we have a
+direct edge between Deforestation and Climate Change, there is a direct causal
+relationship between them.
 
 13
 ----------
-We also have an indirect causal relationship between them, for example deforestation can cause a loss of biodiversity which in turn can cause climate change.
+Here's another example for an indirect causal relationship between them. Here
+deforestation can cause a loss of biodiversity which in turn can cause climate
+change.
 
 14
 ----------
-We also have variable which are common causes to both.
+We can also quantify these casual relationships in these causal graphs by
+assigning a value to each of the edges represent how strong or weak their
+relationship is.
 
 15
 -----------
-So, the two questions that we wanted to answer, namely understanding causal relationships, and quantifying causal relationships translates to constructing the causal graph and estimating the edge strengths.
+Using these graphical representations, we can answer both the questions that were 
+interested in.
 
-We will look into each of these two questions and what my contribution was towards improving them.
+The question of understanding causal relationships can be answered by
+constructing these graphs. And the question of quantifying the causal
+relationships can be answered by estimating the edge strengths.
 
 16
 ------------
