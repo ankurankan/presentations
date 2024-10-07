@@ -110,35 +110,36 @@ We can also quantify these causal relationships in causal graphs by assigning va
 
 15
 -----------
-Using these graphical representations, we can answer both the questions that
-were interested in.
+Using these graphical representations, we can address both of our key questions.
 
-The question of understanding causal relationships can be answered by
-constructing these graphs. And the question of quantifying the causal
-relationships can be answered by estimating the edge strengths.
+First, by constructing these causal graphs, we can identify and understand the causal relationships between variables. Second, we can quantify these relationships by estimating the strength of the edges in the graph.
 
 16
 ------------
-First question is how do we construct these causal graphs from data. Most of the times researchers construct the graph manually using their domain knowledge.
+The first question is: how do we construct these causal graphs from data?
 
-As a result of that, it's possible to make mistakes during constructing these graphs. So, its important to test whether our graph is correct or not.
+In most cases, researchers manually build these graphs using their domain knowledge. Because of this manual process, it is crucial to test whether the constructed graph accurately represents our data.
 
 17
 ----------------
-Each of these graphs encodes a set of conditional independence tests. Each of
-these tests can then be run on the data that we have which can tell us if our model is
-correct.
+One of the ways to test these causal graphs is using conditional independence
+tests. Each of these graphs imply a set of conditional independences. We can use
+statistical tests to verify whether these hold in our data or not. And based on
+the result of this testing we can further improve our model.
+
+19
+-------------
 
 However, selecting the appropriate test can depend on a lot of factors.
 
-To help researchers carry out model testing, we wrote a comprehensive guide for selecting
-the appropriate tests for their data.
+One of the contributions during my PhD was to write a comprehensive guide to help researchers in selecting the appropriate test for their data.
 
 18
 ---------
-Another automated way to construct these graphs is by searching for these
-conditional independence in our data. Once we have found a bunch of conditional 
-independences, we can use that to construct our causal graph.
+Another automated way to construct these graphs automatically is by somewhat
+reversing the model testing approach. We can search for these conditional
+independence in our data and then use that information to construct our causal
+graph.
 
 Both for model testing and this automated construction, it is important that our 
 tests are accurate. As any inaccuracies in the test can result in inaccuracies in the
@@ -149,13 +150,27 @@ accurate than previous methods.
 
 19
 ----------
-Once we have the causal graph, we can move to our second task of estimating the causal 
-effect.
+Once we have the causal graph, we can move to our second key question of
+estimating the strength of these edges in the graph. In the case, when we can
+measure these variables, we have methods to estimate these edge strengths.
+
+However, these variables can not always be measured directly. If we take the
+example of climate change, we don't have a way to quantify or assign a number
+to climate change. Variables like these are typically measured using other
+variables as a proxy. For example, we can measure climate change by measuring 
+the change in variables like Global average temperature, sea level rise, or 
+atmospheric CO2 levels.
+
+Another contribution of ours during my PhD was to develop methods for estimating
+the edge strength for variables that can not be measured directly.
 
 20
 ----------
 Two main directions for future researcher.
 
-Firstly, we want to further improve the conditional independence test. We have some preliminary results for improving it.
+Firstly, we want to further improve the conditional independence test. We have
+some preliminary results showing further improvements.
 
-Secondly, conditional independence testing and estimation for theoretically connected, and we want to utilize that to develop a new to estimate causal effects in mixed variable models.
+Secondly, conditional independence testing and estimation for theoretically
+connected, and we want to utilize that to develop a new to quantify edge
+strengths in mixed data scenarios.
