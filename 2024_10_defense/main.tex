@@ -97,7 +97,7 @@
 \end{frame}
 
 \begin{frame}{Causal Inference}
-	\center{Understand how an \textbf{intervention} on \stackwords{\textbf{exposure}}{vaccination}{video games}{deforestation} influences an \stackwords{\textbf{outcome}.}{infection spread}{aggressive behavior}{climate change}}
+	\center{Understand how an \textbf{intervention} on an \stackwords{\textbf{exposure}}{vaccination}{video games}{deforestation} influences an \stackwords{\textbf{outcome}.}{infection spread}{aggressive behavior}{climate change}}
 
 	\vspace{2em}
 
@@ -146,10 +146,12 @@
 	\end{figure}
 
 	\vspace{1em}
-	\begin{itemize}
-		\item Understanding causal relationship $ \implies $ Constructing causal graph.
+\only<2>{
+	\begin{enumerate}
+		\item Understanding Causal Relationship $ \implies $ Constructing causal graph.
 		\item Quantifying causal relationships $ \implies $ Estimating edge strength.
-	\end{itemize}
+	\end{enumerate}
+}
 \end{frame}
 
 % \begin{frame}{Mixed and Missing Data}
@@ -170,16 +172,13 @@
 % \end{frame}
 
 \begin{frame}{Constructing Causal Graphs}
-\center{How do we construct these causal graphs?}
-
-\center{Usually done manually based on knowledge}
-
-\center{Important to test whether our causal graph is correct.}
-
+\center{How to construct causal graphs? Usually done manually.}
 
 \begin{figure}
 	\includegraphics[page=1]{figures.pdf}
 \end{figure}
+
+\center{Important to test whether our causal graph is correct.}
 	
 \end{frame}
 
