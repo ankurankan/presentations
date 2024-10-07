@@ -53,64 +53,78 @@
 \maketitle
 
 \begin{frame}{Causal Inference}
-	\center{\Large{Many questions in science are causal.}}
-	\vspace{0.5em}
+	\center{Many questions in science are causal.}
+	\vspace{1em}
 	\only<2>{
 	\begin{figure}
+		\center
 		\begin{subfigure}{0.3 \textwidth}
+			\center
 			\includegraphics[scale=0.1, valign=m]{imgs/vaccine.png}
 		\end{subfigure}
 		\qquad\tikz[baseline=-\baselineskip]\draw[ultra thick,->] (-1,0) -- ++ (1,0);\qquad	
 		\begin{subfigure}{0.3 \textwidth}
+			\center
 			\includegraphics[scale=0.1, valign=m]{imgs/infectious.png}
 		\end{subfigure}
 	\end{figure}
 
-	\vspace{0.5em}
+	\vspace{1em}
 	Epidemiology: Does vaccination reduce the spread of infectious disease?
 	}
 	\only<3>{
 	\begin{figure}
+		\center
 		\begin{subfigure}{0.35 \textwidth}
+			\center
 			\includegraphics[scale=0.1, valign=m]{imgs/video_game.png}
 		\end{subfigure}
 		\qquad\tikz[baseline=-\baselineskip]\draw[ultra thick,->] (0,0) -- ++ (1,0);\qquad	
 		\begin{subfigure}{0.35 \textwidth}
+			\center
 			\includegraphics[scale=0.1, valign=m]{imgs/fight.png}
 		\end{subfigure}
 	\end{figure}
+	\vspace{1em}
 	Social Sciences: Does exposure to violent video games increase aggressive behavior in children?
 	}
 	\only<4>{
 	\begin{figure}
+		\center
 		\begin{subfigure}{0.35 \textwidth}
+			\center
 			\includegraphics[scale=0.1, valign=m]{imgs/deforestation.png}
 		\end{subfigure}
 		\qquad\tikz[baseline=-\baselineskip]\draw[ultra thick,->] (0,0) -- ++ (1,0);\qquad	
 		\begin{subfigure}{0.35 \textwidth}
+			\center
 			\includegraphics[scale=0.1, valign=m]{imgs/climate_change.png}
 		\end{subfigure}
 	\end{figure}
-
+	\vspace{1em}
 	Environmental Science: Does deforestation contribute to climate change?
 	}
 \end{frame}
 
 \begin{frame}{Causal Inference}
-	\center{Understand how an \textbf{intervention} on an \stackwords{\textbf{exposure}}{vaccination}{video games}{deforestation} influences an \stackwords{\textbf{outcome}.}{infection spread}{aggressive behavior}{climate change}}
-
+	\begin{tabular}{cccc}
+		Understand how an \textbf{intervention} on an & \textbf{exposure} & influences an & \textbf{outcome}. \\
+							      & vaccination & & infection spread \\
+							      & video games & & aggressive behavior \\
+							      & deforestation & & climate change \\
+	\end{tabular}
 	\vspace{2em}
 
 	\begin{itemize}
 		\item \textbf{Understanding Causal Relationships: }
 			\begin{itemize}
-				\item Whether there is a causal relationship between the exposure and the outcome.
-				\item Examine the type of relationship such as direct, or indirect.
+				\item Is there a causal relationship between the exposure and the outcome.
+				\item What kind of relationship? Direct, indirect, common cause, so on.
 			\end{itemize}
 		\item \textbf{Quantifying Causal Relationships: }
 			\begin{itemize}
-				\item Measure the magnitude of the intervention's impact.
-				\item For example, if we start vaccinating people, by how much would the spread of infection decrease.
+				\item Measure the magnitude of intervention's impact.
+				\item For example, by how much would vaccination reduce spread of infection.
 			\end{itemize}
 	\end{itemize}
 \end{frame}
@@ -127,7 +141,7 @@
 
 	\begin{itemize}[<+->]
 		\item \textbf{Unethical: } To study the effect of smoking on lung cancer, we can not ask non-smokers to start smoking.
-		\item \textbf{Difficult to control exposures:} To study the effects of deforestation on climate, we can not create a clone of earth.
+		\item \textbf{Difficult to control exposures:} To study the effects of deforestation on climate, we can not create a clones of earth.
 		\item \textbf{Cost:} Assessing the effect of education on income would require decades of tracking individuals.
 	\end{itemize}
 
@@ -138,13 +152,8 @@
 \end{frame}
 
 \begin{frame}{Causal Graphs}
-	\center{Yes, requires understanding the causal mechanism.}
+	\center{Yes, but requires understanding the causal mechanism.}
 	\vspace{1em}
-	% \begin{overprint}
-	% 	\onslide<1>\begin{figure} \includegraphics[page=1]{figures.pdf} \end{figure}
-	% 	\onslide<2>\begin{figure} \includegraphics[page=2]{figures.pdf} \end{figure}
-
-	% \end{overprint}
 	\begin{figure}
 		\begin{overprint}
 			\onslide<1> \center \includegraphics[page=1]{figures.pdf}
@@ -156,10 +165,10 @@
 
 	\vspace{1em}
 \only<4>{
-	\begin{enumerate}
-		\item Understanding Causal Relationship $ \implies $ Constructing causal graph.
-		\item Quantifying causal relationships $ \implies $ Estimating edge strength.
-	\end{enumerate}
+	\begin{itemize}
+		\item Understanding causal relationship $ \implies $ Constructing the causal graph.
+		\item Quantifying causal relationships $ \implies $ Estimating the edge strengths.
+	\end{itemize}
 }
 \end{frame}
 
@@ -183,6 +192,8 @@
 \begin{frame}{Constructing Causal Graphs}
 \center{How to construct causal graphs? Usually done manually.}
 
+\vspace{1em}
+
 \begin{figure}
 	\includegraphics[page=1]{figures.pdf}
 \end{figure}
@@ -196,39 +207,51 @@
 		\includegraphics[page=5]{figures.pdf}
 	\end{figure}
 
-	Selecting the appropriate conditional independence test depends on a
+	\begin{itemize}
+		\item Selecting the appropriate conditional independence test depends on a
 	lot of factors.
+	\end{itemize}
 
-	We presented a comprehensive guide for researchers to help them in
-	carrying out this testing.
+	\vspace{1em}
+		
+	\center{To help researchers to carry out model testing, we wrote a comprehensive guide for selecting appropriate tests for their data.}
 \end{frame}
 
 \begin{frame}{Constructing Causal Graphs}
-	\todo[inline]{Insert an image with Data -> Tests -> Causal Graph}
+	% \begin{figure}
+	% 	\includegraphics[page=6]{figures.pdf}
+	% \end{figure}
 
-	Model testing relies on these statistical Conditional independence tests.
-	Conditional Independence tests can also be used for constructing these graphs
-	automatically.
-
-	Hence, important that these tests are accurate.
+	\begin{itemize}
+		\item Both model testing and automatically constructing the graphs require that the statistical tests are accurate.
+		\item Incorrect test $ \implies $ Incorrect edge.
+	\end{itemize}
+	
+	\center{We proposed a new conditional independence test that can work
+	on mixed data and is more accurate than previous methods.}
 \end{frame}
 
 \begin{frame}{Causal Effect Estimation}
-	If variables can be measured, we have methods to estimate the causal effect between them.
 
-	But some variable can not be directly measured. Example Climate Change.
+	\begin{itemize}
+		\item If variables can be measured, we have methods to estimate the causal effect between them.
+		\item But not always possible to measure variables. For example, we can not directly measure climate change.
+		\item Such variables need to measured using other variables. Such as climate change can be measured using variables like:
+			\begin{itemize}
+				\item Global Average Temperature
+				\item Sea Level Rise
+				\item Atmospheric CO2 concentration
+			\end{itemize}
+	\end{itemize}
 
-	These variables are measured indirectly through other variables. For example climate change can be measured through "Global Average Temperature", "Sea Level Rise", "Atmospheric CO2 concentration".
-
-	We developed a new method to be able to estimate these edges.
+	\center{We developed a new method to be able to estimate effects between variables that can not be measured.}
 \end{frame}
 
-\begin{frame}{Software}
-	\todo[inline]{If there is time finish this slide}
-	To make it easy for these methods to use, we have a software package.
-\end{frame}
-
-\begin{frame}{Future research}	
+\begin{frame}{Future research}
+	\begin{itemize}
+		\item We plan to further improve the conditional independence test that we proposed.
+		\item We would like to combine the testing and estimation approach to come up with an interpretable metric for mixed data.
+	\end{itemize}
 \end{frame}
 
 \begin{frame}
