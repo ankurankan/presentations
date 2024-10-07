@@ -8,8 +8,8 @@
 \usetikzlibrary{positioning,calc, arrows,shapes}
 
 \def\ci{\perp\!\!\!\!\!\perp}
-\newcommand{\cmark}{\ding{51}}
-\newcommand{\xmark}{\ding{55}}
+\newcommand{\newcheckmark}{\textrm{\ding{51}}}%
+\newcommand{\newcrossmark}{\textrm{\ding{55}}}%
 
 \begin{document}
 	% Page 1
@@ -125,9 +125,9 @@
 				\begin{minipage}{\textwidth}
 					\begin{equation*}
 						\begin{split}
-							& \cmark \\
-							& \xmark \\
-							& \cmark \\
+							& \newcheckmark \\
+							& \newcrossmark \\
+							& \newcheckmark \\
 						\end{split}
 					\end{equation*}
 				\end{minipage}
