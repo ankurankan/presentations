@@ -136,33 +136,33 @@ One of the contributions during my PhD was to write a comprehensive guide to hel
 
 21
 ---------
-Another automated way to construct these graphs automatically is by somewhat
-reversing the model testing approach. We can search for these conditional
-independence in our data and then use that information to construct our causal
-graph.
+Another way to construct these graphs automatically is by somewhat reversing the model
+testing approach. Instead of starting with a graph, we can search for these conditional
+independences directly in the data, and use that information to build the causal graph.
 
-Both for model testing and this automated construction, it is important that our 
-tests are accurate. As any inaccuracies in the test can result in inaccuracies in the
-model.
+For both model testing and automated construction, it is important that our statistical 
+tests are accurate. Any inaccuracies in the test can lead to errors in our 
+resulting graph.
 
-We proposed a new conditional independence test that can work on mixed data and is more
-accurate than previous methods.
+To address this, we developed a new conditional independence test that can work on mixed data and is more accurate than previous methods.
 
 22
 ----------
-Once we have the causal graph, we can move to our second key question of
-estimating the strength of these edges in the graph. In the case, when we can
-measure these variables, we have methods to estimate these edge strengths.
+Once we have the causal graph, we can move on to our second key question of
+estimating the strength of the edges in the graph. 
 
-However, these variables can not always be measured directly. If we take the
-example of climate change, we don't have a way to quantify or assign a number
-to climate change. Variables like these are typically measured using other
-variables as a proxy. For example, we can measure climate change by measuring 
-the change in variables like Global average temperature, sea level rise, or 
-atmospheric CO2 levels.
+When the variables can be directly measured, such as deforestation which we can 
+for example quantify in number of square kms of lost forest, we have methods
+to estimate the edge strengths in that case.
 
-Another contribution of ours during my PhD was to develop methods for estimating
-the edge strength for variables that can not be measured directly.
+However, not all variables can be measured directly. For instance, we can not
+assign a single number to represent climate change. To measure such variables,
+we have to rely on other proxy variables is indirectly measure them. For example, we can use proxy 
+variables like global average temperature, sea level rise, and atmospheric CO2 levels 
+to indirectly measure climate change. 
+
+One of our contributions during my PhD was developing methods to estimate edge strengths
+in the case when variables can not be measured directly.
 
 23
 ----------
