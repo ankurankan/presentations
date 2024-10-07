@@ -131,9 +131,16 @@ we can further improve our model.
 20
 -------------
 
-However, selecting the appropriate statistical test can depend on a lot of factors.
+However, selecting the appropriate statistical test can depend on several
+factors such as Type of Variable, whether the variables are continuous,
+discrete, or ordinal.
 
-One of the contributions during my PhD was to write a comprehensive guide to help researchers in selecting the appropriate test for their data.
+The distribution of Variables, for example, whether they are distributed
+normally, or have a skewed distribution.
+
+The type of relationship between the variables, whether its linear or non-linear.
+
+One of our contributions during my PhD was developing a comprehensive guide to help researchers select the most appropriate test based on their data type and structure.
 
 21
 ---------
@@ -146,8 +153,7 @@ For both model testing and automated construction, it is important that our
 statistical tests are accurate. Any inaccuracies in the test can lead to errors
 in our resulting graph.
 
-To address this, we developed a new conditional independence test that can work
-on mixed data and is more accurate than previous methods.
+One of our contributions during my PhD was developing a new conditional independence test that can work on mixed data and is more accurate than previous methods.
 
 22
 ----------
