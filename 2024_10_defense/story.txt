@@ -1,0 +1,130 @@
+1
+-----
+Many questions in science are causal in nature.
+
+2
+-----
+We can take examples from various domains.
+
+such as, in epidemiology, we might be interested in understanding if vaccination reduces the spread of infectious disease?
+
+3
+------
+In social science, we might be interested in understanding whether violent video games increase aggressive behavior in children?
+
+4
+------
+In environmental science, where we might be interested in understanding whether deforestation contribute to climate change
+
+5
+------
+In all of these causal questions, our main goal is to understand how an
+intervention on an exposure influences our outcome of interest. 
+
+In the examples, I showed earlier things like vaccination, playing video games, and
+deforestation were examples of our exposure and our outcomes of interest were things like
+infection spread, aggressive behavior, or climate change. 
+
+With understanding the effect of intervention, we mean that if we could somehow
+change the exposure how would it impact our outcome.
+
+Such questions can be answered using:
+1. Understanding the causal relationships. We want to understand if there is a causal relationship between the exposure and the outcome. And if there is one, is it direct or indirect and is mediated through some other variable.
+2. Secondly, by quantifying the strength of these casual relationships. For example, if we give the vaccination, by how much does the infection spread reduce.
+
+6
+-------
+The best way to answer both of these questions is through randomized controlled trials. 
+
+For example if we wanted to study the effect of a vaccination, we could take a sample of our population, divide it into two groups. In one of the groups, we give the treatment (i.e. intervention) and not to the other. 
+
+In the end, we can compare the infection spread among the two groups to determine both whether there was a causal effect of the vaccination, and if yes how much.
+
+7
+--------
+But as you would expect these randomized controlled trials are not always feasible.
+
+For example, it could be unethical to conduct such a trial. We can take an example where we want to study the effect of smoking on lung cancer. In this case, we can not ask non-smokers to start smoking.
+
+8
+---------
+The intervention might not be possible. For example for studying the effect of deforestation climate change, we can not create another earth where we increase or decrease deforestation.
+
+9
+---------
+Cost can also be an issue. For example if we wanted to assess the effect of education on income, we would require decades of tracking individuals.
+
+10
+---------
+But we already also have lots of data for some of the questions. Can we somehow use that
+ to answer our causal questions?
+
+11
+---------
+The answer is yes, but it requires us to understand the causal mechanism between the exposure and the outcome variables.
+
+One of the ways to represent these causal mechanism is through these causal diagrams as I have shown in the example here.
+
+Here, I have taken the example of the effect of deforestation on climate change. I have also included a few other variables which might be related to them such as Agricultural expansion, economic development.
+
+12
+----------
+If we have a causal graph like this, we can read off the causal relationships between
+variables, for example as we have a direct edge between Deforestation and Climate Change, there is a direct causal relationship between them.
+
+13
+----------
+We also have an indirect causal relationship between them, for example deforestation can cause a loss of biodiversity which in turn can cause climate change.
+
+14
+----------
+We also have variable which are common causes to both.
+
+15
+-----------
+So, the two questions that we wanted to answer, namely understanding causal relationships, and quantifying causal relationships translates to constructing the causal graph and estimating the edge strengths.
+
+We will look into each of these two questions and what my contribution was towards improving them.
+
+16
+------------
+First question is how do we construct these causal graphs from data. Most of the times researchers construct the graph manually using their domain knowledge.
+
+As a result of that, it's possible to make mistakes during constructing these graphs. So, its important to test whether our graph is correct or not.
+
+17
+----------------
+Each of these graphs encodes a set of conditional independence tests. Each of
+these tests can then be run on the data that we have which can tell us if our model is
+correct.
+
+However, selecting the appropriate test can depend on a lot of factors.
+
+To help researchers carry out model testing, we wrote a comprehensive guide for selecting
+the appropriate tests for their data.
+
+18
+---------
+Another automated way to construct these graphs is by searching for these
+conditional independence in our data. Once we have found a bunch of conditional 
+independences, we can use that to construct our causal graph.
+
+Both for model testing and this automated construction, it is important that our 
+tests are accurate. As any inaccuracies in the test can result in inaccuracies in the
+model.
+
+We proposed a new conditional independence test that can work on mixed data and is more
+accurate than previous methods.
+
+19
+----------
+Once we have the causal graph, we can move to our second task of estimating the causal 
+effect.
+
+20
+----------
+Two main directions for future researcher.
+
+Firstly, we want to further improve the conditional independence test. We have some preliminary results for improving it.
+
+Secondly, conditional independence testing and estimation for theoretically connected, and we want to utilize that to develop a new to estimate causal effects in mixed variable models.
