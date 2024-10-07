@@ -49,8 +49,8 @@ infection.
 In a randomized controlled trial, we begin by selecting a group of participants and
 then randomly dividing them into two groups.
 
-In one group, we give the vaccine to all the participants, while we not give the vaccine
-to the second group.
+In one group, we give the vaccine to all the participants, while we do not give
+the vaccine to the second group.
 
 We can then compare the spread of infection in these two groups.
 
@@ -78,21 +78,26 @@ impact of deforestation on climate change, we cannot create multiple clones of E
 
 11
 ---------
-Cost can also be an issue. For instance, if we wanted to assess the effect of education on income, we would need to track individuals over several decades, which could be expensive.
+Cost can also be an issue. For instance, if we wanted to assess the effect of
+education on income, we would need to track individuals over several decades,
+which could be expensive.
 
 12
 ---------
-However, we already have lots of non-experimental data relevant to these questions. Can we somehow use that to answer our causal questions?
+However, we already have lots of non-experimental data relevant to these
+questions. Can we somehow use that to answer our causal questions?
 
 13
 ---------
-The answer is yes, but it requires us to understand the causal mechanism between the exposure and the outcome variables.
+The answer is yes, but it requires us to understand the causal mechanism
+between the exposure and the outcome variables.
 
-One of the ways to represent these causal mechanisms is through causal diagrams as shown in the example here.
+One of the ways to represent these causal mechanisms is through causal diagrams
+as shown in the example here.
 
-In this causal graph, I have used the example of the effect of deforestation on climate
-change. The nodes represent the variables of interest, while the edges indicate the causal
-relationships between these variables.
+In this causal graph, I have used the example of the effect of deforestation on
+climate change. The nodes represent the variables of interest, while the edges
+indicate the causal relationships between these variables.
 
 14
 ----------
@@ -118,21 +123,23 @@ First, by constructing these causal graphs, we can identify and understand the c
 ------------
 So, the first question is: how do we construct these causal graphs from data?
 
-In most cases, researchers manually build these graphs using their domain knowledge. Because of this manual process, it is crucial to test whether the constructed graph accurately represents our data.
+In most cases, researchers manually build these graphs using their domain
+knowledge. Because of this manual process, it is crucial to test whether the
+constructed graph accurately represents our data or not.
 
 19
 ----------------
 One of the ways to test these causal graphs is using conditional independence
 tests. Each of these graphs imply a set of conditional independences as shown
-in the figure. We can use statistical tests to verify whether these conditional
-independences  hold in our data or not. And based on the result of this testing
-we can further improve our model.
+in the figure. We can use statistical tests to verify whether each of these
+conditional independences  hold in our data or not. And based on the result of
+this testing we can further improve our model.
 
 20
 -------------
 
 However, selecting the appropriate statistical test can depend on several
-factors such as Type of Variable, whether the variables are continuous,
+factors such as the Type of Variables, whether the variables are continuous,
 discrete, or ordinal.
 
 The distribution of Variables, for example, whether they are distributed
@@ -140,7 +147,7 @@ normally, or have a skewed distribution.
 
 The type of relationship between the variables, whether its linear or non-linear.
 
-One of our contributions during my PhD was developing a comprehensive guide to help researchers select the most appropriate test based on their data type and structure.
+One of our contributions during my PhD was developing a comprehensive guide to help researchers select the most appropriate test based on their data.
 
 21
 ---------
@@ -153,16 +160,18 @@ For both model testing and automated construction, it is important that our
 statistical tests are accurate. Any inaccuracies in the test can lead to errors
 in our resulting graph.
 
-One of our contributions during my PhD was developing a new conditional independence test that can work on mixed data and is more accurate than previous methods.
+One of our contributions during my PhD was developing a new conditional
+independence test that can with different variable types and is more accurate
+than previous methods.
 
 22
 ----------
 Once we have the causal graph, we can move on to our second key question of
 estimating the strength of the edges in the graph. 
 
-When the variables can be directly measured, such as deforestation which we can 
-for example quantify in number of square kms of lost forest, we have methods
-to estimate the edge strengths in that case.
+When the variables can be directly measured, such as deforestation which we can
+for example quantify in number of square kms, we have methods to estimate the
+edge strengths in that case.
 
 However, not all variables can be measured directly. For instance, we can not
 assign a single number to represent climate change. To measure such variables,
@@ -175,11 +184,12 @@ when variables can not be measured directly.
 
 23
 ----------
-We have two main directions for future researcher.
+We have two main directions for future research.
 
 Firstly, we want to further improve the conditional independence test that we
-had proposed. We have some preliminary results showing further improvements.
+had proposed. We already have some preliminary results showing further
+improvements.
 
 Secondly, model testing and edge strength estimation are fundamentally
-connected concepts. We plan to utilize that to develop an interpretable
-metric for edge strength in case of mixed variables.
+connected. We plan to utilize that to develop an interpretable metric for edge
+strength in case of mixed variables.
