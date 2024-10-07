@@ -63,7 +63,7 @@ conclude that there is a causal effect of the vaccine on the spread of infection
 Additionally, we can quantify this effect by comparing the number of infections in
 each group.
 
-7
+9
 --------
 While randomized controlled trials are powerful tools for answering causal
 questions, they are not always feasible.
@@ -71,20 +71,20 @@ questions, they are not always feasible.
 For instance, conducting a controlled trial to study the effect of smoking on lung
 cancer would be unethical. We cannot ask non-smokers to start smoking.
 
-8
+10
 ---------
 It can also be difficult to control the exposure. For example, when examining the 
 impact of deforestation on climate change, we cannot create multiple clones of Earth.
 
-9
+11
 ---------
 Cost can also be an issue. For instance, if we wanted to assess the effect of education on income, we would need to track individuals over several decades, which could be expensive.
 
-10
+12
 ---------
 However, we already have lots of non-experimental data relevant to these questions. Can we somehow use that to answer our causal questions?
 
-11
+13
 ---------
 The answer is yes, but it requires us to understand the causal mechanism between the exposure and the outcome variables.
 
@@ -94,47 +94,47 @@ In this causal graph, I have used the example of the effect of deforestation on 
 change. The nodes represent the variables of interest, while the edges indicate the causal
 relationships between these variables.
 
-12
+14
 ----------
 With a causal graph like this, we can identify the causal relationships between variables by examining the paths in the graph.
 
 For example, the direct edge between Deforestation and Climate Change indicates a direct causal relationship between the two.
 
-13
+15
 ----------
 Here’s another example showing an indirect causal relationship. In this case, deforestation leads to a loss of biodiversity, which in turn contributes to climate change.
 
-14
+16
 ----------
 We can also quantify these causal relationships in causal graphs by assigning values to each edge as shown in the figure. These values represent the strength of the relationship.
 
-15
+17
 -----------
 Using these graphical representations, we can address both of our key questions.
 
 First, by constructing these causal graphs, we can identify and understand the causal relationships between variables. Second, we can quantify these relationships by estimating the strength of the edges in the graph.
 
-16
+18
 ------------
 The first question is: how do we construct these causal graphs from data?
 
 In most cases, researchers manually build these graphs using their domain knowledge. Because of this manual process, it is crucial to test whether the constructed graph accurately represents our data.
 
-17
+19
 ----------------
 One of the ways to test these causal graphs is using conditional independence
 tests. Each of these graphs imply a set of conditional independences. We can use
 statistical tests to verify whether these hold in our data or not. And based on
 the result of this testing we can further improve our model.
 
-19
+20
 -------------
 
 However, selecting the appropriate test can depend on a lot of factors.
 
 One of the contributions during my PhD was to write a comprehensive guide to help researchers in selecting the appropriate test for their data.
 
-18
+21
 ---------
 Another automated way to construct these graphs automatically is by somewhat
 reversing the model testing approach. We can search for these conditional
@@ -148,7 +148,7 @@ model.
 We proposed a new conditional independence test that can work on mixed data and is more
 accurate than previous methods.
 
-19
+22
 ----------
 Once we have the causal graph, we can move to our second key question of
 estimating the strength of these edges in the graph. In the case, when we can
@@ -164,7 +164,7 @@ atmospheric CO2 levels.
 Another contribution of ours during my PhD was to develop methods for estimating
 the edge strength for variables that can not be measured directly.
 
-20
+23
 ----------
 Two main directions for future researcher.
 
