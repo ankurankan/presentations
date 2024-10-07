@@ -14,11 +14,11 @@ In social science, we might be interested in understanding whether violent video
 
 4
 ------
-In environmental science, we might be interested in understanding whether deforestation contributes to climate change?
+Or in environmental science, we might be interested in understanding whether deforestation contributes to climate change?
 
 5
 ------
-In all causal questions, our primary goal is to understand how an
+In all these causal questions, our primary goal is to understand how an
 intervention on an exposure affects an outcome of interest. 
 
 In the examples I showed earlier, factors like vaccination, playing video games,
@@ -28,14 +28,15 @@ behavior, or climate change.
 
 6
 ------
-To answer such causal questions, we need to address tow key sub-questions:
+To answer such causal questions, we need to address two sub-questions:
 
 Firstly, we need to establish if there is a causal link between the exposure
-and the outcome. If so, we need to understand whether this relationship is
-direct or indirect.
+and the outcome. If so, we need to understand the type of relationship between
+them such as direct, indirect.
 
-Secondly, we need measure the impact of the intervention. For instance, if we vaccinate
-a group of people, by how much does the spread of infection decrease?
+Secondly, we need to measure the impact of the intervention. For instance, if
+we vaccinate a group of people, by how much does the spread of infection
+decrease?
 
 7
 -------
@@ -45,11 +46,13 @@ controlled trials.
 For example, let's consider the example of the effect of vaccination on the spread of
 infection.
 
-In a randomized controlled trial, we begin by selcting a group of participants and
+In a randomized controlled trial, we begin by selecting a group of participants and
 then randomly dividing them into two groups.
 
-In one group, we give the vaccine to all participants, while the second 
-group, we do not.
+In one group, we give the vaccine to all participants, while we not give the vaccine
+to the second group.
+
+We can then compare the spread of infection in these two groups.
 
 8
 -------
@@ -62,8 +65,8 @@ each group.
 
 7
 --------
-While randomized controlled trials are powerful tools for establishing causal
-relationships, they are not always feasible.
+While randomized controlled trials are powerful tools for answering causal
+questions, they are not always feasible.
 
 For instance, conducting a controlled trial to study the effect of smoking on lung
 cancer would be unethical. We cannot ask non-smokers to start smoking.
@@ -85,10 +88,10 @@ However, we already have lots of non-experimental data relevant to these questio
 ---------
 The answer is yes, but it requires us to understand the causal mechanism between the exposure and the outcome variables.
 
-One of the ways to represent these causal mechanism is through these causal diagrams as shown in the example here.
+One of the ways to represent these causal mechanisms is through these causal diagrams as shown in the example here.
 
 In this causal graph, I have used the example of the effect of deforestation on climate
-change. The nodes reprsent the variables of interest, while the edges indicate the causal
+change. The nodes represent the variables of interest, while the edges indicate the causal
 relationships between these variables.
 
 12
@@ -99,16 +102,16 @@ For example, the direct edge between Deforestation and Climate Change indicates 
 
 13
 ----------
-Here’s another example illustrating an indirect causal relationship. In this case, deforestation leads to a loss of biodiversity, which in turn contributes to climate change.
+Here’s another example showing an indirect causal relationship. In this case, deforestation leads to a loss of biodiversity, which in turn contributes to climate change.
 
 14
 ----------
-We can also quantify these causal relationships in causal graphs by assigning values to each edge. These values represent the strength of the relationship, indicating whether it is strong or weak.
+We can also quantify these causal relationships in causal graphs by assigning values to each edge as shown in the figure. These values represent the strength of the relationship.
 
 15
 -----------
-Using these graphical representations, we can answer both the questions that were 
-interested in.
+Using these graphical representations, we can answer both the questions that
+were interested in.
 
 The question of understanding causal relationships can be answered by
 constructing these graphs. And the question of quantifying the causal
