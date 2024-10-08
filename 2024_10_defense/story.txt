@@ -147,7 +147,8 @@ normally, or have a skewed distribution.
 
 The type of relationship between the variables, whether its linear or non-linear.
 
-One of our contributions during my PhD was developing a comprehensive guide to help researchers select the most appropriate test based on their data.
+One of our contributions here was developing a comprehensive guide to help
+researchers select the most appropriate test based on their data.
 
 21
 ---------
@@ -160,8 +161,8 @@ For both model testing and automated construction, it is important that our
 statistical tests are accurate. Any inaccuracies in the test can lead to errors
 in our resulting graph.
 
-One of our contributions during my PhD was developing a new conditional
-independence test that can with different variable types and is more accurate
+One of our contributions here was developing a new conditional
+independence test that can work with different variable types and is more accurate
 than previous methods.
 
 22
@@ -179,12 +180,12 @@ we have to rely on other proxy variables to indirectly measure them. For
 example, we can use proxy variables like global average temperature, sea level
 rise, and atmospheric CO2 levels to indirectly measure climate change. 
 
-One of our contributions during my PhD was to develop methods to estimate edge strengths
+One of our contributions here was to develop a method to estimate edge strengths
 when variables can not be measured directly.
 
 23
 ----------
-We have two main directions for future research.
+And lastly, we have two main directions for future research.
 
 Firstly, we want to further improve the conditional independence test that we
 had proposed. We already have some preliminary results showing further
