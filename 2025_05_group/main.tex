@@ -48,11 +48,52 @@
 	\end{figure}
 \end{frame}
 
-\begin{frame}{Background}
+\begin{frame}{Background: Directed Acyclic Graphs}
+	\begin{figure}
+		\centering
+		\begin{tikzpicture}
+			\begin{scope}[yshift=0.7cm, scale=0.8]
+			\tikzstyle{every node}=[align=center, inner sep=1pt]
+				\node (sex) at (-0.7, -0.8) {Sex};
+				\node (age) at (-0.3, 0) {Age};
+				\node (ed) at (-1.8, -1.6) {Education};
+				\node (occ) at (1.8, 0) {Occupation};
+				\node (hrpw) at (1.3, -1.6) {Hours Per \\ Week};
+				\node (income) at (-0.7, -2.8) {Income};
+			
+				\draw[->]  (age) to[bend right=20] (ed);
+				\draw[->]  (sex) to (ed);
+				\draw[->]  (age) to (hrpw);
+				\draw[->]  (ed) to (hrpw);
+				\draw[->]  (sex) to (hrpw);
+				\draw[->]  (ed) to (income);
+				\draw[->]  (hrpw) to (income);
+				\draw[->]  (occ) to[out=300, in=0, looseness=1.4] (income.east);
+				\draw[->]  (sex) to (income);
+				\draw[->]  (ed) to[out=90, in=150, looseness=1.3] (occ);
+				\draw[->]  (sex) to (occ);	
+			\end{scope}
+			\draw[thick, ->, double, cyan] (2.5,0) -- (3,0);
+			\node[rectangle, align=center, inner sep=1pt] at (6, 0) {
+				\begin{minipage}{\textwidth}
+					\begin{equation*}
+						\begin{split}
+							\textnormal{Age} &\ci \textnormal{Incm} \rvert \textnormal{Edct, Hrpw, Sex} \\
+							\textnormal{Age} &\ci \textnormal{Occp} \rvert \textnormal{Edct, Sex} \\
+							\textnormal{Age} &\ci \textnormal{Sex} \\
+							\textnormal{Hrpw} &\ci \textnormal{Occp} \rvert \textnormal{Edct, Sex} \\
+						\end{split}
+					\end{equation*}
+				\end{minipage}
+				};
+		\end{tikzpicture}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Constraint-Based Structure Learning}
 \end{frame}
 
 \begin{frame}{Problems with Causal Discovery}
-
 \end{frame}
 
 \begin{frame}{Proposed Solution Summary}
@@ -92,10 +133,11 @@
 \end{frame}
 
 \begin{frame}{Parameter Perturbations: Single Violation}
-	$ A = N_A, \;\;\; B = \alpha A + N_B $
+	Consider DAG: $ A \rightarrow B $
+	$$ A = N_A, \;\;\; B = \alpha A + N_B $$
 	\begin{itemize}
 		\item Correlation: $ \rho_{AB} = \alpha $.
-		\item For DAG $ A \rightarrow B $, the distribution is $ \alpha'$-strong faithful whenever $ \alpha > \alpha' $.
+		\item The distribution is $ \alpha'$-strong faithful whenever $ \alpha > \alpha' $.
 		\item Perturbation: Shift $ \alpha $ to $ \alpha' $ $ \implies $ violation of $ \alpha'$-strong faithfulness.
 	\end{itemize}
 \end{frame}
@@ -110,7 +152,10 @@
 \end{frame}
 
 \begin{frame}{Parameter Perturbations: Multiple Violations}
-
+	\begin{itemize}
+		\item $ \alpha_1 = 0.5, \alpha_2 = 0.3, \beta = -0.3 $.
+		\item Perturb $ \alpha_2 $, $ \rho_{AC} = \alpha_2 - 0.15 = 0.15 $.
+	\end{itemize}
 \end{frame}
 
 
