@@ -85,10 +85,58 @@
 				\draw[->]  (ed) to[out=90, in=150, looseness=1.3] (occ);
 				\draw[->]  (sex) to (occ);	
 			\end{tikzpicture}
-			\caption*{\footnotesize {Example of a Causal Models / DAG}}
+			\caption*{\footnotesize {Example of a Causal Model / DAG}}
 		\end{figure}
 		\end{column}
 	\end{columns}	
+\end{frame}
+
+% \begin{frame}{Interventions on DAGs}
+% 	\begin{itemize}
+% 		\item DAGs allow interventions that can be used to estimate causal effect. 
+% 		\item For example, we can intervene on Hours
+% 	\end{itemize}
+% \end{frame}
+
+\begin{frame}{DAGs and Data}
+	\begin{itemize}
+		\item DAGs and Data are connected through faithfulness assumption.
+		\item Every implied conditional independence (CI) statement hold in the data.
+		\item Every CI in data holds in the DAG.
+	\end{itemize}
+	\begin{figure}
+		\begin{tikzpicture}
+			\begin{scope}[scale=0.9]
+			\tikzstyle{every node}=[align=center, inner sep=1pt]
+				\node (sex) at (-0.7, -0.8) {Sex};
+				\node (age) at (-0.3, 0) {Age};
+				\node (ed) at (-1.8, -1.6) {Education};
+				\node (occ) at (1.8, 0) {Occupation};
+				\node (hrpw) at (1.3, -1.6) {Hours Per \\ Week};
+				\node (income) at (-0.7, -2.8) {Income};
+			
+				\draw[->]  (age) to[bend right=20] (ed);
+				\draw[->]  (sex) to (ed);
+				\draw[->]  (age) to (hrpw);
+				\draw[->]  (ed) to (hrpw);
+				\draw[->]  (sex) to (hrpw);
+				\draw[->]  (ed) to (income);
+				\draw[->]  (hrpw) to (income);
+				\draw[->]  (occ) to[out=300, in=0, looseness=1.4] (income.east);
+				\draw[->]  (sex) to (income);
+				\draw[->]  (ed) to[out=90, in=150, looseness=1.3] (occ);
+				\draw[->]  (sex) to (occ);	
+			\end{scope}
+			\begin{scope}[xshift=3cm, yshift=-1cm]
+				\node(ci) at (1, 0.5) {CI};
+				\draw[ultra thick,<->,cyan] (0,0) -- (2,0);
+			\end{scope}
+			\begin{scope}[xshift=6cm, yshift=-1cm]
+				\node(dist) at ( 0, 0) {$ \bm{P}_{\bm{V}} $};
+			\end{scope}
+		\end{tikzpicture}
+	\end{figure}
+	
 \end{frame}
 
 \begin{frame}{Causal Discovery: Learning DAGs From Data}
@@ -122,23 +170,23 @@
 				\node (occ) at (1.8, 0) {Occupation};
 				\node (hrpw) at (1.3, -1.6) {Hours Per \\ Week};
 				\node (income) at (-0.7, -2.8) {Income};
-			
-				\draw[-]  (age) to[bend right=20] (ed);
-				\draw[-]  (sex) to (ed);
-				\draw[-]  (age) to (hrpw);
-				\draw[-]  (ed) to (hrpw);
-				\draw[-]  (sex) to (hrpw);
-				\draw[-]  (ed) to (income);
-				\draw[-]  (hrpw) to (income);
-				\draw[-]  (occ) to[out=300, in=0, looseness=1.4] (income.east);
-				\draw[-]  (sex) to (income);
-				\draw[-]  (ed) to[out=90, in=150, looseness=1.3] (occ);
-				\draw[-]  (sex) to (occ);	
+
+				\draw[->]  (age) to[bend right=20] (ed);
+				\draw[->]  (sex) to (ed);
+				\draw[->]  (age) to (hrpw);
+				\draw[->]  (ed) to (hrpw);
+				\draw[->]  (sex) to (hrpw);
+				\draw[->]  (ed) to (income);
+				\draw[->]  (hrpw) to (income);
+				\draw[->]  (occ) to[out=300, in=0, looseness=1.4] (income.east);
+				\draw[->]  (sex) to (income);
+				\draw[->]  (ed) to[out=90, in=150, looseness=1.3] (occ);
+				\draw[->]  (sex) to (occ);
 			\end{scope}
 		\end{tikzpicture}
 	\end{figure}
 	\vspace{2em}
-	\center{Unsupervised learning problem: No ground truth DAG.}
+	\center{\textcolor{red}{Unsupervised learning problem}: No ground truth DAG.}
 \end{frame}
 
 \begin{frame}{Problems with Causal Discovery}
@@ -167,8 +215,8 @@
 
 \begin{frame}{Problems with Causal Discovery}
 	\begin{itemize}
-		\item Every casual discovery algorithms makes a set of assumptions that might not be satisfied.
-		\item Woking in finite samples, so mistakes are made.
+		\item Every casual discovery algorithms assumptions that might not be satisfied in the data.
+		\item Finite samples can lead to errors.
 	\end{itemize}
 \end{frame}
 
