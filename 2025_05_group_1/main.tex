@@ -44,7 +44,8 @@
 
 \begin{frame}
 	\begin{figure}
-		\includegraphics[scale=0.15]{imgs/title.png}
+		\centering
+		\includegraphics[scale=0.08]{imgs/title.png}
 	\end{figure}
 \end{frame}
 
@@ -84,7 +85,7 @@
 				\draw[->]  (ed) to[out=90, in=150, looseness=1.3] (occ);
 				\draw[->]  (sex) to (occ);	
 			\end{tikzpicture}
-			\caption*{\footnotesize {Example of a DAG}}
+			\caption*{\footnotesize {Example of a Causal Models / DAG}}
 		\end{figure}
 		\end{column}
 	\end{columns}	
@@ -99,7 +100,7 @@
 			\draw[ultra thick,->, cyan] (1,0) -- (1.5,0);
 			\node[rectangle, align=center, inner sep=1pt] at (3.5, 0) {
 				\begin{minipage}{0.3\textwidth}
-					\center{\textnormal{Find CIs in Data}}
+					\center{\underline{\textnormal{Find CIs in Data}}}
 					\begin{equation*}
 						\begin{split}
 							\textnormal{Age} &\ci \textnormal{Incm} \rvert \textnormal{Edct, Hrpw, Sex} \\
@@ -136,26 +137,95 @@
 			\end{scope}
 		\end{tikzpicture}
 	\end{figure}
-
+	\vspace{2em}
 	\center{Unsupervised learning problem: No ground truth DAG.}
 \end{frame}
 
 \begin{frame}{Problems with Causal Discovery}
-	\center{Main Idea: Quantify information shared between two CI tests.}
-	\vspace{1em}
-	\begin{itemize}
-		\item Many CI tests are dependent on each other
-		\item p-value adjustment dependent on how much information is shared between tests.
-		\item Test dependence can lead to multiple errors due to the same perturbation in finite samples.
-		\item To capture model uncertainty, we need to consider the dependence between CI tests.
-	\end{itemize}
-	\vspace{1em}
+	\begin{figure}
+		\centering
+		\begin{subfigure}{\textwidth}
+			\centering
+			\includegraphics[scale=0.25]{imgs/pdag_pc.png}
+			\caption{PC algorithm}
+		\end{subfigure}
+		\begin{subfigure}{\textwidth}
+			\centering
+			\includegraphics[scale=0.25]{imgs/pdag_hill.png}
+			\caption{Hill-Climb Search Algorithm}
+		\end{subfigure}
+	\end{figure}
+\end{frame}
 
+\begin{frame}{Problems with Causal Discovery}
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.3]{imgs/pc_sample.png}
+		\caption{PC algorithm with residualization based test. Red N=400, Blue N=800}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Problems with Causal Discovery}
+	\begin{itemize}
+		\item Every casual discovery algorithms makes a set of assumptions that might not be satisfied.
+		\item Woking in finite samples, so mistakes are made.
+	\end{itemize}
 \end{frame}
 
 \begin{frame}{Problem Statement}
-	\center{How do we evaluate the performance of a causal discovery algorithm?}
+	\center{Given a dataset, how to evaluate the performance of a causal discovery algorithm?}
 \end{frame}
+
+\begin{frame}{Self-compatibility: Idea}
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.3]{imgs/example.png}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Interventional Compatibility}
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.25]{imgs/def4.png}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Graphical Compatibility}
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.25]{imgs/def5_6.png}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Interventional Score}
+	\begin{figure}
+		\begin{subfigure}{\textwidth}
+			\centering
+			\includegraphics[scale=0.23]{imgs/def_9_1.png}
+		\end{subfigure}
+		\begin{subfigure}{\textwidth}
+			\centering
+			\includegraphics[scale=0.23]{imgs/def_9_2.png}
+		\end{subfigure}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	Add example
+\end{frame}
+
+
+\begin{frame}{Graphical Incompatibility Score}
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.25]{imgs/def_10.png}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	Add example
+\end{frame}
+
 
 \begin{frame}{Empirical Results}
 	\begin{figure}
