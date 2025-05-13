@@ -132,11 +132,11 @@
 % 	\end{itemize}
 % \end{frame}
 
-\begin{frame}{DAGs and Data}
+\begin{frame}{DAGs and Distributions}
 	\begin{itemize}
-		\item DAGs and Data are connected through faithfulness assumption.
-		\item Every implied conditional independence (CI) statement hold in the data.
-		\item Every CI in data holds in the DAG.
+		\item DAGs and Distributions are connected through faithfulness assumption.
+		\item Every implied conditional independence (CI) statement hold in the distribution.
+		\item Every CI in the distribution holds in the DAG.
 	\end{itemize}
 	\begin{figure}
 		\begin{tikzpicture}
@@ -162,10 +162,10 @@
 				\draw[->]  (sex) to (occ);	
 			\end{scope}
 			\begin{scope}[xshift=3cm, yshift=-1cm]
-				\node(ci) at (1, 0.5) {CI};
-				\draw[ultra thick,<->,cyan] (0,0) -- (2,0);
+				\node(ci) at (2, 0.5) {CI (e.g., Sex $\ci$ Age)};
+				\draw[ultra thick,<->,cyan] (0,0) -- (4,0);
 			\end{scope}
-			\begin{scope}[xshift=6cm, yshift=-1cm]
+			\begin{scope}[xshift=8cm, yshift=-1cm]
 				\node(dist) at ( 0, 0) {$ \bm{P}_{\bm{V}} $};
 			\end{scope}
 		\end{tikzpicture}
@@ -220,7 +220,6 @@
 		\end{tikzpicture}
 	\end{figure}
 	\vspace{2em}
-	\center{\textcolor{red}{Unsupervised learning problem}: No ground truth DAG.}
 \end{frame}
 
 \begin{frame}{Problems with Causal Discovery}
@@ -251,6 +250,8 @@
 	\begin{itemize}
 		\item Casual discovery algorithms make assumptions that might not be satisfied in the data.
 		\item Finite samples can lead to errors.
+		\item Unsupervised learning problem; no ground truth DAG available.
+		\item Hence, difficult to evaluate these algorithms.
 	\end{itemize}
 \end{frame}
 
@@ -329,7 +330,10 @@
 	\end{equation}
 
 	\vspace{0.5em}
-	\center{$S_1$ and $S_2$ are not interventional compatible?}
+	\begin{itemize}
+		\item $S_1$ and $S_2$ are not interventional incompatible.
+		\item True DAG and $ S_2 $ are interventional compatible.
+	\end{itemize}
 
 \end{frame}
 
@@ -405,10 +409,10 @@
 	\end{figure}
 \end{frame}
 
-\begin{frame}{Graphical Compatibility}
+\begin{frame}{Graphical Compatibility: Example}
 	\begin{figure}
 		\centering
-		\begin{subfigure}{0.3 \textwidth}
+		\begin{subfigure}{0.23 \textwidth}
 			\centering
 			\begin{tikzpicture}
 				\tikzstyle{every node}=[align=center, inner sep=1pt]\
@@ -424,7 +428,7 @@
 			\end{tikzpicture}
 			\caption*{True DAG: $ V = S = \{ X, Y, Z_1, Z_2 \} $}
 		\end{subfigure}
-		\begin{subfigure}{0.3 \textwidth}
+		\begin{subfigure}{0.23 \textwidth}
 			\centering
 			\begin{tikzpicture}
 				\tikzstyle{every node}=[align=center, inner sep=1pt]\
@@ -437,7 +441,7 @@
 			\end{tikzpicture}
 			\caption*{$S_1 = \{X, Y, Z_1 \}$}
 		\end{subfigure}
-		\begin{subfigure}{0.3 \textwidth}
+		\begin{subfigure}{0.23 \textwidth}
 			\centering
 			\begin{tikzpicture}
 				\tikzstyle{every node}=[align=center, inner sep=1pt]\
@@ -451,10 +455,37 @@
 			\end{tikzpicture}
 			\caption*{$S_2 = \{ X, Y, Z_2 \} $}
 		\end{subfigure}
+		\begin{subfigure}{0.23 \textwidth}
+			\centering
+			\begin{tikzpicture}
+				\tikzstyle{every node}=[align=center, inner sep=1pt]\
+				\node (X) at (0, 0) {$ X $};
+				\node (Y) at (0, -1) {$ Y $};
+				\node (Z2) at (1, -0.5) {$ Z_2 $};
+
+				\draw[->]  (X) to (Y);
+				\draw[->]  (X) to (Z2);
+			\end{tikzpicture}
+			\caption*{$S_3 = \{ X, Y, Z_2 \} $}
+		\end{subfigure}
+		\begin{subfigure}{0.23 \textwidth}
+			\centering
+			\begin{tikzpicture}
+				\tikzstyle{every node}=[align=center, inner sep=1pt]\
+				\node (X) at (0, 0) {$ X $};
+				\node (Y) at (0, -1) {$ Y $};
+				\node (Z2) at (1, -0.5) {$ Z_2 $};
+
+				\draw[->]  (X) to (Y);
+				\draw[->]  (Z2) to (Y);
+			\end{tikzpicture}
+			\caption*{$S_4 = \{ X, Y, Z_2 \} $}
+		\end{subfigure}
 	\end{figure}
 
 	\vspace{0.5em}
-	\center{$S_1$ and $S_2$ are graphically compatible.}
+	\center{True DAG, $S_1$, $S_2$, $S_3$ are graphically compatible.}
+	\center{$S_4$ and $ S_1$ are graphically compatible but not with others.}
 \end{frame}
 
 \begin{frame}{Interventional Incompatibility Score}
@@ -470,22 +501,12 @@
 	\end{figure}
 \end{frame}
 
-\begin{frame}
-	Add example
-\end{frame}
-
-
 \begin{frame}{Graphical Incompatibility Score}
 	\begin{figure}
 		\centering
 		\includegraphics[scale=0.25]{imgs/def_10.png}
 	\end{figure}
 \end{frame}
-
-\begin{frame}
-	Add example
-\end{frame}
-
 
 \begin{frame}{Empirical Results}
 	\begin{figure}
