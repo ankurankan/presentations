@@ -215,7 +215,7 @@
 
 \begin{frame}{Problems with Causal Discovery}
 	\begin{itemize}
-		\item Every casual discovery algorithms assumptions that might not be satisfied in the data.
+		\item Casual discovery algorithms make assumptions that might not be satisfied in the data.
 		\item Finite samples can lead to errors.
 	\end{itemize}
 \end{frame}
@@ -238,11 +238,189 @@
 	\end{figure}
 \end{frame}
 
+\begin{frame}{Interventional Compatibility: Example}
+	\begin{figure}
+		\centering
+		\begin{subfigure}{0.3 \textwidth}
+			\centering
+			\begin{tikzpicture}
+				\tikzstyle{every node}=[align=center, inner sep=1pt]\
+				\node (X) at (0, 0) {$ X $};
+				\node (Y) at (0, -1) {$ Y $};
+				\node (Z1) at (-1, -0.5) {$ Z_1 $};
+				\node (Z2) at (1, -0.5) {$ Z_2 $};
+
+				\draw[->]  (X) to (Y);
+				\draw[->]  (X) to (Z2);
+				\draw[->]  (Z1) to (Y);
+				\draw[->]  (Z2) to (Y);
+			\end{tikzpicture}
+			\caption*{True DAG: $ V = S = \{ X, Y, Z_1, Z_2 \} $}
+		\end{subfigure}
+		\begin{subfigure}{0.3 \textwidth}
+			\centering
+			\begin{tikzpicture}
+				\tikzstyle{every node}=[align=center, inner sep=1pt]\
+				\node (X) at (0, 0) {$ X $};
+				\node (Y) at (0, -1) {$ Y $};
+				\node (Z1) at (-1, -0.5) {$ Z_1 $};
+
+				\draw[->]  (X) to (Y);
+				\draw[->]  (Z1) to (Y);
+			\end{tikzpicture}
+			\caption*{$S_1 = \{X, Y, Z_1 \}$}
+		\end{subfigure}
+		\begin{subfigure}{0.3 \textwidth}
+			\centering
+			\begin{tikzpicture}
+				\tikzstyle{every node}=[align=center, inner sep=1pt]\
+				\node (X) at (0, 0) {$ X $};
+				\node (Y) at (0, -1) {$ Y $};
+				\node (Z2) at (1, -0.5) {$ Z_2 $};
+
+				\draw[->]  (X) to (Y);
+				\draw[->]  (X) to (Z2);
+				\draw[->]  (Z2) to (Y);
+			\end{tikzpicture}
+			\caption*{$S_2 = \{ X, Y, Z_2 \} $}
+		\end{subfigure}
+	\end{figure}
+
+	\begin{equation}
+		\begin{split}
+			\textnormal{True DAG}&: P(Y | do(X)) = \sum_{z \in Z_2} P(Y | X, Z_2=z) P(Z_2=z) \\
+			S_1&: P(Y | do(X)) = P(Y | X) \\
+			S_2&: P(Y | do(X)) = \sum_{z \in Z_2} P(Y | X, Z_2=z) P(Z_2=z) 
+		\end{split}
+	\end{equation}
+
+	\vspace{0.5em}
+	\center{$S_1$ and $S_2$ are not interventional compatible?}
+
+\end{frame}
+
+\begin{frame}{Graphical Compatibility: Latent ADMG}
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.15]{imgs/def_5.png}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Graphical Compatibility: Latent ADMG: Example}
+	\begin{figure}
+		\centering
+		\begin{subfigure}{0.3 \textwidth}
+			\centering
+			\begin{tikzpicture}
+				\tikzstyle{every node}=[align=center, inner sep=1pt]\
+				\node (X) at (0, 0) {$ X $};
+				\node (Y) at (0, -2) {$ Y $};
+				\node (Z1) at (-1, -1.5) {$ Z_3 $};
+				\node (Z2) at (1, -1) {$ Z_2 $};
+				\node (Z3) at (-1, -0.75) {$ Z_1 $};
+
+				\draw[->]  (X) to (Z2);
+				\draw[->]  (Z1) to (Y);
+				\draw[->]  (Z2) to (Y);
+				\draw[->]  (Z3) to (X);
+				\draw[->]  (Z3) to (X);
+				\draw[->]  (Z3) to (Z1);
+
+			\end{tikzpicture}
+			\caption*{True DAG}
+		\end{subfigure}
+		\begin{subfigure}{0.3 \textwidth}
+			\centering
+			\begin{tikzpicture}
+				\tikzstyle{every node}=[align=center, inner sep=1pt]\
+				\node (X) at (0, 0) {$ X $};
+				\node (Y) at (0, -2) {$ Y $};
+				\node (Z1) at (-1, -1.5) {$ Z_3 $};
+				\node (Z3) at (-1, -0.75) {$ Z_1 $};
+
+				\draw[->]  (X) to (Y);
+				\draw[->]  (Z1) to (Y);
+				\draw[->]  (Z3) to (X);
+				\draw[->]  (Z3) to (X);
+				\draw[->]  (Z3) to (Z1);
+			\end{tikzpicture}
+			\caption*{Latent ADMG $S_1 = \{X, Y, Z_1, Z_3 \} $}
+		\end{subfigure}
+		\begin{subfigure}{0.3 \textwidth}
+			\centering
+			\begin{tikzpicture}
+				\tikzstyle{every node}=[align=center, inner sep=1pt]\
+				\node (X) at (0, 0) {$ X $};
+				\node (Y) at (0, -2) {$ Y $};
+				\node (Z2) at (1, -1) {$ Z_2 $};
+
+				\draw[->]  (X) to (Z2);
+				\draw[->]  (Z2) to (Y);
+				\draw[<->] (X) to (Y);
+			\end{tikzpicture}
+			\caption*{Latent ADMG $S_2 = \{X, Y, Z_2\} $}
+		\end{subfigure}
+
+	\end{figure}
+\end{frame}
+
 \begin{frame}{Graphical Compatibility}
 	\begin{figure}
 		\centering
-		\includegraphics[scale=0.25]{imgs/def5_6.png}
+		\includegraphics[scale=0.15]{imgs/def_6.png}
 	\end{figure}
+\end{frame}
+
+\begin{frame}{Graphical Compatibility}
+	\begin{figure}
+		\centering
+		\begin{subfigure}{0.3 \textwidth}
+			\centering
+			\begin{tikzpicture}
+				\tikzstyle{every node}=[align=center, inner sep=1pt]\
+				\node (X) at (0, 0) {$ X $};
+				\node (Y) at (0, -1) {$ Y $};
+				\node (Z1) at (-1, -0.5) {$ Z_1 $};
+				\node (Z2) at (1, -0.5) {$ Z_2 $};
+
+				\draw[->]  (X) to (Y);
+				\draw[->]  (X) to (Z2);
+				\draw[->]  (Z1) to (Y);
+				\draw[->]  (Z2) to (Y);
+			\end{tikzpicture}
+			\caption*{True DAG: $ V = S = \{ X, Y, Z_1, Z_2 \} $}
+		\end{subfigure}
+		\begin{subfigure}{0.3 \textwidth}
+			\centering
+			\begin{tikzpicture}
+				\tikzstyle{every node}=[align=center, inner sep=1pt]\
+				\node (X) at (0, 0) {$ X $};
+				\node (Y) at (0, -1) {$ Y $};
+				\node (Z1) at (-1, -0.5) {$ Z_1 $};
+
+				\draw[->]  (X) to (Y);
+				\draw[->]  (Z1) to (Y);
+			\end{tikzpicture}
+			\caption*{$S_1 = \{X, Y, Z_1 \}$}
+		\end{subfigure}
+		\begin{subfigure}{0.3 \textwidth}
+			\centering
+			\begin{tikzpicture}
+				\tikzstyle{every node}=[align=center, inner sep=1pt]\
+				\node (X) at (0, 0) {$ X $};
+				\node (Y) at (0, -1) {$ Y $};
+				\node (Z2) at (1, -0.5) {$ Z_2 $};
+
+				\draw[->]  (X) to (Y);
+				\draw[->]  (X) to (Z2);
+				\draw[->]  (Z2) to (Y);
+			\end{tikzpicture}
+			\caption*{$S_2 = \{ X, Y, Z_2 \} $}
+		\end{subfigure}
+	\end{figure}
+
+	\vspace{0.5em}
+	\center{$S_1$ and $S_2$ are graphically compatible.}
 \end{frame}
 
 \begin{frame}{Interventional Score}
@@ -285,6 +463,15 @@
 	\begin{figure}
 		\includegraphics[scale=0.12]{imgs/empirical2.png}
 	\end{figure}
+\end{frame}
+
+\begin{frame}{Conclusion}
+	\begin{itemize}
+		\item Method to falsify output of causal discovery algorithms in the absence of ground truth.
+		\item Incompatibility score can be used as a proxy for SHD as shown empirically.
+		\item However, no theoretical guarantees.
+		\item What is an acceptable threshold for incompatibility score?
+	\end{itemize}
 \end{frame}
 
 \end{document}
